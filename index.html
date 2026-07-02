@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>台股選股地圖</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0d1117;
+      color: #e2e8f0;
+      font-family: 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei', system-ui, sans-serif;
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ── Header ── */
+    header {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 10px 18px;
+      background: #161b22;
+      border-bottom: 1px solid #30363d;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #f0f6fc;
+      white-space: nowrap;
+    }
+
+    .date-selector {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .date-selector label {
+      font-size: 12px;
+      color: #8b949e;
+      white-space: nowrap;
+    }
+
+    select {
+      background: #21262d;
+      color: #c9d1d9;
+      border: 1px solid #30363d;
+      border-radius: 6px;
+      padding: 4px 28px 4px 10px;
+      font-size: 13px;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238b949e' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+    }
+
+    select:focus { outline: none; border-color: #58a6ff; }
+
+    /* ── Legend ── */
+    .legend {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-left: auto;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      color: #8b949e;
+      white-space: nowrap;
+    }
+
+    .legend-swatch {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    .swatch-gold6 { background: #ffd700; border: 2px solid #ef4444; }
+    .swatch-gold5 { background: #ffd700; border: 2px solid transparent; }
+    .swatch-blue  { background: #0f4c81; }
+    .swatch-size  { border: 1px dashed #475569; background: transparent; }
+
+    /* ── Treemap ── */
+    #chart {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+
+    #chart svg { display: block; }
+
+    .tile { cursor: pointer; }
+
+    .tile rect.bg {
+      stroke: #0d1117;
+      stroke-width: 2px;
+      transition: filter 0.15s;
+    }
+
+    /* 6分：紅框 */
+    .tile.score6 rect.bg {
+      stroke: #ef4444;
+      stroke-width: 3px;
+    }
+
+    .tile:hover rect.bg { filter: brightness(1.25); }
+
+    .tile text {
+      pointer-events: none;
+      fill: #fff;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+    }
+    /* 金色底色用深字 */
+    .tile.gold-tile text { fill: #1a1100; text-shadow: none; }
+
+    .tile .t-id   { font-weight: 700; }
+    .tile .t-name { font-size: 11px; opacity: 0.85; }
+    .tile .t-score {
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    /* ── Modal ── */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+    }
+    .overlay.open { display: flex; }
+
+    .modal {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      padding: 24px 28px;
+      min-width: 300px;
+      max-width: 440px;
+      width: 90vw;
+      position: relative;
+      animation: fadeIn 0.15s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      background: none;
+      border: none;
+      color: #8b949e;
+      font-size: 20px;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .modal-close:hover { color: #f0f6fc; }
+
+    .modal-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .modal-title { flex: 1; }
+
+    .modal-id {
+      font-size: 26px;
+      font-weight: 800;
+      color: #f0f6fc;
+      letter-spacing: 0.03em;
+    }
+
+    .modal-name {
+      font-size: 15px;
+      color: #8b949e;
+      margin-top: 2px;
+    }
+
+    .modal-total-score {
+      font-size: 42px;
+      font-weight: 900;
+      line-height: 1;
+      padding-left: 16px;
+    }
+    .score-color-6 { color: #ef4444; }
+    .score-color-5 { color: #f59e0b; }
+    .score-color-other { color: #60a5fa; }
+
+    .modal-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .metric-card {
+      background: #21262d;
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+
+    .metric-label {
+      font-size: 10px;
+      color: #8b949e;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+
+    .metric-value {
+      font-size: 22px;
+      font-weight: 700;
+      color: #f0f6fc;
+    }
+    .metric-value.pos { color: #f59e0b; }
+    .metric-value.neg { color: #ef4444; }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 14px;
+      background: #21262d;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #8b949e;
+      margin-bottom: 8px;
+    }
+    .info-val { color: #c9d1d9; font-weight: 600; }
+
+    .new-badge-row {
+      display: none;
+      margin-top: 8px;
+      padding: 8px 14px;
+      background: #450a0a;
+      border: 1px solid #ef4444;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #fca5a5;
+    }
+
+    /* ── Filter buttons ── */
+    .filter-group {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .filter-btn {
+      background: #21262d;
+      color: #8b949e;
+      border: 1px solid #30363d;
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .filter-btn:hover { border-color: #58a6ff; color: #c9d1d9; }
+    .filter-btn.active-all { background: #1f6feb; border-color: #388bfd; color: #fff; }
+    .filter-btn.active-6   { background: #7f1d1d; border-color: #ef4444; color: #ffd700; }
+    .filter-btn.active-5   { background: #92400e; border-color: #ffd700; color: #ffd700; }
+    .filter-btn.active-new { background: #7f1d1d; border-color: #fca5a5; color: #fca5a5; }
+
+    .tile.dimmed { opacity: 0.10; pointer-events: none; }
+    .tile.dimmed rect.bg { filter: none; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="brand">📊 台股選股地圖</div>
+
+  <div class="date-selector">
+    <label for="date-sel">預測日期</label>
+    <select id="date-sel"></select>
+  </div>
+
+  <div class="filter-group">
+    <button class="filter-btn active-all" data-filter="all">全部</button>
+    <button class="filter-btn" data-filter="6">6分 ★</button>
+    <button class="filter-btn" data-filter="5">5分</button>
+    <button class="filter-btn" data-filter="new">NEW</button>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-swatch swatch-gold6"></div>
+      6分（金色 + 紅框）
+    </div>
+    <div class="legend-item">
+      <div class="legend-swatch swatch-gold5"></div>
+      5分（金色）
+    </div>
+    <div class="legend-item">
+      <div class="legend-swatch swatch-blue"></div>
+      其他
+    </div>
+    <div class="legend-item">
+      <span style="font-size:11px; color:#fca5a5; font-weight:700;">NEW</span>
+      &nbsp;昨日未入榜
+    </div>
+    <div class="legend-item">
+      <div class="legend-swatch swatch-size"></div>
+      方塊大小 ＝ 市值
+    </div>
+  </div>
+</header>
+
+<div id="chart"></div>
+
+<!-- Modal -->
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal">
+    <button class="modal-close" id="modal-close" aria-label="關閉">✕</button>
+    <div class="modal-header">
+      <div class="modal-title">
+        <div class="modal-id" id="m-id"></div>
+        <div class="modal-name" id="m-name"></div>
+      </div>
+      <div class="modal-total-score" id="m-total-score"></div>
+    </div>
+    <div class="modal-grid">
+      <div class="metric-card">
+        <div class="metric-label">5d UP</div>
+        <div class="metric-value pos" id="m-sc5u"></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">20d UP</div>
+        <div class="metric-value pos" id="m-sc20u"></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">5d DN</div>
+        <div class="metric-value neg" id="m-sc5d"></div>
+      </div>
+    </div>
+    <div class="info-row">
+      <span>市值</span>
+      <span class="info-val" id="m-mv"></span>
+    </div>
+    <div class="info-row">
+      <span>前一日成交金額</span>
+      <span class="info-val" id="m-turnover"></span>
+    </div>
+    <div class="new-badge-row" id="m-new-row">
+      🆕 昨日未入選，今日首次進入 Top 50
+    </div>
+  </div>
+</div>
+
+<script>
+// ── 嵌入資料 ──
+const ALL_DATA = {"2026-06-23": [{"id": "5468", "name": "凱鈺", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.2979, "market_value": 1776525706, "turnover": 56935554, "is_new": false}, {"id": "1714", "name": "和桐", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.6542, "market_value": 18745488871, "turnover": 487923029, "is_new": false}, {"id": "3707", "name": "漢磊", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 24.1676, "market_value": 31321477758, "turnover": 2647699864, "is_new": false}, {"id": "8121", "name": "越峰", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.9945, "market_value": 9691215307, "turnover": 338725006, "is_new": false}, {"id": "3321", "name": "同泰", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.4218, "market_value": 2010756506, "turnover": 65036897, "is_new": false}, {"id": "6538", "name": "倉和", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.237, "market_value": 4543857843, "turnover": 121504078, "is_new": false}, {"id": "3234", "name": "光環", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.3251, "market_value": 13488437732, "turnover": 1526646853, "is_new": false}, {"id": "4923", "name": "力士", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.3405, "market_value": 1853826760, "turnover": 99640759, "is_new": false}, {"id": "3114", "name": "好德", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.8558, "market_value": 3103434589, "turnover": 100136281, "is_new": false}, {"id": "2061", "name": "風青", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.9678, "market_value": 3471372146, "turnover": 169878754, "is_new": false}, {"id": "6525", "name": "捷敏-KY", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.6385, "market_value": 18453775912, "turnover": 1394242988, "is_new": false}, {"id": "2434", "name": "統懋", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.1027, "market_value": 1461500000, "turnover": 60637634, "is_new": false}, {"id": "5464", "name": "霖宏", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.6204, "market_value": 6666505762, "turnover": 215279949, "is_new": false}, {"id": "6415", "name": "矽力*-KY", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 26.1725, "market_value": 232590967986, "turnover": 11319082206, "is_new": false}, {"id": "3581", "name": "博磊", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.6638, "market_value": 6962319000, "turnover": 79172388, "is_new": false}, {"id": "2342", "name": "茂矽", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.8337, "market_value": 8251676586, "turnover": 2098100111, "is_new": false}, {"id": "3093", "name": "港建*", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.0361, "market_value": 10102828090, "turnover": 122469747, "is_new": false}, {"id": "6654", "name": "天正國際", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.7593, "market_value": 7660028640, "turnover": 96910098, "is_new": false}, {"id": "2302", "name": "麗正", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.7837, "market_value": 7849495983, "turnover": 719820017, "is_new": false}, {"id": "5228", "name": "鈺鎧", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.5671, "market_value": 2325237058, "turnover": 127339043, "is_new": false}, {"id": "2483", "name": "百容", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.5166, "market_value": 6009462250, "turnover": 326638789, "is_new": false}, {"id": "2484", "name": "希華", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.1241, "market_value": 11031934722, "turnover": 1888114103, "is_new": false}, {"id": "6435", "name": "大中", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.2394, "market_value": 12380959650, "turnover": 71854214, "is_new": false}, {"id": "6432", "name": "今展科", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.604, "market_value": 2412563540, "turnover": 525953855, "is_new": false}, {"id": "3491", "name": "昇達科", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 25.2246, "market_value": 90134713750, "turnover": 4719111795, "is_new": false}, {"id": "5328", "name": "華容", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.1369, "market_value": 11174383843, "turnover": 2596227133, "is_new": false}, {"id": "8261", "name": "富鼎", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 24.0989, "market_value": 29244084678, "turnover": 329368691, "is_new": false}, {"id": "3675", "name": "德微", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.6275, "market_value": 18251925512, "turnover": 182666745, "is_new": false}, {"id": "6182", "name": "合晶", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 24.9202, "market_value": 66483347280, "turnover": 9874318638, "is_new": false}, {"id": "4716", "name": "大立", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.5372, "market_value": 2256809865, "turnover": 54799387, "is_new": false}, {"id": "6259", "name": "百徽", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 20.782, "market_value": 1060522319, "turnover": 163596600, "is_new": false}, {"id": "6166", "name": "凌華", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 24.1371, "market_value": 30380206352, "turnover": 655736895, "is_new": false}, {"id": "3624", "name": "光頡", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.5151, "market_value": 16310377038, "turnover": 2861425530, "is_new": false}, {"id": "5426", "name": "振發", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.2211, "market_value": 4472180000, "turnover": 116030698, "is_new": false}, {"id": "3362", "name": "先進光", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 24.0157, "market_value": 26908799188, "turnover": 1417427256, "is_new": false}, {"id": "4971", "name": "IET-KY", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.6652, "market_value": 18953242182, "turnover": 966052673, "is_new": false}, {"id": "3550", "name": "聯穎", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.9096, "market_value": 3274897500, "turnover": 757194208, "is_new": false}, {"id": "6465", "name": "威潤", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.7944, "market_value": 2918568470, "turnover": 71786975, "is_new": false}, {"id": "5475", "name": "德宏", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 24.0746, "market_value": 28540015317, "turnover": 1064489562, "is_new": false}, {"id": "6834", "name": "天二科技", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.9895, "market_value": 9643347938, "turnover": 1072573589, "is_new": false}, {"id": "5299", "name": "杰力", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.503, "market_value": 5928566287, "turnover": 158073108, "is_new": false}, {"id": "2478", "name": "大毅", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 24.1134, "market_value": 29669924495, "turnover": 595544726, "is_new": false}, {"id": "2369", "name": "菱生", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.4001, "market_value": 14538914658, "turnover": 1989079607, "is_new": false}, {"id": "4939", "name": "亞電", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.5345, "market_value": 6117914076, "turnover": 499672927, "is_new": false}, {"id": "8040", "name": "九暘", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.0091, "market_value": 9834215148, "turnover": 186671271, "is_new": false}, {"id": "6269", "name": "台郡", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.8211, "market_value": 22150073300, "turnover": 1426507793, "is_new": false}, {"id": "4577", "name": "達航科技", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.2111, "market_value": 4427333620, "turnover": 90286450, "is_new": false}, {"id": "4534", "name": "慶騰", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.6583, "market_value": 2547255624, "turnover": 106214734, "is_new": false}, {"id": "5011", "name": "久陽", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.7121, "market_value": 2687993717, "turnover": 62856960, "is_new": false}, {"id": "2221", "name": "大甲", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.3939, "market_value": 1955415000, "turnover": 134811058, "is_new": false}], "2026-06-24": [{"id": "3234", "name": "光環", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.3251, "market_value": 13488437732, "turnover": 862096619, "is_new": false}, {"id": "2302", "name": "麗正", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.7837, "market_value": 7849495983, "turnover": 404837374, "is_new": false}, {"id": "5468", "name": "凱鈺", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.2979, "market_value": 1776525706, "turnover": 77036116, "is_new": false}, {"id": "5464", "name": "霖宏", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.6204, "market_value": 6666505762, "turnover": 162096665, "is_new": false}, {"id": "6226", "name": "光鼎", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.5633, "market_value": 2316472519, "turnover": 67776341, "is_new": true}, {"id": "3321", "name": "同泰", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.4218, "market_value": 2010756506, "turnover": 65637064, "is_new": false}, {"id": "8121", "name": "越峰", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.9945, "market_value": 9691215307, "turnover": 288253396, "is_new": false}, {"id": "5328", "name": "華容", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.1369, "market_value": 11174383843, "turnover": 1174859847, "is_new": false}, {"id": "3094", "name": "聯傑", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.9383, "market_value": 3370397959, "turnover": 461377511, "is_new": true}, {"id": "6573", "name": "虹揚-KY", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.1869, "market_value": 1589862064, "turnover": 72935478, "is_new": true}, {"id": "2061", "name": "風青", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.9678, "market_value": 3471372146, "turnover": 564973545, "is_new": false}, {"id": "3550", "name": "聯穎", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.9096, "market_value": 3274897500, "turnover": 221420523, "is_new": false}, {"id": "2483", "name": "百容", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.5166, "market_value": 6009462250, "turnover": 468907380, "is_new": false}, {"id": "5302", "name": "太欣", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.4036, "market_value": 1974621110, "turnover": 66724455, "is_new": true}, {"id": "3581", "name": "博磊", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.6638, "market_value": 6962319000, "turnover": 64376009, "is_new": false}, {"id": "3588", "name": "通嘉", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.162, "market_value": 4215536376, "turnover": 357415365, "is_new": true}, {"id": "3114", "name": "好德", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.8558, "market_value": 3103434589, "turnover": 104451717, "is_new": false}, {"id": "3441", "name": "聯一光", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.8387, "market_value": 3051041904, "turnover": 174264196, "is_new": true}, {"id": "6538", "name": "倉和", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.237, "market_value": 4543857843, "turnover": 414778086, "is_new": false}, {"id": "3229", "name": "晟鈦", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.715, "market_value": 2695832850, "turnover": 92482651, "is_new": true}, {"id": "4707", "name": "磐亞", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.2274, "market_value": 12232572681, "turnover": 114203959, "is_new": true}, {"id": "8040", "name": "九暘", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.0091, "market_value": 9834215148, "turnover": 913010568, "is_new": false}, {"id": "2375", "name": "凱美", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.764, "market_value": 20920001795, "turnover": 2921874407, "is_new": true}, {"id": "2484", "name": "希華", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.1241, "market_value": 11031934722, "turnover": 910443985, "is_new": false}, {"id": "6243", "name": "迅杰", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.2981, "market_value": 1776802009, "turnover": 254654224, "is_new": true}, {"id": "8071", "name": "能率網通", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.2541, "market_value": 1700385209, "turnover": 90943718, "is_new": true}, {"id": "3093", "name": "港建*", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.0361, "market_value": 10102828090, "turnover": 211464665, "is_new": false}, {"id": "6695", "name": "芯鼎", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.5593, "market_value": 6271533585, "turnover": 447074888, "is_new": true}, {"id": "5475", "name": "德宏", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 24.0746, "market_value": 28540015317, "turnover": 854088583, "is_new": false}, {"id": "2303", "name": "聯電", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 28.355, "market_value": 2062625518680, "turnover": 94917149104, "is_new": true}, {"id": "5285", "name": "界霖", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.034, "market_value": 10081643489, "turnover": 1207206380, "is_new": true}, {"id": "6834", "name": "天二科技", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.9895, "market_value": 9643347938, "turnover": 1297162308, "is_new": false}, {"id": "4923", "name": "力士", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.3405, "market_value": 1853826760, "turnover": 472884208, "is_new": false}, {"id": "6432", "name": "今展科", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.604, "market_value": 2412563540, "turnover": 226325304, "is_new": false}, {"id": "6654", "name": "天正國際", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.7593, "market_value": 7660028640, "turnover": 67125541, "is_new": false}, {"id": "6494", "name": "九齊", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.4089, "market_value": 1985104501, "turnover": 90358103, "is_new": true}, {"id": "6715", "name": "嘉基", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 24.0714, "market_value": 28450260080, "turnover": 1273801405, "is_new": true}, {"id": "6719", "name": "力智", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 24.0405, "market_value": 27584063124, "turnover": 2432641000, "is_new": true}, {"id": "6259", "name": "百徽", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 20.782, "market_value": 1060522319, "turnover": 115157291, "is_new": false}, {"id": "6116", "name": "彩晶", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 24.7311, "market_value": 55029105882, "turnover": 4186194459, "is_new": true}, {"id": "3149", "name": "正達", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.7664, "market_value": 20971855091, "turnover": 2926822798, "is_new": true}, {"id": "3362", "name": "先進光", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 24.0157, "market_value": 26908799188, "turnover": 1339343614, "is_new": false}, {"id": "5299", "name": "杰力", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.503, "market_value": 5928566287, "turnover": 702247933, "is_new": false}, {"id": "4979", "name": "華星光", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 24.8975, "market_value": 64987013146, "turnover": 3025349105, "is_new": true}, {"id": "8091", "name": "翔名", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.3657, "market_value": 14047254482, "turnover": 600723401, "is_new": true}, {"id": "6435", "name": "大中", "total_score": 5, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.2394, "market_value": 12380959650, "turnover": 1373165744, "is_new": false}, {"id": "2426", "name": "鼎元", "total_score": 5, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.8678, "market_value": 23208037854, "turnover": 4502900451, "is_new": true}, {"id": "6415", "name": "矽力*-KY", "total_score": 5, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 26.1725, "market_value": 232590967986, "turnover": 6826213527, "is_new": false}, {"id": "6270", "name": "倍微", "total_score": 5, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.7578, "market_value": 2813684601, "turnover": 255254370, "is_new": true}, {"id": "4542", "name": "科嶠", "total_score": 5, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.3727, "market_value": 14145856414, "turnover": 81648371, "is_new": true}], "2026-06-25": [{"id": "6270", "name": "倍微", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.7578, "market_value": 2813684601, "turnover": 120778765, "is_new": false}, {"id": "8071", "name": "能率網通", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.2541, "market_value": 1700385209, "turnover": 109832684, "is_new": false}, {"id": "5328", "name": "華容", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.1369, "market_value": 11174383843, "turnover": 1565817528, "is_new": false}, {"id": "4707", "name": "磐亞", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.2274, "market_value": 12232572681, "turnover": 107055501, "is_new": false}, {"id": "3114", "name": "好德", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.8558, "market_value": 3103434589, "turnover": 178805087, "is_new": false}, {"id": "3362", "name": "先進光", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 24.0157, "market_value": 26908799188, "turnover": 1041955972, "is_new": false}, {"id": "6573", "name": "虹揚-KY", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.1869, "market_value": 1589862064, "turnover": 68585668, "is_new": false}, {"id": "6432", "name": "今展科", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.604, "market_value": 2412563540, "turnover": 173222384, "is_new": false}, {"id": "6226", "name": "光鼎", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.5633, "market_value": 2316472519, "turnover": 78260207, "is_new": false}, {"id": "3234", "name": "光環", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.3251, "market_value": 13488437732, "turnover": 634727352, "is_new": false}, {"id": "2061", "name": "風青", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.9678, "market_value": 3471372146, "turnover": 59780762, "is_new": false}, {"id": "5464", "name": "霖宏", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.6204, "market_value": 6666505762, "turnover": 291839930, "is_new": false}, {"id": "2483", "name": "百容", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.5166, "market_value": 6009462250, "turnover": 537671115, "is_new": false}, {"id": "5011", "name": "久陽", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.7121, "market_value": 2687993717, "turnover": 162308341, "is_new": true}, {"id": "8121", "name": "越峰", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.9945, "market_value": 9691215307, "turnover": 156980505, "is_new": false}, {"id": "6538", "name": "倉和", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.237, "market_value": 4543857843, "turnover": 284511740, "is_new": false}, {"id": "6259", "name": "百徽", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 20.782, "market_value": 1060522319, "turnover": 90574565, "is_new": false}, {"id": "3360", "name": "尚立", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.1792, "market_value": 1577706339, "turnover": 105533423, "is_new": true}, {"id": "2233", "name": "宇隆", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.1773, "market_value": 11635601177, "turnover": 364437090, "is_new": true}, {"id": "3236", "name": "千如", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.6078, "market_value": 6583538435, "turnover": 466030453, "is_new": true}, {"id": "8289", "name": "泰藝", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.1072, "market_value": 3990691876, "turnover": 141765550, "is_new": true}, {"id": "6861", "name": "睿生光電", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.3103, "market_value": 13290960375, "turnover": 324685588, "is_new": true}, {"id": "6127", "name": "九豪", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.9351, "market_value": 9132738960, "turnover": 306188436, "is_new": true}, {"id": "5489", "name": "彩富", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.4992, "market_value": 5905620358, "turnover": 91841489, "is_new": true}, {"id": "4716", "name": "大立", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.5372, "market_value": 2256809865, "turnover": 250530823, "is_new": true}, {"id": "2375", "name": "凱美", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.764, "market_value": 20920001795, "turnover": 3582819026, "is_new": false}, {"id": "8105", "name": "凌巨", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.0369, "market_value": 10111377088, "turnover": 841875643, "is_new": true}, {"id": "4979", "name": "華星光", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 24.8975, "market_value": 64987013146, "turnover": 3752226153, "is_new": false}, {"id": "2303", "name": "聯電", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 28.355, "market_value": 2062625518680, "turnover": 99457017110, "is_new": false}, {"id": "6435", "name": "大中", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.2394, "market_value": 12380959650, "turnover": 628682472, "is_new": false}, {"id": "3588", "name": "通嘉", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.162, "market_value": 4215536376, "turnover": 260429769, "is_new": false}, {"id": "3481", "name": "群創", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 27.006, "market_value": 535276221579, "turnover": 76566480222, "is_new": true}, {"id": "3229", "name": "晟鈦", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.715, "market_value": 2695832850, "turnover": 54891986, "is_new": false}, {"id": "3290", "name": "東浦", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.4967, "market_value": 5891041720, "turnover": 186198824, "is_new": true}, {"id": "4542", "name": "科嶠", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.3727, "market_value": 14145856414, "turnover": 96009635, "is_new": false}, {"id": "3441", "name": "聯一光", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.8387, "market_value": 3051041904, "turnover": 203178678, "is_new": false}, {"id": "2484", "name": "希華", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.1241, "market_value": 11031934722, "turnover": 1826362603, "is_new": false}, {"id": "6175", "name": "立敦", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.4904, "market_value": 15912912072, "turnover": 1353729233, "is_new": true}, {"id": "1714", "name": "和桐", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.6542, "market_value": 18745488871, "turnover": 252847953, "is_new": true}, {"id": "3094", "name": "聯傑", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.9383, "market_value": 3370397959, "turnover": 653608528, "is_new": false}, {"id": "6830", "name": "汎銓", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 24.0128, "market_value": 26830337776, "turnover": 223332178, "is_new": true}, {"id": "6834", "name": "天二科技", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.9895, "market_value": 9643347938, "turnover": 678722541, "is_new": false}, {"id": "5302", "name": "太欣", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.4036, "market_value": 1974621110, "turnover": 93574939, "is_new": false}, {"id": "3550", "name": "聯穎", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.9096, "market_value": 3274897500, "turnover": 645300035, "is_new": false}, {"id": "6525", "name": "捷敏-KY", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.6385, "market_value": 18453775912, "turnover": 1505374938, "is_new": true}, {"id": "2344", "name": "華邦電", "total_score": 5, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 27.5405, "market_value": 913500039179, "turnover": 52451833408, "is_new": true}, {"id": "2426", "name": "鼎元", "total_score": 5, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.8678, "market_value": 23208037854, "turnover": 2693106393, "is_new": false}, {"id": "6695", "name": "芯鼎", "total_score": 5, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.5593, "market_value": 6271533585, "turnover": 837844510, "is_new": false}, {"id": "3624", "name": "光頡", "total_score": 5, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.5151, "market_value": 16310377038, "turnover": 613382511, "is_new": true}, {"id": "3016", "name": "嘉晶", "total_score": 5, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 24.2803, "market_value": 35057831009, "turnover": 2693555598, "is_new": true}], "2026-06-26": [{"id": "4971", "name": "IET-KY", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.6652, "market_value": 18953242182, "turnover": 371500164, "is_new": true}, {"id": "6147", "name": "頎邦", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 25.7802, "market_value": 157109236729, "turnover": 7339113917, "is_new": true}, {"id": "8027", "name": "鈦昇", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.7991, "market_value": 21668639518, "turnover": 133874207, "is_new": true}, {"id": "3550", "name": "聯穎", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.9096, "market_value": 3274897500, "turnover": 294176864, "is_new": false}, {"id": "6573", "name": "虹揚-KY", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.1869, "market_value": 1589862064, "turnover": 70281576, "is_new": false}, {"id": "2233", "name": "宇隆", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.1773, "market_value": 11635601177, "turnover": 1624231451, "is_new": false}, {"id": "2485", "name": "兆赫", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.5525, "market_value": 16932825672, "turnover": 363076925, "is_new": true}, {"id": "8071", "name": "能率網通", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.2541, "market_value": 1700385209, "turnover": 380807061, "is_new": false}, {"id": "6226", "name": "光鼎", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.5633, "market_value": 2316472519, "turnover": 85119853, "is_new": false}, {"id": "5464", "name": "霖宏", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.6204, "market_value": 6666505762, "turnover": 158964210, "is_new": false}, {"id": "5011", "name": "久陽", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.7121, "market_value": 2687993717, "turnover": 104998067, "is_new": false}, {"id": "6706", "name": "惠特", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.1244, "market_value": 11036115533, "turnover": 259818755, "is_new": true}, {"id": "2483", "name": "百容", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.5166, "market_value": 6009462250, "turnover": 121877028, "is_new": false}, {"id": "4707", "name": "磐亞", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.2274, "market_value": 12232572681, "turnover": 257513973, "is_new": false}, {"id": "3234", "name": "光環", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.3251, "market_value": 13488437732, "turnover": 611956174, "is_new": false}, {"id": "2061", "name": "風青", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.9678, "market_value": 3471372146, "turnover": 73610132, "is_new": false}, {"id": "4760", "name": "勤凱", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.0626, "market_value": 10374287126, "turnover": 375358732, "is_new": true}, {"id": "6861", "name": "睿生光電", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.3103, "market_value": 13290960375, "turnover": 243702775, "is_new": false}, {"id": "3163", "name": "波若威", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 24.7835, "market_value": 57989333520, "turnover": 970964823, "is_new": true}, {"id": "6727", "name": "亞泰金屬", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.0985, "market_value": 10753670800, "turnover": 504056790, "is_new": true}, {"id": "3114", "name": "好德", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.8558, "market_value": 3103434589, "turnover": 304823548, "is_new": false}, {"id": "3532", "name": "台勝科", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 25.5782, "market_value": 128377787300, "turnover": 229596841, "is_new": true}, {"id": "3081", "name": "聯亞", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 25.9612, "market_value": 188272658695, "turnover": 3873721990, "is_new": true}, {"id": "6405", "name": "悅城", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.1097, "market_value": 4000640000, "turnover": 120315898, "is_new": true}, {"id": "4908", "name": "前鼎", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.3845, "market_value": 14313693981, "turnover": 439913076, "is_new": true}, {"id": "4991", "name": "環宇-KY", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 24.7898, "market_value": 58355146593, "turnover": 303174879, "is_new": true}, {"id": "4542", "name": "科嶠", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.3727, "market_value": 14145856414, "turnover": 144270662, "is_new": false}, {"id": "1714", "name": "和桐", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.6542, "market_value": 18745488871, "turnover": 234382891, "is_new": false}, {"id": "8121", "name": "越峰", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.9945, "market_value": 9691215307, "turnover": 77150827, "is_new": false}, {"id": "6830", "name": "汎銓", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 24.0128, "market_value": 26830337776, "turnover": 215634006, "is_new": false}, {"id": "3138", "name": "耀登", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.6058, "market_value": 6570147281, "turnover": 78728650, "is_new": true}, {"id": "3624", "name": "光頡", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.5151, "market_value": 16310377038, "turnover": 299876604, "is_new": false}, {"id": "3491", "name": "昇達科", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 25.2246, "market_value": 90134713750, "turnover": 2588354150, "is_new": true}, {"id": "2484", "name": "希華", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.1241, "market_value": 11031934722, "turnover": 1912360287, "is_new": false}, {"id": "6432", "name": "今展科", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.604, "market_value": 2412563540, "turnover": 390643531, "is_new": false}, {"id": "3284", "name": "太普高", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.8882, "market_value": 3205657077, "turnover": 73219378, "is_new": true}, {"id": "6426", "name": "統新", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.7134, "market_value": 7316710000, "turnover": 168954036, "is_new": true}, {"id": "5228", "name": "鈺鎧", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.5671, "market_value": 2325237058, "turnover": 65351174, "is_new": true}, {"id": "8289", "name": "泰藝", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.1072, "market_value": 3990691876, "turnover": 113969495, "is_new": false}, {"id": "3441", "name": "聯一光", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.8387, "market_value": 3051041904, "turnover": 184383138, "is_new": false}, {"id": "4979", "name": "華星光", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 24.8975, "market_value": 64987013146, "turnover": 4077907185, "is_new": false}, {"id": "5302", "name": "太欣", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.4036, "market_value": 1974621110, "turnover": 53591193, "is_new": false}, {"id": "6270", "name": "倍微", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.7578, "market_value": 2813684601, "turnover": 246192485, "is_new": false}, {"id": "5475", "name": "德宏", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 24.0746, "market_value": 28540015317, "turnover": 328948161, "is_new": true}, {"id": "5328", "name": "華容", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.1369, "market_value": 11174383843, "turnover": 1918766112, "is_new": false}, {"id": "3105", "name": "穩懋", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 25.8861, "market_value": 174663438208, "turnover": 10097281230, "is_new": true}, {"id": "3362", "name": "先進光", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 24.0157, "market_value": 26908799188, "turnover": 3103482939, "is_new": false}, {"id": "2478", "name": "大毅", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 24.1134, "market_value": 29669924495, "turnover": 386616227, "is_new": true}, {"id": "3588", "name": "通嘉", "total_score": 5, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.162, "market_value": 4215536376, "turnover": 390782897, "is_new": false}, {"id": "6531", "name": "愛普*", "total_score": 5, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 25.7959, "market_value": 159589609200, "turnover": 7423451580, "is_new": true}], "2026-06-29": [{"id": "6834", "name": "天二科技", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.9895, "market_value": 9643347938, "turnover": 208744042, "is_new": true}, {"id": "5475", "name": "德宏", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 24.0746, "market_value": 28540015317, "turnover": 572865553, "is_new": false}, {"id": "3624", "name": "光頡", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.5151, "market_value": 16310377038, "turnover": 295364756, "is_new": false}, {"id": "3360", "name": "尚立", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.1792, "market_value": 1577706339, "turnover": 116855858, "is_new": true}, {"id": "2233", "name": "宇隆", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.1773, "market_value": 11635601177, "turnover": 720194426, "is_new": false}, {"id": "3114", "name": "好德", "total_score": 10, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.8558, "market_value": 3103434589, "turnover": 244905434, "is_new": false}, {"id": "3581", "name": "博磊", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.6638, "market_value": 6962319000, "turnover": 248392746, "is_new": true}, {"id": "5011", "name": "久陽", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.7121, "market_value": 2687993717, "turnover": 61920757, "is_new": false}, {"id": "1718", "name": "中纖", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.7511, "market_value": 20652345376, "turnover": 1644452138, "is_new": true}, {"id": "6861", "name": "睿生光電", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.3103, "market_value": 13290960375, "turnover": 206757991, "is_new": false}, {"id": "6226", "name": "光鼎", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.5633, "market_value": 2316472519, "turnover": 873129190, "is_new": false}, {"id": "8027", "name": "鈦昇", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.7991, "market_value": 21668639518, "turnover": 391060280, "is_new": false}, {"id": "2484", "name": "希華", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.1241, "market_value": 11031934722, "turnover": 4539702788, "is_new": false}, {"id": "5464", "name": "霖宏", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.6204, "market_value": 6666505762, "turnover": 609090357, "is_new": false}, {"id": "3284", "name": "太普高", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.8882, "market_value": 3205657077, "turnover": 126500484, "is_new": false}, {"id": "2061", "name": "風青", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.9678, "market_value": 3471372146, "turnover": 61912944, "is_new": false}, {"id": "4551", "name": "智伸科", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.9763, "market_value": 25867450801, "turnover": 287749872, "is_new": true}, {"id": "4991", "name": "環宇-KY", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 24.7898, "market_value": 58355146593, "turnover": 451293833, "is_new": false}, {"id": "3105", "name": "穩懋", "total_score": 9, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 25.8861, "market_value": 174663438208, "turnover": 14951560796, "is_new": false}, {"id": "6693", "name": "廣閎科", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.0317, "market_value": 10058400000, "turnover": 246530802, "is_new": true}, {"id": "2483", "name": "百容", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.5166, "market_value": 6009462250, "turnover": 1266024862, "is_new": false}, {"id": "8121", "name": "越峰", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.9945, "market_value": 9691215307, "turnover": 115640322, "is_new": false}, {"id": "4542", "name": "科嶠", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.3727, "market_value": 14145856414, "turnover": 252919281, "is_new": false}, {"id": "6259", "name": "百徽", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 20.782, "market_value": 1060522319, "turnover": 50721473, "is_new": true}, {"id": "6147", "name": "頎邦", "total_score": 8, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 25.7802, "market_value": 157109236729, "turnover": 8439613881, "is_new": false}, {"id": "1714", "name": "和桐", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.6542, "market_value": 18745488871, "turnover": 135983781, "is_new": false}, {"id": "3234", "name": "光環", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.3251, "market_value": 13488437732, "turnover": 415278191, "is_new": false}, {"id": "4707", "name": "磐亞", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.2274, "market_value": 12232572681, "turnover": 475112143, "is_new": false}, {"id": "2478", "name": "大毅", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 24.1134, "market_value": 29669924495, "turnover": 301545579, "is_new": false}, {"id": "6432", "name": "今展科", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.604, "market_value": 2412563540, "turnover": 384920491, "is_new": false}, {"id": "4716", "name": "大立", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.5372, "market_value": 2256809865, "turnover": 391499138, "is_new": true}, {"id": "4760", "name": "勤凱", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.0626, "market_value": 10374287126, "turnover": 317639715, "is_new": false}, {"id": "6588", "name": "東典光電", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.8236, "market_value": 3005091445, "turnover": 54893335, "is_new": true}, {"id": "8071", "name": "能率網通", "total_score": 7, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.2541, "market_value": 1700385209, "turnover": 500254493, "is_new": false}, {"id": "6727", "name": "亞泰金屬", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.0985, "market_value": 10753670800, "turnover": 426013980, "is_new": false}, {"id": "3138", "name": "耀登", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.6058, "market_value": 6570147281, "turnover": 131619025, "is_new": false}, {"id": "2305", "name": "全友", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.7294, "market_value": 7434638896, "turnover": 131153009, "is_new": true}, {"id": "6877", "name": "鏵友益", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.4441, "market_value": 5589087518, "turnover": 50925513, "is_new": true}, {"id": "6830", "name": "汎銓", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 24.0128, "market_value": 26830337776, "turnover": 277153802, "is_new": false}, {"id": "3441", "name": "聯一光", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.8387, "market_value": 3051041904, "turnover": 155692557, "is_new": false}, {"id": "6449", "name": "鈺邦", "total_score": 6, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 24.1591, "market_value": 31057472732, "turnover": 906461791, "is_new": true}, {"id": "3362", "name": "先進光", "total_score": 5, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 24.0157, "market_value": 26908799188, "turnover": 1782501056, "is_new": false}, {"id": "4764", "name": "雙鍵", "total_score": 5, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.9082, "market_value": 24165632515, "turnover": 354803621, "is_new": true}, {"id": "8476", "name": "台境*", "total_score": 5, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.1377, "market_value": 4114102361, "turnover": 65825369, "is_new": true}, {"id": "8105", "name": "凌巨", "total_score": 5, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.0369, "market_value": 10111377088, "turnover": 545017241, "is_new": true}, {"id": "8042", "name": "金山電", "total_score": 5, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.8088, "market_value": 21879170781, "turnover": 208362220, "is_new": true}, {"id": "3550", "name": "聯穎", "total_score": 5, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.9096, "market_value": 3274897500, "turnover": 207007863, "is_new": false}, {"id": "6531", "name": "愛普*", "total_score": 5, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 25.7959, "market_value": 159589609200, "turnover": 4553502060, "is_new": false}, {"id": "3094", "name": "聯傑", "total_score": 5, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 21.9383, "market_value": 3370397959, "turnover": 182636724, "is_new": true}, {"id": "6127", "name": "九豪", "total_score": 5, "sc_5d_up": 0, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 22.9351, "market_value": 9132738960, "turnover": 851538064, "is_new": true}], "2026-06-30": [{"id": "8121", "name": "越峰", "total_score": 6, "sc_5d_up": 3, "sc_20d_up": 3, "sc_5d_dn": 0, "log_mv": 22.9945, "market_value": 9691215307, "turnover": 96297502, "is_new": false}, {"id": "8071", "name": "能率網通", "total_score": 6, "sc_5d_up": 3, "sc_20d_up": 3, "sc_5d_dn": 0, "log_mv": 21.2541, "market_value": 1700385209, "turnover": 101641636, "is_new": false}, {"id": "6435", "name": "大中", "total_score": 6, "sc_5d_up": 3, "sc_20d_up": 3, "sc_5d_dn": 0, "log_mv": 23.2394, "market_value": 12380959650, "turnover": 383135616, "is_new": true}, {"id": "3016", "name": "嘉晶", "total_score": 6, "sc_5d_up": 3, "sc_20d_up": 3, "sc_5d_dn": 0, "log_mv": 24.2803, "market_value": 35057831009, "turnover": 2318106477, "is_new": true}, {"id": "5011", "name": "久陽", "total_score": 6, "sc_5d_up": 3, "sc_20d_up": 3, "sc_5d_dn": 0, "log_mv": 21.7121, "market_value": 2687993717, "turnover": 80182760, "is_new": false}, {"id": "6226", "name": "光鼎", "total_score": 6, "sc_5d_up": 3, "sc_20d_up": 3, "sc_5d_dn": 0, "log_mv": 21.5633, "market_value": 2316472519, "turnover": 561384310, "is_new": false}, {"id": "5475", "name": "德宏", "total_score": 5, "sc_5d_up": 3, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 24.0746, "market_value": 28540015317, "turnover": 508346770, "is_new": false}, {"id": "5328", "name": "華容", "total_score": 5, "sc_5d_up": 3, "sc_20d_up": 3, "sc_5d_dn": -1, "log_mv": 23.1369, "market_value": 11174383843, "turnover": 5399047271, "is_new": true}, {"id": "2342", "name": "茂矽", "total_score": 5, "sc_5d_up": 2, "sc_20d_up": 3, "sc_5d_dn": 0, "log_mv": 22.8337, "market_value": 8251676586, "turnover": 96696076, "is_new": true}, {"id": "3234", "name": "光環", "total_score": 5, "sc_5d_up": 2, "sc_20d_up": 3, "sc_5d_dn": 0, "log_mv": 23.3251, "market_value": 13488437732, "turnover": 195173544, "is_new": false}, {"id": "1515", "name": "力山", "total_score": 5, "sc_5d_up": 3, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 22.465, "market_value": 5707341575, "turnover": 177242886, "is_new": true}, {"id": "3360", "name": "尚立", "total_score": 5, "sc_5d_up": 3, "sc_20d_up": 3, "sc_5d_dn": -1, "log_mv": 21.1792, "market_value": 1577706339, "turnover": 196264846, "is_new": false}, {"id": "3441", "name": "聯一光", "total_score": 5, "sc_5d_up": 3, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 21.8387, "market_value": 3051041904, "turnover": 99368118, "is_new": false}, {"id": "6693", "name": "廣閎科", "total_score": 5, "sc_5d_up": 2, "sc_20d_up": 3, "sc_5d_dn": 0, "log_mv": 23.0317, "market_value": 10058400000, "turnover": 96037095, "is_new": false}, {"id": "2483", "name": "百容", "total_score": 5, "sc_5d_up": 3, "sc_20d_up": 3, "sc_5d_dn": -1, "log_mv": 22.5166, "market_value": 6009462250, "turnover": 1403694547, "is_new": false}, {"id": "3114", "name": "好德", "total_score": 5, "sc_5d_up": 2, "sc_20d_up": 3, "sc_5d_dn": 0, "log_mv": 21.8558, "market_value": 3103434589, "turnover": 128947469, "is_new": false}, {"id": "6259", "name": "百徽", "total_score": 5, "sc_5d_up": 2, "sc_20d_up": 3, "sc_5d_dn": 0, "log_mv": 20.782, "market_value": 1060522319, "turnover": 111583834, "is_new": false}, {"id": "2409", "name": "友達", "total_score": 4, "sc_5d_up": 2, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 26.1654, "market_value": 230941228543, "turnover": 22647836514, "is_new": true}, {"id": "4716", "name": "大立", "total_score": 4, "sc_5d_up": 2, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 21.5372, "market_value": 2256809865, "turnover": 315130185, "is_new": false}, {"id": "1718", "name": "中纖", "total_score": 4, "sc_5d_up": 2, "sc_20d_up": 3, "sc_5d_dn": -1, "log_mv": 23.7511, "market_value": 20652345376, "turnover": 408403043, "is_new": false}, {"id": "1710", "name": "東聯", "total_score": 4, "sc_5d_up": 3, "sc_20d_up": 1, "sc_5d_dn": 0, "log_mv": 23.3265, "market_value": 13506971192, "turnover": 226734701, "is_new": true}, {"id": "2233", "name": "宇隆", "total_score": 4, "sc_5d_up": 3, "sc_20d_up": 1, "sc_5d_dn": 0, "log_mv": 23.1773, "market_value": 11635601177, "turnover": 999072733, "is_new": false}, {"id": "6432", "name": "今展科", "total_score": 4, "sc_5d_up": 2, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 21.604, "market_value": 2412563540, "turnover": 179562712, "is_new": false}, {"id": "6116", "name": "彩晶", "total_score": 4, "sc_5d_up": 2, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 24.7311, "market_value": 55029105882, "turnover": 2988455249, "is_new": true}, {"id": "6538", "name": "倉和", "total_score": 4, "sc_5d_up": 2, "sc_20d_up": 3, "sc_5d_dn": -1, "log_mv": 22.237, "market_value": 4543857843, "turnover": 51291753, "is_new": true}, {"id": "8046", "name": "南電", "total_score": 4, "sc_5d_up": 3, "sc_20d_up": 1, "sc_5d_dn": 0, "log_mv": 27.2713, "market_value": 697858725960, "turnover": 24826731030, "is_new": true}, {"id": "2375", "name": "凱美", "total_score": 4, "sc_5d_up": 2, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 23.764, "market_value": 20920001795, "turnover": 2194901233, "is_new": true}, {"id": "3481", "name": "群創", "total_score": 4, "sc_5d_up": 2, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 27.006, "market_value": 535276221579, "turnover": 40617452457, "is_new": true}, {"id": "1714", "name": "和桐", "total_score": 4, "sc_5d_up": 2, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 23.6542, "market_value": 18745488871, "turnover": 136739823, "is_new": false}, {"id": "2425", "name": "承啟", "total_score": 4, "sc_5d_up": 3, "sc_20d_up": 3, "sc_5d_dn": -2, "log_mv": 22.101, "market_value": 3966101954, "turnover": 299806490, "is_new": true}, {"id": "6271", "name": "同欣電", "total_score": 4, "sc_5d_up": 2, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 24.6512, "market_value": 50801099832, "turnover": 4265618576, "is_new": true}, {"id": "3362", "name": "先進光", "total_score": 4, "sc_5d_up": 3, "sc_20d_up": 1, "sc_5d_dn": 0, "log_mv": 24.0157, "market_value": 26908799188, "turnover": 817994015, "is_new": false}, {"id": "6182", "name": "合晶", "total_score": 4, "sc_5d_up": 2, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 24.9202, "market_value": 66483347280, "turnover": 9219583644, "is_new": true}, {"id": "6173", "name": "信昌電", "total_score": 4, "sc_5d_up": 2, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 24.602, "market_value": 48364000000, "turnover": 253686173, "is_new": true}, {"id": "2472", "name": "立隆電", "total_score": 4, "sc_5d_up": 1, "sc_20d_up": 3, "sc_5d_dn": 0, "log_mv": 24.9421, "market_value": 67953244013, "turnover": 6931836367, "is_new": true}, {"id": "6147", "name": "頎邦", "total_score": 3, "sc_5d_up": 1, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 25.7802, "market_value": 157109236729, "turnover": 4587939957, "is_new": false}, {"id": "3055", "name": "蔚華科", "total_score": 3, "sc_5d_up": 2, "sc_20d_up": 1, "sc_5d_dn": 0, "log_mv": 23.2189, "market_value": 12129853849, "turnover": 295789337, "is_new": true}, {"id": "2484", "name": "希華", "total_score": 3, "sc_5d_up": 1, "sc_20d_up": 3, "sc_5d_dn": -1, "log_mv": 23.1241, "market_value": 11031934722, "turnover": 4627297136, "is_new": false}, {"id": "5464", "name": "霖宏", "total_score": 3, "sc_5d_up": 1, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 22.6204, "market_value": 6666505762, "turnover": 78748871, "is_new": false}, {"id": "6204", "name": "艾華", "total_score": 3, "sc_5d_up": 2, "sc_20d_up": 1, "sc_5d_dn": 0, "log_mv": 21.7133, "market_value": 2691392320, "turnover": 67791915, "is_new": true}, {"id": "8043", "name": "蜜望實", "total_score": 3, "sc_5d_up": 1, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 23.3697, "market_value": 14103615505, "turnover": 1475844573, "is_new": true}, {"id": "8042", "name": "金山電", "total_score": 3, "sc_5d_up": 1, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 23.8088, "market_value": 21879170781, "turnover": 149154414, "is_new": false}, {"id": "8040", "name": "九暘", "total_score": 3, "sc_5d_up": 2, "sc_20d_up": 1, "sc_5d_dn": 0, "log_mv": 23.0091, "market_value": 9834215148, "turnover": 278631724, "is_new": true}, {"id": "6156", "name": "松上", "total_score": 3, "sc_5d_up": 2, "sc_20d_up": 1, "sc_5d_dn": 0, "log_mv": 21.7641, "market_value": 2831719013, "turnover": 177456939, "is_new": true}, {"id": "8033", "name": "雷虎", "total_score": 3, "sc_5d_up": 3, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 23.9594, "market_value": 25435300238, "turnover": 1759411782, "is_new": true}, {"id": "2406", "name": "國碩", "total_score": 3, "sc_5d_up": 2, "sc_20d_up": 1, "sc_5d_dn": 0, "log_mv": 23.3136, "market_value": 13334416182, "turnover": 793862992, "is_new": true}, {"id": "2458", "name": "義隆", "total_score": 3, "sc_5d_up": 2, "sc_20d_up": 1, "sc_5d_dn": 0, "log_mv": 24.7251, "market_value": 54698470560, "turnover": 2469907619, "is_new": true}, {"id": "8261", "name": "富鼎", "total_score": 3, "sc_5d_up": 3, "sc_20d_up": 0, "sc_5d_dn": 0, "log_mv": 24.0989, "market_value": 29244084678, "turnover": 2945731356, "is_new": true}, {"id": "4542", "name": "科嶠", "total_score": 3, "sc_5d_up": 2, "sc_20d_up": 1, "sc_5d_dn": 0, "log_mv": 23.3727, "market_value": 14145856414, "turnover": 639084840, "is_new": false}, {"id": "3236", "name": "千如", "total_score": 3, "sc_5d_up": 1, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 22.6078, "market_value": 6583538435, "turnover": 863552780, "is_new": true}], "2026-07-01": [{"id": "6226", "name": "光鼎", "total_score": 6, "sc_5d_up": 3, "sc_20d_up": 3, "sc_5d_dn": 0, "log_mv": 21.5633, "market_value": 2316472519, "turnover": 197107699, "is_new": false}, {"id": "6259", "name": "百徽", "total_score": 6, "sc_5d_up": 3, "sc_20d_up": 3, "sc_5d_dn": 0, "log_mv": 20.782, "market_value": 1060522319, "turnover": 113172505, "is_new": false}, {"id": "3360", "name": "尚立", "total_score": 6, "sc_5d_up": 3, "sc_20d_up": 3, "sc_5d_dn": 0, "log_mv": 21.1792, "market_value": 1577706339, "turnover": 325016874, "is_new": false}, {"id": "3236", "name": "千如", "total_score": 6, "sc_5d_up": 3, "sc_20d_up": 3, "sc_5d_dn": 0, "log_mv": 22.6078, "market_value": 6583538435, "turnover": 588375897, "is_new": false}, {"id": "8121", "name": "越峰", "total_score": 6, "sc_5d_up": 3, "sc_20d_up": 3, "sc_5d_dn": 0, "log_mv": 22.9945, "market_value": 9691215307, "turnover": 132060092, "is_new": false}, {"id": "8261", "name": "富鼎", "total_score": 6, "sc_5d_up": 3, "sc_20d_up": 3, "sc_5d_dn": 0, "log_mv": 24.0989, "market_value": 29244084678, "turnover": 1887072264, "is_new": false}, {"id": "2484", "name": "希華", "total_score": 6, "sc_5d_up": 3, "sc_20d_up": 3, "sc_5d_dn": 0, "log_mv": 23.1241, "market_value": 11031934722, "turnover": 2895904803, "is_new": false}, {"id": "8182", "name": "加高", "total_score": 6, "sc_5d_up": 3, "sc_20d_up": 3, "sc_5d_dn": 0, "log_mv": 22.3651, "market_value": 5164738624, "turnover": 188492979, "is_new": true}, {"id": "3031", "name": "佰鴻", "total_score": 5, "sc_5d_up": 3, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 22.3926, "market_value": 5308678816, "turnover": 302199216, "is_new": true}, {"id": "2483", "name": "百容", "total_score": 5, "sc_5d_up": 2, "sc_20d_up": 3, "sc_5d_dn": 0, "log_mv": 22.5166, "market_value": 6009462250, "turnover": 187337402, "is_new": false}, {"id": "5011", "name": "久陽", "total_score": 5, "sc_5d_up": 2, "sc_20d_up": 3, "sc_5d_dn": 0, "log_mv": 21.7121, "market_value": 2687993717, "turnover": 135688123, "is_new": false}, {"id": "1718", "name": "中纖", "total_score": 5, "sc_5d_up": 2, "sc_20d_up": 3, "sc_5d_dn": 0, "log_mv": 23.7511, "market_value": 20652345376, "turnover": 1209426350, "is_new": false}, {"id": "3441", "name": "聯一光", "total_score": 5, "sc_5d_up": 3, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 21.8387, "market_value": 3051041904, "turnover": 74153408, "is_new": false}, {"id": "6435", "name": "大中", "total_score": 5, "sc_5d_up": 2, "sc_20d_up": 3, "sc_5d_dn": 0, "log_mv": 23.2394, "market_value": 12380959650, "turnover": 937013224, "is_new": false}, {"id": "8071", "name": "能率網通", "total_score": 5, "sc_5d_up": 2, "sc_20d_up": 3, "sc_5d_dn": 0, "log_mv": 21.2541, "market_value": 1700385209, "turnover": 117296606, "is_new": false}, {"id": "1515", "name": "力山", "total_score": 5, "sc_5d_up": 3, "sc_20d_up": 3, "sc_5d_dn": -1, "log_mv": 22.465, "market_value": 5707341575, "turnover": 136686199, "is_new": false}, {"id": "2464", "name": "盟立", "total_score": 5, "sc_5d_up": 3, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 24.2207, "market_value": 33028996160, "turnover": 1957103719, "is_new": true}, {"id": "6174", "name": "安碁", "total_score": 5, "sc_5d_up": 2, "sc_20d_up": 3, "sc_5d_dn": 0, "log_mv": 21.6153, "market_value": 2440000000, "turnover": 89789476, "is_new": true}, {"id": "2305", "name": "全友", "total_score": 5, "sc_5d_up": 3, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 22.7294, "market_value": 7434638896, "turnover": 67701197, "is_new": true}, {"id": "2493", "name": "揚博", "total_score": 5, "sc_5d_up": 3, "sc_20d_up": 3, "sc_5d_dn": -1, "log_mv": 24.2416, "market_value": 33727903314, "turnover": 239308994, "is_new": true}, {"id": "3532", "name": "台勝科", "total_score": 5, "sc_5d_up": 3, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 25.5782, "market_value": 128377787300, "turnover": 121939636, "is_new": true}, {"id": "6538", "name": "倉和", "total_score": 4, "sc_5d_up": 3, "sc_20d_up": 3, "sc_5d_dn": -2, "log_mv": 22.237, "market_value": 4543857843, "turnover": 137159908, "is_new": false}, {"id": "2302", "name": "麗正", "total_score": 4, "sc_5d_up": 3, "sc_20d_up": 2, "sc_5d_dn": -1, "log_mv": 22.7837, "market_value": 7849495983, "turnover": 309578280, "is_new": true}, {"id": "6693", "name": "廣閎科", "total_score": 4, "sc_5d_up": 2, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 23.0317, "market_value": 10058400000, "turnover": 142634525, "is_new": false}, {"id": "6156", "name": "松上", "total_score": 4, "sc_5d_up": 3, "sc_20d_up": 1, "sc_5d_dn": 0, "log_mv": 21.7641, "market_value": 2831719013, "turnover": 310366746, "is_new": false}, {"id": "8042", "name": "金山電", "total_score": 4, "sc_5d_up": 2, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 23.8088, "market_value": 21879170781, "turnover": 58806236, "is_new": false}, {"id": "5464", "name": "霖宏", "total_score": 4, "sc_5d_up": 2, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 22.6204, "market_value": 6666505762, "turnover": 55391584, "is_new": false}, {"id": "3374", "name": "精材", "total_score": 4, "sc_5d_up": 2, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 25.0573, "market_value": 76253372796, "turnover": 2206742332, "is_new": true}, {"id": "3055", "name": "蔚華科", "total_score": 4, "sc_5d_up": 2, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 23.2189, "market_value": 12129853849, "turnover": 171827668, "is_new": false}, {"id": "5328", "name": "華容", "total_score": 4, "sc_5d_up": 2, "sc_20d_up": 3, "sc_5d_dn": -1, "log_mv": 23.1369, "market_value": 11174383843, "turnover": 2056916782, "is_new": false}, {"id": "6182", "name": "合晶", "total_score": 4, "sc_5d_up": 2, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 24.9202, "market_value": 66483347280, "turnover": 2916533389, "is_new": false}, {"id": "5386", "name": "青雲", "total_score": 4, "sc_5d_up": 3, "sc_20d_up": 1, "sc_5d_dn": 0, "log_mv": 23.6628, "market_value": 18906381644, "turnover": 353730960, "is_new": true}, {"id": "2375", "name": "凱美", "total_score": 4, "sc_5d_up": 2, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 23.764, "market_value": 20920001795, "turnover": 1740219694, "is_new": false}, {"id": "3114", "name": "好德", "total_score": 4, "sc_5d_up": 2, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 21.8558, "market_value": 3103434589, "turnover": 100122521, "is_new": false}, {"id": "1710", "name": "東聯", "total_score": 4, "sc_5d_up": 2, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 23.3265, "market_value": 13506971192, "turnover": 780538978, "is_new": false}, {"id": "3234", "name": "光環", "total_score": 3, "sc_5d_up": 1, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 23.3251, "market_value": 13488437732, "turnover": 145600722, "is_new": false}, {"id": "6173", "name": "信昌電", "total_score": 3, "sc_5d_up": 1, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 24.602, "market_value": 48364000000, "turnover": 381498818, "is_new": false}, {"id": "3362", "name": "先進光", "total_score": 3, "sc_5d_up": 2, "sc_20d_up": 1, "sc_5d_dn": 0, "log_mv": 24.0157, "market_value": 26908799188, "turnover": 976633095, "is_new": false}, {"id": "3284", "name": "太普高", "total_score": 3, "sc_5d_up": 2, "sc_20d_up": 1, "sc_5d_dn": 0, "log_mv": 21.8882, "market_value": 3205657077, "turnover": 78396727, "is_new": true}, {"id": "3550", "name": "聯穎", "total_score": 3, "sc_5d_up": 2, "sc_20d_up": 3, "sc_5d_dn": -2, "log_mv": 21.9096, "market_value": 3274897500, "turnover": 142296547, "is_new": true}, {"id": "6432", "name": "今展科", "total_score": 3, "sc_5d_up": 1, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 21.604, "market_value": 2412563540, "turnover": 295879589, "is_new": false}, {"id": "6719", "name": "力智", "total_score": 3, "sc_5d_up": 2, "sc_20d_up": 1, "sc_5d_dn": 0, "log_mv": 24.0405, "market_value": 27584063124, "turnover": 1111863037, "is_new": true}, {"id": "6488", "name": "環球晶", "total_score": 3, "sc_5d_up": 2, "sc_20d_up": 1, "sc_5d_dn": 0, "log_mv": 26.8043, "market_value": 437474058375, "turnover": 2381791672, "is_new": true}, {"id": "3556", "name": "禾瑞亞", "total_score": 3, "sc_5d_up": 1, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 22.1533, "market_value": 4178906566, "turnover": 102157759, "is_new": true}, {"id": "3481", "name": "群創", "total_score": 3, "sc_5d_up": 1, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 27.006, "market_value": 535276221579, "turnover": 36454633553, "is_new": false}, {"id": "4707", "name": "磐亞", "total_score": 3, "sc_5d_up": 1, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 23.2274, "market_value": 12232572681, "turnover": 711466321, "is_new": true}, {"id": "8033", "name": "雷虎", "total_score": 3, "sc_5d_up": 2, "sc_20d_up": 1, "sc_5d_dn": 0, "log_mv": 23.9594, "market_value": 25435300238, "turnover": 6098791031, "is_new": false}, {"id": "2472", "name": "立隆電", "total_score": 3, "sc_5d_up": 0, "sc_20d_up": 3, "sc_5d_dn": 0, "log_mv": 24.9421, "market_value": 67953244013, "turnover": 12408739416, "is_new": false}, {"id": "6271", "name": "同欣電", "total_score": 3, "sc_5d_up": 2, "sc_20d_up": 1, "sc_5d_dn": 0, "log_mv": 24.6512, "market_value": 50801099832, "turnover": 4612218613, "is_new": false}, {"id": "6270", "name": "倍微", "total_score": 3, "sc_5d_up": 1, "sc_20d_up": 2, "sc_5d_dn": 0, "log_mv": 21.7578, "market_value": 2813684601, "turnover": 71991948, "is_new": true}]};
+const DATES    = ["2026-07-01", "2026-06-30", "2026-06-29", "2026-06-26", "2026-06-25", "2026-06-24", "2026-06-23"];
+
+// ── 色彩 ──
+const COLOR_GOLD = "#ffd700";
+const COLOR_BLUE = "#0f4c81";
+
+function tileColor(d) {
+  return d.total_score >= 5 ? COLOR_GOLD : COLOR_BLUE;
+}
+
+// ── 工具函式 ──
+function fmtMoney(v) {
+  if (!v || v <= 0) return "N/A";
+  if (v >= 1e12) return (v / 1e12).toFixed(2) + " 兆";
+  if (v >= 1e8)  return (v / 1e8).toFixed(1) + " 億";
+  return (v / 1e4).toFixed(0) + " 萬";
+}
+
+function scoreClass(total) {
+  if (total >= 6) return "score-color-6";
+  if (total >= 5) return "score-color-5";
+  return "score-color-other";
+}
+
+// ── Treemap ──
+let currentDate = DATES[0];
+const container = document.getElementById("chart");
+
+function renderTreemap(dateStr) {
+  const stocks = ALL_DATA[dateStr];
+  if (!stocks || stocks.length === 0) return;
+
+  container.innerHTML = "";
+  const W = container.clientWidth;
+  const H = container.clientHeight;
+  if (W === 0 || H === 0) return;
+
+  const svg = d3.select(container)
+    .append("svg")
+    .attr("width", W)
+    .attr("height", H);
+
+  // 用市值決定方塊大小，floor = 最大市值的 3%（避免極小方塊不可見）
+  const maxMv   = d3.max(stocks, d => d.market_value) || 1;
+  const floorMv = maxMv * 0.03;
+
+  const root = d3.hierarchy({ children: stocks })
+    .sum(d => Math.max(d.market_value || 1, floorMv))
+    .sort((a, b) => b.value - a.value);
+
+  d3.treemap()
+    .tile(d3.treemapSquarify.ratio(1.2))
+    .size([W, H])
+    .paddingInner(2)
+    .paddingOuter(3)
+    (root);
+
+  const cell = svg.selectAll("g.tile")
+    .data(root.leaves())
+    .join("g")
+    .attr("class", d => {
+      let cls = "tile";
+      if (d.data.total_score >= 5) cls += " gold-tile";
+      if (d.data.total_score >= 6) cls += " score6";
+      return cls;
+    })
+    .attr("transform", d => `translate(${d.x0},${d.y0})`)
+    .on("click", (_, d) => openModal(d.data));
+
+  // 背景矩形
+  cell.append("rect")
+    .attr("class", "bg")
+    .attr("width",  d => Math.max(0, d.x1 - d.x0))
+    .attr("height", d => Math.max(0, d.y1 - d.y0))
+    .attr("rx", 4)
+    .attr("fill", d => tileColor(d.data));
+
+  // clip-path（避免文字溢出）
+  cell.append("clipPath")
+    .attr("id", d => `cp-${d.data.id}`)
+    .append("rect")
+    .attr("width",  d => Math.max(0, d.x1 - d.x0 - 4))
+    .attr("height", d => Math.max(0, d.y1 - d.y0 - 4))
+    .attr("x", 2).attr("y", 2);
+
+  const content = cell.append("g")
+    .attr("clip-path", d => `url(#cp-${d.data.id})`);
+
+  const wOf = d => d.x1 - d.x0;
+  const hOf = d => d.y1 - d.y0;
+
+  content.each(function(d) {
+    const w = wOf(d), h = hOf(d);
+    if (w < 28 || h < 18) return;
+
+    const g = d3.select(this);
+    const fontSize = Math.min(Math.max(w * 0.22, 10), 22);
+    const cx = w / 2;
+    const cy = h * 0.38;
+
+    // 股票代號
+    g.append("text")
+      .attr("class", "t-id")
+      .attr("x", cx).attr("y", cy)
+      .attr("text-anchor", "middle")
+      .attr("dominant-baseline", "middle")
+      .style("font-size", fontSize + "px")
+      .text(d.data.id);
+
+    // 公司名稱
+    if (h > 45 && w > 50) {
+      const nameFontSize = Math.min(fontSize * 0.62, 13);
+      g.append("text")
+        .attr("class", "t-name")
+        .attr("x", cx)
+        .attr("y", cy + fontSize * 0.65 + nameFontSize)
+        .attr("text-anchor", "middle")
+        .attr("dominant-baseline", "middle")
+        .style("font-size", nameFontSize + "px")
+        .text(d.data.name);
+    }
+
+    // 新上榜標記（右上角）
+    if (d.data.is_new && w > 36 && h > 22) {
+      g.append("text")
+        .attr("class", "t-score")
+        .attr("x", w - 5).attr("y", 13)
+        .attr("text-anchor", "end")
+        .attr("dominant-baseline", "middle")
+        .style("font-size", "10px")
+        .style("fill", "#fca5a5")
+        .style("font-weight", "700")
+        .text("NEW");
+    }
+
+    // 分數（左上角，空間足夠時顯示）
+    if (w > 36 && h > 22) {
+      const scoreColor = d.data.total_score >= 6 ? "#ef4444"
+                       : d.data.total_score >= 5 ? "#92400e"
+                       : "#93c5fd";
+      g.append("text")
+        .attr("class", "t-score")
+        .attr("x", 5).attr("y", 13)
+        .attr("text-anchor", "start")
+        .attr("dominant-baseline", "middle")
+        .style("font-size", "10px")
+        .style("fill", d.data.total_score >= 5 ? "#7c3a00" : "#93c5fd")
+        .style("font-weight", "700")
+        .text(d.data.total_score + "分");
+    }
+  });
+}
+
+// ── Modal ──
+function openModal(stock) {
+  document.getElementById("m-id").textContent   = stock.id;
+  document.getElementById("m-name").textContent = stock.name || "（無名稱）";
+
+  const tsEl = document.getElementById("m-total-score");
+  tsEl.textContent = stock.total_score;
+  tsEl.className = "modal-total-score " + scoreClass(stock.total_score);
+
+  document.getElementById("m-sc5u").textContent  = (stock.sc_5d_up  >= 0 ? "+" : "") + stock.sc_5d_up;
+  document.getElementById("m-sc20u").textContent = (stock.sc_20d_up >= 0 ? "+" : "") + stock.sc_20d_up;
+  document.getElementById("m-sc5d").textContent  = (stock.sc_5d_dn  >= 0 ? "+" : "") + stock.sc_5d_dn;
+
+  document.getElementById("m-mv").textContent       = fmtMoney(stock.market_value);
+  document.getElementById("m-turnover").textContent = fmtMoney(stock.turnover);
+
+  document.getElementById("m-new-row").style.display = stock.is_new ? "block" : "none";
+  document.getElementById("overlay").classList.add("open");
+}
+
+function closeModal() {
+  document.getElementById("overlay").classList.remove("open");
+}
+
+document.getElementById("modal-close").addEventListener("click", closeModal);
+document.getElementById("overlay").addEventListener("click", e => {
+  if (e.target === e.currentTarget) closeModal();
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+
+// ── Filter ──
+let currentFilter = "all";
+
+const FILTER_MATCH = {
+  all: () => true,
+  "6": d => d.total_score >= 6,
+  "5": d => d.total_score === 5,
+  new: d => d.is_new,
+};
+
+const FILTER_ACTIVE_CLASS = {
+  all: "active-all",
+  "6": "active-6",
+  "5": "active-5",
+  new: "active-new",
+};
+
+function applyFilter(filter) {
+  currentFilter = filter;
+  const match = FILTER_MATCH[filter];
+  document.querySelectorAll(".filter-btn").forEach(btn => {
+    const f = btn.dataset.filter;
+    btn.className = "filter-btn" + (f === filter ? " " + FILTER_ACTIVE_CLASS[f] : "");
+  });
+  d3.selectAll(".tile").classed("dimmed", d => !match(d.data));
+}
+
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.addEventListener("click", () => applyFilter(btn.dataset.filter));
+});
+
+// ── Date selector ──
+const sel = document.getElementById("date-sel");
+DATES.forEach(d => {
+  const opt = document.createElement("option");
+  opt.value = d;
+  opt.textContent = d;
+  sel.appendChild(opt);
+});
+sel.value = currentDate;
+sel.addEventListener("change", () => {
+  currentDate = sel.value;
+  renderTreemap(currentDate);
+  applyFilter(currentFilter);
+});
+
+// ── 初始渲染 + resize ──
+window.addEventListener("resize", () => renderTreemap(currentDate));
+renderTreemap(currentDate);
+</script>
+</body>
+</html>
