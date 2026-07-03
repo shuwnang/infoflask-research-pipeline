@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>模型持股</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0d1117;
+      color: #e2e8f0;
+      font-family: 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei', system-ui, sans-serif;
+      min-height: 100dvh;
+    }
+
+    /* ── Header ── */
+    header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 18px;
+      background: #161b22;
+      border-bottom: 1px solid #30363d;
+      flex-wrap: wrap;
+    }
+    .brand { font-size: 16px; font-weight: 700; color: #f0f6fc; white-space: nowrap; }
+    .nav-link {
+      color: #58a6ff; text-decoration: none; font-size: 13px;
+      padding: 4px 10px; border: 1px solid #30363d; border-radius: 6px;
+      white-space: nowrap;
+    }
+    .nav-link:hover { border-color: #58a6ff; }
+    .date-badge { font-size: 12px; color: #8b949e; white-space: nowrap; }
+
+    /* ── Legend ── */
+    .legend {
+      display: flex; align-items: center; gap: 14px;
+      margin-left: auto; flex-wrap: wrap;
+      font-size: 12px; color: #8b949e;
+    }
+    .legend-item { display: flex; align-items: center; gap: 5px; white-space: nowrap; }
+    .swatch {
+      width: 13px; height: 13px; border-radius: 3px;
+      border: 2px solid transparent; flex-shrink: 0;
+    }
+    .sw-up      { background: #450a0a; border-color: #dc2626; }
+    .sw-down    { background: #052e16; border-color: #16a34a; }
+    .sw-sell    { background: #1f2937; border-color: #6b7280; }
+    .sw-buy     { background: #451a03; border-color: #d97706; }
+    .sw-neutral { background: #1e3a5f; border-color: #3b82f6; }
+
+    /* ── Stats bar ── */
+    .stats-bar {
+      display: flex; gap: 32px; padding: 10px 20px;
+      background: #161b22; border-bottom: 1px solid #30363d;
+      flex-wrap: wrap;
+    }
+    .stat-item { text-align: center; min-width: 64px; }
+    .stat-label { font-size: 11px; color: #8b949e; }
+    .stat-value { font-size: 20px; font-weight: 700; color: #f0f6fc; }
+    .stat-value.pos { color: #ef4444; }
+    .stat-value.neg { color: #22c55e; }
+
+    /* ── Blocks area ── */
+    .blocks-area { padding: 16px 14px; }
+    .section-title {
+      font-size: 12px; font-weight: 600; color: #8b949e;
+      text-transform: uppercase; letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+    .blocks-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+
+    /* ── Individual block ── */
+    .block {
+      width: 150px; height: 150px;
+      border-radius: 10px; border: 2px solid transparent;
+      padding: 10px; cursor: pointer; position: relative;
+      transition: filter 0.15s, transform 0.1s;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center; text-align: center;
+      user-select: none;
+    }
+    .block:hover { filter: brightness(1.3); transform: scale(1.03); }
+    .block.up      { background: #450a0a; border-color: #dc2626; }
+    .block.down    { background: #052e16; border-color: #16a34a; }
+    .block.neutral { background: #1e3a5f; border-color: #3b82f6; }
+    .block.sell    { background: #1f2937; border-color: #6b7280; }
+    .block.buy     { background: #451a03; border-color: #d97706; }
+
+    .b-id   { font-size: 22px; font-weight: 800; color: #f0f6fc; }
+    .b-name {
+      font-size: 11px; color: rgba(255,255,255,0.6);
+      margin-top: 2px; max-width: 138px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .b-ret  { font-size: 17px; font-weight: 700; margin-top: 6px; }
+    .ret-pos  { color: #f87171; }
+    .ret-neg  { color: #4ade80; }
+    .ret-zero { color: #94a3b8; }
+    .b-chg  { font-size: 11px; margin-top: 2px; opacity: 0.8; }
+    .chg-pos { color: #fca5a5; }
+    .chg-neg { color: #86efac; }
+
+    /* corner badge */
+    .c-badge {
+      position: absolute; top: 6px; right: 7px;
+      font-size: 9px; font-weight: 700;
+      padding: 2px 5px; border-radius: 4px;
+    }
+    .cb-sell { background: #374151; color: #9ca3af; }
+    .cb-buy  { background: #92400e; color: #fcd34d; }
+
+    /* ── Modal ── */
+    .overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.6); z-index: 200;
+      align-items: center; justify-content: center;
+    }
+    .overlay.open { display: flex; }
+    .modal {
+      background: #161b22; border: 1px solid #30363d;
+      border-radius: 12px; padding: 24px 28px;
+      min-width: 300px; max-width: 440px; width: 90vw;
+      position: relative; animation: fadeIn 0.15s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .modal-close {
+      position: absolute; top: 14px; right: 16px;
+      background: none; border: none;
+      color: #8b949e; font-size: 20px; cursor: pointer; line-height: 1;
+    }
+    .modal-close:hover { color: #f0f6fc; }
+    .m-id   { font-size: 28px; font-weight: 800; color: #f0f6fc; }
+    .m-name { font-size: 15px; color: #8b949e; margin-top: 2px; margin-bottom: 14px; }
+    .m-ret  { font-size: 52px; font-weight: 900; line-height: 1; margin-bottom: 6px; }
+    .m-ret.pos  { color: #ef4444; }
+    .m-ret.neg  { color: #22c55e; }
+    .m-ret.zero { color: #94a3b8; }
+    .info-row {
+      display: flex; justify-content: space-between;
+      padding: 8px 14px; background: #21262d;
+      border-radius: 8px; font-size: 13px;
+      color: #8b949e; margin-bottom: 8px;
+    }
+    .info-val { color: #c9d1d9; font-weight: 600; }
+    .action-badge {
+      margin-top: 10px; padding: 8px 14px;
+      border-radius: 8px; font-size: 13px;
+      font-weight: 600; text-align: center;
+    }
+    .ab-hold { background: #1e3a5f; color: #60a5fa; }
+    .ab-sell { background: #1f2937; color: #9ca3af; border: 1px solid #6b7280; }
+    .ab-buy  { background: #451a03; color: #fcd34d; border: 1px solid #d97706; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="brand">模型持股</div>
+  <a href="index.html" class="nav-link">← 選股地圖</a>
+  <div class="date-badge">持股日期：2026-07-02</div>
+  <div class="legend">
+    <div class="legend-item"><div class="swatch sw-up"></div>今日上漲</div>
+    <div class="legend-item"><div class="swatch sw-down"></div>今日下跌</div>
+    <div class="legend-item"><div class="swatch sw-neutral"></div>持平</div>
+    <div class="legend-item"><div class="swatch sw-sell"></div>明日賣出</div>
+    <div class="legend-item"><div class="swatch sw-buy"></div>明日買入</div>
+  </div>
+</header>
+
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-label">持倉支數</div>
+    <div class="stat-value" id="s-hold">—</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-label">平均報酬</div>
+    <div class="stat-value" id="s-avg">—</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-label">明日賣出</div>
+    <div class="stat-value" id="s-sell">—</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-label">明日買入</div>
+    <div class="stat-value" id="s-buy">—</div>
+  </div>
+</div>
+
+<div class="blocks-area">
+  <div class="section-title">當前持股 ＋ 明日行動</div>
+  <div class="blocks-grid" id="grid"></div>
+</div>
+
+<!-- Modal -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <button class="modal-close" id="mcls">✕</button>
+    <div class="m-id"   id="m-id"></div>
+    <div class="m-name" id="m-name"></div>
+    <div class="m-ret"  id="m-ret"></div>
+    <div class="info-row" id="r-chg" style="display:none">
+      <span>今日漲跌</span><span class="info-val" id="m-chg"></span>
+    </div>
+    <div class="info-row" id="r-date" style="display:none">
+      <span>買入日期</span><span class="info-val" id="m-date"></span>
+    </div>
+    <div class="info-row" id="r-price" style="display:none">
+      <span>買入價 ／ 現價</span><span class="info-val" id="m-price"></span>
+    </div>
+    <div class="action-badge" id="m-action"></div>
+  </div>
+</div>
+
+<script>
+const BLOCKS = [{"id": "6415", "name": "矽力*-KY", "type": "hold", "color": "up", "return_pct": 4.52, "today_chg": 6.12, "buy_date": "2026-06-02", "buy_price": 597.0, "cur_price": 624.0, "action_tomorrow": "HOLD"}, {"id": "3675", "name": "德微", "type": "hold", "color": "up", "return_pct": 11.51, "today_chg": 3.69, "buy_date": "2026-06-02", "buy_price": 365.0, "cur_price": 407.0, "action_tomorrow": "HOLD"}, {"id": "6727", "name": "亞泰金屬", "type": "hold", "color": "down", "return_pct": -25.0, "today_chg": -2.02, "buy_date": "2026-06-02", "buy_price": 550.0, "cur_price": 412.5, "action_tomorrow": "HOLD"}, {"id": "2478", "name": "大毅", "type": "hold", "color": "up", "return_pct": 58.33, "today_chg": 1.11, "buy_date": "2026-06-02", "buy_price": 144.0, "cur_price": 228.0, "action_tomorrow": "HOLD"}, {"id": "3234", "name": "光環", "type": "hold", "color": "up", "return_pct": -1.16, "today_chg": 5.37, "buy_date": "2026-06-02", "buy_price": 129.0, "cur_price": 127.5, "action_tomorrow": "HOLD"}, {"id": "6187", "name": "萬潤", "type": "hold", "color": "down", "return_pct": -2.9, "today_chg": -5.63, "buy_date": "2026-06-03", "buy_price": 1035.0, "cur_price": 1005.0, "action_tomorrow": "HOLD"}, {"id": "3581", "name": "博磊", "type": "hold", "color": "up", "return_pct": -34.76, "today_chg": 1.4, "buy_date": "2026-06-03", "buy_price": 221.5, "cur_price": 144.5, "action_tomorrow": "HOLD"}, {"id": "6683", "name": "雍智科技", "type": "hold", "color": "down", "return_pct": 0.85, "today_chg": -2.47, "buy_date": "2026-06-03", "buy_price": 1760.0, "cur_price": 1775.0, "action_tomorrow": "HOLD"}, {"id": "2303", "name": "聯電", "type": "hold", "color": "down", "return_pct": 30.83, "today_chg": -2.07, "buy_date": "2026-06-04", "buy_price": 126.5, "cur_price": 165.5, "action_tomorrow": "HOLD"}, {"id": "2375", "name": "凱美", "type": "hold", "color": "down", "return_pct": 52.28, "today_chg": -6.67, "buy_date": "2026-06-05", "buy_price": 142.5, "cur_price": 217.0, "action_tomorrow": "HOLD"}, {"id": "4919", "name": "新唐", "type": "hold", "color": "up", "return_pct": 15.26, "today_chg": 9.79, "buy_date": "2026-06-08", "buy_price": 160.5, "cur_price": 185.0, "action_tomorrow": "HOLD"}, {"id": "5475", "name": "德宏", "type": "hold", "color": "up", "return_pct": -8.12, "today_chg": 0.87, "buy_date": "2026-06-08", "buy_price": 252.5, "cur_price": 232.0, "action_tomorrow": "HOLD"}, {"id": "3532", "name": "台勝科", "type": "hold", "color": "up", "return_pct": 51.02, "today_chg": 1.75, "buy_date": "2026-06-09", "buy_price": 269.5, "cur_price": 407.0, "action_tomorrow": "HOLD"}, {"id": "8042", "name": "金山電", "type": "hold", "color": "up", "return_pct": 64.54, "today_chg": 2.23, "buy_date": "2026-06-09", "buy_price": 125.5, "cur_price": 206.5, "action_tomorrow": "HOLD"}, {"id": "6207", "name": "雷科", "type": "hold", "color": "down", "return_pct": 21.6, "today_chg": -5.59, "buy_date": "2026-06-10", "buy_price": 125.0, "cur_price": 152.0, "action_tomorrow": "HOLD"}, {"id": "8996", "name": "高力", "type": "hold", "color": "down", "return_pct": 18.41, "today_chg": -9.0, "buy_date": "2026-06-15", "buy_price": 1195.0, "cur_price": 1415.0, "action_tomorrow": "HOLD"}, {"id": "6488", "name": "環球晶", "type": "hold", "color": "up", "return_pct": 22.58, "today_chg": 9.05, "buy_date": "2026-06-16", "buy_price": 983.0, "cur_price": 1205.0, "action_tomorrow": "HOLD"}, {"id": "3008", "name": "大立光", "type": "hold", "color": "down", "return_pct": -4.13, "today_chg": -0.81, "buy_date": "2026-06-16", "buy_price": 4480.0, "cur_price": 4295.0, "action_tomorrow": "HOLD"}, {"id": "4551", "name": "智伸科", "type": "hold", "color": "up", "return_pct": 9.05, "today_chg": 2.99, "buy_date": "2026-06-18", "buy_price": 221.0, "cur_price": 241.0, "action_tomorrow": "HOLD"}, {"id": "2342", "name": "茂矽", "type": "hold", "color": "up", "return_pct": 7.69, "today_chg": 2.19, "buy_date": "2026-06-18", "buy_price": 52.0, "cur_price": 56.0, "action_tomorrow": "HOLD"}, {"id": "3362", "name": "先進光", "type": "hold", "color": "down", "return_pct": -8.98, "today_chg": -0.53, "buy_date": "2026-06-18", "buy_price": 206.0, "cur_price": 187.5, "action_tomorrow": "HOLD"}, {"id": "6182", "name": "合晶", "type": "hold", "color": "up", "return_pct": 22.73, "today_chg": 10.0, "buy_date": "2026-06-22", "buy_price": 121.0, "cur_price": 148.5, "action_tomorrow": "HOLD"}, {"id": "6166", "name": "凌華", "type": "hold", "color": "up", "return_pct": -14.56, "today_chg": 4.25, "buy_date": "2026-06-22", "buy_price": 158.0, "cur_price": 135.0, "action_tomorrow": "HOLD"}, {"id": "3624", "name": "光頡", "type": "hold", "color": "down", "return_pct": -10.5, "today_chg": -0.65, "buy_date": "2026-06-22", "buy_price": 171.5, "cur_price": 153.5, "action_tomorrow": "HOLD"}, {"id": "2344", "name": "華邦電", "type": "hold", "color": "down", "return_pct": -16.21, "today_chg": -3.42, "buy_date": "2026-06-23", "buy_price": 219.0, "cur_price": 183.5, "action_tomorrow": "HOLD"}, {"id": "3236", "name": "千如", "type": "hold", "color": "down", "return_pct": 6.21, "today_chg": -3.97, "buy_date": "2026-06-23", "buy_price": 66.0, "cur_price": 70.1, "action_tomorrow": "HOLD"}, {"id": "8096", "name": "擎亞", "type": "hold", "color": "up", "return_pct": -1.92, "today_chg": 0.33, "buy_date": "2026-06-23", "buy_price": 156.0, "cur_price": 153.0, "action_tomorrow": "HOLD"}, {"id": "6830", "name": "汎銓", "type": "hold", "color": "down", "return_pct": -17.34, "today_chg": -1.75, "buy_date": "2026-06-24", "buy_price": 542.0, "cur_price": 448.0, "action_tomorrow": "HOLD"}, {"id": "3528", "name": "安馳", "type": "hold", "color": "up", "return_pct": -3.48, "today_chg": 1.94, "buy_date": "2026-06-24", "buy_price": 103.5, "cur_price": 99.9, "action_tomorrow": "HOLD"}, {"id": "4760", "name": "勤凱", "type": "hold", "color": "down", "return_pct": -4.55, "today_chg": -2.84, "buy_date": "2026-06-24", "buy_price": 341.0, "cur_price": 325.5, "action_tomorrow": "HOLD"}, {"id": "5328", "name": "華容", "type": "hold", "color": "up", "return_pct": 58.41, "today_chg": 4.73, "buy_date": "2026-06-24", "buy_price": 51.7, "cur_price": 81.9, "action_tomorrow": "HOLD"}, {"id": "4979", "name": "華星光", "type": "hold", "color": "down", "return_pct": -13.59, "today_chg": -1.22, "buy_date": "2026-06-25", "buy_price": 515.0, "cur_price": 445.0, "action_tomorrow": "HOLD"}, {"id": "6173", "name": "信昌電", "type": "hold", "color": "down", "return_pct": 7.23, "today_chg": -6.59, "buy_date": "2026-06-26", "buy_price": 297.5, "cur_price": 319.0, "action_tomorrow": "HOLD"}, {"id": "8043", "name": "蜜望實", "type": "hold", "color": "down", "return_pct": 0.0, "today_chg": -7.51, "buy_date": "2026-06-26", "buy_price": 197.0, "cur_price": 197.0, "action_tomorrow": "HOLD"}, {"id": "3491", "name": "昇達科", "type": "hold", "color": "up", "return_pct": -3.44, "today_chg": 0.4, "buy_date": "2026-06-26", "buy_price": 1310.0, "cur_price": 1265.0, "action_tomorrow": "HOLD"}, {"id": "3105", "name": "穩懋", "type": "hold", "color": "down", "return_pct": -1.2, "today_chg": -1.56, "buy_date": "2026-06-29", "buy_price": 416.0, "cur_price": 411.0, "action_tomorrow": "HOLD"}, {"id": "6706", "name": "惠特", "type": "hold", "color": "up", "return_pct": 3.82, "today_chg": 1.01, "buy_date": "2026-06-29", "buy_price": 144.0, "cur_price": 149.5, "action_tomorrow": "HOLD"}, {"id": "3163", "name": "波若威", "type": "hold", "color": "up", "return_pct": 9.77, "today_chg": 3.33, "buy_date": "2026-06-29", "buy_price": 706.0, "cur_price": 775.0, "action_tomorrow": "HOLD"}, {"id": "5289", "name": "宜鼎", "type": "hold", "color": "up", "return_pct": 6.85, "today_chg": 8.89, "buy_date": "2026-06-29", "buy_price": 1605.0, "cur_price": 1715.0, "action_tomorrow": "HOLD"}, {"id": "2485", "name": "兆赫", "type": "hold", "color": "down", "return_pct": -0.38, "today_chg": -0.38, "buy_date": "2026-06-29", "buy_price": 52.5, "cur_price": 52.3, "action_tomorrow": "HOLD"}, {"id": "6147", "name": "頎邦", "type": "hold", "color": "down", "return_pct": -1.17, "today_chg": -3.42, "buy_date": "2026-06-29", "buy_price": 214.0, "cur_price": 211.5, "action_tomorrow": "HOLD"}, {"id": "2486", "name": "一詮", "type": "hold", "color": "up", "return_pct": 12.39, "today_chg": 9.96, "buy_date": "2026-06-29", "buy_price": 226.0, "cur_price": 254.0, "action_tomorrow": "HOLD"}, {"id": "8150", "name": "南茂", "type": "hold", "color": "up", "return_pct": 15.06, "today_chg": 1.4, "buy_date": "2026-06-30", "buy_price": 94.3, "cur_price": 108.5, "action_tomorrow": "HOLD"}, {"id": "6451", "name": "訊芯-KY", "type": "hold", "color": "down", "return_pct": -9.69, "today_chg": -0.38, "buy_date": "2026-06-30", "buy_price": 578.0, "cur_price": 522.0, "action_tomorrow": "HOLD"}, {"id": "6217", "name": "中探針", "type": "hold", "color": "up", "return_pct": 14.97, "today_chg": 0.76, "buy_date": "2026-06-30", "buy_price": 230.5, "cur_price": 265.0, "action_tomorrow": "HOLD"}, {"id": "6449", "name": "鈺邦", "type": "hold", "color": "down", "return_pct": -1.32, "today_chg": -3.58, "buy_date": "2026-06-30", "buy_price": 341.0, "cur_price": 336.5, "action_tomorrow": "HOLD"}, {"id": "2458", "name": "義隆", "type": "hold", "color": "up", "return_pct": -2.37, "today_chg": 2.2, "buy_date": "2026-07-01", "buy_price": 190.0, "cur_price": 185.5, "action_tomorrow": "HOLD"}, {"id": "3016", "name": "嘉晶", "type": "hold", "color": "up", "return_pct": -1.83, "today_chg": 9.84, "buy_date": "2026-07-01", "buy_price": 136.5, "cur_price": 134.0, "action_tomorrow": "HOLD"}, {"id": "8046", "name": "南電", "type": "hold", "color": "down", "return_pct": -4.58, "today_chg": -2.55, "buy_date": "2026-07-01", "buy_price": 1200.0, "cur_price": 1145.0, "action_tomorrow": "HOLD"}, {"id": "3081", "name": "聯亞", "type": "hold", "color": "down", "return_pct": -4.67, "today_chg": -2.02, "buy_date": "2026-07-01", "buy_price": 2035.0, "cur_price": 1940.0, "action_tomorrow": "HOLD"}, {"id": "4908", "name": "前鼎", "type": "hold", "color": "down", "return_pct": 5.5, "today_chg": -0.29, "buy_date": "2026-07-02", "buy_price": 163.5, "cur_price": 172.5, "action_tomorrow": "HOLD"}, {"id": "3363", "name": "上詮", "type": "hold", "color": "down", "return_pct": 4.75, "today_chg": -1.49, "buy_date": "2026-07-02", "buy_price": 505.0, "cur_price": 529.0, "action_tomorrow": "HOLD"}, {"id": "3147", "name": "大綜", "type": "hold", "color": "down", "return_pct": -0.42, "today_chg": -1.85, "buy_date": "2026-07-02", "buy_price": 240.0, "cur_price": 239.0, "action_tomorrow": "HOLD"}, {"id": "3374", "name": "精材", "type": "hold", "color": "up", "return_pct": 7.12, "today_chg": 3.95, "buy_date": "2026-07-02", "buy_price": 295.0, "cur_price": 316.0, "action_tomorrow": "HOLD"}, {"id": "8261", "name": "富鼎", "type": "hold", "color": "up", "return_pct": 11.99, "today_chg": 9.92, "buy_date": "2026-07-02", "buy_price": 292.0, "cur_price": 327.0, "action_tomorrow": "HOLD"}, {"id": "6672", "name": "騰輝電子-KY", "type": "hold", "color": "up", "return_pct": 3.48, "today_chg": 2.41, "buy_date": "2026-07-02", "buy_price": 287.5, "cur_price": 297.5, "action_tomorrow": "HOLD"}, {"id": "6719", "name": "力智", "type": "hold", "color": "up", "return_pct": 1.01, "today_chg": 1.01, "buy_date": "2026-07-02", "buy_price": 297.0, "cur_price": 300.0, "action_tomorrow": "HOLD"}];
+
+// ── 統計 ──
+const holds = BLOCKS.filter(b => b.type === 'hold');
+const buys  = BLOCKS.filter(b => b.type === 'buy');
+const sells = BLOCKS.filter(b => b.action_tomorrow === 'SELL');
+const avgRet = holds.length
+  ? holds.reduce((s, b) => s + b.return_pct, 0) / holds.length
+  : 0;
+
+document.getElementById('s-hold').textContent = holds.length;
+const avgEl = document.getElementById('s-avg');
+avgEl.textContent = (avgRet >= 0 ? '+' : '') + avgRet.toFixed(2) + '%';
+avgEl.className   = 'stat-value ' + (avgRet > 0 ? 'pos' : avgRet < 0 ? 'neg' : '');
+document.getElementById('s-sell').textContent = sells.length;
+document.getElementById('s-buy').textContent  = buys.length;
+
+// ── 渲染方塊 ──
+function renderBlocks() {
+  const grid = document.getElementById('grid');
+  BLOCKS.forEach(b => {
+    const el = document.createElement('div');
+    el.className = 'block ' + b.color;
+    el.onclick = () => openModal(b);
+
+    let html = `<div class="b-id">${b.id}</div>`;
+    if (b.name) html += `<div class="b-name">${b.name}</div>`;
+
+    if (b.return_pct !== null && b.return_pct !== undefined) {
+      const cls  = b.return_pct > 0 ? 'ret-pos' : b.return_pct < 0 ? 'ret-neg' : 'ret-zero';
+      const sign = b.return_pct >= 0 ? '+' : '';
+      html += `<div class="b-ret ${cls}">${sign}${b.return_pct.toFixed(2)}%</div>`;
+      if (b.today_chg !== null && b.today_chg !== undefined) {
+        const cc    = b.today_chg > 0 ? 'chg-pos' : b.today_chg < 0 ? 'chg-neg' : '';
+        const arrow = b.today_chg > 0 ? '▲' : b.today_chg < 0 ? '▼' : '─';
+        const s     = b.today_chg >= 0 ? '+' : '';
+        html += `<div class="b-chg ${cc}">${arrow} ${s}${b.today_chg.toFixed(2)}%</div>`;
+      }
+    } else {
+      html += `<div class="b-ret" style="color:#fcd34d;font-size:14px;">明日買入</div>`;
+    }
+
+    if (b.action_tomorrow === 'SELL')
+      html += `<div class="c-badge cb-sell">賣出</div>`;
+    else if (b.action_tomorrow === 'BUY')
+      html += `<div class="c-badge cb-buy">買入</div>`;
+
+    el.innerHTML = html;
+    grid.appendChild(el);
+  });
+}
+
+// ── Modal ──
+function openModal(b) {
+  document.getElementById('m-id').textContent   = b.id;
+  document.getElementById('m-name').textContent = b.name || '（無名稱）';
+
+  const retEl = document.getElementById('m-ret');
+  if (b.return_pct !== null && b.return_pct !== undefined) {
+    retEl.textContent = (b.return_pct >= 0 ? '+' : '') + b.return_pct.toFixed(2) + '%';
+    retEl.className   = 'm-ret ' + (b.return_pct > 0 ? 'pos' : b.return_pct < 0 ? 'neg' : 'zero');
+  } else {
+    retEl.textContent = '─';
+    retEl.className   = 'm-ret zero';
+  }
+
+  const showRow = (id, val, fmt) => {
+    const row = document.getElementById(id);
+    if (val !== null && val !== undefined && val !== '') {
+      row.style.display = 'flex';
+      row.querySelector('.info-val').textContent = fmt ? fmt(val) : val;
+    } else {
+      row.style.display = 'none';
+    }
+  };
+
+  showRow('r-chg',   b.today_chg,
+    v => (v >= 0 ? '+' : '') + v.toFixed(2) + '%');
+  showRow('r-date',  b.buy_date,  null);
+  showRow('r-price', b.buy_price && b.cur_price ? true : null,
+    () => b.buy_price + ' ／ ' + b.cur_price);
+
+  const aEl = document.getElementById('m-action');
+  if (b.action_tomorrow === 'SELL') {
+    aEl.textContent = '明日開盤賣出';
+    aEl.className   = 'action-badge ab-sell';
+  } else if (b.action_tomorrow === 'BUY') {
+    aEl.textContent = '明日開盤買入';
+    aEl.className   = 'action-badge ab-buy';
+  } else {
+    aEl.textContent = '繼續持有';
+    aEl.className   = 'action-badge ab-hold';
+  }
+
+  document.getElementById('overlay').classList.add('open');
+}
+
+const close = () => document.getElementById('overlay').classList.remove('open');
+document.getElementById('mcls').onclick = close;
+document.getElementById('overlay').onclick = e => { if (e.target === e.currentTarget) close(); };
+document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+
+renderBlocks();
+</script>
+</body>
+</html>
