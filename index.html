@@ -71,10 +71,10 @@
       cursor: pointer; transition: all 0.15s; white-space: nowrap;
     }
     .filter-btn:hover { border-color: #58a6ff; color: #c9d1d9; }
-    .filter-btn.act-all  { background: #1f6feb; border-color: #388bfd; color: #fff; }
-    .filter-btn.act-gold { background: #78350f; border-color: #ffd700; color: #ffd700; }
-    .filter-btn.act-blue { background: #1e3a5f; border-color: #3b82f6; color: #60a5fa; }
-    .filter-btn.act-new  { background: #7f1d1d; border-color: #fca5a5; color: #fca5a5; }
+    .filter-btn.act-all   { background: #1f6feb; border-color: #388bfd; color: #fff; }
+    .filter-btn.act-gold  { background: #78350f; border-color: #ffd700; color: #ffd700; }
+    .filter-btn.act-red   { background: #3f0a0a; border-color: #f87171; color: #f87171; }
+    .filter-btn.act-green { background: #052d1a; border-color: #4ade80; color: #4ade80; }
 
     /* stats pill */
     .stats-pill {
@@ -127,10 +127,12 @@
     tbody tr.hidden-row { display: none; }
 
     /* Row color by score */
-    tbody tr.row-gold { background: #2a1f00; }
-    tbody tr.row-gold:hover { background: #3a2c00; }
-    tbody tr.row-blue { background: #0d1a2d; }
-    tbody tr.row-blue:hover { background: #132038; }
+    tbody tr.row-gold  { background: #2a1f00; }
+    tbody tr.row-gold:hover  { background: #3a2c00; }
+    tbody tr.row-red   { background: #2a0000; }
+    tbody tr.row-red:hover   { background: #3a0505; }
+    tbody tr.row-green { background: #0a1f0f; }
+    tbody tr.row-green:hover { background: #0d2914; }
 
     td {
       padding: 9px 14px;
@@ -157,14 +159,16 @@
       font-weight: 700; font-size: 13px; min-width: 64px;
       justify-content: center;
     }
-    .score-gold { background: #78350f; color: #ffd700; border: 1px solid rgba(255,215,0,0.4); }
-    .score-blue { background: #1e3a5f; color: #60a5fa; border: 1px solid rgba(59,130,246,0.4); }
-    .score-low  { background: #1c2128; color: #475569; border: 1px solid #30363d; }
+    .score-gold  { background: #78350f; color: #ffd700; border: 1px solid rgba(255,215,0,0.4); }
+    .score-red   { background: #3f0a0a; color: #f87171; border: 1px solid rgba(248,113,113,0.4); }
+    .score-green { background: #052d1a; color: #4ade80; border: 1px solid rgba(74,222,128,0.4); }
+    .score-low   { background: #1c2128; color: #475569; border: 1px solid #30363d; }
 
     /* stars */
     .stars { font-size: 11px; letter-spacing: 0px; }
-    .stars-gold { color: #92400e; }
-    .stars-blue { color: #ffd700; }
+    .stars-gold  { color: #92400e; }
+    .stars-red   { color: #fca5a5; }
+    .stars-green { color: #86efac; }
 
     /* prev rank */
     .td-prev-rank { color: #6b7280; min-width: 80px; }
@@ -174,16 +178,6 @@
     .chg-up   { color: #ef4444; }   /* 排名上升 → 紅（台股習慣：漲紅） */
     .chg-dn   { color: #22c55e; }   /* 排名下降 → 綠 */
     .chg-same { color: #475569; }
-    .chg-new  { color: #fca5a5; font-size: 11px; font-weight: 700; }
-
-    /* NEW badge */
-    .new-pill {
-      display: inline-block;
-      background: #7f1d1d; color: #fca5a5;
-      border: 1px solid #fca5a5;
-      border-radius: 4px; padding: 1px 5px;
-      font-size: 10px; font-weight: 700; margin-left: 6px;
-    }
 
     /* empty state */
     .empty-msg {
@@ -209,8 +203,8 @@
   <div class="filter-group">
     <button class="filter-btn act-all"  data-filter="all">全部</button>
     <button class="filter-btn"          data-filter="gold">金色（>3分）</button>
-    <button class="filter-btn"          data-filter="blue">藍色（1–3分）</button>
-    <button class="filter-btn"          data-filter="new">NEW</button>
+    <button class="filter-btn"          data-filter="red">紅色（0–3分）</button>
+    <button class="filter-btn"          data-filter="green">綠色（&lt;0分）</button>
   </div>
 
   <div class="stats-pill" id="stats-pill">
@@ -219,8 +213,12 @@
       <span id="cnt-gold">—</span> 金色
     </div>
     <div class="stat-chip">
-      <div class="chip-dot" style="background:#3b82f6;"></div>
-      <span id="cnt-blue">—</span> 藍色
+      <div class="chip-dot" style="background:#f87171;"></div>
+      <span id="cnt-red">—</span> 紅色
+    </div>
+    <div class="stat-chip">
+      <div class="chip-dot" style="background:#4ade80;"></div>
+      <span id="cnt-green">—</span> 綠色
     </div>
     <div class="stat-chip">
       <span id="cnt-total">—</span> 支
@@ -251,19 +249,22 @@ const DATES    = ["2026-07-03", "2026-07-02", "2026-07-01", "2026-06-30", "2026-
 
 // ── utils ──────────────────────────────────────────────────────────────────
 function starStr(score) {
+  if (score <= 0) return '';
   const n = Math.round(Math.min(5, Math.max(1, score)));
   return '★'.repeat(n) + '☆'.repeat(5 - n);
 }
 
 function scoreClass(score) {
   if (score > 3.0)  return 'score-gold';
-  if (score >= 1.0) return 'score-blue';
+  if (score > 0.0)  return 'score-red';
+  if (score < 0.0)  return 'score-green';
   return 'score-low';
 }
 
 function rowClass(score) {
   if (score > 3.0)  return 'row-gold';
-  if (score >= 1.0) return 'row-blue';
+  if (score > 0.0)  return 'row-red';
+  if (score < 0.0)  return 'row-green';
   return '';
 }
 
@@ -273,8 +274,7 @@ function rankClass(rank) {
   return '';
 }
 
-function changeHtml(chg, isNew) {
-  if (isNew) return '<span class="chg-new">NEW</span>';
+function changeHtml(chg) {
   if (chg === null || chg === undefined) return '<span class="chg-same">—</span>';
   if (chg > 0)  return `<span class="chg-up">▲ ${chg}</span>`;
   if (chg < 0)  return `<span class="chg-dn">▼ ${Math.abs(chg)}</span>`;
@@ -302,32 +302,31 @@ function renderTable(dateStr) {
   });
 
   // counters
-  let cntGold = 0, cntBlue = 0;
+  let cntGold = 0, cntRed = 0, cntGreen = 0;
   sorted.forEach(r => {
-    if (r.today_score > 3.0) cntGold++;
-    else if (r.today_score >= 1.0) cntBlue++;
+    if (r.today_score > 3.0)      cntGold++;
+    else if (r.today_score > 0.0) cntRed++;
+    else if (r.today_score < 0.0) cntGreen++;
   });
   document.getElementById('cnt-gold').textContent  = cntGold;
-  document.getElementById('cnt-blue').textContent  = cntBlue;
+  document.getElementById('cnt-red').textContent   = cntRed;
+  document.getElementById('cnt-green').textContent = cntGreen;
   document.getElementById('cnt-total').textContent = sorted.length;
-
-  const isNew = r => r.prev_rank === null || r.prev_rank === undefined;
 
   sorted.forEach(r => {
     const tr = document.createElement('tr');
     tr.className = rowClass(r.today_score);
 
-    const passes = filterPasses(r, isNew(r));
+    const passes = filterPasses(r);
     if (!passes) tr.classList.add('hidden-row');
 
-    const sc    = scoreClass(r.today_score);
-    const stars = starStr(r.today_score);
-    const starCls = r.today_score > 3.0 ? 'stars-gold' : 'stars-blue';
-    const newPill = isNew(r) ? '<span class="new-pill">NEW</span>' : '';
+    const sc      = scoreClass(r.today_score);
+    const stars   = starStr(r.today_score);
+    const starCls = r.today_score > 3.0 ? 'stars-gold' : r.today_score > 0 ? 'stars-red' : 'stars-green';
 
     tr.innerHTML = `
       <td class="td-rank ${rankClass(r.today_rank)}">${r.today_rank}</td>
-      <td class="td-id">${r.id}${newPill}</td>
+      <td class="td-id">${r.id}</td>
       <td class="td-name">${r.name || '—'}</td>
       <td>
         <span class="score-badge ${sc}">
@@ -336,7 +335,7 @@ function renderTable(dateStr) {
         </span>
       </td>
       <td class="td-prev-rank">${r.prev_rank !== null && r.prev_rank !== undefined ? r.prev_rank : '—'}</td>
-      <td class="td-change">${changeHtml(r.rank_change, isNew(r))}</td>
+      <td class="td-change">${changeHtml(r.rank_change)}</td>
     `;
 
     tbody.appendChild(tr);
@@ -345,27 +344,24 @@ function renderTable(dateStr) {
   updateEmptyMsg();
 }
 
-function filterPasses(r, isNew) {
+function filterPasses(r) {
   const q = currentSearch.trim().toLowerCase();
   if (q && !r.id.includes(q) && !(r.name || '').toLowerCase().includes(q)) return false;
-  if (currentFilter === 'gold' && r.today_score <= 3.0) return false;
-  if (currentFilter === 'blue' && (r.today_score <= 1.0 || r.today_score > 3.0)) return false;
-  if (currentFilter === 'new'  && !isNew) return false;
+  if (currentFilter === 'gold'  && r.today_score <= 3.0)  return false;
+  if (currentFilter === 'red'   && (r.today_score <= 0.0 || r.today_score > 3.0)) return false;
+  if (currentFilter === 'green' && r.today_score >= 0.0)  return false;
   return true;
 }
 
 function applyFilters() {
-  const isNew = r => r.prev_rank === null || r.prev_rank === undefined;
   document.querySelectorAll('#tbody tr').forEach(tr => {
     const cells = tr.querySelectorAll('td');
     if (cells.length < 4) return;
-    const sid   = cells[1].textContent.replace('NEW','').trim();
+    const sid   = cells[1].textContent.trim();
     const name  = cells[2].textContent;
     const score = parseFloat(cells[3].textContent);
-    const prev  = cells[4].textContent.trim();
-    const isNewRow = prev === '—';
-    const fakeRow = { id: sid, name, today_score: score, prev_rank: isNewRow ? null : 1 };
-    if (filterPasses(fakeRow, isNewRow)) {
+    const fakeRow = { id: sid, name, today_score: score };
+    if (filterPasses(fakeRow)) {
       tr.classList.remove('hidden-row');
     } else {
       tr.classList.add('hidden-row');
@@ -416,10 +412,10 @@ sel.addEventListener('change', () => {
 
 // ── filter buttons ─────────────────────────────────────────────────────────
 const ACT_CLASS = {
-  all:  'act-all',
-  gold: 'act-gold',
-  blue: 'act-blue',
-  new:  'act-new',
+  all:   'act-all',
+  gold:  'act-gold',
+  red:   'act-red',
+  green: 'act-green',
 };
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
