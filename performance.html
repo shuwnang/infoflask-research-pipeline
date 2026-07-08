@@ -6,24 +6,54 @@
 <title>投資績效 | 2026-07-07</title>
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:#0d1117; color:#e6edf3;
-         font-family:"Noto Sans TC","PingFang TC",system-ui,sans-serif; min-height:100vh; }
-  .wrap { max-width:1100px; margin:0 auto; padding:20px 16px 40px; }
-  header { display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:18px; }
-  h1 { font-size:1.25rem; font-weight:700; }
-  .date { color:#8b949e; font-size:.9rem; }
-  .nav-link { color:#58a6ff; text-decoration:none; font-size:.85rem;
-              border:1px solid #30363d; border-radius:6px; padding:4px 10px; }
-  .nav-link:hover { border-color:#58a6ff; }
-  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-           gap:12px; margin-bottom:20px; }
-  .card { background:#161b22; border:1px solid #30363d; border-radius:10px; padding:16px 18px; }
-  .card .label { color:#8b949e; font-size:.82rem; margin-bottom:6px; }
-  .card .value { font-size:1.55rem; font-weight:700; font-variant-numeric:tabular-nums; }
-  .card .sub { color:#8b949e; font-size:.78rem; margin-top:4px; }
-  .chart { background:#161b22; border:1px solid #30363d; border-radius:10px; padding:18px; }
-  .chart h2 { font-size:.95rem; color:#8b949e; font-weight:600; margin-bottom:10px; }
-  footer { color:#484f58; font-size:.75rem; margin-top:16px; }
+  body {
+    background:
+      radial-gradient(1200px 600px at 100% -10%, rgba(56,139,253,0.07), transparent 60%),
+      #0d1117;
+    color:#e6edf3;
+    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+    -webkit-font-smoothing:antialiased;
+    font-variant-numeric:tabular-nums;
+    min-height:100vh;
+  }
+  .wrap { max-width:1120px; margin:0 auto; padding:22px 18px 48px; }
+  header {
+    display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+    padding:14px 18px; margin-bottom:22px;
+    background:rgba(22,27,34,0.70); backdrop-filter:blur(8px);
+    border:1px solid #262c36; border-radius:14px;
+    box-shadow:0 8px 24px -12px rgba(0,0,0,0.6);
+  }
+  h1 { font-size:1.2rem; font-weight:700; letter-spacing:0.01em; }
+  .date { color:#8b949e; font-size:.85rem; }
+  .nav-link {
+    color:#79b8ff; text-decoration:none; font-size:.82rem; font-weight:500;
+    border:1px solid #262c36; border-radius:8px; padding:5px 12px; transition:all .15s ease;
+  }
+  .nav-link:hover { border-color:#388bfd; background:rgba(56,139,253,0.12); color:#a6d0ff; }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(232px,1fr)); gap:14px; margin-bottom:22px; }
+  .card {
+    position:relative; overflow:hidden;
+    background:linear-gradient(180deg, #171d26, #12161d);
+    border:1px solid #262c36; border-radius:14px; padding:18px 20px;
+    box-shadow:0 8px 24px -14px rgba(0,0,0,0.7);
+  }
+  .card::before { content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:#30363d; }
+  .card.hero::before { background:linear-gradient(#58a6ff,#1f6feb); }
+  .card.up::before   { background:linear-gradient(#ff6b74,#e5484d); }
+  .card.down::before { background:linear-gradient(#3fb950,#2ea043); }
+  .card .label { color:#8b949e; font-size:.8rem; margin-bottom:8px; letter-spacing:.02em; }
+  .card .value { font-size:1.7rem; font-weight:800; letter-spacing:-0.01em; line-height:1.1; }
+  .card.hero .value { font-size:2rem; }
+  .card .sub { color:#6b7684; font-size:.76rem; margin-top:6px; }
+  .chart {
+    background:linear-gradient(180deg, #161b22, #12161d);
+    border:1px solid #262c36; border-radius:14px; padding:20px;
+    box-shadow:0 8px 24px -14px rgba(0,0,0,0.7);
+  }
+  .chart h2 { font-size:.9rem; color:#8b949e; font-weight:600; margin-bottom:14px; letter-spacing:.02em; }
+  footer { color:#484f58; font-size:.74rem; margin-top:18px; text-align:center; }
+  ::selection { background:rgba(56,139,253,0.30); }
 </style>
 </head>
 <body>
@@ -38,21 +68,21 @@
   </header>
 
   <div class="cards">
-    <div class="card">
+    <div class="card hero">
       <div class="label">目前淨值</div>
       <div class="value">19,309,743</div>
       <div class="sub">持倉 30 支</div>
     </div>
-    <div class="card">
+    <div class="card up">
       <div class="label">累積報酬率</div>
-      <div class="value" style="color:#f85149">+93.10%</div>
+      <div class="value" style="color:#ff6b74">+93.10%</div>
       <div class="sub">累積損益 +9,309,743</div>
     </div>
-    <div class="card">
+    <div class="card down">
       <div class="label">今日損益</div>
       <div class="value" style="color:#3fb950">-645,800</div>
     </div>
-    <div class="card">
+    <div class="card down">
       <div class="label">今日報酬率</div>
       <div class="value" style="color:#3fb950">-3.24%</div>
       <div class="sub">最大回撤 -11.01%</div>

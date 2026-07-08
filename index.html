@@ -8,9 +8,13 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: #0d1117;
-      color: #e2e8f0;
-      font-family: 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei', system-ui, sans-serif;
+      background:
+        radial-gradient(1200px 600px at 100% -10%, rgba(56,139,253,0.06), transparent 60%),
+        #0d1117;
+      color: #e6edf3;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', 'Microsoft JhengHei', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      font-variant-numeric: tabular-nums;
       height: 100dvh;
       display: flex;
       flex-direction: column;
@@ -23,18 +27,21 @@
       display: flex;
       align-items: center;
       gap: 14px;
-      padding: 10px 18px;
-      background: #161b22;
-      border-bottom: 1px solid #30363d;
+      padding: 12px 20px;
+      background: rgba(22,27,34,0.85);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid #262c36;
+      box-shadow: 0 4px 16px -8px rgba(0,0,0,0.6);
       flex-wrap: wrap;
+      z-index: 20;
     }
     .brand { font-size: 16px; font-weight: 700; color: #f0f6fc; white-space: nowrap; }
     .nav-link {
-      color: #58a6ff; text-decoration: none; font-size: 13px;
-      padding: 4px 10px; border: 1px solid #30363d; border-radius: 6px;
-      white-space: nowrap; transition: border-color 0.15s;
+      color: #79b8ff; text-decoration: none; font-size: 13px; font-weight: 500;
+      padding: 5px 12px; border: 1px solid #262c36; border-radius: 8px;
+      white-space: nowrap; transition: all 0.15s ease;
     }
-    .nav-link:hover { border-color: #58a6ff; }
+    .nav-link:hover { border-color: #388bfd; background: rgba(56,139,253,0.12); color: #a6d0ff; }
     .nav-link.gold-link {
       color: #ffd700; border-color: #ffd700; font-weight: 600;
     }
@@ -186,6 +193,18 @@
     .empty-msg {
       text-align: center; padding: 40px; color: #484f58; font-size: 14px;
     }
+
+    /* ── 設計優化 polish（2026-07-08）── */
+    thead th { border-bottom-color: #262c36; box-shadow: 0 6px 10px -8px rgba(0,0,0,0.75); letter-spacing: 0.06em; }
+    tbody tr { transition: background 0.12s ease; }
+    td { padding-top: 10px; padding-bottom: 10px; }
+    ::selection { background: rgba(56,139,253,0.30); }
+    .filter-btn { transition: all 0.15s ease; letter-spacing: 0.02em; }
+    .filter-btn:hover { transform: translateY(-1px); }
+    .search-box:focus, select:focus { box-shadow: 0 0 0 3px rgba(56,139,253,0.15); }
+    .brand { letter-spacing: 0.01em; }
+    #table-wrap::-webkit-scrollbar-thumb { background: #2a323d; }
+    #table-wrap::-webkit-scrollbar-thumb:hover { background: #3a4453; }
   </style>
 </head>
 <body>
