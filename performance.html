@@ -32,6 +32,9 @@
     border:1px solid #262c36; border-radius:8px; padding:5px 12px; transition:all .15s ease; white-space:nowrap;
   }
   .nav-link:hover { border-color:#388bfd; background:rgba(56,139,253,0.12); color:#a6d0ff; }
+    .site-nav { display: flex; gap: 8px; align-items: center; }
+    .nav-link.active { border-color: #ffd700; color: #ffd700; background: rgba(255,215,0,0.08); pointer-events: none; }
+
 
   .wrap { max-width:1180px; margin:0 auto; padding:20px 18px 44px; }
 
@@ -55,12 +58,15 @@
 </head>
 <body>
   <header>
-    <span class="brand">📈 投資績效</span>
-    <span class="date-badge">2026-07-09｜2026-01-02 起・初始 100 萬</span>
+    <span class="brand">投資績效</span>
+    <nav class="site-nav">
+      <a href="index.html" class="nav-link">評分表</a>
+      <a href="holdings.html" class="nav-link">模型持股</a>
+      <a href="realized.html" class="nav-link">已實現損益</a>
+      <a href="performance.html" class="nav-link active">績效表</a>
+    </nav>
     <span class="spacer"></span>
-    <a href="index.html"    class="nav-link">評分表</a>
-    <a href="holdings.html" class="nav-link">模型持股</a>
-    <a href="realized.html" class="nav-link">已實現損益</a>
+    <span class="date-badge">2026-07-09｜2026-01-02 起・初始 100 萬</span>
   </header>
 
   <div class="wrap">

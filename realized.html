@@ -41,6 +41,9 @@
       white-space: nowrap; transition: all 0.15s ease;
     }
     .nav-link:hover { border-color: #388bfd; background: rgba(56,139,253,0.12); color: #a6d0ff; }
+    .site-nav { display: flex; gap: 8px; align-items: center; }
+    .nav-link.active { border-color: #ffd700; color: #ffd700; background: rgba(255,215,0,0.08); pointer-events: none; }
+
     .date-badge { font-size: 12px; color: #8b949e; white-space: nowrap; }
 
     /* filter buttons */
@@ -153,9 +156,12 @@
 
 <header>
   <div class="brand">已實現損益</div>
-  <a href="index.html"    class="nav-link">← 評分表</a>
-  <a href="holdings.html" class="nav-link">模型持股</a>
-  <a href="performance.html" class="nav-link">投資績效</a>
+  <nav class="site-nav">
+    <a href="index.html" class="nav-link">評分表</a>
+    <a href="holdings.html" class="nav-link">模型持股</a>
+    <a href="realized.html" class="nav-link active">已實現損益</a>
+    <a href="performance.html" class="nav-link">績效表</a>
+  </nav>
   <div class="date-badge">更新日期：2026-07-09</div>
 
   <div class="filter-group">
