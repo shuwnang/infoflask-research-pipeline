@@ -155,8 +155,8 @@
       <div class="legend">
         <div class="lg"><div class="lg-line" style="background:#ffd700;"></div>每日排名（左軸，越上越好）</div>
         <div class="lg"><div class="lg-line" style="background:#58a6ff;"></div>總分（右軸）</div>
-        <div class="lg"><div class="lg-line" style="background:transparent;border-top:2px dashed #f59e0b;"></div>買進門檻 2.5</div>
-        <div class="lg"><div class="lg-line" style="background:transparent;border-top:2px dashed #4ade80;"></div>賣出門檻 0</div>
+        <div class="lg"><div class="lg-line" style="background:transparent;border-top:2px dashed #f59e0b;"></div>買進門檻 4.0</div>
+        <div class="lg"><div class="lg-line" style="background:transparent;border-top:2px dashed #4ade80;"></div>賣出門檻 2.0</div>
       </div>
       <div id="canvas-wrap">
         <canvas id="chart"></canvas>
@@ -330,7 +330,7 @@ function draw() {
   }
 
   // 門檻參考線（分數軸）
-  [[2.5, '#f59e0b'], [0, '#4ade80']].forEach(([v, col]) => {
+  [[4.0, '#f59e0b'], [2.0, '#4ade80']].forEach(([v, col]) => {
     if (v < sMin || v > sMax) return;
     ctx.strokeStyle = col + '66'; ctx.lineWidth = 1;
     ctx.setLineDash([5, 4]);
