@@ -153,7 +153,9 @@
     </div>
     <div id="chart-card">
       <div class="legend">
-        <div class="lg"><div class="lg-line" style="background:#ffd700;height:8px;"></div>總分（左軸，長條；0 為基準線，負分綠色）</div>
+        <div class="lg"><div class="lg-line" style="background:#ffd700;height:8px;"></div>總分 ≥3（金）</div>
+        <div class="lg"><div class="lg-line" style="background:#f87171;height:8px;"></div>0~3（紅）</div>
+        <div class="lg"><div class="lg-line" style="background:#4ade80;height:8px;"></div>負分（綠）</div>
         <div class="lg"><div class="lg-line" style="background:#58a6ff;"></div>股價（右軸）</div>
         <div class="lg"><div class="lg-line" style="background:transparent;border-top:2px dashed #f59e0b;"></div>買進門檻 4.0</div>
         <div class="lg"><div class="lg-line" style="background:transparent;border-top:2px dashed #4ade80;"></div>賣出門檻 2.0</div>
@@ -376,7 +378,9 @@ function draw() {
   for (let i = 0; i < n; i++) {
     if (st.s[i] === null) continue;
     const yv = yS(st.s[i]);
-    ctx.fillStyle = st.s[i] >= 0 ? 'rgba(255,215,0,0.72)' : 'rgba(74,222,128,0.72)';
+    ctx.fillStyle = st.s[i] >= 3 ? 'rgba(255,215,0,0.78)'
+                  : st.s[i] >= 0 ? 'rgba(248,113,113,0.72)'
+                  : 'rgba(74,222,128,0.72)';
     if (Math.abs(yv - y0) < 1) {
       ctx.fillRect(x(i) - bw / 2, y0 - 0.5, bw, 1);
     } else {
