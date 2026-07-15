@@ -153,7 +153,7 @@
     </div>
     <div id="chart-card">
       <div class="legend">
-        <div class="lg"><div class="lg-line" style="background:#ffd700;"></div>總分（左軸）</div>
+        <div class="lg"><div class="lg-line" style="background:#ffd700;height:8px;"></div>總分（左軸，長條；0 為基準線，負分綠色）</div>
         <div class="lg"><div class="lg-line" style="background:#58a6ff;"></div>股價（右軸）</div>
         <div class="lg"><div class="lg-line" style="background:transparent;border-top:2px dashed #f59e0b;"></div>買進門檻 4.0</div>
         <div class="lg"><div class="lg-line" style="background:transparent;border-top:2px dashed #4ade80;"></div>賣出門檻 2.0</div>
@@ -320,7 +320,8 @@ function draw() {
   ctx.textBaseline = 'middle';
   for (let v = sMin; v <= sMax; v++) {
     const y = yS(v);
-    ctx.strokeStyle = 'rgba(48,54,61,0.5)'; ctx.lineWidth = 1;
+    ctx.strokeStyle = v === 0 ? 'rgba(139,148,158,0.9)' : 'rgba(48,54,61,0.5)';
+    ctx.lineWidth = v === 0 ? 1.5 : 1;
     ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(W - padR, y); ctx.stroke();
     ctx.fillStyle = '#d4a017'; ctx.textAlign = 'right';
     ctx.fillText(v, padL - 6, y);
@@ -369,18 +370,20 @@ function draw() {
       }
     }
   }
-  drawLine(st.c || [], yP, '#58a6ff', 1.6);
-  drawLine(st.s, yS, '#ffd700', 2.2);
-
-  // 最新點（分數線）
-  for (let i = n - 1; i >= 0; i--) {
-    if (st.s[i] !== null) {
-      ctx.fillStyle = '#ffd700';
-      ctx.beginPath(); ctx.arc(x(i), yS(st.s[i]), 4, 0, Math.PI * 2); ctx.fill();
-      ctx.strokeStyle = '#0d1117'; ctx.lineWidth = 1.5; ctx.stroke();
-      break;
+  // 分數長條（基準線 0：正分金、負分綠）
+  const y0 = yS(0);
+  const bw = Math.max(2, Math.min(10, (n > 1 ? cw / (n - 1) : cw) * 0.65));
+  for (let i = 0; i < n; i++) {
+    if (st.s[i] === null) continue;
+    const yv = yS(st.s[i]);
+    ctx.fillStyle = st.s[i] >= 0 ? 'rgba(255,215,0,0.72)' : 'rgba(74,222,128,0.72)';
+    if (Math.abs(yv - y0) < 1) {
+      ctx.fillRect(x(i) - bw / 2, y0 - 0.5, bw, 1);
+    } else {
+      ctx.fillRect(x(i) - bw / 2, Math.min(yv, y0), bw, Math.abs(yv - y0));
     }
   }
+  drawLine(st.c || [], yP, '#58a6ff', 1.6);
 
   geom = { padL, padR, padT, padB, cw, ch, n, x, yS, yP };
 }
