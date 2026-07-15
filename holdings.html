@@ -126,6 +126,36 @@
     .td-id { font-weight: 700; min-width: 72px; }
     .yq-link { color: #f0f6fc; text-decoration: none; border-bottom: 1px dotted #58a6ff; }
     .yq-link:hover { color: #58a6ff; }
+    #trend-modal {
+      position: fixed; inset: 0; z-index: 100;
+      background: rgba(1,4,9,0.72); backdrop-filter: blur(3px);
+      display: none; align-items: center; justify-content: center;
+      padding: 24px;
+    }
+    #trend-modal.open { display: flex; }
+    .modal-box {
+      width: min(1100px, 100%); height: min(680px, 100%);
+      background: #0d1117; border: 1px solid #30363d; border-radius: 14px;
+      box-shadow: 0 24px 64px -12px rgba(0,0,0,0.9);
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    .modal-bar {
+      flex-shrink: 0; display: flex; align-items: center; gap: 10px;
+      padding: 10px 16px; background: #161b22; border-bottom: 1px solid #262c36;
+    }
+    .modal-title { font-size: 14px; font-weight: 700; color: #f0f6fc; }
+    .modal-title .sid { color: #ffd700; }
+    .modal-open-page {
+      margin-left: auto; color: #79b8ff; text-decoration: none; font-size: 12px;
+      padding: 4px 10px; border: 1px solid #262c36; border-radius: 6px;
+    }
+    .modal-open-page:hover { border-color: #388bfd; background: rgba(56,139,253,0.12); }
+    .modal-close {
+      background: #21262d; color: #8b949e; border: 1px solid #30363d; border-radius: 6px;
+      width: 28px; height: 28px; font-size: 15px; cursor: pointer; line-height: 1;
+    }
+    .modal-close:hover { color: #f0f6fc; border-color: #58a6ff; }
+    .modal-box iframe { flex: 1; border: none; width: 100%; background: #0d1117; }
     .gold-dot {
       display: inline-block; width: 7px; height: 7px;
       background: #ffd700; border-radius: 50%;
@@ -252,6 +282,17 @@
   <div class="empty-msg" id="empty-msg" style="display:none">沒有符合條件的股票</div>
 </div>
 
+<div id="trend-modal">
+  <div class="modal-box">
+    <div class="modal-bar">
+      <div class="modal-title" id="modal-title"><span class="sid"></span> 排名趨勢</div>
+      <a class="modal-open-page" id="modal-open-page" href="trend.html" target="_blank">開新分頁 ↗</a>
+      <button class="modal-close" id="modal-close" title="關閉">✕</button>
+    </div>
+    <iframe id="trend-frame" src="about:blank" loading="lazy"></iframe>
+  </div>
+</div>
+
 <script>
 const BLOCKS = [{"id": "5475", "mk": "TWO", "name": "德宏", "type": "hold", "color": "sell", "in_top20": true, "score": 3.05, "return_pct": -20.67, "today_chg": -0.56, "buy_date": "2026-06-30", "buy_price": 225.0, "cur_price": 178.5, "action_tomorrow": "SELL"}, {"id": "6830", "mk": "TW", "name": "汎銓", "type": "hold", "color": "down", "in_top20": true, "score": 4.4, "return_pct": -16.15, "today_chg": -3.93, "buy_date": "2026-07-02", "buy_price": 452.0, "cur_price": 379.0, "action_tomorrow": "HOLD"}, {"id": "8996", "mk": "TW", "name": "高力", "type": "hold", "color": "down", "in_top20": true, "score": 4.1, "return_pct": -16.37, "today_chg": -5.24, "buy_date": "2026-07-03", "buy_price": 1405.0, "cur_price": 1175.0, "action_tomorrow": "HOLD"}, {"id": "5274", "mk": "TWO", "name": "信驊", "type": "hold", "color": "sell", "in_top20": false, "score": 2.85, "return_pct": -7.08, "today_chg": -3.96, "buy_date": "2026-07-09", "buy_price": 13975.0, "cur_price": 12985.0, "action_tomorrow": "SELL"}, {"id": "4971", "mk": "TWO", "name": "IET-KY", "type": "hold", "color": "down", "in_top20": true, "score": 4.85, "return_pct": -6.57, "today_chg": -7.01, "buy_date": "2026-07-13", "buy_price": 426.0, "cur_price": 398.0, "action_tomorrow": "HOLD"}, {"id": "8043", "mk": "TWO", "name": "蜜望實", "type": "hold", "color": "down", "in_top20": true, "score": 4.75, "return_pct": -12.03, "today_chg": -6.97, "buy_date": "2026-07-13", "buy_price": 174.5, "cur_price": 153.5, "action_tomorrow": "HOLD"}, {"id": "2368", "mk": "TW", "name": "金像電", "type": "hold", "color": "sell", "in_top20": true, "score": 3.4, "return_pct": -6.45, "today_chg": -2.87, "buy_date": "2026-07-13", "buy_price": 1085.0, "cur_price": 1015.0, "action_tomorrow": "SELL"}, {"id": "2327", "mk": "TW", "name": "國巨*", "type": "hold", "color": "down", "in_top20": true, "score": 3.65, "return_pct": -2.51, "today_chg": -4.66, "buy_date": "2026-07-14", "buy_price": 798.0, "cur_price": 778.0, "action_tomorrow": "HOLD"}, {"id": "6442", "mk": "TW", "name": "光聖", "type": "hold", "color": "down", "in_top20": true, "score": 4.6, "return_pct": -4.71, "today_chg": -4.36, "buy_date": "2026-07-14", "buy_price": 1380.0, "cur_price": 1315.0, "action_tomorrow": "HOLD"}, {"id": "6127", "mk": "TWO", "name": "九豪", "type": "hold", "color": "down", "in_top20": true, "score": 3.7, "return_pct": -4.14, "today_chg": -4.28, "buy_date": "2026-07-14", "buy_price": 70.0, "cur_price": 67.1, "action_tomorrow": "HOLD"}, {"id": "4991", "mk": "TWO", "name": "環宇-KY", "type": "buy", "color": "buy", "return_pct": null, "today_chg": null, "buy_date": null, "buy_price": null, "cur_price": null, "action_tomorrow": "BUY", "score": 4.6}, {"id": "6147", "mk": "TWO", "name": "頎邦", "type": "buy", "color": "buy", "return_pct": null, "today_chg": null, "buy_date": null, "buy_price": null, "cur_price": null, "action_tomorrow": "BUY", "score": 5.0}, {"id": "4760", "mk": "TWO", "name": "勤凱", "type": "buy", "color": "buy", "return_pct": null, "today_chg": null, "buy_date": null, "buy_price": null, "cur_price": null, "action_tomorrow": "BUY", "score": 4.6}];
 
@@ -346,7 +387,7 @@ function renderTable() {
     }
 
     tr.innerHTML = `
-      <td class="td-id"><a class="yq-link" href="https://tw.stock.yahoo.com/quote/${b.id}.${b.mk || 'TW'}" target="_blank" rel="noopener" title="Yahoo 看盤">${b.id}</a>${goldDot}</td>
+      <td class="td-id"><a class="yq-link" href="https://tw.stock.yahoo.com/quote/${b.id}.${b.mk || 'TW'}" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Yahoo 看盤">${b.id}</a>${goldDot}</td>
       <td class="td-name">${b.name || '—'}</td>
       <td class="td-score">${scoreCell}</td>
       <td class="td-ret ${retCls}">${retTxt}</td>
@@ -356,8 +397,29 @@ function renderTable() {
       <td class="td-price">${curPriceTxt}</td>
       <td><span class="action-pill ${pillCls}">${pillTxt}</span></td>
     `;
+    tr.style.cursor = 'pointer';
+    tr.addEventListener('click', () => openTrend(b.id, b.name));
     tbody.appendChild(tr);
   });
+
+// ── 排名趨勢 modal（與評分表同款）──────────────────────────────────────────
+const trendModal = document.getElementById('trend-modal');
+const trendFrame = document.getElementById('trend-frame');
+function openTrend(sid, name) {
+  document.querySelector('#modal-title .sid').textContent = sid + (name ? ' ' + name : '');
+  document.getElementById('modal-open-page').href = `trend.html?sid=${sid}`;
+  trendFrame.src = `trend.html?sid=${sid}&embed=1`;
+  trendModal.classList.add('open');
+}
+function closeTrend() {
+  trendModal.classList.remove('open');
+  trendFrame.src = 'about:blank';
+}
+document.getElementById('modal-close').addEventListener('click', closeTrend);
+trendModal.addEventListener('click', e => { if (e.target === trendModal) closeTrend(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && trendModal.classList.contains('open')) closeTrend();
+});
 
   updateEmpty();
 }
