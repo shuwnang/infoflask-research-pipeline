@@ -185,7 +185,7 @@
     /* prev rank */
     .td-prev-rank { color: #6b7280; min-width: 80px; }
 
-    /* 高波動徽章（2026-07-15：volb 5d/20d 平均排名前 20）*/
+    /* 波動風險警示徽章（2026-07-15：volb 5d/20d 平均排名前 50）*/
     .vol-badge {
       display: inline-flex; align-items: center; gap: 3px;
       padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 700;
@@ -276,7 +276,7 @@
     <button class="filter-btn"          data-filter="gold">金色（≥3分）</button>
     <button class="filter-btn"          data-filter="red">紅色（1–2.9分）</button>
     <button class="filter-btn"          data-filter="green">綠色（&lt;0分）</button>
-    <button class="filter-btn"          data-filter="vol">⚡高波動20</button>
+    <button class="filter-btn"          data-filter="vol">⚠波動風險50</button>
   </div>
 
   <div class="stats-pill" id="stats-pill">
@@ -309,7 +309,7 @@
         <th data-col="change_pct">今日漲跌幅 <span class="sort-arrow">▲</span></th>
         <th data-col="prev_rank">前日排名 <span class="sort-arrow">▲</span></th>
         <th data-col="rank_change">排名變動 <span class="sort-arrow">▲</span></th>
-        <th data-col="vol_rank">預測波動 <span class="sort-arrow">▲</span></th>
+        <th data-col="vol_rank">波動風險 <span class="sort-arrow">▲</span></th>
       </tr>
     </thead>
     <tbody id="tbody"></tbody>
@@ -375,9 +375,9 @@ function changeHtml(chg) {
 }
 
 function volHtml(vr) {
-  // 預測波動排名（volb 5d/20d 平均）：前 20 顯示徽章，其餘顯示名次
+  // 波動風險排名（volb 5d/20d 平均）：前 50 顯示警示徽章，其餘顯示名次
   if (vr === null || vr === undefined) return '<span class="vol-none">—</span>';
-  if (vr <= 20) return `<span class="vol-badge">⚡ #${vr}</span>`;
+  if (vr <= 50) return `<span class="vol-badge">⚠ #${vr}</span>`;
   return `<span class="vol-none">#${vr}</span>`;
 }
 
@@ -475,7 +475,7 @@ function filterPasses(r) {
   if (currentFilter === 'gold'  && r.today_score < 3.0)  return false;
   if (currentFilter === 'red'   && (r.today_score < 1.0 || r.today_score >= 3.0)) return false;
   if (currentFilter === 'green' && r.today_score >= 0.0)  return false;
-  if (currentFilter === 'vol'   && !(r.vol_rank !== null && r.vol_rank !== undefined && r.vol_rank <= 20)) return false;
+  if (currentFilter === 'vol'   && !(r.vol_rank !== null && r.vol_rank !== undefined && r.vol_rank <= 50)) return false;
   return true;
 }
 
