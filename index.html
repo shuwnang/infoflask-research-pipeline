@@ -3,89 +3,117 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>蒸餾市場資訊，找到投資機會</title>
+<title>InfoFlask. Where Information Becomes Insight.</title>
 <style>
+  :root {
+    --bg: #0A0C10; --surface: #12151C; --surface-2: #171B24; --surface-3: #1D2330;
+    --border: #232936; --border-strong: #2E3646;
+    --text: #E7EBF2; --text-2: #9AA4B2; --text-3: #5C6675;
+    --accent: #E8C158; --accent-soft: rgba(232,193,88,0.10);
+    --link: #6CA8FF;
+    --up: #F0544C; --up-bright: #FF7B72; --up-bg: #1D0F0E;
+    --dn: #3FBF7F; --dn-bright: #5CD99A; --dn-bg: #0C1B14;
+    --warn: #F5A524; --risk: #F0544C;
+  }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: #0d1117; color: #e6edf3; font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+  body { background: var(--bg); color: var(--text);
+         font-family: "Inter", "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+         -webkit-font-smoothing: antialiased;
          min-height: 100vh; display: flex; flex-direction: column; }
+  ::selection { background: rgba(108,168,255,0.28); }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-thumb { background: #2A3140; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #38424F; }
+  ::-webkit-scrollbar-track { background: transparent; }
   header { display: flex; gap: 14px; align-items: center; flex-wrap: wrap;
-            padding: 12px 20px; background: #161b22; border-bottom: 1px solid #21262d;
+            padding: 12px 22px; background: rgba(10,12,16,0.88);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
             position: sticky; top: 0; z-index: 20; }
   .brand { font-size: 17px; font-weight: 900; color: #ffffff; letter-spacing: 0.08em; white-space: nowrap; }
   .site-nav { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-  .nav-link { color: #79b8ff; text-decoration: none; font-size: 13px; font-weight: 500;
-    padding: 5px 12px; border: 1px solid #262c36; border-radius: 8px;
+  .nav-link { color: var(--text-2); text-decoration: none; font-size: 13px; font-weight: 500;
+    padding: 5px 14px; border: 1px solid var(--border); border-radius: 999px; background: transparent;
     white-space: nowrap; transition: all 0.15s ease; }
-  .nav-link:hover { border-color: #388bfd; background: rgba(56,139,253,0.12); color: #a6d0ff; }
-  .nav-link.active { border-color: #ffd700; color: #ffd700; background: rgba(255,215,0,0.08); pointer-events: none; }
+  .nav-link:hover { color: var(--text); border-color: var(--border-strong); background: var(--surface-2); }
+  .nav-link.active { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); pointer-events: none; }
 
   #main { flex: 1; width: 100%; max-width: 1180px; margin: 0 auto; padding: 26px 20px 40px; }
 
   .hero { text-align: center; padding: 26px 10px 8px; }
-  .hero h1 { font-size: clamp(28px, 5vw, 44px); font-weight: 900; letter-spacing: 0.04em;
-    background: linear-gradient(105deg, #ffd700 20%, #ff9d4d 60%, #f0f6fc 95%);
+  .hero h1 { font-family: "Inter", system-ui, sans-serif;
+    font-size: clamp(28px, 5vw, 44px); font-weight: 900; letter-spacing: 0.01em;
+    background: linear-gradient(105deg, var(--accent) 15%, #F3DFA8 55%, var(--text) 95%);
     -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .hero .intro { margin-top: 12px; font-size: clamp(14px, 2.4vw, 18px); color: #9db4d0; letter-spacing: 0.06em; }
+  .hero .intro { margin-top: 12px; font-size: clamp(14px, 2.4vw, 18px); color: var(--text-2); letter-spacing: 0.06em; }
 
   .warn-banner { display: block; margin: 20px auto 0; max-width: 860px; text-align: center;
-    background: rgba(248,81,73,0.12); border: 1px solid #f85149; color: #ffb4ae;
+    background: rgba(240,84,76,0.10); border: 1px solid rgba(240,84,76,0.55); color: var(--up-bright);
     border-radius: 12px; padding: 12px 18px; font-size: 14px; text-decoration: none; transition: all .15s; }
-  .warn-banner:hover { background: rgba(248,81,73,0.2); }
-  .warn-banner b { color: #f85149; }
+  .warn-banner:hover { background: rgba(240,84,76,0.18); border-color: var(--risk); }
+  .warn-banner b { color: var(--risk); }
 
   .card-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 16px; margin-top: 26px; }
-  .card { background: #161b22; border: 1px solid #262c36; border-radius: 14px; padding: 20px 22px;
+  .card { background: linear-gradient(180deg, #151A23 0%, var(--surface) 100%);
+    border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px;
+    box-shadow: 0 10px 30px -18px rgba(0,0,0,0.7);
     display: flex; flex-direction: column; gap: 8px; }
-  .card .c-title { font-size: 13px; color: #8b949e; letter-spacing: 0.08em; font-weight: 600; }
-  .big-num { font-size: clamp(34px, 5vw, 46px); font-weight: 800; line-height: 1.1; }
-  .pos { color: #f85149; } .neg { color: #3fb950; }
-  .sub-line { font-size: 13px; color: #8b949e; }
-  .sub-line b { color: #e6edf3; }
-  .card-link { margin-top: auto; padding-top: 10px; font-size: 13px; color: #79b8ff; text-decoration: none; }
-  .card-link:hover { color: #a6d0ff; }
+  .card .c-title { font-size: 11px; color: var(--text-3); letter-spacing: 0.08em; font-weight: 600; }
+  .big-num { font-size: clamp(34px, 5vw, 46px); font-weight: 800; line-height: 1.1;
+    font-variant-numeric: tabular-nums; }
+  .pos { color: var(--up); } .neg { color: var(--dn); }
+  .sub-line { font-size: 13px; color: var(--text-2); font-variant-numeric: tabular-nums; }
+  .sub-line b { color: var(--text); }
+  .card-link { margin-top: auto; padding-top: 10px; font-size: 13px; color: var(--link); text-decoration: none; }
+  .card-link:hover { color: #9AC4FF; }
 
   .gauge-wrap { margin: 6px 0 2px; }
   .gauge-bar { height: 12px; border-radius: 6px; overflow: hidden; position: relative;
-    background: linear-gradient(90deg, #3fb950 0%, #e3b341 60%, #fb923c 80%, #f85149 95%); opacity: 0.9; }
-  .gauge-pin { position: absolute; top: -5px; width: 4px; height: 22px; background: #f0f6fc;
+    background: linear-gradient(90deg, var(--dn) 0%, var(--accent) 60%, var(--warn) 80%, var(--risk) 95%); opacity: 0.9; }
+  .gauge-pin { position: absolute; top: -5px; width: 4px; height: 22px; background: var(--text);
     border-radius: 2px; box-shadow: 0 0 6px rgba(255,255,255,0.7); }
-  .gauge-labels { display: flex; justify-content: space-between; font-size: 10px; color: #57606a; margin-top: 4px; }
-  .lvl-badge { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 14px;
+  .gauge-labels { display: flex; justify-content: space-between; font-size: 10px; color: var(--text-3);
+    margin-top: 4px; font-variant-numeric: tabular-nums; }
+  .lvl-badge { display: inline-block; padding: 3px 12px; border-radius: 999px; font-size: 14px;
     font-weight: 700; border: 1px solid; }
 
   .sec { margin-top: 34px; }
   .sec-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
-  .sec-head h2 { font-size: 19px; font-weight: 700; color: #f0f6fc; }
-  .sec-head .sec-link { font-size: 13px; color: #79b8ff; text-decoration: none; }
-  .sec-head .sec-link:hover { color: #a6d0ff; }
-  .sec-head .sec-date { font-size: 12px; color: #57606a; margin-left: auto; }
+  .sec-head h2 { font-size: 19px; font-weight: 700; color: var(--text); letter-spacing: 0.02em; }
+  .sec-head .sec-link { font-size: 13px; color: var(--link); text-decoration: none; }
+  .sec-head .sec-link:hover { color: #9AC4FF; }
+  .sec-head .sec-date { font-size: 12px; color: var(--text-3); margin-left: auto; font-variant-numeric: tabular-nums; }
 
   .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
-  .page-tile { background: #161b22; border: 1px solid #262c36; border-radius: 14px; padding: 18px 14px;
+  .page-tile { background: linear-gradient(180deg, #151A23 0%, var(--surface) 100%);
+    border: 1px solid var(--border); border-radius: 16px; padding: 18px 14px;
+    box-shadow: 0 10px 30px -18px rgba(0,0,0,0.7);
     text-align: center; text-decoration: none; transition: all 0.15s ease; }
-  .page-tile:hover { border-color: #ffd700; transform: translateY(-3px);
-    box-shadow: 0 10px 26px -12px rgba(255,215,0,0.25); }
-  .tile-name { font-size: 15px; font-weight: 700; color: #f0f6fc; }
-  .tile-desc { margin-top: 4px; font-size: 12px; color: #8b949e; }
+  .page-tile:hover { border-color: var(--border-strong); transform: translateY(-2px);
+    box-shadow: 0 14px 34px -18px rgba(0,0,0,0.8); }
+  .tile-name { font-size: 15px; font-weight: 700; color: var(--text); }
+  .tile-desc { margin-top: 4px; font-size: 12px; color: var(--text-2); }
 
-  .mini-table { width: 100%; border-collapse: collapse; background: #161b22;
-    border: 1px solid #262c36; border-radius: 12px; overflow: hidden; }
-  .mini-table th { background: #1c2129; color: #8b949e; font-size: 12px; font-weight: 600;
-    padding: 9px 14px; text-align: left; letter-spacing: 0.05em; }
-  .mini-table td { padding: 9px 14px; font-size: 14px; border-top: 1px solid #21262d; }
-  .td-rank { color: #8b949e; width: 56px; }
-  .td-name { color: #e6edf3; }
+  .mini-table { width: 100%; border-collapse: collapse; background: var(--surface);
+    border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+  .mini-table th { background: var(--surface-2); color: var(--text-3); font-size: 11px; font-weight: 600;
+    padding: 9px 14px; text-align: left; letter-spacing: 0.08em; }
+  .mini-table td { padding: 9px 14px; font-size: 14px; border-top: 1px solid #1A1F29;
+    font-variant-numeric: tabular-nums; }
+  .mini-table tbody tr:hover { background: var(--surface-3); }
+  .td-rank { color: var(--text-2); width: 56px; }
+  .td-name { color: var(--text); }
   .td-score { font-weight: 700; width: 90px; }
-  .s-gold { color: #ffd700; } .s-red { color: #f85149; } .s-green { color: #3fb950; }
-  .yq-link { color: #79b8ff; text-decoration: none; font-weight: 600; }
+  .s-gold { color: var(--accent); } .s-red { color: var(--up); } .s-green { color: var(--dn); }
+  .yq-link { color: var(--link); text-decoration: none; font-weight: 600; }
   .yq-link:hover { text-decoration: underline; }
-  .hint { font-size: 12px; color: #57606a; margin-top: 8px; }
-  .empty-msg { background: #161b22; border: 1px dashed #30363d; border-radius: 12px;
-    padding: 22px; text-align: center; color: #8b949e; font-size: 14px; }
+  .hint { font-size: 12px; color: var(--text-3); margin-top: 8px; }
+  .empty-msg { background: var(--surface); border: 1px dashed var(--border-strong); border-radius: 12px;
+    padding: 22px; text-align: center; color: var(--text-2); font-size: 14px; }
 
-  footer { text-align: center; padding: 22px; font-size: 11px; color: #484f58;
-    border-top: 1px solid #21262d; }
+  footer { text-align: center; padding: 22px; font-size: 11px; color: var(--text-3);
+    border-top: 1px solid var(--border); }
 </style>
 </head>
 <body>
@@ -106,7 +134,7 @@
 <div id="main">
 
   <div class="hero">
-    <h1>蒸餾市場資訊，找到投資機會</h1>
+    <h1>InfoFlask. Where Information Becomes Insight.</h1>
     <div class="intro">11個AI模型每日評鑑全台股，嚴選強共識8檔</div>
   </div>
 <a href="market.html" class="warn-banner">⚠️ 大盤波動警示：AI 預測波動位於歷史第 100 分位（年化 29%）— <b>高風險</b>，點擊查看大盤觀測 →</a>
@@ -121,8 +149,8 @@
     <div class="card">
       <div class="c-title">大盤警示程度（AI 預測未來 5 日波動）</div>
       <div style="display:flex;align-items:center;gap:14px;">
-        <span class="lvl-badge" style="color:#f85149;border-color:#f85149;background:rgba(255,255,255,0.03);">高風險</span>
-        <span style="font-size:15px;color:#e6edf3;">歷史第 <b style="font-size:22px;color:#f85149;">100</b> 分位</span>
+        <span class="lvl-badge" style="color:#F0544C;border-color:#F0544C;background:rgba(255,255,255,0.03);">高風險</span>
+        <span style="font-size:15px;color:#e6edf3;">歷史第 <b style="font-size:22px;color:#F0544C;">100</b> 分位</span>
       </div>
       <div class="gauge-wrap">
         <div class="gauge-bar"><div class="gauge-pin" style="left:calc(99.5% - 2px);"></div></div>

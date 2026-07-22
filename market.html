@@ -5,68 +5,88 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>大盤觀測</title>
   <style>
+    :root {
+      --bg: #0A0C10; --surface: #12151C; --surface-2: #171B24; --surface-3: #1D2330;
+      --border: #232936; --border-strong: #2E3646;
+      --text: #E7EBF2; --text-2: #9AA4B2; --text-3: #5C6675;
+      --accent: #E8C158; --accent-soft: rgba(232,193,88,0.10);
+      --link: #6CA8FF;
+      --up: #F0544C; --up-bg: #1D0F0E; --dn: #3FBF7F; --dn-bg: #0C1B14;
+      --warn: #F5A524; --risk: #F0544C;
+    }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    ::selection { background: rgba(108,168,255,0.28); }
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #2A3140; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #38424F; }
     body {
-      background: radial-gradient(1200px 600px at 100% -10%, rgba(56,139,253,0.06), transparent 60%), #0d1117;
-      color: #e6edf3;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', 'Microsoft JhengHei', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
       -webkit-font-smoothing: antialiased; font-variant-numeric: tabular-nums;
       min-height: 100dvh; display: flex; flex-direction: column;
     }
     header {
-      flex-shrink: 0; display: flex; align-items: center; gap: 14px; padding: 12px 20px;
-      background: rgba(22,27,34,0.85); backdrop-filter: blur(8px);
-      border-bottom: 1px solid #262c36; box-shadow: 0 4px 16px -8px rgba(0,0,0,0.6);
+      flex-shrink: 0; display: flex; align-items: center; gap: 14px; padding: 12px 22px;
+      background: rgba(10,12,16,0.88); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); position: sticky; top: 0;
       flex-wrap: wrap; z-index: 20;
     }
-    .brand { font-size: 16px; font-weight: 700; color: #f0f6fc; white-space: nowrap; }
+    .brand { font-size: 17px; font-weight: 900; color: #fff; letter-spacing: 0.08em; white-space: nowrap; }
+    .brand-page { font-size: 13px; font-weight: 500; color: var(--text-3); margin-left: 2px; }
     .site-nav { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
     .nav-link {
-      color: #79b8ff; text-decoration: none; font-size: 13px; font-weight: 500;
-      padding: 5px 12px; border: 1px solid #262c36; border-radius: 8px;
+      color: var(--text-2); text-decoration: none; font-size: 13px; font-weight: 500;
+      padding: 5px 14px; border: 1px solid var(--border); border-radius: 999px;
+      background: transparent;
       white-space: nowrap; transition: all 0.15s ease;
     }
-    .nav-link:hover { border-color: #388bfd; background: rgba(56,139,253,0.12); color: #a6d0ff; }
-    .nav-link.active { border-color: #ffd700; color: #ffd700; background: rgba(255,215,0,0.08); pointer-events: none; }
+    .nav-link:hover { color: var(--text); border-color: var(--border-strong); background: var(--surface-2); }
+    .nav-link.active { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); pointer-events: none; }
 
     #main { flex: 1; display: flex; flex-direction: column; padding: 16px 20px; gap: 12px;
             max-width: 1280px; width: 100%; margin: 0 auto; }
     .chips { display: flex; gap: 10px; flex-wrap: wrap; }
-    .chip { background: #161b22; border: 1px solid #262c36; border-radius: 10px; padding: 8px 14px; min-width: 116px; }
-    .chip .lab { font-size: 11px; color: #8b949e; letter-spacing: 0.05em; }
+    .chip { background: linear-gradient(180deg,#151A23 0%, var(--surface) 100%); border: 1px solid var(--border);
+            border-radius: 12px; padding: 8px 14px; min-width: 116px;
+            box-shadow: 0 10px 30px -18px rgba(0,0,0,0.7); }
+    .chip .lab { font-size: 11px; color: var(--text-3); letter-spacing: 0.08em; }
     .chip .val { font-size: 18px; font-weight: 700; margin-top: 2px; }
-    .v-close { color: #58a6ff; } .v-vol { color: #fb923c; }
+    .v-close { color: var(--link); } .v-vol { color: var(--warn); }
 
     .hz-group { display: flex; gap: 6px; align-items: center; }
     .hz-btn {
-      background: #21262d; color: #8b949e; border: 1px solid #30363d; border-radius: 20px;
+      background: var(--surface-2); color: var(--text-2); border: 1px solid var(--border); border-radius: 999px;
       padding: 4px 14px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.15s;
     }
-    .hz-btn.act { background: #3b1d06; border-color: #fb923c; color: #fb923c; }
+    .hz-btn:hover { color: var(--text); border-color: var(--border-strong); }
+    .hz-btn.act { background: rgba(245,165,36,0.10); border-color: var(--warn); color: var(--warn); }
 
-    #chart-card { background: #161b22; border: 1px solid #262c36; border-radius: 12px;
-                  padding: 14px; position: relative; flex: 1; min-height: 420px;
+    #chart-card { background: linear-gradient(180deg,#151A23 0%, var(--surface) 100%); border: 1px solid var(--border);
+                  border-radius: 16px; box-shadow: 0 10px 30px -18px rgba(0,0,0,0.7);
+                  padding: 20px 22px; position: relative; flex: 1; min-height: 420px;
                   display: flex; flex-direction: column; }
-    .legend { display: flex; gap: 18px; font-size: 12px; color: #8b949e; margin-bottom: 8px; flex-wrap: wrap; }
+    .legend { display: flex; gap: 18px; font-size: 12px; color: var(--text-2); margin-bottom: 8px; flex-wrap: wrap; }
     .lg { display: flex; align-items: center; gap: 6px; }
     .lg-line { width: 18px; height: 3px; border-radius: 2px; }
     #canvas-wrap { flex: 1; position: relative; min-height: 360px; }
     canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
     #tooltip {
       position: absolute; pointer-events: none; display: none; z-index: 30;
-      background: rgba(13,17,23,0.95); border: 1px solid #30363d; border-radius: 8px;
+      background: rgba(18,21,28,0.95); border: 1px solid var(--border-strong); border-radius: 8px;
       padding: 8px 12px; font-size: 12px; white-space: nowrap;
       box-shadow: 0 8px 24px -6px rgba(0,0,0,0.8);
     }
-    #tooltip .tt-date { color: #f0f6fc; font-weight: 700; margin-bottom: 4px; }
-    #tooltip .tt-row { display: flex; justify-content: space-between; gap: 14px; color: #8b949e; }
-    #tooltip .tt-row b { color: #e6edf3; }
-    .note { font-size: 11px; color: #57606a; margin-top: 6px; }
+    #tooltip .tt-date { color: var(--text); font-weight: 700; margin-bottom: 4px; }
+    #tooltip .tt-row { display: flex; justify-content: space-between; gap: 14px; color: var(--text-2); }
+    #tooltip .tt-row b { color: var(--text); }
+    .note { font-size: 11px; color: var(--text-3); margin-top: 6px; }
   </style>
 </head>
 <body>
 <header>
-  <div class="brand">大盤觀測</div>
+  <div class="brand">INFOFLASK<span class="brand-page">｜大盤觀測</span></div>
   <nav class="site-nav">
     <a href="index.html" class="nav-link">首頁</a>
     <a href="scores.html" class="nav-link">評分表</a>
@@ -77,7 +97,7 @@
     <a href="market.html" class="nav-link active">大盤觀測</a>
   </nav>
   <div class="hz-group">
-    <span style="font-size:12px;color:#8b949e;">預測週期</span>
+    <span style="font-size:12px;color:#9AA4B2;">預測週期</span>
     <button class="hz-btn" data-hz="1">1日</button>
     <button class="hz-btn" data-hz="3">3日</button>
     <button class="hz-btn act" data-hz="5">5日</button>
@@ -93,10 +113,10 @@
   </div>
   <div id="chart-card">
     <div class="legend">
-      <div class="lg"><div class="lg-line" style="background:#58a6ff;"></div>TAIEX 收盤（右軸）</div>
-      <div class="lg"><div class="lg-line" style="background:#fb923c;height:8px;"></div>LSTM 預測波動 年化%（左軸）</div>
-      <div class="lg"><div class="lg-line" style="background:#f87171;height:8px;"></div>超過歷史 P90（警戒）</div>
-      <div class="lg"><div class="lg-line" style="background:transparent;border-top:2px dashed #f87171;"></div>P90 線</div>
+      <div class="lg"><div class="lg-line" style="background:#6CA8FF;"></div>TAIEX 收盤（右軸）</div>
+      <div class="lg"><div class="lg-line" style="background:#F5A524;height:8px;"></div>LSTM 預測波動 年化%（左軸）</div>
+      <div class="lg"><div class="lg-line" style="background:#F0544C;height:8px;"></div>超過歷史 P90（警戒）</div>
+      <div class="lg"><div class="lg-line" style="background:transparent;border-top:2px dashed #F0544C;"></div>P90 線</div>
     </div>
     <div id="canvas-wrap"><canvas id="chart"></canvas><div id="tooltip"></div></div>
     <div class="note">波動預測 = 大盤 LSTM（walk-forward 無前視，2014 起逐年重訓）；預測值代表「未來 N 日已實現波動（年化）」。資料 2021 起。</div>
@@ -119,7 +139,7 @@ function updChips() {
   const chg = (c[n-1] / c[n-2] - 1) * 100;
   const el = document.getElementById('c-chg');
   el.textContent = (chg >= 0 ? '+' : '') + chg.toFixed(2) + '%';
-  el.style.color = chg > 0 ? '#ef4444' : chg < 0 ? '#22c55e' : '#8b949e';
+  el.style.color = chg > 0 ? '#F0544C' : chg < 0 ? '#3FBF7F' : '#9AA4B2';
   const vs = DATA['vol' + HZ];
   let lastV = null;
   for (let i = n - 1; i >= 0; i--) if (vs[i] !== null) { lastV = vs[i]; break; }
@@ -129,7 +149,7 @@ function updChips() {
     const pct = arr.filter(v => v < lastV).length / arr.length * 100;
     const pe = document.getElementById('c-pct');
     pe.textContent = 'P' + pct.toFixed(0);
-    pe.style.color = pct >= 90 ? '#f87171' : '#fb923c';
+    pe.style.color = pct >= 90 ? '#F0544C' : '#F5A524';
   }
 }
 
@@ -158,26 +178,26 @@ function draw() {
   // 左軸（波動）格線
   for (let t = 0; t <= 5; t++) {
     const v = vMax * t / 5, y = yV(v);
-    ctx.strokeStyle = 'rgba(48,54,61,0.5)'; ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(35,41,54,0.5)'; ctx.lineWidth = 1;
     ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(W - padR, y); ctx.stroke();
-    ctx.fillStyle = '#fb923c99'; ctx.textAlign = 'right';
+    ctx.fillStyle = '#F5A52499'; ctx.textAlign = 'right';
     ctx.fillText(v.toFixed(0) + '%', padL - 5, y);
   }
   // 右軸（指數）
   for (let t = 0; t <= 5; t++) {
     const v = cLo + (cHi - cLo) * t / 5;
-    ctx.fillStyle = '#58a6ff99'; ctx.textAlign = 'left';
+    ctx.fillStyle = '#6CA8FF99'; ctx.textAlign = 'left';
     ctx.fillText(Math.round(v).toLocaleString(), W - padR + 6, yC(v));
   }
   // X 標籤
-  ctx.fillStyle = '#8b949e'; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+  ctx.fillStyle = '#9AA4B2'; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
   const step = Math.max(1, Math.round(n / 8));
   for (let i = 0; i < n; i += step) ctx.fillText(DATA.dates[i].slice(0, 7), x(i), H - padB + 8);
 
   // P90 警戒線
   const p90 = DATA.p90[String(HZ)];
   if (p90 && p90 < vMax) {
-    ctx.strokeStyle = 'rgba(248,113,113,0.5)'; ctx.setLineDash([5, 4]); ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(240,84,76,0.5)'; ctx.setLineDash([5, 4]); ctx.lineWidth = 1;
     ctx.beginPath(); ctx.moveTo(padL, yV(p90)); ctx.lineTo(W - padR, yV(p90)); ctx.stroke();
     ctx.setLineDash([]);
   }
@@ -186,11 +206,11 @@ function draw() {
   const y0 = yV(0);
   for (let i = 0; i < n; i++) {
     if (vs[i] === null) continue;
-    ctx.fillStyle = (p90 && vs[i] >= p90) ? 'rgba(248,113,113,0.85)' : 'rgba(251,146,60,0.55)';
+    ctx.fillStyle = (p90 && vs[i] >= p90) ? 'rgba(240,84,76,0.85)' : 'rgba(245,165,36,0.55)';
     ctx.fillRect(x(i) - bw / 2, yV(vs[i]), bw, y0 - yV(vs[i]));
   }
   // 指數折線
-  ctx.strokeStyle = '#58a6ff'; ctx.lineWidth = 1.8; ctx.lineJoin = 'round';
+  ctx.strokeStyle = '#6CA8FF'; ctx.lineWidth = 1.8; ctx.lineJoin = 'round';
   ctx.beginPath();
   for (let i = 0; i < n; i++) {
     const px = x(i), py = yC(c[i]);
@@ -208,8 +228,8 @@ wrap.addEventListener('mousemove', e => {
   i = Math.max(0, Math.min(geom.n - 1, i));
   const vs = DATA['vol' + HZ];
   tooltip.innerHTML = `<div class="tt-date">${DATA.dates[i]}</div>` +
-    `<div class="tt-row"><span>TAIEX</span><b style="color:#58a6ff">${DATA.close[i].toLocaleString()}</b></div>` +
-    (vs[i] !== null ? `<div class="tt-row"><span>預測波動 ${HZ}d</span><b style="color:#fb923c">${vs[i].toFixed(1)}%</b></div>` : '');
+    `<div class="tt-row"><span>TAIEX</span><b style="color:#6CA8FF">${DATA.close[i].toLocaleString()}</b></div>` +
+    (vs[i] !== null ? `<div class="tt-row"><span>預測波動 ${HZ}d</span><b style="color:#F5A524">${vs[i].toFixed(1)}%</b></div>` : '');
   tooltip.style.display = 'block';
   const tw = tooltip.offsetWidth;
   let tx = geom.x(i) + 12;
@@ -217,7 +237,7 @@ wrap.addEventListener('mousemove', e => {
   tooltip.style.left = tx + 'px';
   tooltip.style.top = Math.max(4, e.clientY - rect.top - 40) + 'px';
   draw();
-  ctx.strokeStyle = 'rgba(139,148,158,0.45)'; ctx.setLineDash([3, 3]); ctx.lineWidth = 1;
+  ctx.strokeStyle = 'rgba(154,164,178,0.45)'; ctx.setLineDash([3, 3]); ctx.lineWidth = 1;
   ctx.beginPath(); ctx.moveTo(geom.x(i), geom.padT); ctx.lineTo(geom.x(i), geom.padT + geom.ch); ctx.stroke();
   ctx.setLineDash([]);
 });

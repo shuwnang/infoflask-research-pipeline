@@ -5,14 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>排名趨勢</title>
   <style>
+    :root {
+      --bg: #0A0C10;
+      --surface: #12151C;
+      --surface-2: #171B24;
+      --surface-3: #1D2330;
+      --border: #232936;
+      --border-strong: #2E3646;
+      --text: #E7EBF2;
+      --text-2: #9AA4B2;
+      --text-3: #5C6675;
+      --accent: #E8C158;
+      --accent-soft: rgba(232,193,88,0.10);
+      --link: #6CA8FF;
+      --up: #F0544C;
+      --up-bright: #FF7B72;
+      --dn: #3FBF7F;
+      --dn-bright: #5CD99A;
+      --warn: #F5A524;
+      --risk: #F0544C;
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    ::selection { background: rgba(108,168,255,0.28); }
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #2A3140; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #38424F; }
 
     body {
       background:
-        radial-gradient(1200px 600px at 100% -10%, rgba(56,139,253,0.06), transparent 60%),
-        #0d1117;
-      color: #e6edf3;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', 'Microsoft JhengHei', system-ui, sans-serif;
+        radial-gradient(1200px 600px at 100% -10%, rgba(108,168,255,0.05), transparent 60%),
+        var(--bg);
+      color: var(--text);
+      font-family: "Inter","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
       -webkit-font-smoothing: antialiased;
       font-variant-numeric: tabular-nums;
       min-height: 100dvh;
@@ -27,48 +54,50 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 14px;
-      padding: 12px 20px;
-      background: rgba(22,27,34,0.85);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid #262c36;
-      box-shadow: 0 4px 16px -8px rgba(0,0,0,0.6);
-      flex-wrap: wrap;
+      padding: 12px 22px;
+      background: rgba(10,12,16,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
       z-index: 20;
     }
-    .brand { font-size: 16px; font-weight: 700; color: #f0f6fc; white-space: nowrap; }
+    .brand { font-size: 17px; font-weight: 900; color: #fff; letter-spacing: 0.08em; white-space: nowrap; }
+    .brand-page { font-size: 13px; font-weight: 500; color: var(--text-3); margin-left: 2px; letter-spacing: 0.02em; }
     .site-nav { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
     .nav-link {
-      color: #79b8ff; text-decoration: none; font-size: 13px; font-weight: 500;
-      padding: 5px 12px; border: 1px solid #262c36; border-radius: 8px;
-      white-space: nowrap; transition: all 0.15s ease;
+      color: var(--text-2); text-decoration: none; font-size: 13px; font-weight: 500;
+      padding: 5px 14px; border: 1px solid var(--border); border-radius: 999px;
+      background: transparent; white-space: nowrap; transition: all 0.15s ease;
     }
-    .nav-link:hover { border-color: #388bfd; background: rgba(56,139,253,0.12); color: #a6d0ff; }
-    .nav-link.active { border-color: #ffd700; color: #ffd700; background: rgba(255,215,0,0.08); pointer-events: none; }
+    .nav-link:hover { color: var(--text); border-color: var(--border-strong); background: var(--surface-2); }
+    .nav-link.active { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); pointer-events: none; }
 
     /* ── 搜尋 ── */
     .search-wrap { position: relative; }
     .search-box {
-      background: #21262d; color: #c9d1d9;
-      border: 1px solid #30363d; border-radius: 6px;
-      padding: 6px 12px; font-size: 14px; width: 240px;
+      background: var(--surface-2); color: var(--text);
+      border: 1px solid var(--border); border-radius: 999px;
+      padding: 6px 14px; font-size: 14px; width: 240px;
+      font-variant-numeric: tabular-nums;
     }
-    .search-box:focus { outline: none; border-color: #58a6ff; box-shadow: 0 0 0 3px rgba(56,139,253,0.15); }
-    .search-box::placeholder { color: #484f58; }
+    .search-box:focus { outline: none; border-color: var(--link); box-shadow: 0 0 0 3px rgba(108,168,255,0.15); }
+    .search-box::placeholder { color: var(--text-3); }
     .suggest {
       position: absolute; top: calc(100% + 4px); left: 0; width: 300px; max-height: 320px;
-      overflow-y: auto; background: #161b22; border: 1px solid #30363d; border-radius: 8px;
+      overflow-y: auto; background: var(--surface); border: 1px solid var(--border-strong); border-radius: 12px;
       box-shadow: 0 12px 32px -8px rgba(0,0,0,0.8); display: none; z-index: 50;
     }
     .suggest.open { display: block; }
     .sug-item {
       display: flex; justify-content: space-between; gap: 10px;
-      padding: 8px 12px; font-size: 13px; cursor: pointer; border-bottom: 1px solid #21262d;
+      padding: 8px 12px; font-size: 13px; cursor: pointer; border-bottom: 1px solid #1A1F29;
     }
     .sug-item:last-child { border-bottom: none; }
-    .sug-item:hover, .sug-item.sel { background: #1f2937; }
-    .sug-id { font-weight: 700; color: #f0f6fc; }
-    .sug-name { color: #8b949e; }
-    .sug-rank { color: #79b8ff; font-size: 12px; }
+    .sug-item:hover, .sug-item.sel { background: var(--surface-3); }
+    .sug-id { font-weight: 700; color: var(--text); }
+    .sug-name { color: var(--text-2); }
+    .sug-rank { color: var(--link); font-size: 12px; }
 
     /* ── 主內容 ── */
     #main {
@@ -78,28 +107,30 @@
     body.embed #main { padding: 10px 12px; }
 
     .stock-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
-    .stock-title { font-size: 20px; font-weight: 700; color: #f0f6fc; }
-    .stock-title .sid { color: #ffd700; }
-    .stock-sub { font-size: 12px; color: #8b949e; }
+    .stock-title { font-size: 20px; font-weight: 700; color: var(--text); letter-spacing: 0.02em; }
+    .stock-title .sid { color: var(--accent); }
+    .stock-sub { font-size: 12px; color: var(--text-2); }
 
     .chips { display: flex; gap: 10px; flex-wrap: wrap; }
     .chip {
-      background: #161b22; border: 1px solid #262c36; border-radius: 10px;
+      background: var(--surface-2); border: 1px solid var(--border); border-radius: 12px;
       padding: 8px 14px; min-width: 108px;
     }
-    .chip .lab { font-size: 11px; color: #8b949e; letter-spacing: 0.05em; }
-    .chip .val { font-size: 18px; font-weight: 700; margin-top: 2px; }
-    .val-rank  { color: #ffd700; }
-    .val-score { color: #79b8ff; }
-    .val-best  { color: #f87171; }
-    .val-days  { color: #4ade80; }
+    .chip .lab { font-size: 11px; color: var(--text-3); letter-spacing: 0.08em; }
+    .chip .val { font-size: 18px; font-weight: 700; margin-top: 2px; font-variant-numeric: tabular-nums; }
+    .val-rank  { color: var(--accent); }
+    .val-score { color: var(--link); }
+    .val-best  { color: var(--up-bright); }
+    .val-days  { color: var(--dn-bright); }
 
     #chart-card {
-      background: #161b22; border: 1px solid #262c36; border-radius: 12px;
+      background: linear-gradient(180deg, #151A23 0%, var(--surface) 100%);
+      border: 1px solid var(--border); border-radius: 16px;
+      box-shadow: 0 10px 30px -18px rgba(0,0,0,0.7);
       padding: 14px; position: relative; flex: 1; min-height: 340px;
       display: flex; flex-direction: column;
     }
-    .legend { display: flex; gap: 18px; font-size: 12px; color: #8b949e; margin-bottom: 8px; flex-wrap: wrap; }
+    .legend { display: flex; gap: 18px; font-size: 12px; color: var(--text-2); margin-bottom: 8px; flex-wrap: wrap; }
     .lg { display: flex; align-items: center; gap: 6px; }
     .lg-line { width: 18px; height: 3px; border-radius: 2px; }
     #canvas-wrap { flex: 1; position: relative; min-height: 280px; }
@@ -107,26 +138,26 @@
 
     #tooltip {
       position: absolute; pointer-events: none; display: none; z-index: 30;
-      background: rgba(13,17,23,0.95); border: 1px solid #30363d; border-radius: 8px;
+      background: rgba(10,12,16,0.95); border: 1px solid var(--border-strong); border-radius: 10px;
       padding: 8px 12px; font-size: 12px; white-space: nowrap;
       box-shadow: 0 8px 24px -6px rgba(0,0,0,0.8);
     }
-    #tooltip .tt-date { color: #f0f6fc; font-weight: 700; margin-bottom: 4px; }
-    #tooltip .tt-row { display: flex; justify-content: space-between; gap: 14px; color: #8b949e; }
-    #tooltip .tt-row b { color: #e6edf3; }
+    #tooltip .tt-date { color: var(--text); font-weight: 700; margin-bottom: 4px; }
+    #tooltip .tt-row { display: flex; justify-content: space-between; gap: 14px; color: var(--text-2); }
+    #tooltip .tt-row b { color: var(--text); }
 
     .placeholder {
       flex: 1; display: flex; align-items: center; justify-content: center;
-      color: #484f58; font-size: 14px; text-align: center; line-height: 1.8;
+      color: var(--text-3); font-size: 14px; text-align: center; line-height: 1.8;
     }
 
-    .note { font-size: 11px; color: #57606a; }
+    .note { font-size: 11px; color: var(--text-3); }
   </style>
 </head>
 <body>
 
 <header id="page-header">
-  <div class="brand">排名趨勢</div>
+  <div class="brand">INFOFLASK<span class="brand-page">｜排名趨勢</span></div>
   <nav class="site-nav">
     <a href="index.html" class="nav-link">首頁</a>
     <a href="scores.html" class="nav-link">評分表</a>
@@ -157,10 +188,10 @@
     </div>
     <div id="chart-card">
       <div class="legend">
-        <div class="lg"><div class="lg-line" style="background:#f87171;height:8px;"></div>總分 &gt;3（紅）</div>
-        <div class="lg"><div class="lg-line" style="background:#9aa4b2;height:8px;"></div>總分 ≤3（灰）</div>
+        <div class="lg"><div class="lg-line" style="background:#F0544C;height:8px;"></div>總分 &gt;3（紅）</div>
+        <div class="lg"><div class="lg-line" style="background:#9AA4B2;height:8px;"></div>總分 ≤3（灰）</div>
         <div class="lg"><div class="lg-line" style="background:#c084fc;"></div>複合機率（動態範圍）</div>
-        <div class="lg"><div class="lg-line" style="background:#58a6ff;"></div>股價（右軸）</div>
+        <div class="lg"><div class="lg-line" style="background:#6CA8FF;"></div>股價（右軸）</div>
       </div>
       <div id="canvas-wrap">
         <canvas id="chart"></canvas>
@@ -280,7 +311,7 @@ function render(sid) {
   if (lc !== null && pc !== null && pc > 0) {
     const chg = (lc / pc - 1) * 100;
     chgEl.textContent = (chg >= 0 ? '+' : '') + chg.toFixed(2) + '%';
-    chgEl.style.color = chg > 0 ? '#ef4444' : chg < 0 ? '#22c55e' : '#8b949e';
+    chgEl.style.color = chg > 0 ? '#F0544C' : chg < 0 ? '#3FBF7F' : '#9AA4B2';
   } else { chgEl.textContent = '—'; chgEl.style.color = ''; }
 
   const nPartial = PARTIAL.reduce((a, b) => a + b, 0);
@@ -327,20 +358,20 @@ function draw() {
   ctx.textBaseline = 'middle';
   for (let v = sMin; v <= sMax; v++) {
     const y = yS(v);
-    ctx.strokeStyle = v === 0 ? 'rgba(139,148,158,0.9)' : 'rgba(48,54,61,0.5)';
+    ctx.strokeStyle = v === 0 ? 'rgba(154,164,178,0.9)' : 'rgba(46,54,70,0.5)';
     ctx.lineWidth = v === 0 ? 1.5 : 1;
     ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(W - padR, y); ctx.stroke();
-    ctx.fillStyle = '#d4a017'; ctx.textAlign = 'right';
+    ctx.fillStyle = '#E8C158'; ctx.textAlign = 'right';
     ctx.fillText(v, padL - 6, y);
   }
   // 右軸（股價，5 檔）
   for (let t = 0; t <= 4; t++) {
     const v = pLo + (pHi - pLo) * t / 4;
-    ctx.fillStyle = '#58a6ff99'; ctx.textAlign = 'left';
+    ctx.fillStyle = '#6CA8FF99'; ctx.textAlign = 'left';
     ctx.fillText(v >= 100 ? v.toFixed(0) : v.toFixed(1), W - padR + 6, yP(v));
   }
   // X 軸標籤（~6 個）
-  ctx.fillStyle = '#8b949e'; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+  ctx.fillStyle = '#9AA4B2'; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
   const step = Math.max(1, Math.round(n / 6));
   for (let i = 0; i < n; i += step) {
     ctx.fillText(DATES[i].slice(5), x(i), H - padB + 8);
@@ -374,7 +405,7 @@ function draw() {
   for (let i = 0; i < n; i++) {
     if (st.s[i] === null) continue;
     const yv = yS(st.s[i]);
-    ctx.fillStyle = st.s[i] > 3 ? 'rgba(248,113,113,0.80)'
+    ctx.fillStyle = st.s[i] > 3 ? 'rgba(240,84,76,0.80)'
                   : 'rgba(154,164,178,0.45)';
     if (Math.abs(yv - y0) < 1) {
       ctx.fillRect(x(i) - bw / 2, y0 - 0.5, bw, 1);
@@ -382,7 +413,7 @@ function draw() {
       ctx.fillRect(x(i) - bw / 2, Math.min(yv, y0), bw, Math.abs(yv - y0));
     }
   }
-  drawLine(st.c || [], yP, '#58a6ff', 1.6);
+  drawLine(st.c || [], yP, '#6CA8FF', 1.6);
   // combo 複合機率線（動態範圍：低點−0.1 ~ 高點+0.1，凸顯波動；相對個股自身歷史可自比）
   let yB = null;
   if (st.b && st.b.some(v => v !== null)) {
@@ -414,8 +445,8 @@ wrapEl.addEventListener('mousemove', e => {
   }
   const cv = st.c ? st.c[i] : null;
   tooltip.innerHTML = `<div class="tt-date">${DATES[i]}</div>` +
-    (st.s[i] !== null ? `<div class="tt-row"><span>總分</span><b style="color:#ffd700">${st.s[i].toFixed(2)}</b></div>` : '') +
-    (cv !== null ? `<div class="tt-row"><span>收盤價</span><b style="color:#58a6ff">${cv.toFixed(2)}</b></div>` : '') +
+    (st.s[i] !== null ? `<div class="tt-row"><span>總分</span><b style="color:#E8C158">${st.s[i].toFixed(2)}</b></div>` : '') +
+    (cv !== null ? `<div class="tt-row"><span>收盤價</span><b style="color:#6CA8FF">${cv.toFixed(2)}</b></div>` : '') +
     (st.r[i] !== null ? `<div class="tt-row"><span>排名</span><b>#${st.r[i]}</b></div>` : '') +
     (st.b && st.b[i] !== null ? `<div class="tt-row"><span>複合機率</span><b style="color:#c084fc">${(st.b[i]*100).toFixed(1)}%</b></div>` : '');
   tooltip.style.display = 'block';
@@ -433,17 +464,17 @@ function drawWithCursor(i) {
   if (i < 0 || !geom) return;
   const { padT, ch } = geom;
   const px = geom.x(i);
-  ctx.strokeStyle = 'rgba(139,148,158,0.45)'; ctx.lineWidth = 1;
+  ctx.strokeStyle = 'rgba(154,164,178,0.45)'; ctx.lineWidth = 1;
   ctx.setLineDash([3, 3]);
   ctx.beginPath(); ctx.moveTo(px, padT); ctx.lineTo(px, padT + ch); ctx.stroke();
   ctx.setLineDash([]);
   const st = STOCKS[curSid];
   if (st.s[i] !== null) {
-    ctx.fillStyle = '#ffd700';
+    ctx.fillStyle = '#E8C158';
     ctx.beginPath(); ctx.arc(px, geom.yS(st.s[i]), 4, 0, Math.PI * 2); ctx.fill();
   }
   if (st.c && st.c[i] !== null) {
-    ctx.fillStyle = '#58a6ff';
+    ctx.fillStyle = '#6CA8FF';
     ctx.beginPath(); ctx.arc(px, geom.yP(st.c[i]), 3.5, 0, Math.PI * 2); ctx.fill();
   }
   if (st.b && st.b[i] !== null && geom.yB) {

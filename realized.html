@@ -5,13 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>已實現損益</title>
   <style>
+    :root {
+      --bg: #0A0C10;
+      --surface: #12151C;
+      --surface-2: #171B24;
+      --surface-3: #1D2330;
+      --border: #232936;
+      --border-strong: #2E3646;
+      --text: #E7EBF2;
+      --text-2: #9AA4B2;
+      --text-3: #5C6675;
+      --accent: #E8C158;
+      --accent-soft: rgba(232,193,88,0.10);
+      --link: #6CA8FF;
+      --up: #F0544C;
+      --up-bright: #FF7B72;
+      --up-bg: #1D0F0E;
+      --dn: #3FBF7F;
+      --dn-bright: #5CD99A;
+      --dn-bg: #0C1B14;
+      --warn: #F5A524;
+      --risk: #F0544C;
+    }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background:
-        radial-gradient(1200px 600px at 100% -10%, rgba(56,139,253,0.06), transparent 60%),
-        #0d1117;
-      color: #e6edf3;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Noto Sans TC', 'Microsoft JhengHei', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
       -webkit-font-smoothing: antialiased;
       font-variant-numeric: tabular-nums;
       height: 100dvh;
@@ -19,6 +39,7 @@
       flex-direction: column;
       overflow: hidden;
     }
+    ::selection { background: rgba(108,168,255,0.28); }
 
     /* ── Header ── */
     header {
@@ -27,59 +48,60 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 14px;
-      padding: 12px 20px;
-      background: rgba(22,27,34,0.85);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid #262c36;
-      box-shadow: 0 4px 16px -8px rgba(0,0,0,0.6);
-      flex-wrap: wrap;
+      padding: 12px 22px;
+      background: rgba(10,12,16,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0;
       z-index: 20;
     }
-    .brand { font-size: 16px; font-weight: 700; color: #f0f6fc; white-space: nowrap; }
+    .brand { font-size: 17px; font-weight: 900; color: #fff; letter-spacing: 0.08em; white-space: nowrap; }
+    .brand-page { font-size: 13px; font-weight: 500; color: var(--text-3); margin-left: 2px; }
+    .site-nav { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
     .nav-link {
-      color: #79b8ff; text-decoration: none; font-size: 13px; font-weight: 500;
-      padding: 5px 12px; border: 1px solid #262c36; border-radius: 8px;
+      color: var(--text-2); text-decoration: none; font-size: 13px; font-weight: 500;
+      padding: 5px 14px; border: 1px solid var(--border); border-radius: 999px;
+      background: transparent;
       white-space: nowrap; transition: all 0.15s ease;
     }
-    .nav-link:hover { border-color: #388bfd; background: rgba(56,139,253,0.12); color: #a6d0ff; }
-    .site-nav { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-    .nav-link.active { border-color: #ffd700; color: #ffd700; background: rgba(255,215,0,0.08); pointer-events: none; }
+    .nav-link:hover { color: var(--text); border-color: var(--border-strong); background: var(--surface-2); }
+    .nav-link.active { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); pointer-events: none; }
 
-    .date-badge { font-size: 12px; color: #8b949e; white-space: nowrap; }
+    .date-badge { font-size: 12px; color: var(--text-3); white-space: nowrap; }
 
     /* filter buttons */
     .filter-group { display: flex; gap: 6px; align-items: center; }
     .filter-btn {
-      background: #21262d; color: #8b949e;
-      border: 1px solid #30363d; border-radius: 20px;
+      background: var(--surface-2); color: var(--text-2);
+      border: 1px solid var(--border); border-radius: 999px;
       padding: 4px 14px; font-size: 12px; font-weight: 600;
-      cursor: pointer; transition: all 0.15s; white-space: nowrap;
+      cursor: pointer; transition: all 0.15s ease; letter-spacing: 0.02em; white-space: nowrap;
     }
-    .filter-btn:hover { border-color: #58a6ff; color: #c9d1d9; }
-    .filter-btn.act-all  { background: #1f6feb; border-color: #388bfd; color: #fff; }
-    .filter-btn.act-win  { background: #052e16; border-color: #16a34a; color: #4ade80; }
-    .filter-btn.act-loss { background: #450a0a; border-color: #dc2626; color: #f87171; }
+    .filter-btn:hover { border-color: var(--border-strong); color: var(--text); transform: translateY(-1px); }
+    .filter-btn.act-all  { background: rgba(108,168,255,0.10); border-color: var(--link); color: var(--link); }
+    .filter-btn.act-win  { background: rgba(240,84,76,0.10); border-color: var(--up); color: var(--up-bright); }
+    .filter-btn.act-loss { background: rgba(63,191,127,0.10); border-color: var(--dn); color: var(--dn-bright); }
 
     /* search */
     .search-box {
-      background: #21262d; border: 1px solid #30363d; border-radius: 6px;
-      color: #c9d1d9; font-size: 13px; padding: 4px 10px; outline: none;
-      width: 130px;
+      background: var(--surface-2); border: 1px solid var(--border); border-radius: 999px;
+      color: var(--text); font-size: 13px; padding: 4px 12px; outline: none;
+      width: 130px; transition: border-color 0.15s ease;
     }
-    .search-box::placeholder { color: #6b7280; }
-    .search-box:focus { border-color: #58a6ff; }
+    .search-box::placeholder { color: var(--text-3); }
+    .search-box:focus { border-color: var(--link); box-shadow: 0 0 0 3px rgba(108,168,255,0.15); }
 
     /* stats pills */
     .stats-pills {
       margin-left: auto;
       display: flex; gap: 20px; align-items: center;
-      font-size: 12px; color: #8b949e; flex-wrap: wrap;
+      font-size: 12px; color: var(--text-2); flex-wrap: wrap;
     }
     .stat-chip { display: flex; flex-direction: column; align-items: center; gap: 1px; }
-    .stat-num  { font-size: 18px; font-weight: 700; color: #f0f6fc; line-height: 1; }
-    .stat-num.pos { color: #ef4444; }
-    .stat-num.neg { color: #22c55e; }
-    .stat-lbl  { font-size: 10px; color: #8b949e; }
+    .stat-num  { font-size: 18px; font-weight: 700; color: var(--text); line-height: 1; font-variant-numeric: tabular-nums; }
+    .stat-num.pos { color: var(--up); }
+    .stat-num.neg { color: var(--dn); }
+    .stat-lbl  { font-size: 10px; color: var(--text-3); letter-spacing: 0.08em; }
 
     /* ── Table area ── */
     #table-wrap {
@@ -87,77 +109,67 @@
       overflow-y: auto;
       overflow-x: auto;
     }
-    #table-wrap::-webkit-scrollbar { width: 6px; height: 6px; }
-    #table-wrap::-webkit-scrollbar-track { background: #0d1117; }
-    #table-wrap::-webkit-scrollbar-thumb { background: #30363d; border-radius: 3px; }
+    #table-wrap::-webkit-scrollbar { width: 8px; height: 8px; }
+    #table-wrap::-webkit-scrollbar-track { background: transparent; }
+    #table-wrap::-webkit-scrollbar-thumb { background: #2A3140; border-radius: 4px; }
+    #table-wrap::-webkit-scrollbar-thumb:hover { background: #38424F; }
 
-    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
 
     thead th {
       position: sticky; top: 0; z-index: 10;
-      background: #161b22;
-      color: #8b949e; font-weight: 600; font-size: 11px;
-      text-transform: uppercase; letter-spacing: 0.05em;
+      background: var(--surface-2);
+      color: var(--text-3); font-weight: 600; font-size: 11px;
+      text-transform: uppercase; letter-spacing: 0.08em;
       padding: 10px 16px;
-      border-bottom: 1px solid #30363d;
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 6px 10px -8px rgba(0,0,0,0.75);
       white-space: nowrap; text-align: center;
       cursor: pointer; user-select: none;
     }
-    thead th:hover { color: #c9d1d9; }
+    thead th:hover { color: var(--text-2); }
     thead th .sort-arrow { opacity: 0.4; margin-left: 4px; }
-    thead th.sorted .sort-arrow { opacity: 1; color: #58a6ff; }
+    thead th.sorted .sort-arrow { opacity: 1; color: var(--link); }
     thead th.no-sort { cursor: default; }
-    thead th.no-sort:hover { color: #8b949e; }
+    thead th.no-sort:hover { color: var(--text-3); }
 
     tbody tr {
-      border-bottom: 1px solid #1c2128;
-      transition: background 0.10s;
+      border-bottom: 1px solid #1A1F29;
+      transition: background 0.12s ease;
       cursor: default;
       border-left: 3px solid transparent;
     }
     tbody tr.hidden-row { display: none; }
 
     /* 行左邊框顏色 */
-    /* 台股慣例：賺=紅底、虧=綠底（2026-07-22 修正，原設計用反） */
-    tbody tr.row-win  { background: #1a0a0a; border-left-color: #dc2626; }
-    tbody tr.row-win:hover  { background: #250d0d; }
-    tbody tr.row-loss { background: #0a1f16; border-left-color: #16a34a; }
-    tbody tr.row-loss:hover { background: #0e2a1e; }
-    tbody tr.row-even { background: #111827; border-left-color: #4b5563; }
-    tbody tr.row-even:hover { background: #1a2333; }
+    /* 台股慣例：賺=紅底、虧=綠底（2026-07-22 修正，不可反轉） */
+    tbody tr.row-win  { background: var(--up-bg); border-left-color: var(--up); }
+    tbody tr.row-win:hover  { background: #291512; }
+    tbody tr.row-loss { background: var(--dn-bg); border-left-color: var(--dn); }
+    tbody tr.row-loss:hover { background: #12271D; }
+    tbody tr.row-even { background: var(--surface); border-left-color: var(--text-3); }
+    tbody tr.row-even:hover { background: var(--surface-3); }
 
     td { padding: 10px 16px; vertical-align: middle; white-space: nowrap; text-align: center; }
 
-    .td-id   { font-weight: 700; color: #f0f6fc; min-width: 72px; }
-    .td-name { color: #8b949e; min-width: 110px; }
-    .td-date { color: #6b7280; min-width: 90px; font-size: 12px; }
-    .td-days { color: #8b949e; min-width: 60px; }
-    .td-price{ color: #c9d1d9; min-width: 72px; }
+    .td-id   { font-weight: 700; color: var(--text); min-width: 72px; }
+    .td-name { color: var(--text-2); min-width: 110px; }
+    .td-date { color: var(--text-3); min-width: 90px; font-size: 12px; }
+    .td-days { color: var(--text-2); min-width: 60px; }
+    .td-price{ color: var(--text-2); min-width: 72px; }
 
     .td-pnl  { font-weight: 700; font-size: 14px; min-width: 80px; }
-    .pnl-pos  { color: #f87171; }
-    .pnl-neg  { color: #4ade80; }
-    .pnl-zero { color: #6b7280; }
+    .pnl-pos  { color: var(--up-bright); }
+    .pnl-neg  { color: var(--dn-bright); }
+    .pnl-zero { color: var(--text-3); }
 
-    .empty-msg { text-align: center; padding: 40px; color: #484f58; font-size: 14px; }
-
-    /* ── 設計優化 polish（2026-07-08）── */
-    thead th { border-bottom-color: #262c36; box-shadow: 0 6px 10px -8px rgba(0,0,0,0.75); letter-spacing: 0.06em; }
-    tbody tr { transition: background 0.12s ease; }
-    td { padding-top: 10px; padding-bottom: 10px; }
-    ::selection { background: rgba(56,139,253,0.30); }
-    .filter-btn { transition: all 0.15s ease; letter-spacing: 0.02em; }
-    .filter-btn:hover { transform: translateY(-1px); }
-    .search-box:focus, select:focus { box-shadow: 0 0 0 3px rgba(56,139,253,0.15); }
-    .brand { letter-spacing: 0.01em; }
-    #table-wrap::-webkit-scrollbar-thumb { background: #2a323d; }
-    #table-wrap::-webkit-scrollbar-thumb:hover { background: #3a4453; }
+    .empty-msg { text-align: center; padding: 40px; color: var(--text-3); font-size: 14px; }
   </style>
 </head>
 <body>
 
 <header>
-  <div class="brand">已實現損益</div>
+  <div class="brand">INFOFLASK<span class="brand-page">｜已實現損益</span></div>
   <nav class="site-nav">
     <a href="index.html" class="nav-link">首頁</a>
     <a href="scores.html" class="nav-link">評分表</a>

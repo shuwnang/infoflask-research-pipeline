@@ -5,60 +5,79 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>投資績效 | 2026-07-21</title>
 <style>
+  :root {
+    --bg:#0A0C10; --surface:#12151C; --surface-2:#171B24; --surface-3:#1D2330;
+    --border:#232936; --border-strong:#2E3646;
+    --text:#E7EBF2; --text-2:#9AA4B2; --text-3:#5C6675;
+    --accent:#E8C158; --accent-soft:rgba(232,193,88,0.10);
+    --link:#6CA8FF;
+    --up:#F0544C; --up-bg:#1D0F0E; --dn:#3FBF7F; --dn-bg:#0C1B14;
+    --warn:#F5A524; --risk:#F0544C;
+  }
   *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
   body {
     background:
-      radial-gradient(1200px 600px at 100% -10%, rgba(56,139,253,0.07), transparent 60%),
-      #0d1117;
-    color:#e6edf3;
-    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+      radial-gradient(1200px 600px at 100% -10%, rgba(108,168,255,0.06), transparent 60%),
+      var(--bg);
+    color:var(--text);
+    font-family:"Inter","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
     -webkit-font-smoothing:antialiased;
     font-variant-numeric:tabular-nums;
     min-height:100vh;
   }
+  ::-webkit-scrollbar { width:8px; height:8px; }
+  ::-webkit-scrollbar-thumb { background:#2A3140; border-radius:4px; }
+  ::-webkit-scrollbar-thumb:hover { background:#38424F; }
+  ::-webkit-scrollbar-track { background:transparent; }
   /* Header — 與其他頁一致的全寬列 */
   header {
     display:flex; align-items:center; gap:14px; flex-wrap:wrap;
-    padding:12px 20px;
-    background:rgba(22,27,34,0.85); backdrop-filter:blur(8px);
-    border-bottom:1px solid #262c36;
-    box-shadow:0 4px 16px -8px rgba(0,0,0,0.6);
+    padding:12px 22px;
+    background:rgba(10,12,16,0.88); backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border);
+    position:sticky; top:0; z-index:50;
   }
-  .brand { font-size:16px; font-weight:700; color:#f0f6fc; letter-spacing:0.01em; white-space:nowrap; }
-  .date-badge { font-size:12px; color:#8b949e; white-space:nowrap; }
+  .brand { font-size:17px; font-weight:900; color:#fff; letter-spacing:0.08em; white-space:nowrap; }
+  .brand-page { font-size:13px; font-weight:500; color:var(--text-3); margin-left:2px; }
+  .date-badge { font-size:12px; color:var(--text-3); white-space:nowrap; }
   .spacer { flex:1; }
   .nav-link {
-    color:#79b8ff; text-decoration:none; font-size:13px; font-weight:500;
-    border:1px solid #262c36; border-radius:8px; padding:5px 12px; transition:all .15s ease; white-space:nowrap;
+    color:var(--text-2); text-decoration:none; font-size:13px; font-weight:500;
+    border:1px solid var(--border); border-radius:999px; padding:5px 14px;
+    background:transparent; transition:all .15s ease; white-space:nowrap;
   }
-  .nav-link:hover { border-color:#388bfd; background:rgba(56,139,253,0.12); color:#a6d0ff; }
-    .site-nav { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-    .nav-link.active { border-color: #ffd700; color: #ffd700; background: rgba(255,215,0,0.08); pointer-events: none; }
-
+  .nav-link:hover { color:var(--text); border-color:var(--border-strong); background:var(--surface-2); }
+  .site-nav { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  .nav-link.active { color:var(--accent); border-color:var(--accent); background:var(--accent-soft); pointer-events:none; }
 
   .wrap { max-width:1180px; margin:0 auto; padding:20px 18px 44px; }
 
-  /* 精簡指標列 */
-  .stats-row { display:flex; flex-wrap:wrap; gap:14px 40px; padding:6px 6px 22px; }
-  .stat { display:flex; flex-direction:column; gap:4px; }
-  .stat .lbl { font-size:.74rem; color:#8b949e; letter-spacing:.03em; }
-  .stat .val { font-size:1.5rem; font-weight:800; letter-spacing:-0.01em; line-height:1; }
-  .stat .sub { font-size:.72rem; color:#6b7684; }
+  /* 統計卡列 */
+  .stats-row { display:flex; flex-wrap:wrap; gap:12px; padding:6px 0 22px; }
+  .stat {
+    display:flex; flex-direction:column; gap:4px;
+    background:linear-gradient(180deg,#151A23 0%, var(--surface) 100%);
+    border:1px solid var(--border); border-radius:12px; padding:14px 20px;
+    box-shadow:0 10px 30px -18px rgba(0,0,0,0.7);
+  }
+  .stat .lbl { font-size:11px; color:var(--text-3); letter-spacing:.08em; }
+  .stat .val { font-size:1.5rem; font-weight:800; letter-spacing:-0.01em; line-height:1; font-variant-numeric:tabular-nums; }
+  .stat .sub { font-size:.72rem; color:var(--text-3); }
 
   /* 圖表卡（頁面主角） */
   .chart {
-    background:linear-gradient(180deg, #161b22, #12161d);
-    border:1px solid #262c36; border-radius:14px; padding:22px 22px 14px;
-    box-shadow:0 8px 24px -14px rgba(0,0,0,0.7);
+    background:linear-gradient(180deg,#151A23 0%, var(--surface) 100%);
+    border:1px solid var(--border); border-radius:16px; padding:20px 22px;
+    box-shadow:0 10px 30px -18px rgba(0,0,0,0.7);
   }
-  .chart h2 { font-size:.9rem; color:#8b949e; font-weight:600; margin-bottom:10px; letter-spacing:.02em; }
-  footer { color:#484f58; font-size:.74rem; margin-top:18px; text-align:center; }
-  ::selection { background:rgba(56,139,253,0.30); }
+  .chart h2 { font-size:.9rem; color:var(--text-2); font-weight:600; margin-bottom:10px; letter-spacing:.02em; }
+  footer { color:var(--text-3); font-size:.74rem; margin-top:18px; text-align:center; }
+  ::selection { background:rgba(108,168,255,0.28); }
 </style>
 </head>
 <body>
   <header>
-    <span class="brand">投資績效</span>
+    <div class="brand">INFOFLASK<span class="brand-page">｜績效表</span></div>
     <nav class="site-nav">
       <a href="index.html" class="nav-link">首頁</a>
     <a href="scores.html" class="nav-link">評分表</a>
@@ -81,17 +100,17 @@
       </div>
       <div class="stat">
         <span class="lbl">累積報酬率</span>
-        <span class="val" style="color:#ff6b74">+78.86%</span>
+        <span class="val" style="color:var(--up)">+78.86%</span>
         <span class="sub">大盤 +50.71%・超額 +28.15%</span>
       </div>
       <div class="stat">
         <span class="lbl">今日損益</span>
-        <span class="val" style="color:#ff6b74">+346,386</span>
+        <span class="val" style="color:var(--up)">+346,386</span>
         <span class="sub">今日報酬 +1.97%</span>
       </div>
       <div class="stat">
         <span class="lbl">今日報酬率</span>
-        <span class="val" style="color:#ff6b74">+1.97%</span>
+        <span class="val" style="color:var(--up)">+1.97%</span>
         <span class="sub">最大回撤 -14.63%</span>
       </div>
     </div>
@@ -99,24 +118,24 @@
     <div class="chart">
       <h2>投資組合淨值變動 vs 大盤指數（2026-01-02 ~ 2026-07-21）</h2>
       <svg viewBox="0 0 1080 460" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
-  <line x1="70" y1="420.0" x2="1060" y2="420.0" stroke="#1c222c" stroke-width="1"/><text x="62" y="424.0" text-anchor="end" fill="#8b949e" font-size="11">927萬</text><line x1="70" y1="342.8" x2="1060" y2="342.8" stroke="#1c222c" stroke-width="1"/><text x="62" y="346.8" text-anchor="end" fill="#8b949e" font-size="11">1,162萬</text><line x1="70" y1="265.6" x2="1060" y2="265.6" stroke="#1c222c" stroke-width="1"/><text x="62" y="269.6" text-anchor="end" fill="#8b949e" font-size="11">1,397萬</text><line x1="70" y1="188.4" x2="1060" y2="188.4" stroke="#1c222c" stroke-width="1"/><text x="62" y="192.4" text-anchor="end" fill="#8b949e" font-size="11">1,632萬</text><line x1="70" y1="111.2" x2="1060" y2="111.2" stroke="#1c222c" stroke-width="1"/><text x="62" y="115.2" text-anchor="end" fill="#8b949e" font-size="11">1,868萬</text><line x1="70" y1="34.0" x2="1060" y2="34.0" stroke="#1c222c" stroke-width="1"/><text x="62" y="38.0" text-anchor="end" fill="#8b949e" font-size="11">2,103萬</text>
-  <text x="70.0" y="438" text-anchor="middle" fill="#8b949e" font-size="11">1月</text><text x="231.2" y="438" text-anchor="middle" fill="#8b949e" font-size="11">2月</text><text x="323.3" y="438" text-anchor="middle" fill="#8b949e" font-size="11">3月</text><text x="492.1" y="438" text-anchor="middle" fill="#8b949e" font-size="11">4月</text><text x="645.6" y="438" text-anchor="middle" fill="#8b949e" font-size="11">5月</text><text x="799.1" y="438" text-anchor="middle" fill="#8b949e" font-size="11">6月</text><text x="960.2" y="438" text-anchor="middle" fill="#8b949e" font-size="11">7月</text>
+  <line x1="70" y1="420.0" x2="1060" y2="420.0" stroke="#1A1F29" stroke-width="1"/><text x="62" y="424.0" text-anchor="end" fill="#9AA4B2" font-size="11">927萬</text><line x1="70" y1="342.8" x2="1060" y2="342.8" stroke="#1A1F29" stroke-width="1"/><text x="62" y="346.8" text-anchor="end" fill="#9AA4B2" font-size="11">1,162萬</text><line x1="70" y1="265.6" x2="1060" y2="265.6" stroke="#1A1F29" stroke-width="1"/><text x="62" y="269.6" text-anchor="end" fill="#9AA4B2" font-size="11">1,397萬</text><line x1="70" y1="188.4" x2="1060" y2="188.4" stroke="#1A1F29" stroke-width="1"/><text x="62" y="192.4" text-anchor="end" fill="#9AA4B2" font-size="11">1,632萬</text><line x1="70" y1="111.2" x2="1060" y2="111.2" stroke="#1A1F29" stroke-width="1"/><text x="62" y="115.2" text-anchor="end" fill="#9AA4B2" font-size="11">1,868萬</text><line x1="70" y1="34.0" x2="1060" y2="34.0" stroke="#1A1F29" stroke-width="1"/><text x="62" y="38.0" text-anchor="end" fill="#9AA4B2" font-size="11">2,103萬</text>
+  <text x="70.0" y="438" text-anchor="middle" fill="#9AA4B2" font-size="11">1月</text><text x="231.2" y="438" text-anchor="middle" fill="#9AA4B2" font-size="11">2月</text><text x="323.3" y="438" text-anchor="middle" fill="#9AA4B2" font-size="11">3月</text><text x="492.1" y="438" text-anchor="middle" fill="#9AA4B2" font-size="11">4月</text><text x="645.6" y="438" text-anchor="middle" fill="#9AA4B2" font-size="11">5月</text><text x="799.1" y="438" text-anchor="middle" fill="#9AA4B2" font-size="11">6月</text><text x="960.2" y="438" text-anchor="middle" fill="#9AA4B2" font-size="11">7月</text>
   <line x1="70" y1="395.9" x2="1060" y2="395.9"
-        stroke="#586069" stroke-width="1" stroke-dasharray="2,4"/>
+        stroke="#5C6675" stroke-width="1" stroke-dasharray="2,4"/>
   <path d="M 70.0,395.9 L 70.0,395.9 L 77.7,399.9 L 85.3,398.0 L 93.0,394.7 L 100.7,402.5 L 108.4,400.2 L 116.0,385.1 L 123.7,373.4 L 131.4,361.0 L 139.1,356.1 L 146.7,354.8 L 154.4,344.0 L 162.1,331.5 L 169.8,344.0 L 177.4,347.3 L 185.1,351.5 L 192.8,339.4 L 200.5,341.8 L 208.1,333.3 L 215.8,338.4 L 223.5,341.8 L 231.2,357.8 L 238.8,348.4 L 246.5,336.0 L 254.2,354.8 L 261.9,367.3 L 269.5,351.5 L 277.2,352.0 L 284.9,342.7 L 292.6,325.0 L 300.2,305.0 L 307.9,304.1 L 315.6,294.5 L 323.3,290.6 L 330.9,317.1 L 338.6,347.9 L 346.3,333.9 L 354.0,326.8 L 361.6,354.0 L 369.3,341.3 L 377.0,326.4 L 384.7,318.0 L 392.3,326.1 L 400.0,328.5 L 407.7,321.2 L 415.3,311.5 L 423.0,298.9 L 430.7,304.3 L 438.4,325.8 L 446.0,332.4 L 453.7,317.9 L 461.4,325.7 L 469.1,319.0 L 476.7,323.4 L 484.4,344.0 L 492.1,324.1 L 499.8,316.6 L 507.4,306.0 L 515.1,297.5 L 522.8,279.4 L 530.5,270.8 L 538.1,252.1 L 545.8,260.4 L 553.5,268.4 L 561.2,246.9 L 568.8,235.7 L 576.5,227.0 L 584.2,220.1 L 591.9,209.0 L 599.5,237.2 L 607.2,241.6 L 614.9,250.4 L 622.6,234.8 L 630.2,224.6 L 637.9,223.9 L 645.6,199.6 L 653.3,188.0 L 660.9,183.2 L 668.6,163.1 L 676.3,171.0 L 684.0,157.7 L 691.6,150.4 L 699.3,147.2 L 707.0,140.8 L 714.7,147.1 L 722.3,135.7 L 730.0,142.3 L 737.7,138.4 L 745.3,120.6 L 753.0,102.4 L 760.7,87.8 L 768.4,90.9 L 776.0,86.0 L 783.7,70.2 L 791.4,58.0 L 799.1,57.5 L 806.7,57.4 L 814.4,51.5 L 822.1,64.0 L 829.8,75.8 L 837.4,103.4 L 845.1,95.8 L 852.8,107.1 L 860.5,109.9 L 868.1,104.5 L 875.8,99.1 L 883.5,93.5 L 891.2,88.6 L 898.8,77.9 L 906.5,78.0 L 914.2,91.7 L 921.9,94.5 L 929.5,92.3 L 937.2,123.2 L 944.9,133.0 L 952.6,109.2 L 960.2,99.9 L 967.9,89.0 L 975.6,81.8 L 983.3,72.9 L 990.9,95.8 L 998.6,83.2 L 1006.3,90.1 L 1014.0,92.0 L 1021.6,93.6 L 1029.3,91.8 L 1037.0,103.5 L 1044.7,130.0 L 1052.3,148.5 L 1060.0,137.2 L 1060.0,420 L 70.0,420 Z" fill="url(#grad)" opacity="0.28"/>
-  <polyline points="70.0,395.9 77.7,387.5 85.3,382.2 93.0,383.8 100.7,384.6 108.4,385.4 116.0,382.3 123.7,380.8 131.4,378.1 139.1,379.6 146.7,372.9 154.4,370.3 162.1,369.0 169.8,374.7 177.4,369.2 185.1,366.7 192.8,365.6 200.5,362.8 208.1,357.3 215.8,360.3 223.5,365.6 231.2,370.5 238.8,364.1 246.5,363.1 254.2,368.5 261.9,368.7 269.5,361.8 277.2,354.3 284.9,348.4 292.6,346.5 300.2,336.1 307.9,328.2 315.6,328.1 323.3,331.7 330.9,340.3 338.6,357.0 346.3,347.6 354.0,348.4 361.6,365.1 369.3,357.7 377.0,342.7 384.7,348.6 392.3,350.7 400.0,351.3 407.7,345.8 415.3,340.1 423.0,347.4 430.7,349.1 438.4,358.2 446.0,359.5 453.7,350.2 461.4,351.4 469.1,353.9 476.7,360.5 484.4,369.4 492.1,353.2 499.8,359.9 507.4,352.6 515.1,335.4 522.8,334.3 530.5,328.1 538.1,327.7 545.8,318.3 553.5,313.5 561.2,308.9 568.8,312.6 576.5,310.9 584.2,303.6 591.9,300.6 599.5,302.4 607.2,288.8 614.9,281.2 622.6,282.2 630.2,284.7 637.9,288.9 645.6,269.0 653.3,268.3 660.9,264.1 668.6,255.2 676.3,258.9 684.0,256.9 691.6,255.6 699.3,261.5 707.0,257.3 714.7,263.8 722.3,266.9 730.0,274.9 737.7,276.6 745.3,261.6 753.0,251.5 760.7,236.1 768.4,237.5 776.0,229.3 783.7,236.2 791.4,224.0 799.1,217.2 806.7,214.7 814.4,204.7 822.1,213.4 829.8,220.2 837.4,237.7 845.1,224.3 852.8,240.8 860.5,241.7 868.1,230.3 875.8,216.5 883.5,211.9 891.2,211.2 898.8,204.6 906.5,190.3 914.2,197.5 921.9,209.3 929.5,206.9 937.2,225.8 944.9,221.0 952.6,208.4 960.2,198.4 967.9,201.5 975.6,201.1 983.3,203.6 990.9,215.6 998.6,212.8 1006.3,217.0 1014.0,216.7 1021.6,223.9 1029.3,213.9 1037.0,214.0 1044.7,247.0 1052.3,249.5 1060.0,229.5" fill="none" stroke="#8b949e" stroke-width="1.6" stroke-dasharray="6,4" opacity="0.85"/>
-  <polyline points="70.0,395.9 77.7,399.9 85.3,398.0 93.0,394.7 100.7,402.5 108.4,400.2 116.0,385.1 123.7,373.4 131.4,361.0 139.1,356.1 146.7,354.8 154.4,344.0 162.1,331.5 169.8,344.0 177.4,347.3 185.1,351.5 192.8,339.4 200.5,341.8 208.1,333.3 215.8,338.4 223.5,341.8 231.2,357.8 238.8,348.4 246.5,336.0 254.2,354.8 261.9,367.3 269.5,351.5 277.2,352.0 284.9,342.7 292.6,325.0 300.2,305.0 307.9,304.1 315.6,294.5 323.3,290.6 330.9,317.1 338.6,347.9 346.3,333.9 354.0,326.8 361.6,354.0 369.3,341.3 377.0,326.4 384.7,318.0 392.3,326.1 400.0,328.5 407.7,321.2 415.3,311.5 423.0,298.9 430.7,304.3 438.4,325.8 446.0,332.4 453.7,317.9 461.4,325.7 469.1,319.0 476.7,323.4 484.4,344.0 492.1,324.1 499.8,316.6 507.4,306.0 515.1,297.5 522.8,279.4 530.5,270.8 538.1,252.1 545.8,260.4 553.5,268.4 561.2,246.9 568.8,235.7 576.5,227.0 584.2,220.1 591.9,209.0 599.5,237.2 607.2,241.6 614.9,250.4 622.6,234.8 630.2,224.6 637.9,223.9 645.6,199.6 653.3,188.0 660.9,183.2 668.6,163.1 676.3,171.0 684.0,157.7 691.6,150.4 699.3,147.2 707.0,140.8 714.7,147.1 722.3,135.7 730.0,142.3 737.7,138.4 745.3,120.6 753.0,102.4 760.7,87.8 768.4,90.9 776.0,86.0 783.7,70.2 791.4,58.0 799.1,57.5 806.7,57.4 814.4,51.5 822.1,64.0 829.8,75.8 837.4,103.4 845.1,95.8 852.8,107.1 860.5,109.9 868.1,104.5 875.8,99.1 883.5,93.5 891.2,88.6 898.8,77.9 906.5,78.0 914.2,91.7 921.9,94.5 929.5,92.3 937.2,123.2 944.9,133.0 952.6,109.2 960.2,99.9 967.9,89.0 975.6,81.8 983.3,72.9 990.9,95.8 998.6,83.2 1006.3,90.1 1014.0,92.0 1021.6,93.6 1029.3,91.8 1037.0,103.5 1044.7,130.0 1052.3,148.5 1060.0,137.2" fill="none" stroke="#ff6b74" stroke-width="2.4"/>
+  <polyline points="70.0,395.9 77.7,387.5 85.3,382.2 93.0,383.8 100.7,384.6 108.4,385.4 116.0,382.3 123.7,380.8 131.4,378.1 139.1,379.6 146.7,372.9 154.4,370.3 162.1,369.0 169.8,374.7 177.4,369.2 185.1,366.7 192.8,365.6 200.5,362.8 208.1,357.3 215.8,360.3 223.5,365.6 231.2,370.5 238.8,364.1 246.5,363.1 254.2,368.5 261.9,368.7 269.5,361.8 277.2,354.3 284.9,348.4 292.6,346.5 300.2,336.1 307.9,328.2 315.6,328.1 323.3,331.7 330.9,340.3 338.6,357.0 346.3,347.6 354.0,348.4 361.6,365.1 369.3,357.7 377.0,342.7 384.7,348.6 392.3,350.7 400.0,351.3 407.7,345.8 415.3,340.1 423.0,347.4 430.7,349.1 438.4,358.2 446.0,359.5 453.7,350.2 461.4,351.4 469.1,353.9 476.7,360.5 484.4,369.4 492.1,353.2 499.8,359.9 507.4,352.6 515.1,335.4 522.8,334.3 530.5,328.1 538.1,327.7 545.8,318.3 553.5,313.5 561.2,308.9 568.8,312.6 576.5,310.9 584.2,303.6 591.9,300.6 599.5,302.4 607.2,288.8 614.9,281.2 622.6,282.2 630.2,284.7 637.9,288.9 645.6,269.0 653.3,268.3 660.9,264.1 668.6,255.2 676.3,258.9 684.0,256.9 691.6,255.6 699.3,261.5 707.0,257.3 714.7,263.8 722.3,266.9 730.0,274.9 737.7,276.6 745.3,261.6 753.0,251.5 760.7,236.1 768.4,237.5 776.0,229.3 783.7,236.2 791.4,224.0 799.1,217.2 806.7,214.7 814.4,204.7 822.1,213.4 829.8,220.2 837.4,237.7 845.1,224.3 852.8,240.8 860.5,241.7 868.1,230.3 875.8,216.5 883.5,211.9 891.2,211.2 898.8,204.6 906.5,190.3 914.2,197.5 921.9,209.3 929.5,206.9 937.2,225.8 944.9,221.0 952.6,208.4 960.2,198.4 967.9,201.5 975.6,201.1 983.3,203.6 990.9,215.6 998.6,212.8 1006.3,217.0 1014.0,216.7 1021.6,223.9 1029.3,213.9 1037.0,214.0 1044.7,247.0 1052.3,249.5 1060.0,229.5" fill="none" stroke="#6CA8FF" stroke-width="1.6" stroke-dasharray="6,4" opacity="0.85"/>
+  <polyline points="70.0,395.9 77.7,399.9 85.3,398.0 93.0,394.7 100.7,402.5 108.4,400.2 116.0,385.1 123.7,373.4 131.4,361.0 139.1,356.1 146.7,354.8 154.4,344.0 162.1,331.5 169.8,344.0 177.4,347.3 185.1,351.5 192.8,339.4 200.5,341.8 208.1,333.3 215.8,338.4 223.5,341.8 231.2,357.8 238.8,348.4 246.5,336.0 254.2,354.8 261.9,367.3 269.5,351.5 277.2,352.0 284.9,342.7 292.6,325.0 300.2,305.0 307.9,304.1 315.6,294.5 323.3,290.6 330.9,317.1 338.6,347.9 346.3,333.9 354.0,326.8 361.6,354.0 369.3,341.3 377.0,326.4 384.7,318.0 392.3,326.1 400.0,328.5 407.7,321.2 415.3,311.5 423.0,298.9 430.7,304.3 438.4,325.8 446.0,332.4 453.7,317.9 461.4,325.7 469.1,319.0 476.7,323.4 484.4,344.0 492.1,324.1 499.8,316.6 507.4,306.0 515.1,297.5 522.8,279.4 530.5,270.8 538.1,252.1 545.8,260.4 553.5,268.4 561.2,246.9 568.8,235.7 576.5,227.0 584.2,220.1 591.9,209.0 599.5,237.2 607.2,241.6 614.9,250.4 622.6,234.8 630.2,224.6 637.9,223.9 645.6,199.6 653.3,188.0 660.9,183.2 668.6,163.1 676.3,171.0 684.0,157.7 691.6,150.4 699.3,147.2 707.0,140.8 714.7,147.1 722.3,135.7 730.0,142.3 737.7,138.4 745.3,120.6 753.0,102.4 760.7,87.8 768.4,90.9 776.0,86.0 783.7,70.2 791.4,58.0 799.1,57.5 806.7,57.4 814.4,51.5 822.1,64.0 829.8,75.8 837.4,103.4 845.1,95.8 852.8,107.1 860.5,109.9 868.1,104.5 875.8,99.1 883.5,93.5 891.2,88.6 898.8,77.9 906.5,78.0 914.2,91.7 921.9,94.5 929.5,92.3 937.2,123.2 944.9,133.0 952.6,109.2 960.2,99.9 967.9,89.0 975.6,81.8 983.3,72.9 990.9,95.8 998.6,83.2 1006.3,90.1 1014.0,92.0 1021.6,93.6 1029.3,91.8 1037.0,103.5 1044.7,130.0 1052.3,148.5 1060.0,137.2" fill="none" stroke="#F0544C" stroke-width="2.4"/>
   
   <g font-size="12" font-weight="600">
-    <line x1="70" y1="14" x2="92" y2="14" stroke="#ff6b74" stroke-width="2.5"/>
-    <text x="98" y="18" fill="#c9d1d9">本策略</text>
-    <line x1="162" y1="14" x2="184" y2="14" stroke="#8b949e" stroke-width="1.6" stroke-dasharray="6,4"/>
-    <text x="190" y="18" fill="#8b949e">大盤指數（同本金）</text>
+    <line x1="70" y1="14" x2="92" y2="14" stroke="#F0544C" stroke-width="2.5"/>
+    <text x="98" y="18" fill="#E7EBF2">本策略</text>
+    <line x1="162" y1="14" x2="184" y2="14" stroke="#6CA8FF" stroke-width="1.6" stroke-dasharray="6,4"/>
+    <text x="190" y="18" fill="#9AA4B2">大盤指數（同本金）</text>
   </g>
   <defs>
     <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#ff6b74" stop-opacity="0.55"/>
-      <stop offset="100%" stop-color="#ff6b74" stop-opacity="0"/>
+      <stop offset="0%" stop-color="#F0544C" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#F0544C" stop-opacity="0"/>
     </linearGradient>
   </defs>
 </svg>
