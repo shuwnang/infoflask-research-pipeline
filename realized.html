@@ -118,10 +118,11 @@
     tbody tr.hidden-row { display: none; }
 
     /* 行左邊框顏色 */
-    tbody tr.row-win  { background: #0a1f16; border-left-color: #16a34a; }
-    tbody tr.row-win:hover  { background: #0e2a1e; }
-    tbody tr.row-loss { background: #1a0a0a; border-left-color: #dc2626; }
-    tbody tr.row-loss:hover { background: #250d0d; }
+    /* 台股慣例：賺=紅底、虧=綠底（2026-07-22 修正，原設計用反） */
+    tbody tr.row-win  { background: #1a0a0a; border-left-color: #dc2626; }
+    tbody tr.row-win:hover  { background: #250d0d; }
+    tbody tr.row-loss { background: #0a1f16; border-left-color: #16a34a; }
+    tbody tr.row-loss:hover { background: #0e2a1e; }
     tbody tr.row-even { background: #111827; border-left-color: #4b5563; }
     tbody tr.row-even:hover { background: #1a2333; }
 
