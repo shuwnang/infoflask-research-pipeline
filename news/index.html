@@ -1,56 +1,36 @@
 <!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>新聞圖譜｜INFOFLASK</title><style>
+<title>INFOFLASK 新聞早晚報</title><style>
 :root{--bg:#0A0C10;--surface:#12151C;--surface-2:#171B24;--surface-3:#1D2330;
 --border:#232936;--border-strong:#2E3646;--text:#E7EBF2;--text-2:#9AA4B2;--text-3:#5C6675;
---accent:#E8C158;--accent-soft:rgba(232,193,88,0.10);--link:#6CA8FF;
---up:#F0544C;--dn:#3FBF7F;--warn:#F5A524}
+--accent:#E8C158;--accent-soft:rgba(232,193,88,0.10);--link:#6CA8FF}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:"Inter","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;line-height:1.65}
+body{background:var(--bg);color:var(--text);font-family:"Inter","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;line-height:1.75}
 a{color:var(--link);text-decoration:none}a:hover{text-decoration:underline}
-.wrap{max-width:860px;margin:0 auto;padding:24px 16px 80px}
-h1{font-size:1.35rem;margin-bottom:4px}
-.sub{color:var(--text-3);font-size:.85rem;margin-bottom:20px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 14px;cursor:pointer;transition:.15s}
-.card:hover{background:var(--surface-3);border-color:var(--border-strong)}
-.card.visited{opacity:.45}
-.card h3{font-size:.95rem;font-weight:600;margin-bottom:4px}
-.meta{color:var(--text-3);font-size:.75rem;display:flex;gap:8px;flex-wrap:wrap}
-.chip{background:var(--surface-2);border:1px solid var(--border);border-radius:20px;padding:1px 9px;font-size:.72rem;color:var(--text-2)}
-.chip.et{color:var(--accent);border-color:rgba(232,193,88,.3)}
-#reader{display:none}
-.rcard{background:var(--surface);border:1px solid var(--border-strong);border-radius:12px;padding:20px 22px;margin-bottom:14px}
-.rcard h2{font-size:1.2rem;margin-bottom:8px;color:var(--accent)}
-.syn{margin:10px 0;color:var(--text)}
-.facts{margin:12px 0;padding-left:2px}
-.facts li{list-style:none;padding:3px 0 3px 18px;position:relative;color:var(--text-2);font-size:.9rem}
+.wrap{max-width:780px;margin:0 auto;padding:24px 16px 80px}
+h1{font-size:1.3rem;margin-bottom:2px}
+.sub{color:var(--text-3);font-size:.85rem;margin-bottom:18px}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px;position:sticky;top:0;background:var(--bg);padding:10px 0;z-index:5;border-bottom:1px solid var(--border)}
+.nav a{background:var(--surface-2);border:1px solid var(--border);border-radius:20px;padding:3px 12px;font-size:.78rem;color:var(--text-2)}
+.nav a:hover{color:var(--accent);border-color:rgba(232,193,88,.4);text-decoration:none}
+.theme{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px 24px;margin-bottom:18px}
+.theme h2{font-size:1.15rem;color:var(--accent);margin-bottom:4px}
+.tmeta{color:var(--text-3);font-size:.75rem;margin-bottom:12px}
+.art{white-space:pre-wrap;margin-bottom:12px}
+.facts li{list-style:none;padding:3px 0 3px 18px;position:relative;color:var(--text-2);font-size:.88rem}
 .facts li:before{content:"▪";position:absolute;left:2px;color:var(--accent)}
-.watch{background:var(--accent-soft);border-left:3px solid var(--accent);padding:8px 12px;border-radius:0 8px 8px 0;font-size:.88rem;margin:10px 0}
-.arts{margin-top:14px;border-top:1px solid var(--border);padding-top:10px}
-.arts h4{font-size:.8rem;color:var(--text-3);margin-bottom:6px;font-weight:500}
-.arts a{display:block;padding:4px 0;font-size:.88rem}
-.subev{margin:8px 0 12px}
-.subev h5{font-size:.82rem;color:var(--accent);font-weight:600;margin-bottom:2px}
-.arts .src{color:var(--text-3);font-size:.75rem;margin-left:6px}
-.next h4{font-size:.85rem;color:var(--text-2);margin:16px 0 8px}
-.nextbtn{display:block;width:100%;text-align:left;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:8px;color:var(--text);cursor:pointer;font-size:.9rem;font-family:inherit;transition:.15s}
-.nextbtn:hover{background:var(--surface-3);border-color:var(--border-strong)}
-.nextbtn .rel{color:var(--accent);font-size:.75rem;margin-right:8px;border:1px solid rgba(232,193,88,.35);border-radius:20px;padding:1px 8px}
-.nextbtn .why{color:var(--text-3);font-size:.78rem;margin-left:6px}
-.nextbtn.visited{opacity:.5}
-.topbar{display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
-.btn{background:var(--surface-2);border:1px solid var(--border);color:var(--text-2);border-radius:8px;padding:6px 14px;cursor:pointer;font-size:.85rem;font-family:inherit}
-.btn:hover{background:var(--surface-3);color:var(--text)}
-.datecard{display:block;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:10px}
-.datecard:hover{background:var(--surface-3);text-decoration:none}
-.datecard b{color:var(--text)}
+.watch{background:var(--accent-soft);border-left:3px solid var(--accent);padding:8px 12px;border-radius:0 8px 8px 0;font-size:.87rem;margin:10px 0}
+details{margin-top:12px;border-top:1px solid var(--border);padding-top:8px}
+summary{color:var(--text-3);font-size:.8rem;cursor:pointer}
+details a{display:block;padding:3px 0;font-size:.85rem}
+details .src{color:var(--text-3);font-size:.73rem;margin-left:6px}
+.edcard{display:block;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:10px}
+.edcard:hover{background:var(--surface-3);text-decoration:none}
+.edcard b{color:var(--text)}
+.edcard .m{color:var(--text-3);font-size:.8rem;margin-left:10px}
+.top{margin-bottom:14px}
+.top a{font-size:.85rem;color:var(--text-2)}
 </style></head><body>
-<div class="wrap"><h1>📰 新聞圖譜</h1>
-<div class="sub">AI 分群整理的連貫閱讀——選日期進入</div>
-<a class="datecard" href="2026-08-06.html"><b>2026-08-06</b><span class="meta" style="margin-left:12px">9 個主題｜該日 12 篇</span></a>
-<a class="datecard" href="2026-08-05.html"><b>2026-08-05</b><span class="meta" style="margin-left:12px">191 個主題｜該日 582 篇</span></a>
-<a class="datecard" href="2026-08-04.html"><b>2026-08-04</b><span class="meta" style="margin-left:12px">162 個主題｜該日 568 篇</span></a>
-<a class="datecard" href="2026-08-03.html"><b>2026-08-03</b><span class="meta" style="margin-left:12px">90 個主題｜該日 290 篇</span></a>
-<a class="datecard" href="2026-08-02.html"><b>2026-08-02</b><span class="meta" style="margin-left:12px">2 個主題｜該日 2 篇</span></a>
-<a class="datecard" href="2026-06-16.html"><b>2026-06-16</b><span class="meta" style="margin-left:12px">7 個主題｜該日 21 篇</span></a></div></body></html>
+<div class="wrap"><h1>📰 新聞早晚報</h1>
+<div class="sub">每日兩期：早報（前日17:00–05:00）／晚報（05:00–17:00）｜AI 選題與整合</div>
+<a class="edcard" href="2026-08-06-am.html"><b>2026-08-06 早報</b><span class="m">8 主題｜103 篇</span><div class="m" style="margin:4px 0 0">美股創高，科技巨頭202、台股8月5日暴漲1250、AI需求推升台鏈，Spa…</div></a></div></body></html>
