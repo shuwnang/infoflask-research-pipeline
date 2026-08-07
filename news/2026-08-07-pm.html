@@ -1,0 +1,234 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2026-08-07 晚報｜INFOFLASK 新聞</title><style>
+:root{--bg:#0A0C10;--surface:#12151C;--surface-2:#171B24;--surface-3:#1D2330;
+--border:#232936;--border-strong:#2E3646;--text:#E7EBF2;--text-2:#9AA4B2;--text-3:#5C6675;
+--accent:#E8C158;--accent-soft:rgba(232,193,88,0.10);--link:#6CA8FF}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:"Inter","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;line-height:1.75}
+a{color:var(--link);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:780px;margin:0 auto;padding:24px 16px 80px}
+h1{font-size:1.3rem;margin-bottom:2px}
+.sub{color:var(--text-3);font-size:.85rem;margin-bottom:18px}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px;position:sticky;top:0;background:var(--bg);padding:10px 0;z-index:5;border-bottom:1px solid var(--border)}
+.nav a{background:var(--surface-2);border:1px solid var(--border);border-radius:20px;padding:3px 12px;font-size:.78rem;color:var(--text-2)}
+.nav a:hover{color:var(--accent);border-color:rgba(232,193,88,.4);text-decoration:none}
+.theme{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px 24px;margin-bottom:18px}
+.theme h2{font-size:1.15rem;color:var(--accent);margin-bottom:4px}
+.tmeta{color:var(--text-3);font-size:.75rem;margin-bottom:12px}
+.art{white-space:pre-wrap;margin-bottom:12px}
+.facts li{list-style:none;padding:3px 0 3px 18px;position:relative;color:var(--text-2);font-size:.88rem}
+.facts li:before{content:"▪";position:absolute;left:2px;color:var(--accent)}
+.watch{background:var(--accent-soft);border-left:3px solid var(--accent);padding:8px 12px;border-radius:0 8px 8px 0;font-size:.87rem;margin:10px 0}
+details{margin-top:12px;border-top:1px solid var(--border);padding-top:8px}
+summary{color:var(--text-3);font-size:.8rem;cursor:pointer}
+details a{display:block;padding:3px 0;font-size:.85rem}
+details .src{color:var(--text-3);font-size:.73rem;margin-left:6px}
+.top{margin-bottom:14px}
+.top a{font-size:.85rem;color:var(--text-2)}
+/* ── 首頁 ── */
+.hero{text-align:center;padding:34px 0 6px}
+.hero h1{font-size:1.6rem;letter-spacing:.04em}
+.hero .sub{margin-top:6px;margin-bottom:0}
+.cloud{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:2px 10px;
+  padding:30px 14px 22px;margin:18px 0 30px;background:var(--surface);border:1px solid var(--border);
+  border-radius:16px;line-height:1.05}
+.cloud span{white-space:nowrap;transition:.18s;cursor:default;display:inline-block}
+.cloud span:hover{color:var(--accent)!important;transform:scale(1.12)!important;z-index:2;position:relative}
+.cloud .v{writing-mode:vertical-rl;letter-spacing:.08em}
+.cloud .cl-note{width:100%;text-align:center;color:var(--text-3);font-size:.72rem;margin-top:10px}
+.dgroup{margin-bottom:26px}
+.dgroup h3{font-size:.95rem;color:var(--text-2);margin-bottom:10px;font-weight:600;
+  border-left:3px solid var(--accent);padding-left:10px}
+.edrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.edcard{display:block;background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  padding:18px 20px;transition:.18s}
+.edcard:hover{background:var(--surface-3);border-color:var(--border-strong);
+  text-decoration:none;transform:translateY(-2px)}
+.badge{display:inline-block;font-size:.72rem;border-radius:20px;padding:2px 11px;margin-right:8px;
+  border:1px solid rgba(232,193,88,.4);color:var(--accent);background:var(--accent-soft)}
+.badge.pm{border-color:rgba(108,168,255,.4);color:var(--link);background:rgba(108,168,255,.08)}
+.edcard .cnt{color:var(--text-3);font-size:.76rem}
+.tlist{margin-top:12px}
+.tlist li{list-style:none;padding:4px 0 4px 16px;position:relative;color:var(--text-2);
+  font-size:.86rem;line-height:1.5}
+.tlist li:before{content:"›";position:absolute;left:2px;color:var(--accent);font-weight:700}
+.hotrow{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+.hotchip{font-size:.78rem;border:1px solid var(--border-strong);border-radius:20px;
+  padding:3px 12px;color:var(--text-2);background:var(--surface-2)}
+.hotchip b{color:var(--accent);font-weight:600}
+.post{margin:14px 0;padding:12px 14px;border:1px solid var(--border);border-radius:10px;
+  background:var(--surface-2)}
+.post .ptitle{font-size:.9rem;font-weight:600;line-height:1.5}
+.post .ptitle a{color:var(--text-1)}
+.post .pmeta{font-size:.72rem;color:var(--text-3);margin:2px 0 6px}
+.post ul{margin:0;padding-left:18px}
+.post li{font-size:.84rem;color:var(--text-2);line-height:1.6}
+.sent{display:inline-block;font-size:.7rem;border-radius:4px;padding:1px 7px;margin-left:6px}
+.sent.bull{color:#f28b82;background:rgba(242,139,130,.12)}
+.sent.bear{color:#81c995;background:rgba(129,201,149,.12)}
+.sent.mix{color:var(--accent);background:var(--accent-soft)}
+.sent.neu{color:var(--text-3);background:var(--surface-3)}
+.sitenav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.sitenav a{font-size:.78rem;color:var(--text-3);text-decoration:none;
+  border:1px solid var(--border);border-radius:20px;padding:3px 12px;transition:.15s}
+.sitenav a:hover{color:var(--text-1);border-color:var(--border-strong);background:var(--surface-2)}
+.sitenav a.on{color:var(--accent);border-color:var(--accent);pointer-events:none}
+</style></head><body>
+<div class="wrap">
+<nav class="sitenav">
+<a href="../index.html">模型首頁</a>
+<a href="../scores.html">評分表</a>
+<a href="../holdings.html">模型持股</a>
+<a href="../performance.html">績效表</a>
+<a href="../market.html">大盤觀測</a>
+<a href="../treemap.html">選股地圖</a>
+<a class="on" href="index.html">新聞</a>
+</nav>
+<div class="top"><a href="index.html">← 期別列表</a></div>
+<h1>📰 2026-08-07 <span style="color:var(--accent)">晚報</span></h1>
+<div class="sub">當日05:00–17:00｜9 個主題｜候選 226 篇精選 116 篇</div>
+<div class="nav"><a href="#t0">台股震盪逾600點，國巨累跌</a><a href="#t1">伊朗擬禁敵對船 荷姆茲油價衝</a><a href="#t2">AI需求推升晶片記憶體供應緊</a><a href="#t3">台灣電子股獲利與外資喊價升溫</a><a href="#t4">台灣、中國出口增長，關稅重塑</a><a href="#t5">美日干預牽動亞洲匯市</a><a href="#t6">台新新光合併與國銀放款創高</a><a href="#t7">油金銅鋼齊動，傳產成本重估</a><a href="#t8">外資倒貨引爆空方，記憶體多空</a></div>
+<section class="theme" id="t0">
+<h2>台股震盪逾600點，國巨累跌60%</h2>
+<div class="tmeta">臺股趨勢｜5 篇來源｜固定主題</div>
+<div class="art">台股2026年8月7日開高走低，早盤一度上漲逾430點、突破44800點，隨賣壓湧現及外資期貨空單維持高檔，指數翻黑，盤中上下震盪超過600點；10時8分加權指數報44321.56點，下跌75.14點。
+
+此前台股2026年8月6日收44396.7點、下跌214.9點，成交值9403.91億元，三大法人買超45.62億元。投顧指出，指數近5日急彈逾4000點，外資期貨淨空單逼近9萬口，短線將在季線約44231點附近震盪盤堅。
+
+個股方面，國巨（2327）自2026年7月1日高點累計下跌60%，2026年7月7日再跌5.26%；摩根士丹利、高盛及花旗下修目標價，但仍維持買進或增持評等，市場聚焦估值修正，以及AI、MLCC需求成長。
+
+川湖（2059）2026年8月7日開盤直奔漲停板11,110元，歐系券商表示其2026年第2季毛利率創紀錄，7月營收達第3季預估數65%，並上調2026至2028年EPS至301.4、400及470元與目標價。晶碩（6491）同日除息，開盤369.5元，早盤最高377元、上漲8元，填息近八成；三大法人除息前連四買，合計買超1,108張，上半年營收與EPS創同期新高，7月營收亦創近兩年新高。</div>
+<ul class="facts"><li>8月7日台股震盪超過600點</li><li>10時8分指數44321.56點</li><li>外資期貨淨空單逼近9萬口</li><li>國巨股價累計下跌60%</li><li>川湖漲停報11,110元</li><li>三大法人連四買晶碩1,108張</li></ul>
+
+
+<div class="watch">👁 留意台股是否在季線約44231點附近震盪盤堅，以及外資期貨空單與賣壓變化。</div>
+<details><summary>原始報導（5）</summary><a href="https://money.udn.com/money/story/5612/9676643" target="_blank" rel="noopener">台股急彈後拉回　盤中翻黑高低震盪逾600點<span class="src">經濟日報｜08-07 10:36</span></a><a href="https://money.udn.com/money/story/5612/9676351" target="_blank" rel="noopener">台積電ADR小漲　投顧：台股短期急漲留意季線攻防<span class="src">經濟日報｜08-07 08:36</span></a><a href="https://www.ctee.com.tw/news/20260807701284-430201" target="_blank" rel="noopener">國巨又崩！外資「看空又喊買」很矛盾？達人曝3指標 看清楚國巨的真實價值<span class="src">工商時報｜08-07 15:03</span></a><a href="https://money.udn.com/money/story/5710/9676526" target="_blank" rel="noopener">川湖直奔漲停 7月營收亮麗 外資提高目標價<span class="src">經濟日報｜08-07 10:02</span></a><a href="https://www.ctee.com.tw/news/20260807700575-430201" target="_blank" rel="noopener">三大法人連四買助陣 晶碩填息行情穩步前行 早盤填息一度達八成<span class="src">工商時報｜08-07 09:18</span></a></details>
+</section><section class="theme" id="t1">
+<h2>伊朗擬禁敵對船 荷姆茲油價衝83美元</h2>
+<div class="tmeta">中東戰事延燒與荷姆茲油價｜16 篇來源</div>
+<div class="art">中東戰事延燒，荷姆茲海峽通行風險升高。川普8月7日表示，美伊重開荷姆茲海峽談判進展良好，可能很快有結果；8月6日則稱協議尚未敲定，航運仍有水雷或遭攻擊風險。川普8月7日也相信戰爭很快結束，但承認武器庫存吃緊，長程高精準飛彈已消耗全球庫存相當大比例，承包商正擴建愛國者防空飛彈與戰斧巡弋飛彈產能。伊朗首席談判代表加利巴夫則批評川普作秀，雙方說法不一。
+
+伊朗與阿曼已同意1條商船航線，但伊朗強調，即使敲定通行架構，海峽也不會自動重開；開放仍取決於美國是否結束對伊朗港口的海上封鎖。戰爭前全球約1/5石油與天然氣經此運送，海峽重啟被視為恢復談判先決條件，戰事可能延續至11月期中選舉。
+
+伊朗國會委員會審查草案，擬禁美國、以色列及其他敵對船隻通行，違者最高罰貨物總價值20%，並禁運以色列相關貨物，另研議收取貨物價格5%至7%的費用及保險、環境成本；部分報導稱須先賠償。
+
+油價因此震盪：8月6日布蘭特漲3.8%至82.49美元、另報82.48美元，WTI漲2.75%至77.29美元；8月7日布蘭特漲1.25%至83.52美元，WTI漲1.1%至78.14美元，上午11時03分則分別漲0.97%至83.29美元、0.83%至77.93美元。
+
+安全風險同步升高，沙烏地官員稱伊拉克民兵與葉門青年運動可能在伊朗革命衛隊指導下南北夾擊，目標涵蓋港口、機場及能源設施；青年運動8月6日攻擊造成至少58名葉門政府軍死亡、數十人受傷，沙國南部納吉蘭另有11名平民受傷。</div>
+<ul class="facts"><li>全球約1/5油氣經荷姆茲海峽</li><li>伊朗擬禁敵對船，最高罰20%</li><li>8月7日布蘭特曾至83.52美元</li><li>8月6日WTI漲2.75%至77.29美元</li><li>伊朗與阿曼已同意1條商船航線</li><li>青年運動攻擊至少造成58死</li></ul>
+
+
+<div class="watch">👁 荷姆茲重啟取決於美國結束港口海上封鎖；留意8月7日後航線協議、伊朗限制敵對船通行的草案，以及港口、機場與能源設施遭攻擊的風險。</div>
+<details><summary>原始報導（16）</summary><a href="https://www.ctee.com.tw/news/20260807700504-430701" target="_blank" rel="noopener">美伊達協議重開荷姆茲海峽？ 川普：可能很快有結果<span class="src">工商時報｜08-07 08:35</span></a><a href="https://money.udn.com/money/story/5599/9676757" target="_blank" rel="noopener">美伊戰爭僵局傷選情　川普尋解套分析一次看<span class="src">經濟日報｜08-07 11:13</span></a><a href="https://www.ctee.com.tw/news/20260807700753-430701" target="_blank" rel="noopener">《美股》消息面：川普稱戰事將結束 伊朗不鬆口開放海峽<span class="src">工商時報｜08-07 09:21</span></a><a href="https://www.ctee.com.tw/news/20260807700949-430701" target="_blank" rel="noopener">《國際經濟》笑不敢打？伊朗嗆川普只會作秀 油價續彈升<span class="src">工商時報｜08-07 10:54</span></a><a href="https://money.udn.com/money/story/5599/9677165" target="_blank" rel="noopener">傳伊朗擬禁美以船隻通行荷莫茲海峽 違者罰貨值20%<span class="src">經濟日報｜08-07 13:47</span></a><a href="https://www.ctee.com.tw/news/20260807700721-430201" target="_blank" rel="noopener">《美股掃瞄》油價急彈 美股收黑 費半有「光」漲最多<span class="src">工商時報｜08-07 09:20</span></a><a href="https://www.ctee.com.tw/news/20260807700373-430702" target="_blank" rel="noopener">美股｜油價彈！道瓊連5紅告終 SanDisk暴跌近7％ SpaceX漲 6.14％ 台積電漲1.01％<span class="src">工商時報｜08-07 06:44</span></a><a href="https://money.udn.com/money/story/5599/9676267" target="_blank" rel="noopener">荷莫茲海峽禁美以船隻通行？伊朗阿曼協議草案曝光 敵對國要先賠償<span class="src">經濟日報｜08-07 07:02</span></a><a href="https://www.ctee.com.tw/news/20260807701246-430701" target="_blank" rel="noopener">《國際產業》荷姆茲海峽通行疑慮升溫 國際油價續漲<span class="src">工商時報｜08-07 13:31</span></a><a href="https://money.udn.com/money/story/5599/9676329" target="_blank" rel="noopener">荷莫茲海峽重開快了？川普稱進展不錯 伊朗議長反譏作秀外交<span class="src">經濟日報｜08-07 08:12</span></a><a href="https://money.udn.com/money/story/5599/9676341" target="_blank" rel="noopener">川普預期伊朗戰爭即將告終　坦承部分彈藥供應吃緊<span class="src">經濟日報｜08-07 08:30</span></a><a href="https://money.udn.com/money/story/123398/9676268" target="_blank" rel="noopener">美股收盤／三大指數收黑 標普500小跌 費半奮力收紅 觀望美伊局勢<span class="src">經濟日報｜08-07 07:12</span></a><a href="https://www.ctee.com.tw/news/20260807700996-430701" target="_blank" rel="noopener">伊朗國會研擬禁美以船隻使用荷莫茲海峽草案 違者罰貨物價值2成金額<span class="src">工商時報｜08-07 11:25</span></a><a href="https://money.udn.com/money/story/5599/9676360" target="_blank" rel="noopener">沙烏地憂心遭雙向攻擊　指伊朗唆使兩武裝團體行動<span class="src">經濟日報｜08-07 08:45</span></a><a href="https://money.udn.com/money/story/5607/9676388" target="_blank" rel="noopener">金價漲破每英兩4200美元 國銀看下一步上漲關鍵<span class="src">經濟日報｜08-07 09:02</span></a><a href="https://money.udn.com/money/story/5599/9676894" target="_blank" rel="noopener">葉門青年運動導彈、無人機襲擊　政府軍至少58死<span class="src">經濟日報｜08-07 12:01</span></a></details>
+</section><section class="theme" id="t2">
+<h2>AI需求推升晶片記憶體供應緊張</h2>
+<div class="tmeta">AI晶片與記憶體供應鏈緊張｜17 篇來源</div>
+<div class="art">AI需求持續擠壓晶片與記憶體供應鏈。WSTS於2026年8月7日把2026年全球半導體市場規模上修至1.655兆美元，較6月預估1.51兆美元高18個百分點；第2季營收4030億美元、年增124%，上半年7020億美元、年增102%，記憶體全年可望成長302%，2027年市場規模進一步達2.14兆美元。
+
+記憶體供給吃緊跡象持續擴大。華邦電（2344）稱DRAM吃緊延至2027年，客戶洽談2029至2030年長約；其第2季營收598.43億元、季增56.4%、年增184.7%，資本支出130.74億元。南亞科（2408）於2026年8月5日把今年資本支出由520億元增至697億元，至2029年規劃投入最高3466億元。威剛（3260）7月營收183.8億元、年增331.3%，業者並稱2027年缺貨可能甚於2026年。
+
+供應緊張也牽動產品規格與長約。輝達截至2026年8月7日已測試至少3種Rubin Ultra版本，考慮降低HBM容量，市場認為與先進記憶體不足有關，美光科技可能受惠。DRAM短缺亦傳出使台積電（2330）無法完成為蘋果生產的10億美元處理器封裝，但台積電可調整產線轉向AI或高效能運算晶片。SanDisk與威騰電子公布財報後，威騰電子表示大型客戶長約延至2031年。
+
+記憶體供應商持續擴充資源。長鑫存儲2026年7月底募資108.02億元人民幣，全球DRAM市占約8%，合肥、北京基地月產能規劃逾50萬片12吋晶圓，可能影響DDR4供需與價格。信驊（5274）獲外資上調2026至2028年獲利預估4%、9%、11%，預估2027年BMC出貨4460萬顆，維持買進、目標價22000元；第三季營收估44.9億元。
+
+AI需求亦外溢至算力基礎設施。SpaceX與特斯拉初期投資168億美元在德州建Terafab，生產邏輯、記憶體及處理器，至少創造3000個職位，後續投資可能大增；香港資料中心批發租金升至每千瓦180美元、較年初增90%，遠景科技在內蒙建成120MW算力基地，總規劃2GW、綠電占67%。</div>
+<ul class="facts"><li>WSTS估2026年半導體營收1.655兆美元</li><li>記憶體營收2026年預估成長302%</li><li>華邦電：DRAM供給吃緊延至2027年</li><li>南亞科資本支出增至697億元</li><li>輝達測試至少3種Rubin Ultra版本</li><li>長鑫存儲募資108.02億元人民幣</li><li>威騰電子長約延至2031年</li><li>Terafab初期投資168億美元</li></ul>
+
+
+<div class="watch">👁 留意2026年各記憶體廠資本支出與產能開出、2027年DRAM缺貨程度，以及2029至2030年長約洽談與2031年威騰電子長約進展。</div>
+<details><summary>原始報導（17）</summary><a href="https://www.ctee.com.tw/news/20260807701008-430201" target="_blank" rel="noopener">《半導體》BMC需求爆發！信驊明年出貨拚4460萬顆 外資高喊22000元<span class="src">工商時報｜08-07 11:30</span></a><a href="https://www.ctee.com.tw/news/20260807701130-430704" target="_blank" rel="noopener">HBM供應吃緊 輝達傳考慮縮減Rubin Ultra記憶體容量<span class="src">工商時報｜08-07 14:11</span></a><a href="https://www.ctee.com.tw/news/20260807700022-431003" target="_blank" rel="noopener">記憶體狠角色殺出！DDR4還能漲多久？長鑫存儲恐掀價格戰<span class="src">工商時報｜08-07 07:41</span></a><a href="https://www.ctee.com.tw/news/20260807700450-430201" target="_blank" rel="noopener">8／7盤前｜記憶體錢景旺到爆？SanDisk、威騰長約滿滿 受惠台鏈大盤點<span class="src">工商時報｜08-07 08:09</span></a><a href="https://money.udn.com/money/story/5710/9677103" target="_blank" rel="noopener">南亞電子材料產能滿載 南亞科業外進補 股價大漲逾半根停板<span class="src">經濟日報｜08-07 13:23</span></a><a href="https://money.udn.com/money/story/123398/9676619" target="_blank" rel="noopener">SpaceX特斯拉斥資逾5400億　在德州合作建AI晶片廠<span class="src">經濟日報｜08-07 10:30</span></a><a href="https://money.udn.com/money/story/5612/9676513" target="_blank" rel="noopener">半導體今年營收上看1.655兆美元　記憶體增逾3倍<span class="src">經濟日報｜08-07 10:01</span></a><a href="https://money.udn.com/money/story/5612/9676875" target="_blank" rel="noopener">傳記憶體短缺影響交貨　專家：台積電可調整產線應對<span class="src">經濟日報｜08-07 11:54</span></a><a href="https://money.udn.com/money/story/5648/9676737" target="_blank" rel="noopener">WSTS 上修今年全球半導體產值預測 記憶體產值大增遠超預期53個百分點<span class="src">經濟日報｜08-07 11:04</span></a><a href="https://money.udn.com/money/story/5607/9676921" target="_blank" rel="noopener">AI 記憶體基本面爆發！台美大廠狂報喜、股價卻震盪 市場期待值過高？<span class="src">經濟日報｜08-07 12:08</span></a><a href="https://www.ctee.com.tw/news/20260807701440-430801" target="_blank" rel="noopener">陸八大多晶矽巨頭簽倡議 拒低價惡性競爭<span class="src">工商時報｜08-07 16:22</span></a><a href="https://www.ctee.com.tw/news/20260807700893-430804" target="_blank" rel="noopener">陸企搶算力 港資料中心租金翻倍<span class="src">工商時報｜08-07 11:53</span></a><a href="https://www.ctee.com.tw/news/20260807701179-430201" target="_blank" rel="noopener">《半導體》采鈺今年拚雙位數成長 1.6T PIC薄膜製程迎量產<span class="src">工商時報｜08-07 13:08</span></a><a href="https://money.udn.com/money/story/5612/9676969" target="_blank" rel="noopener">回應資料主權需求 Google 資安營運平台正式在台灣啟用<span class="src">經濟日報｜08-07 12:29</span></a><a href="https://money.udn.com/money/story/5603/9676773" target="_blank" rel="noopener">全球最大AI算力設施落腳內蒙 20個足球場大、綠電占比逾6成<span class="src">經濟日報｜08-07 11:19</span></a><a href="https://money.udn.com/money/story/5607/9676871" target="_blank" rel="noopener">告別重複性勞動！上銀、鈞興等搶吃人形機器人商機<span class="src">經濟日報｜08-07 11:53</span></a><a href="https://www.ctee.com.tw/news/20260807700601-430704" target="_blank" rel="noopener">英特爾靠川普不夠 外媒爆台積客戶很煎熬 無人敢選邊站<span class="src">工商時報｜08-07 09:43</span></a></details>
+</section><section class="theme" id="t3">
+<h2>台灣電子股獲利與外資喊價升溫</h2>
+<div class="tmeta">台灣電子業營收獲利與法人喊價｜20 篇來源</div>
+<div class="art">台灣電子業2026年第二季獲利與7月營收表現強勁，電子權值股財報與法人評價同步升溫。
+
+AES-KY（6781）第二季營收48.08億元、歸母淨利10.94億元，季增20.41%，EPS12.81元創新高，美系外資給予買進、目標價1680元。緯創（3231）7月營收3082.19億元，年增60.76%、月減4.23%，前七月年增88%並突破2兆元；Vera Rubin伺服器已量產，明年出貨可望放大並取得企業與雲端新客戶。
+
+力成（6239）7月營收82.7億元創新高，前七月527億元、年增31.93%，預期第三季季增個位數、第四季優於第三季，全年可望超越2022年839億元。研華（2395）7月營收112.72億元、年增87.6%，前七月577.84億元、年增40.3%，北美及韓國年增109%與112%。欣興（3037）7月營收162.54億元、年增43.69%，AI占比上半年逾六成、下半年估七成；光復二期預計2026年第三季投產、光復二廠2027年第二季開出。
+
+川湖（2059）第二季營收108.3億元、淨利70.88億元、EPS74.38元，毛利率87.42%、營益率82.08%；上半年淨利105.74億元、EPS110.96元，7月營收64.07億元、年增355.52%，均創高。2026年8月7日股價漲停至11110元。歐系外資目標價8950元升至14000元，日系由5888元升至15000元，瑞銀亦由8950元升至14000元並維持買進。
+
+文曄（3036）第二季營收季增20%、EPS7.68元，三家美系外資目標價330至365元。勤誠（8210）上半年營收149.28億元、年增55.5%，淨利27.18億元、年增81.8%，EPS21.83元；7月營收24.6億元、年增41.5%創高，越南新廠投資上限6億元。聯詠（3034）獲四家外資肯定，三家目標價515至555元，但評等中立或持有，另有一家減碼。
+
+南電（8046）上半年營收247.52億元、年增37.2%，淨利35.7億元、年增近177.12倍，EPS5.53元；第二季淨利22.61億元由虧轉盈，7月營收54.39億元、年增50.24%，將擴產並提高資本支出。世界先進（5347）7月營收47.05億元、年增30.25%，預估第三季出貨季增1%至3%、毛利率32.5%至34.5%，2026年資本支出600至700億元。華邦電（2344）7月營收267.73億元、年增291.55%，前七月1248.7億元、年增160.97%，受惠AI伺服器、高效能運算、網通及記憶體價格改善，下半年展望樂觀。南俊國際（6584）亦因AI伺服器滑軌需求升溫漲停，持續擴產與推進新案出貨。</div>
+<ul class="facts"><li>川湖上半年EPS110.96元</li><li>川湖毛利率87.42%創高</li><li>緯創前七月營收突破2兆元</li><li>華邦電7月營收年增291.55%</li><li>南電上半年EPS5.53元</li><li>世界先進資本支出600至700億元</li><li>AES-KY目標價1680元</li></ul>
+
+
+<div class="watch">👁 留意2026年第三季川湖、力成、欣興、世界先進的需求與出貨；欣興光復二期投產、世界先進毛利率32.5%至34.5%；2026年第四季文曄資料中心業務是否加速，以及2027年緯創Vera Rubin出貨、欣興光復二廠開出。</div>
+<details><summary>原始報導（20）</summary><a href="https://www.ctee.com.tw/news/20260807700933-430201" target="_blank" rel="noopener">《電零組》AES-KY財報亮眼+BBU前景看好 外資喊目標價1680元<span class="src">工商時報｜08-07 10:44</span></a><a href="https://money.udn.com/money/story/5710/9677617" target="_blank" rel="noopener">緯創營收／7月達3,082億元、年增60.76% 前七月累計突破2兆元大關<span class="src">經濟日報｜08-07 16:50</span></a><a href="https://money.udn.com/money/story/5710/9677624" target="_blank" rel="noopener">力成營收／7月82.7億元創新高 全年業績挑戰新猷<span class="src">經濟日報｜08-07 16:54</span></a><a href="https://money.udn.com/money/story/5710/9677636" target="_blank" rel="noopener">研華營收／7月112億元 年增逾八成、創單月歷史新高<span class="src">經濟日報｜08-07 16:59</span></a><a href="https://money.udn.com/money/story/5710/9677388" target="_blank" rel="noopener">欣興營收／7月162億元續創新高 年增43.69%<span class="src">經濟日報｜08-07 15:16</span></a><a href="https://money.udn.com/money/story/5710/9677426" target="_blank" rel="noopener">王俊強：川湖是台股最純的AI股 看下半年需求續強<span class="src">經濟日報｜08-07 15:31</span></a><a href="https://www.ctee.com.tw/news/20260807700873-430201" target="_blank" rel="noopener">《電通股》文曄AI動能不墜！3美系外資喊買 最高目標價365元<span class="src">工商時報｜08-07 10:24</span></a><a href="https://www.ctee.com.tw/news/20260807701048-430201" target="_blank" rel="noopener">勤誠H1大賺逾2股本創同期高！7月營收也報喜 今卻重摔跌停<span class="src">工商時報｜08-07 13:08</span></a><a href="https://www.ctee.com.tw/news/20260807700766-430201" target="_blank" rel="noopener">《半導體》聯詠獲利超預期！4外資最新評價一次看<span class="src">工商時報｜08-07 09:35</span></a><a href="https://www.ctee.com.tw/news/20260807700720-430201" target="_blank" rel="noopener">《電零組》川湖財報驚豔！ 外資調高目標價上看15000元<span class="src">工商時報｜08-07 09:20</span></a><a href="https://www.ctee.com.tw/news/20260807700828-430201" target="_blank" rel="noopener">《電零組》南電上半年獲利暴增 EPS 5.53元創近3年同期高<span class="src">工商時報｜08-07 09:51</span></a><a href="https://www.ctee.com.tw/news/20260807700754-430201" target="_blank" rel="noopener">《電週邊》勤誠Q2、H1業績雙創歷年同期新猷 7月營收續登高<span class="src">工商時報｜08-07 09:26</span></a><a href="https://www.ctee.com.tw/news/20260807700771-430502" target="_blank" rel="noopener">川湖憑什麼成台股第三檔萬金股？拆解AI時代最強「滑軌霸主」四大競爭力<span class="src">工商時報｜08-07 10:47</span></a><a href="https://www.ctee.com.tw/news/20260807700879-430201" target="_blank" rel="noopener">川湖H1狂賺逾11個股本創高、已超去年全年！開盤漲停再刷天價<span class="src">工商時報｜08-07 12:16</span></a><a href="https://www.ctee.com.tw/news/20260807701122-430503" target="_blank" rel="noopener">營運價量推升助力 台塑化7月營收月、年雙增17.5％、32.3％<span class="src">工商時報｜08-07 13:43</span></a><a href="https://www.ctee.com.tw/news/20260807701363-430503" target="_blank" rel="noopener">華新憑藉業外收益挹注 第二季、上半年EPS都寫同期新高<span class="src">工商時報｜08-07 15:34</span></a><a href="https://money.udn.com/money/story/5710/9676769" target="_blank" rel="noopener">川湖漲停攻上11,110元！瑞銀喊上14,000元<span class="src">經濟日報｜08-07 11:18</span></a><a href="https://www.ctee.com.tw/news/20260807701359-430201" target="_blank" rel="noopener">《半導體》世界先進7月營收寫同期高 Q3營運續揚<span class="src">工商時報｜08-07 14:26</span></a><a href="https://money.udn.com/money/story/5710/9676686" target="_blank" rel="noopener">川湖毛利率87.42%勝輝達！跳空漲停創天價 南俊國際同步亮燈<span class="src">經濟日報｜08-07 10:50</span></a><a href="https://www.ctee.com.tw/news/20260807701425-430501" target="_blank" rel="noopener">華邦電7月營收再創高 AI記憶體需求續強<span class="src">工商時報｜08-07 16:17</span></a></details>
+</section><section class="theme" id="t4">
+<h2>台灣、中國出口增長，關稅重塑貿易版圖</h2>
+<div class="tmeta">全球出口、關稅與中國外貿｜12 篇來源</div>
+<div class="art">財政部於2026年8月7日公布，台灣7月出口753億美元，年增32.9%，為歷年單月第三高，且連續33個月正成長；電子零組件出口277.3億美元、資通與視聽產品出口313.7億美元。受人工智慧（AI）帶動先進半導體需求，2026年1至6月韓國出口4963億美元、台灣4166億美元，首度雙雙超越日本的3844億美元；韓台積體電路出口增近5成，日本增近1成。
+
+中國海關資料顯示，2026年前7個月進出口總值30.13兆元，年增17.3%，出口17.44兆元、進口12.69兆元，分增14%與22%；高技術產品7月出口年增逾50%，貢獻近六成出口增量。另按人民幣口徑，前7個月進出口為4兆3,579億元、年增21.8%，出口與進口分增18.5%及26.7%；7月出口3,979億元，年增23.9%、月減3.4%。按美元計，7月進出口年增25.3%，出口增23.9%、進口增27.5%，積體電路出口值增116.57%，對台灣出口增31.6%。
+
+在關稅措施方面，美國總統川普宣布，2026年12月4日起對多晶矽及衍生品課15%關稅，並設每公斤21美元最低進口價，涵蓋矽晶圓、太陽能電池與模組；元晶（6443）與聯合再生（3576）評估短期影響有限，但組件成本及再生能源開發商壓力可能上升。中國8家占多晶矽產能9成的企業於2026年8月6日承諾產品不得低於成本價，市場監管總局已於2026年7月31日展開價格合規指導。
+
+美國另自2026年8月27日起禁黑粉、鎢廢料出口1年，僅「過度困難」或「無法彌補損害」可申請豁免；美國每月出口近3.3萬公噸電子廢棄物及其他廢料，但回收產能不足。</div>
+<ul class="facts"><li>台灣7月出口753億美元，年增32.9%</li><li>韓國與台灣2026年上半年出口4963億、4166億美元，首度雙雙超越日本的3844億美元</li><li>中國前7個月進出口總值30.13兆元，年增17.3%</li><li>中國7月積體電路出口值增116.57%</li><li>美國2026年12月4日起對多晶矽及衍生品課15%關稅，並設每公斤21美元最低進口價</li><li>中國8家占多晶矽產能9成的企業承諾產品不得低於成本價</li><li>美國2026年8月27日起禁黑粉、鎢廢料出口1年</li></ul>
+
+
+<div class="watch">👁 留意2026年8月27日美國黑粉與鎢廢料出口禁令生效，以及2026年12月4日多晶矽15%關稅與最低進口價格措施上路。</div>
+<details><summary>原始報導（12）</summary><a href="https://money.udn.com/money/story/7307/9677555" target="_blank" rel="noopener">7月出口753億美元　電子零組件出口創單月新高<span class="src">經濟日報｜08-07 16:22</span></a><a href="https://money.udn.com/money/story/5603/9676997" target="_blank" rel="noopener">陸7月出口月減3.4% 高科技產品續撐出口、傳統製造表現疲弱<span class="src">經濟日報｜08-07 12:44</span></a><a href="https://money.udn.com/money/story/5603/9677084" target="_blank" rel="noopener">人工智慧熱潮帶動需求 中國7月出口年增23.9%<span class="src">經濟日報｜08-07 13:13</span></a><a href="https://money.udn.com/money/story/5599/9677440" target="_blank" rel="noopener">台韓出口首度超越日本 AI半導體需求成關鍵推手<span class="src">經濟日報｜08-07 15:36</span></a><a href="https://www.ctee.com.tw/news/20260807701088-430801" target="_blank" rel="noopener">30兆元外貿大驚奇！前7月進出口年增17.3％ 高科技產品飆漲5成<span class="src">工商時報｜08-07 12:24</span></a><a href="https://www.ctee.com.tw/news/20260807700680-430502" target="_blank" rel="noopener">川普關稅再出手！多晶矽「15％稅率」對台廠影響一次看 元晶、聯合再生這樣說<span class="src">工商時報｜08-07 10:12</span></a><a href="https://www.ctee.com.tw/news/20260807700386-430701" target="_blank" rel="noopener">川普新關稅鎖定「多晶矽」 稅率15％＋最進口低價 太陽能、半導體鏈洗牌？<span class="src">工商時報｜08-07 07:10</span></a><a href="https://www.ctee.com.tw/news/20260807700420-430701" target="_blank" rel="noopener">川普政府禁黑粉、鎢廢料出口 力拚關鍵礦物供應鏈自主<span class="src">工商時報｜08-07 07:32</span></a><a href="https://money.udn.com/money/story/5603/9677479" target="_blank" rel="noopener">美國擬祭多晶矽關稅15%　中國8家大廠表態反內捲<span class="src">經濟日報｜08-07 15:54</span></a><a href="https://money.udn.com/money/story/5599/9676299" target="_blank" rel="noopener">川普簽行政令 12月4日起美對多晶矽課15%關稅 並設最低進口價<span class="src">經濟日報｜08-07 07:52</span></a><a href="https://money.udn.com/money/story/5599/9676210" target="_blank" rel="noopener">美媒：北京不滿對台軍售　美國防官員訪中受阻<span class="src">經濟日報｜08-07 05:22</span></a><a href="https://money.udn.com/money/story/5599/9676277" target="_blank" rel="noopener">美禁止關鍵礦物廢料外流　力拚回收產業與供應鏈自主<span class="src">經濟日報｜08-07 07:21</span></a></details>
+</section><section class="theme" id="t5">
+<h2>美日干預牽動亞洲匯市</h2>
+<div class="tmeta">日圓干預與亞洲匯市震盪｜7 篇來源</div>
+<div class="art">日本財務省8月7日公布資料指出，日本政府與日本央行4月30日買進日圓6兆2787億日圓，約396.4億美元，創單日干預新高；5月4日、5月6日再出手，三天合計11兆7349億日圓，同創歷來最高。另一份季報顯示，4月28日至5月27日期間干預總額約11.7兆日圓，日圓曾由160.725升至155日圓附近；日本第二季三度護盤，11.73兆日圓亦創單季紀錄。
+
+日本與美國另於7月27日至8月2日聯手干預匯市，為1992年以來首見。日本財務省8月3日證實，7月31日曾與美國財政部協調買進日圓，兩天可能投入近14兆日圓。日圓在三個交易日內最多升值約5%，其後回落至157日圓附近。
+
+不過，聯合干預效果快速消退。美元兌日圓8月7日盤中報158.40至158.45，較7月24日低點163.94升值3.3%，但已回吐干預後近半升幅，市場擔心160日圓保衛戰重演。
+
+專家認為，美國財政部更積極介入匯率錯配，外匯政策與地緣政治交織，後續須留意新台幣、韓元、越南盾與泰銖。</div>
+<ul class="facts"><li>4月30日干預6兆2787億日圓</li><li>三天干預合計11兆7349億日圓</li><li>7月27日至8月2日美日首度聯手</li><li>日圓三交易日最多升值約5%</li><li>8月7日日圓報158.40至158.45</li></ul>
+
+
+<div class="watch">👁 留意美元兌日圓是否再逼近160，以及日美干預對新台幣、韓元、越南盾與泰銖的影響。</div>
+<details><summary>原始報導（7）</summary><a href="https://money.udn.com/money/story/5599/9677251" target="_blank" rel="noopener">日本4月30日砸6.2兆日圓救匯 創單日歷史新高<span class="src">經濟日報｜08-07 14:12</span></a><a href="https://www.ctee.com.tw/news/20260807700786-430701" target="_blank" rel="noopener">28年首見！美日世紀聯手救日圓 背後竟是場「美債保衛戰」？<span class="src">工商時報｜08-07 10:54</span></a><a href="https://www.ctee.com.tw/news/20260807701142-430701" target="_blank" rel="noopener">《國際金融》日本4月干預日圓創紀錄 單日砸396億美元救匯<span class="src">工商時報｜08-07 12:42</span></a><a href="https://www.ctee.com.tw/news/20260807700948-430702" target="_blank" rel="noopener">扶不起的日圓？美日世紀聯手為何沒用 160保衛戰恐再次上演<span class="src">工商時報｜08-07 12:03</span></a><a href="https://www.ctee.com.tw/news/20260807701076-430701" target="_blank" rel="noopener">《國際經濟》加薪沒用 日家庭支出6月減<span class="src">工商時報｜08-07 12:14</span></a><a href="https://money.udn.com/money/story/5599/9676956" target="_blank" rel="noopener">外匯交織地緣政治！美國干預日圓後 接下來可能盯上這些亞幣<span class="src">經濟日報｜08-07 12:21</span></a><a href="https://money.udn.com/money/story/5599/9676869" target="_blank" rel="noopener">日圓已回吐近半數干預升幅 市場警戒美日第二輪保衛戰開打<span class="src">經濟日報｜08-07 11:53</span></a></details>
+</section><section class="theme" id="t6">
+<h2>台新新光合併與國銀放款創高</h2>
+<div class="tmeta">台灣金融政策與銀行整併｜14 篇來源</div>
+<div class="art">金管會於2026年8月4日核准台新銀行與新光銀行合併，存續銀行為台新銀行，暫定2027年1月1日合併，國內據點增至204處、居業界第二；林維俊表示，金控規模與業務均衡性將提升。
+
+金融整併方面，三商美邦人壽（2867）將於2026年8月19日最後交易、8月20日停止交易，9月1日完成股份轉換並終止上市，成為玉山金控（2884）百分之百子公司，預計12月1日更名玉山人壽，保戶權益不變。
+
+國銀2026年6月稅前淨利636億元、上半年3583.1億元，年增率分別為9.2%及20.8%，利息、手續費與投資收益同步成長。38家國銀6月放款47兆8129億元、月增4592億元，個人放款月增2575億元創高；存款66兆1719億元，存放比72.26%，逾放比0.14%，整體逾放比維持0.14%至0.16%。
+
+政策方面，金管會稱TISA推動一年逾22萬人、累計22萬戶，資產逾200億元，每月增1.2萬至1.3萬人，正推第二階段租稅優惠，並自2026年9月辦150場教育活動。2026年10月起銀行須申報個人投資理財周轉金，央行與金管會研建資料共享平台防範「四貸同堂」；P2P平台自8月6日起支付利息須扣繳、申報及填發憑單。退撫基金擬委外投資全球股票，各業者可能配置約2億美元。
+
+升息動向方面，美國聯準會利率維持3.5%至3.75%，市場押注9月升息機率54.5%，預測分歧於連升三次或全年不升；失業率預估4.2%、新增就業9.7萬人，降溫可能推動明年初降息並支撐標普500上看8000點，但油價與30年期美債殖利率仍有通膨壓力。</div>
+<ul class="facts"><li>台新新光暫定2027年1月1日合併</li><li>合併後據點204處，居業界第二</li><li>三商美邦人壽9月1日完成股份轉換並終止上市</li><li>國銀上半年稅前獲利3583.1億元</li><li>個人放款月增2575億元創高</li><li>TISA逾22萬人、資產逾200億元</li><li>2026年10月起銀行須申報個人投資理財周轉金</li><li>美國聯準會利率維持3.5%至3.75%</li></ul>
+
+
+<div class="watch">👁 留意2026年8月19日三商美邦最後交易、9月1日完成股份轉換並終止上市、10月銀行申報周轉金、2027年1月1日台新新光合併，以及聯準會2026年9月升息決策。</div>
+<details><summary>原始報導（14）</summary><a href="https://money.udn.com/money/story/123398/9677167" target="_blank" rel="noopener">Fed 讓債市掌舵 就業數據牽動明年初降息預期 標普500可能衝上8,000點<span class="src">經濟日報｜08-07 13:47</span></a><a href="https://www.ctee.com.tw/news/20260807700864-430701" target="_blank" rel="noopener">Fed恐連續升息3次！美銀最新報告曝光 曝AI狂潮沒在怕<span class="src">工商時報｜08-07 11:31</span></a><a href="https://money.udn.com/money/story/5613/9676975" target="_blank" rel="noopener">台新、新光銀明年元旦合併 林維俊：業務發展更均衡<span class="src">經濟日報｜08-07 12:30</span></a><a href="https://money.udn.com/money/story/5613/9677568" target="_blank" rel="noopener">三商壽股票9月1日走入歷史 12月1日更名為「玉山人壽」<span class="src">經濟日報｜08-07 16:30</span></a><a href="https://www.ctee.com.tw/news/20260807700655-430301" target="_blank" rel="noopener">《金融》三大引擎全開！ 國銀上半年大賺3583億創新高<span class="src">工商時報｜08-07 08:44</span></a><a href="https://money.udn.com/money/story/5723/9663169" target="_blank" rel="noopener">環境永續發展論壇產官學齊聚朝陽科大 開創淨零轉型新局<span class="src">經濟日報｜08-07 16:02</span></a><a href="https://www.ctee.com.tw/news/20260807701304-430301" target="_blank" rel="noopener">TISA第二階段醞釀中！彭金隆：期盼很快能向外界宣布好消息<span class="src">工商時報｜08-07 15:12</span></a><a href="https://money.udn.com/money/story/5613/9674428" target="_blank" rel="noopener">看不見的槓桿？四貸同堂逼出30年來最大金融監理改革<span class="src">經濟日報｜08-07 09:00</span></a><a href="https://money.udn.com/money/story/7307/9677142" target="_blank" rel="noopener">財政部拍板 P2P 借貸新規 資誠點出三大影響<span class="src">經濟日報｜08-07 13:38</span></a><a href="https://money.udn.com/money/story/7307/9677073" target="_blank" rel="noopener">父親節前夕 賴總統預告：18歲以下明年每月領5,000元<span class="src">經濟日報｜08-07 13:10</span></a><a href="https://money.udn.com/money/story/5599/9676887" target="_blank" rel="noopener">彭博：軍公教退撫基金擬擴大委外代操 提高對全球股票配置<span class="src">經濟日報｜08-07 11:58</span></a><a href="https://www.ctee.com.tw/news/20260807700654-430301" target="_blank" rel="noopener">《金融》國銀6月個人放款動能旺 月增2575億元創高<span class="src">工商時報｜08-07 08:42</span></a><a href="https://money.udn.com/money/story/5613/9677487" target="_blank" rel="noopener">國泰人壽發債160億元 強化接軌 IFRS 17與TIS資本<span class="src">經濟日報｜08-07 15:56</span></a><a href="https://money.udn.com/money/story/5613/9677575" target="_blank" rel="noopener">TISA稅負優惠有譜　彭金隆：盼很快宣布好消息<span class="src">經濟日報｜08-07 16:31</span></a></details>
+</section><section class="theme" id="t7">
+<h2>油金銅鋼齊動，傳產成本重估</h2>
+<div class="tmeta">原物料價格與傳產成本重估｜9 篇來源</div>
+<div class="art">原物料價格走勢分化，油、金、銅與鋼材價格變化，成為傳產成本與獲利重估的關鍵。台塑（1301）、南亞（1303）、台化（1326）與台塑化（6505）於8月7日公布7月營收，合計1519.55億元，月增14.7%、年增31.5%，四家公司均呈年月雙增。南亞營收305.73億元，月增12.7%、年增44.5%；台塑營收152.9億元，台化營收312.6億元，台塑化營收748.2億元。
+
+油價方面，台化揭露7月布蘭特原油上漲26%；台塑化則表示油價區間盤整，顯示石化業仍須面對油價波動對成本與產品價格的影響。
+
+金價方面，8月6日亞洲早盤金價升至每盎司4,304美元，瑞銀財富管理投資總監辦公室預期明年上半年突破5,000美元，6月底目標價為5,200美元，支撐因素包括寬鬆利率、美元走弱及央行購金。
+
+銅價方面，8月7日LME銅價上漲0.6%至每公噸14,193.50美元，創歷史新高，受供應受限、資料中心與電網需求、電氣化、美國關稅政策不確定性及智利極端天氣影響，銅價上行將使相關用料成本面臨重新評估。
+
+鋼材方面，中鋼（2002）公布9月熱軋、冷軋、鍍鋅、電磁鋼捲等七大鋼品全面平盤，結束連兩個月跌價；國際鐵礦砂約每公噸90至100美元、冶金煤210至220美元，煉鋼成本仍高檔。中國大陸鋼廠持續減產，市場期待庫存調整後出現補庫存商機。</div>
+<ul class="facts"><li>台塑四寶7月營收1519.55億元</li><li>7月布蘭特原油上漲26%</li><li>金價升至每盎司4,304美元，預期明年上半年突破5,000美元</li><li>LME銅價每公噸14,193.50美元，創歷史新高</li><li>中鋼9月七大鋼品全面平盤</li><li>國際鐵礦砂約每公噸90至100美元、冶金煤210至220美元</li></ul>
+
+
+<div class="watch">👁 留意油價波動對石化業成本與產品價格的影響、金價是否於明年上半年突破5,000美元、銅價供需與政策變化，以及鋼市庫存調整和煉鋼成本高檔對傳產獲利的影響。</div>
+<details><summary>原始報導（9）</summary><a href="https://money.udn.com/money/story/5710/9677541" target="_blank" rel="noopener">台塑四寶7月營收1519億元年增逾3成　南亞創4年新高<span class="src">經濟日報｜08-07 16:13</span></a><a href="https://money.udn.com/money/story/5607/9677630" target="_blank" rel="noopener">台塑四寶營運展望 南亞樂觀看下半年更上層樓<span class="src">經濟日報｜08-07 16:55</span></a><a href="https://money.udn.com/money/story/5648/9677509" target="_blank" rel="noopener">瑞銀看好金價明上半年破5,000美元價位<span class="src">經濟日報｜08-07 16:03</span></a><a href="https://www.ctee.com.tw/news/20260807701150-430503" target="_blank" rel="noopener">四大產業全面成長貢獻 南亞7月營收攀49個月新高 電子材料營收占比衝至57％<span class="src">工商時報｜08-07 14:09</span></a><a href="https://money.udn.com/money/story/5710/9677247" target="_blank" rel="noopener">台塑四寶營收年、月雙增 南亞電子材料成長強勁創49個月新高<span class="src">經濟日報｜08-07 14:11</span></a><a href="https://www.ctee.com.tw/news/20260807701339-430201" target="_blank" rel="noopener">《鋼鐵股》中鋼9月盤價全平盤 止步連2個月下跌<span class="src">工商時報｜08-07 14:11</span></a><a href="https://money.udn.com/money/story/5599/9677315" target="_blank" rel="noopener">銅價衝上歷史新高 除了電網與 AI 搶銅 極端天氣竟也促成全球銅荒<span class="src">經濟日報｜08-07 14:44</span></a><a href="https://money.udn.com/money/story/10871/9677296" target="_blank" rel="noopener">中鋼9月盤價開平盤 結束連兩個月跌價<span class="src">經濟日報｜08-07 14:37</span></a><a href="https://www.ctee.com.tw/news/20260807701379-430503" target="_blank" rel="noopener">SCFI連二漲 美線漲幅收斂、歐線緩跌、美東線傳加班船搶貨<span class="src">工商時報｜08-07 15:49</span></a></details>
+</section><section class="theme" id="t8">
+<h2>外資倒貨引爆空方，記憶體多空互撞</h2>
+<div class="tmeta">PTT股版風向｜16 篇來源</div>
+<div class="art">本期股版主旋律偏空，外資賣超約400億元成為空方最常引用的理由，盤中、盤後閒聊都瀰漫「接刀」「山頂洗碗」的嘲諷，部分人預期下週還會加速下跌，甚至回測更低位置。不過也有人認為大盤跌幅有限、賣壓沒有想像中重，準備伺機做多或等待第二隻腳。台積電是熱度最高的標的，留言多偏空，連DRAM缺貨相關討論也被解讀成利空或標題吃貨，但仍有人認為需求只是遞延，未必傷及台積。記憶體族群則呈現「基本面很強、股價先跌」的矛盾：華邦電營收成長獲肯定，卻多數預期利多反映、股價可能崩跌；群聯營收年增亮眼，卻被嫌月增不足、本益比偏貴，僅少數人續抱。相對之下，川湖、聯茂被視為盤面強勢股，出現反彈甚至嘎空期待。國巨、緯創、力士、世界與宜鼎雖列入高熱度榜，摘要中的留言尚未形成明確一致方向。ETF方面，00981A套牢與績效爭議升溫，版友更偏好0050、台積電或正二；違約交割則多支持提高保證金，對無本當沖相當不客氣。</div>
+<ul class="facts"><li>台積電：留言偏空，擔心外資續賣與利空發酵</li><li>華邦電：營收強但多數認為利多已反映、股價偏空</li><li>群聯：基本面亮眼，卻被嫌月增不足、估值偏貴</li><li>川湖、聯茂：盤面相對強勢，部分留言期待反彈嘎空</li><li>00981A：套牢抱怨多，版友偏好0050或台積電</li><li>大盤：外資倒貨引發續跌疑慮，也有人等第二隻腳</li></ul>
+<div class="hotrow"><span class="hotchip"><b>台積電</b> 2330｜熱度 141</span><span class="hotchip"><b>國巨</b> 2327｜熱度 62</span><span class="hotchip"><b>緯創</b> 3231｜熱度 32</span><span class="hotchip"><b>力士</b> 4923｜熱度 28</span><span class="hotchip"><b>世界</b> 5347｜熱度 28</span><span class="hotchip"><b>川湖</b> 2059｜熱度 24</span><span class="hotchip"><b>聯茂</b> 6213｜熱度 20</span><span class="hotchip"><b>華邦電</b> 2344｜熱度 19</span><span class="hotchip"><b>群聯</b> 8299｜熱度 19</span><span class="hotchip"><b>宜鼎</b> 5289｜熱度 15</span></div>
+<details open><summary>網友反映（16 篇）</summary><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1786062609.A.433.html" target="_blank" rel="noopener">[閒聊] 2026/08/07 盤中閒聊</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 1488 則留言</div><ul><li>空方喊空頭屠殺，預期開高走崩、回測45K</li><li>多方期待開高+600，認為台股強、記憶體可買</li><li>日韓走弱、夜盤被指騙人，市場預期上沖下洗</li><li>另有人認為反一越買越便宜，持續看空台股</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1786082469.A.4CC.html" target="_blank" rel="noopener">[閒聊] 2026/08/07 盤後閒聊</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 1100 則留言</div><ul><li>多數嘲諷台股全面重挫、量縮下跌，周末恐慌情緒升溫</li><li>看空台積電、記憶體與台虹，認為下週可能加速下跌</li><li>川湖、聯茂表現強勢，部分留言看好個股與反彈嘎空</li><li>另有人準備做多、期待正二解套，認為跌幅僅約3%</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1786067321.A.E0E.html" target="_blank" rel="noopener">[新聞] 馬斯克要蓋Terafab晶圓廠 首期砸168億美</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 308 則留言</div><ul><li>多數質疑168億美元太少，難支應美國晶圓廠建置</li><li>認為關鍵在製程良率、工程師與輪班人力，不是砸錢就能成</li><li>有人認為馬斯克又在畫餅圈錢，最後可能拆分上市或失敗</li><li>另有人認為自建晶圓廠是因台積電排不到產能，成熟製程或能做出來</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1786087456.A.621.html" target="_blank" rel="noopener">[情報] 115年08月07日 三大法人買賣金額統計表</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 208 則留言</div><ul><li>外資賣超約400億，網友擔心又開始倒貨、下週續跌</li><li>散戶大買接盤，被嘲笑成接刀、提款機與山頂洗碗</li><li>大盤僅跌約170點，網友疑惑「誰在買」、認為賣壓有限</li><li>投信、自營商買賣清淡，部分留言認為大哥與內資都在撤退</li><li>另有人認為跌幅不大，想等第二隻腳或伺機買進</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1786064143.A.7A4.html" target="_blank" rel="noopener">[新聞] DRAM大缺貨 台積遭波及 手握10億美元蘋果</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 159 則留言</div><ul><li>多數認為缺貨是蘋果採購失策，與台積責任無關</li><li>看衰蘋果將延遲出貨、漲價，甚至市佔下滑</li><li>認為新聞疑似吃貨，質疑標題與製程邏輯</li><li>另有人認為需求遞延、iPhone漲價，未必是利空</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1786077019.A.80C.html" target="_blank" rel="noopener">[新聞] 瑤池金母00981A帶頭衝！我國主動式ETF規</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 136 則留言</div><ul><li>多數質疑00981A近期績效，大盤漲逾5000點股價反跌</li><li>認為主動式ETF資金規模大後難操作，易追高殺低、助漲助跌</li><li>不少人抱怨今日跌幅大，稱套牢、停損或不再買主動式</li><li>有人看好981A累積報酬率180%且仍勝大盤，認為表現已算不錯</li><li>另有人認為00981A適合短線波段，長期投資仍選0050</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1786054275.A.62F.html" target="_blank" rel="noopener">[新聞] 違約交割攀升 金管會嚴管：已責成證交所</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 106 則留言</div><ul><li>多數支持圈存或足額保證金，認為無本當沖是違約主因</li><li>不少人主張改T+0或學美股，沒錢就不能下單</li><li>另有人擔心T+0使成交量、稅收下降，且對散戶不利</li><li>部分留言認為違約者應上聯徵、黑單或禁止交易</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1786079197.A.605.html" target="_blank" rel="noopener">[新聞] 伊朗國會研擬禁美以船隻使用荷莫茲海峽</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 92 則留言</div><ul><li>多數認為週末慣例放話，週日又會和談、解除警報</li><li>不少人質疑美國不敢真打，認為雙方只是反覆演戲炒股</li><li>有人擔心衝突升級，主張直接攻擊伊朗、封鎖或炸毀國會</li><li>另有人認為禁令可繞過，油價已鈍化、伊朗通膨更嚴重</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1786074136.A.37A.html" target="_blank" rel="noopener">[新聞] 記憶體高昂漲價 華為余承東稱手機之後可</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 91 則留言</div><ul><li>網友認為記憶體漲價將轉嫁手機，安卓可能漲5000元、iPhone漲更多</li><li>多數認為蘋果也會漲價，但忠實用戶與高價客群仍可能買單</li><li>有人擔心消費電子需求下滑，形成骨牌效應，品牌廠財報承壓</li><li>另有人認為資料中心仍有需求，消費者可延長換機，影響不會立即爆發</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1786090426.A.84D.html" target="_blank" rel="noopener">[情報] 0807 上市外資買賣超排行</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 90 則留言</div><ul><li>多數認為外資、主動式ETF開始倒貨，中小型股恐受壓</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1786084656.A.2DF.html" target="_blank" rel="noopener">[新聞] 不會爬也要先開戶！南韓嬰兒股民暴增 爸</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 84 則留言</div><ul><li>不少人認同從小開戶，長期買ETF、享複利與提早累積資產</li><li>有人質疑是父母借名避稅或當人頭，甚至掩蓋違約交割</li><li>多數認為未成年不能槓桿，但仍擔心成年後背債或信用破產</li><li>另有人看空現況，稱可能從出生就套牢、投資20年仍難解套</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1786085386.A.931.html" target="_blank" rel="noopener">[情報] 8299群聯 7月營收Y+377.5% M+9.3%</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 81 則留言</div><ul><li>多數認為月增9.3%太低，營收利多已反映，股價恐下跌</li><li>有人看好營收續創高、今年獲利亮眼，認為基本面強</li><li>部分留言稱群聯股性難操作，賺錢但股價不漲</li><li>另有人認為記憶體景氣偏弱，群聯本益比與股價仍偏貴</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1786056444.A.4C9.html" target="_blank" rel="noopener">Re: [請益] 停損後隔天就反彈，大家都怎麼克服這種心</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 79 則留言</div><ul><li>多數建議以0050、台積電、正二或主動式ETF取代亂買個股</li><li>聯亞2150附近進場偏高，跌破關鍵位置停損並非錯誤</li><li>散戶常因資訊不對稱追高殺低，被主力洗出後才反彈</li><li>聯亞股本小、波動大，個股操作需理解公司與保留抄底資金</li><li>另有：有人認為停損後未在7月崩盤補回才可惜，朋友反而應該買回聯亞</li><li>另有：有人認為近期反彈主要因大盤反彈、股價修正及聯亞營收創高，不全是黃仁勳消息</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1786086932.A.589.html" target="_blank" rel="noopener">Re: [情報] 2344 華邦電 115年7月營收</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 68 則留言</div><ul><li>不少人認為月增約23%至30%很猛，營收表現優於預期</li><li>多數留言看空，預期股價下跌、跌停，甚至崩回100元</li><li>有人認為利多已反映，股價可能在130至200元區間震盪</li><li>另有人看好營收增幅，認為是進場或繼續抱股機會</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1786088192.A.901.html" target="_blank" rel="noopener">[情報] 3006 晶豪科 7月自結:11.61 年增:3,728%</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 66 則留言</div><ul><li>多數驚嘆7月獲利11.61元、年增3728%，認為表現猛</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1786086111.A.15B.html" target="_blank" rel="noopener">[新聞] SK海力士現金儲備急增 傳大舉買入南韓公</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 62 則留言</div><ul><li>多數認為現金太多，買債比盲目擴產更聰明</li><li>看好不擴產可維持缺貨與高獲利，避免價格戰</li><li>有人擔心需求見頂、3C寒冬，買債恐像打水漂</li><li>另有人批評不回購股票，質疑公司對股東回饋不足</li></ul></div></details>
+<div class="watch">👁 觀察外資賣壓是否延續，以及台積電、記憶體股能否止跌；川湖、聯茂強勢能否擴散。</div>
+
+</section>
+</div></body></html>
