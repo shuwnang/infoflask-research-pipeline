@@ -3,33 +3,63 @@
 <title>2026-08-10 早報｜INFOFLASK 新聞</title><style>
 :root{--bg:#0A0C10;--surface:#12151C;--surface-2:#171B24;--surface-3:#1D2330;
 --border:#232936;--border-strong:#2E3646;--text:#E7EBF2;--text-2:#9AA4B2;--text-3:#5C6675;
---accent:#E8C158;--accent-soft:rgba(232,193,88,0.10);--link:#6CA8FF}
+--accent:#E8C158;--accent-2:#F0D488;--accent-soft:rgba(232,193,88,0.10);--link:#6CA8FF;
+--shadow:0 10px 32px rgba(0,0,0,.35)}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:"Inter","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;line-height:1.75}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);
+font-family:"Inter","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;line-height:1.75;
+background-image:radial-gradient(1100px 420px at 50% -180px,rgba(232,193,88,.07),transparent 70%)}
 a{color:var(--link);text-decoration:none}a:hover{text-decoration:underline}
-.wrap{max-width:780px;margin:0 auto;padding:24px 16px 80px}
-h1{font-size:1.3rem;margin-bottom:2px}
-.sub{color:var(--text-3);font-size:.85rem;margin-bottom:18px}
-.nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px;position:sticky;top:0;background:var(--bg);padding:10px 0;z-index:5;border-bottom:1px solid var(--border)}
-.nav a{background:var(--surface-2);border:1px solid var(--border);border-radius:20px;padding:3px 12px;font-size:.78rem;color:var(--text-2)}
-.nav a:hover{color:var(--accent);border-color:rgba(232,193,88,.4);text-decoration:none}
-.theme{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px 24px;margin-bottom:18px}
-.theme h2{font-size:1.15rem;color:var(--accent);margin-bottom:4px}
-.tmeta{color:var(--text-3);font-size:.75rem;margin-bottom:12px}
-.art{white-space:pre-wrap;margin-bottom:12px}
-.facts li{list-style:none;padding:3px 0 3px 18px;position:relative;color:var(--text-2);font-size:.88rem}
-.facts li:before{content:"▪";position:absolute;left:2px;color:var(--accent)}
-.watch{background:var(--accent-soft);border-left:3px solid var(--accent);padding:8px 12px;border-radius:0 8px 8px 0;font-size:.87rem;margin:10px 0}
-details{margin-top:12px;border-top:1px solid var(--border);padding-top:8px}
-summary{color:var(--text-3);font-size:.8rem;cursor:pointer}
-details a{display:block;padding:3px 0;font-size:.85rem}
+.wrap{max-width:820px;margin:0 auto;padding:24px 18px 90px}
+h1{font-size:1.45rem;letter-spacing:.02em;margin-bottom:2px}
+.sub{color:var(--text-3);font-size:.85rem;margin-bottom:20px}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px;position:sticky;top:0;z-index:5;
+padding:12px 0;background:rgba(10,12,16,.82);backdrop-filter:blur(10px);
+-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.nav a{background:var(--surface-2);border:1px solid var(--border);border-radius:20px;
+padding:4px 13px;font-size:.78rem;color:var(--text-2);transition:.15s}
+.nav a:hover{color:var(--accent);border-color:rgba(232,193,88,.45);text-decoration:none;
+background:var(--accent-soft)}
+.theme{background:linear-gradient(180deg,var(--surface-2),var(--surface) 42%);
+border:1px solid var(--border);border-radius:18px;padding:26px 28px 22px;margin-bottom:22px;
+box-shadow:var(--shadow);scroll-margin-top:64px;position:relative;overflow:hidden}
+.theme:before{content:"";position:absolute;inset:0 auto auto 0;width:100%;height:2px;
+background:linear-gradient(90deg,var(--accent),rgba(232,193,88,.06) 55%,transparent)}
+.tnum{position:absolute;top:18px;right:22px;font-size:2rem;font-weight:800;
+color:rgba(232,193,88,.13);letter-spacing:.04em;font-variant-numeric:tabular-nums}
+.theme h2{font-size:1.22rem;line-height:1.55;margin-bottom:6px;padding-right:56px;
+background:linear-gradient(90deg,var(--accent-2),var(--accent));
+-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.tmeta{color:var(--text-3);font-size:.75rem;margin-bottom:14px;display:flex;gap:8px;align-items:center}
+.tmeta:before{content:"";width:18px;height:1px;background:var(--accent);opacity:.6}
+.art{color:var(--text-2);font-size:.94rem;line-height:1.85;margin-bottom:16px;
+padding:12px 16px;background:rgba(255,255,255,.02);border-left:3px solid var(--border-strong);
+border-radius:0 10px 10px 0;white-space:pre-wrap}
+.facts{margin-bottom:6px}
+.facts li{list-style:none;position:relative;color:var(--text);font-size:.96rem;line-height:1.7;
+padding:9px 4px 9px 30px;border-bottom:1px solid rgba(255,255,255,.045)}
+.facts li:last-child{border-bottom:none}
+.facts li:before{content:"";position:absolute;left:8px;top:1.05em;width:7px;height:7px;
+border-radius:2px;background:linear-gradient(135deg,var(--accent-2),var(--accent));
+transform:rotate(45deg)}
+.facts li:hover{background:rgba(255,255,255,.025);border-radius:8px}
+.watch{background:var(--accent-soft);border:1px solid rgba(232,193,88,.22);
+border-left:3px solid var(--accent);padding:10px 14px;border-radius:0 10px 10px 0;
+font-size:.88rem;color:var(--text-2);margin:14px 0 4px}
+details{margin-top:14px;border-top:1px solid var(--border);padding-top:10px}
+summary{color:var(--text-3);font-size:.8rem;cursor:pointer;transition:.15s}
+summary:hover{color:var(--text-2)}
+details a{display:block;padding:4px 0;font-size:.85rem}
 details .src{color:var(--text-3);font-size:.73rem;margin-left:6px}
 .top{margin-bottom:14px}
 .top a{font-size:.85rem;color:var(--text-2)}
 /* ── 首頁 ── */
-.hero{text-align:center;padding:34px 0 6px}
-.hero h1{font-size:1.6rem;letter-spacing:.04em}
-.hero .sub{margin-top:6px;margin-bottom:0}
+.hero{text-align:center;padding:40px 0 8px}
+.hero h1{font-size:1.9rem;letter-spacing:.05em;
+background:linear-gradient(90deg,var(--text) 20%,var(--accent-2) 60%,var(--accent));
+-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero .sub{margin-top:8px;margin-bottom:0;letter-spacing:.03em}
 .cloud{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:2px 10px;
   padding:30px 14px 22px;margin:18px 0 30px;background:var(--surface);border:1px solid var(--border);
   border-radius:16px;line-height:1.05}
@@ -40,11 +70,15 @@ details .src{color:var(--text-3);font-size:.73rem;margin-left:6px}
 .dgroup{margin-bottom:26px}
 .dgroup h3{font-size:.95rem;color:var(--text-2);margin-bottom:10px;font-weight:600;
   border-left:3px solid var(--accent);padding-left:10px}
-.edrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
-.edcard{display:block;background:var(--surface);border:1px solid var(--border);border-radius:14px;
-  padding:18px 20px;transition:.18s}
-.edcard:hover{background:var(--surface-3);border-color:var(--border-strong);
-  text-decoration:none;transform:translateY(-2px)}
+.edrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.edcard{display:block;background:linear-gradient(180deg,var(--surface-2),var(--surface) 55%);
+  border:1px solid var(--border);border-radius:16px;padding:20px 22px;transition:.2s;
+  position:relative;overflow:hidden}
+.edcard:after{content:"";position:absolute;inset:0;opacity:0;transition:.25s;pointer-events:none;
+  background:radial-gradient(420px 140px at 50% 0%,rgba(232,193,88,.10),transparent 70%)}
+.edcard:hover{border-color:rgba(232,193,88,.35);text-decoration:none;
+  transform:translateY(-3px);box-shadow:var(--shadow)}
+.edcard:hover:after{opacity:1}
 .badge{display:inline-block;font-size:.72rem;border-radius:20px;padding:2px 11px;margin-right:8px;
   border:1px solid rgba(232,193,88,.4);color:var(--accent);background:var(--accent-soft)}
 .badge.pm{border-color:rgba(108,168,255,.4);color:var(--link);background:rgba(108,168,255,.08)}
@@ -90,6 +124,7 @@ details .src{color:var(--text-3);font-size:.73rem;margin-left:6px}
 <div class="sub">前日17:00–當日05:00｜6 個主題｜候選 63 篇精選 50 篇</div>
 <div class="nav"><a href="#t0">美國數據低於預期；台指期夜盤</a><a href="#t1">Fed利率不變、3官員主張升</a><a href="#t2">南亞科Q2 EPS14.66</a><a href="#t3">伊朗封鎖荷莫茲推升燃料價格；</a><a href="#t4">14家金控未實現收益9409</a><a href="#t5">記憶體被喊快跑，地緣風險多空</a></div>
 <section class="theme" id="t0">
+<span class="tnum">01</span>
 <h2>美國數據低於預期；台指期夜盤大漲736點、台股攻4.75萬點；台積電傳布局先進封裝</h2>
 <div class="tmeta">夜間美股與昨日臺股｜4 篇來源｜固定主題</div>
 <div class="art">美國7日公布的總經數據低於預期，帶動台指期夜盤強勢上揚，單夜大漲736點，台股波段行情朝4.75萬點推進。現有報導未提供加權指數前一交易日的實際收盤點位，也未列出台指期夜盤收盤價，因此目前可確認的主要市場數字為夜盤上漲736點，以及台股波段上攻4.75萬點。
@@ -105,6 +140,7 @@ details .src{color:var(--text-3);font-size:.73rem;margin-left:6px}
 <div class="watch">👁 留意台股後續是否站上4.75萬點，以及台積電、友達是否進一步說明中科兩座廠交易與先進封裝規劃；同時關注油氣價格與電價政策對市場交易環境的影響。</div>
 <details><summary>原始報導（4）</summary><a href="https://money.udn.com/money/story/5607/9681018" target="_blank" rel="noopener">8月10日 五件財經大事搶先看<span class="src">經濟日報｜08-10 03:29</span></a><a href="https://money.udn.com/money/story/5599/9680741" target="_blank" rel="noopener">韓股巨震 槓桿投資人退散 大摩預估相關籌碼清洗過半<span class="src">經濟日報｜08-10 01:49</span></a><a href="https://money.udn.com/money/story/11074/9680589" target="_blank" rel="noopener">櫃買19檔處置期 縮短<span class="src">經濟日報｜08-10 00:46</span></a><a href="https://money.udn.com/money/story/5613/9680846" target="_blank" rel="noopener">防融資斷頭券商拉高預警線 擔保維持率低於150% 就發出警示通知<span class="src">經濟日報｜08-10 02:26</span></a></details>
 </section><section class="theme" id="t1">
+<span class="tnum">02</span>
 <h2>Fed利率不變、3官員主張升息；中國7月CPI年增0.5%；台電上半年虧257億元</h2>
 <div class="tmeta">總經動態｜10 篇來源｜固定主題</div>
 <div class="art">美國聯準會維持政策利率不變，但會議中有3位官員主張升息。自6月會議以來，美國10年期公債殖利率由4.49%升至4.68%，30年期殖利率也升至5.20%，反映市場利率壓力上升。
@@ -122,6 +158,7 @@ details .src{color:var(--text-3);font-size:.73rem;margin-left:6px}
 <div class="watch">👁 2026年8月20日行政院會拍板總預算；2026年9月電價費率審議會決定2026年10月電價</div>
 <details><summary>原始報導（10）</summary><a href="https://money.udn.com/money/story/5618/9680724" target="_blank" rel="noopener">雲端運算、半導體 伺機買<span class="src">經濟日報｜08-10 00:36</span></a><a href="https://money.udn.com/money/story/7307/9680357" target="_blank" rel="noopener">政院月底拍板總預算案 明年度國防預算將創新高上看1.1兆<span class="src">經濟日報｜08-09 17:40</span></a><a href="https://money.udn.com/money/story/5599/9680740" target="_blank" rel="noopener">AI 好熱 台韓出口額超越日本 美相關逆差一年來衝近4,000億美元<span class="src">經濟日報｜08-10 01:50</span></a><a href="https://money.udn.com/money/story/7307/9680853" target="_blank" rel="noopener">穩物價 10月電價預料凍漲 台電虧損擴大 經部將提追加預算撥補<span class="src">經濟日報｜08-10 02:32</span></a><a href="https://money.udn.com/money/story/5603/9680875" target="_blank" rel="noopener">陸7月 CPI 增速放緩添隱憂 顯示經濟有壓 通縮壓力仍在<span class="src">經濟日報｜08-10 01:40</span></a><a href="https://money.udn.com/money/story/6710/9680850" target="_blank" rel="noopener">債券 ETF 免證交稅 擬延十年<span class="src">經濟日報｜08-10 01:28</span></a><a href="https://money.udn.com/money/story/5613/9680794" target="_blank" rel="noopener">虛幣實名轉帳 業者準備好了 預計9月完成境內交易所系統串接<span class="src">經濟日報｜08-10 01:27</span></a><a href="https://money.udn.com/money/story/7307/9680855" target="_blank" rel="noopener">經部擬增資中油1,694億<span class="src">經濟日報｜08-10 02:29</span></a><a href="https://money.udn.com/money/story/7307/9680757" target="_blank" rel="noopener">挺住台電！經部表態爭取政府撥補、穩定選前物價 今年10月電價還漲？<span class="src">經濟日報｜08-09 21:58</span></a><a href="https://money.udn.com/money/story/7307/9680756" target="_blank" rel="noopener">救中油！經濟部2027年編列中油1,694億元增資預算 並爭取政府撥補<span class="src">經濟日報｜08-09 21:57</span></a></details>
 </section><section class="theme" id="t2">
+<span class="tnum">03</span>
 <h2>南亞科Q2 EPS14.66元；友達砸86.41億元布局先進封裝；MLCC交期達16個月</h2>
 <div class="tmeta">AI與半導體｜20 篇來源｜固定主題</div>
 <div class="art">AI需求持續推升半導體與零組件景氣。南亞科（2408）第2季營收季增68%，毛利率79.5%，每股純益14.66元；受惠DRAM供不應求延續，市場估第3季營收944.2億元、EPS 16.8元，傳統型DRAM價格季增13%至18%。愛普*（6531）2026年第2季營收23.6億元，季增13%、年增78%，創單季新高，主要由IoTRAM需求強勁及S-SiCap進入量產帶動，法人預期2027年S-SiCap營收有機會超過IoTRAM，VHM則預計2028年量產。
@@ -137,6 +174,7 @@ AI伺服器帶動被動元件供應緊張，MLCC部分急單價格已達原價�
 <div class="watch">👁 第3季南亞科DRAM價格、世界先進出貨與稼動率；友達先進封裝試產線及台積電合作傳聞進展；第4季AWS ASIC、AMD Helios出貨；貿聯HPC營收占比變化</div>
 <details><summary>原始報導（20）</summary><a href="https://money.udn.com/money/story/5612/9680825" target="_blank" rel="noopener">台積電傳要買友達中科兩座廠 比照「群創模式」 攜手發展先進封裝技術<span class="src">經濟日報｜08-10 02:21</span></a><a href="https://money.udn.com/money/story/5739/9680903" target="_blank" rel="noopener">上銀、研華 四檔電力強<span class="src">經濟日報｜08-10 00:51</span></a><a href="https://money.udn.com/money/story/11113/9680594" target="_blank" rel="noopener">世界期 利多簇擁<span class="src">經濟日報｜08-10 00:45</span></a><a href="https://money.udn.com/money/story/5612/9680827" target="_blank" rel="noopener">供給吃緊 MLCC 掀追價搶料潮 國巨：愈來愈多客戶搶簽長約鎖料<span class="src">經濟日報｜08-10 02:16</span></a><a href="https://money.udn.com/money/story/5612/9680829" target="_blank" rel="noopener">台積電與友達這次合作 彭双浪早露口風<span class="src">經濟日報｜08-10 02:18</span></a><a href="https://money.udn.com/money/story/5607/9680773" target="_blank" rel="noopener">多頭指標高價股迎來外資上修目標價潮 信驊、川湖、穎崴等七檔最夯<span class="src">經濟日報｜08-09 22:13</span></a><a href="https://money.udn.com/money/story/5599/9680518" target="_blank" rel="noopener">美國AI貿易逆差飆升 台灣、墨西哥為主要供應國<span class="src">經濟日報｜08-09 18:01</span></a><a href="https://money.udn.com/money/story/11162/9680828" target="_blank" rel="noopener">蘋果新品一波波 十多款重量級產品將接續登場 鴻海、廣達等添動能<span class="src">經濟日報｜08-10 02:14</span></a><a href="https://money.udn.com/money/story/123398/9680772" target="_blank" rel="noopener">記憶體太缺 傳蘋果開始測試長鑫存儲晶片<span class="src">經濟日報｜08-09 22:13</span></a><a href="https://money.udn.com/money/story/5607/9680852" target="_blank" rel="noopener">台股高檔震盪 高價股掀目標價上修潮<span class="src">經濟日報｜08-10 01:28</span></a><a href="https://money.udn.com/money/story/5739/9680915" target="_blank" rel="noopener">南亞科 挑逾120天<span class="src">經濟日報｜08-10 00:49</span></a><a href="https://money.udn.com/money/story/11074/9680633" target="_blank" rel="noopener">印能營收拚倍增<span class="src">經濟日報｜08-10 01:11</span></a><a href="https://money.udn.com/money/story/5710/9680623" target="_blank" rel="noopener">一詮將獲輝達擴大釋單 散熱新品送樣 瞄準下世代 Feynman 平台商機<span class="src">經濟日報｜08-10 00:59</span></a><a href="https://money.udn.com/money/story/5604/9680566" target="_blank" rel="noopener">杭州「絕代雙驕」合體引熱議 Deepseek戰投宇樹科技 鎖定具身智能<span class="src">經濟日報｜08-09 19:10</span></a><a href="https://money.udn.com/money/story/5603/9680880" target="_blank" rel="noopener">大陸 AI 模型全球採用率衝50% 理由是成本效益高<span class="src">經濟日報｜08-10 01:38</span></a><a href="https://money.udn.com/money/story/5710/9680462" target="_blank" rel="noopener">宏齊營收／旺季＋新布局顯效 7月2.06億元寫49個月新高、上半年轉盈<span class="src">經濟日報｜08-09 17:10</span></a><a href="https://money.udn.com/money/story/5739/9680906" target="_blank" rel="noopener">緯穎、貿聯 押寶長天期<span class="src">經濟日報｜08-10 00:50</span></a><a href="https://money.udn.com/money/story/5612/9680830" target="_blank" rel="noopener">台積電積極推進 CoPoS 與 COUPE 矽光子技術 富采、鼎元、環宇 扮助攻奇兵<span class="src">經濟日報｜08-10 02:17</span></a><a href="https://money.udn.com/money/story/5739/9680922" target="_blank" rel="noopener">愛普* 選逾五個月<span class="src">經濟日報｜08-10 00:50</span></a><a href="https://money.udn.com/money/story/123398/9680795" target="_blank" rel="noopener">美媒：蘋果正測試iPhone、MacBook用長鑫存儲晶片<span class="src">經濟日報｜08-09 22:36</span></a></details>
 </section><section class="theme" id="t3">
+<span class="tnum">04</span>
 <h2>伊朗封鎖荷莫茲推升燃料價格；美伊談判卡6條件；吉贊煉油廠遭襲40萬桶</h2>
 <div class="tmeta">荷莫茲海峽危機：中東能源運輸風險升高｜7 篇來源</div>
 <div class="art">荷莫茲海峽危機持續牽動中東能源運輸。伊朗自美國與以色列於2月28日共同發動戰爭後封鎖海峽，已推升全球燃料價格，並加劇全球經濟不確定性。美國總統川普8月10日表示，正以「低調」方式處理伊朗持續升高的經濟壓力；法新社解讀，這似乎暗示川普打消進一步軍事打擊的部分念頭，但川普同時稱油價正在下跌。
@@ -152,6 +190,7 @@ AI伺服器帶動被動元件供應緊張，MLCC部分急單價格已達原價�
 <div class="watch">👁 留意美方是否滿足伊朗8月8日提出的6項條件，以及美伊是否正式宣布荷莫茲重啟協議；另觀察海峽封鎖與區域能源設施襲擊風險是否持續。</div>
 <details><summary>原始報導（7）</summary><a href="https://money.udn.com/money/story/5599/9681028" target="_blank" rel="noopener">川普稱對伊朗採低調策略 法新：似暗示打消軍事打擊<span class="src">經濟日報｜08-10 04:37</span></a><a href="https://money.udn.com/money/story/5599/9680651" target="_blank" rel="noopener">革命衛隊要求美國滿足伊朗條件　否則不開放荷莫茲海峽<span class="src">經濟日報｜08-09 20:13</span></a><a href="https://money.udn.com/money/story/5599/9680746" target="_blank" rel="noopener">烏承諾不炸黑海石油設施<span class="src">經濟日報｜08-10 01:42</span></a><a href="https://money.udn.com/money/story/5599/9680857" target="_blank" rel="noopener">重啟荷莫茲…伊朗提嚴苛條件 要求美軍撤離、永久結束戰爭等 增添談判變數<span class="src">經濟日報｜08-10 02:29</span></a><a href="https://www.ctee.com.tw/news/20260809700580-430701" target="_blank" rel="noopener">伊朗與阿曼接近達成協議 但荷姆茲重啟仍有條件<span class="src">工商時報｜08-09 20:22</span></a><a href="https://money.udn.com/money/story/5599/9680458" target="_blank" rel="noopener">沙烏地等3國簽防禦協定後　葉門叛軍稱襲擊沙國煉油廠<span class="src">經濟日報｜08-09 17:06</span></a><a href="https://money.udn.com/money/story/5599/9680548" target="_blank" rel="noopener">彭博：烏克蘭承諾不以黑海石油設施及非俄船隻為攻擊目標<span class="src">經濟日報｜08-09 18:53</span></a></details>
 </section><section class="theme" id="t4">
+<span class="tnum">05</span>
 <h2>14家金控未實現收益9409億創高；海外曝險31.48兆增1.75兆</h2>
 <div class="tmeta">金控獲利與海外曝險攀升｜4 篇來源</div>
 <div class="art">金管會統計，14家金控截至6月30日未實現收益達9,409億元，創歷史新高，第二季增加9,343億元。收益增加主要來自國內投資，貢獻7,768億元，占整體增幅逾八成，主要受台股第二季上漲45.5%帶動。市場上漲推升金控淨值，也有助支撐明年配息；不過，若台股轉弱，相關未實現利益可能回吐。
@@ -167,6 +206,7 @@ AI伺服器帶動被動元件供應緊張，MLCC部分急單價格已達原價�
 <div class="watch">👁 台股轉弱時，未實現利益可能回吐；海外放款集中增加的風險</div>
 <details><summary>原始報導（4）</summary><a href="https://money.udn.com/money/story/5613/9680873" target="_blank" rel="noopener">6月底14金控帳上收益逾9,400億創高 明年配息添底氣<span class="src">經濟日報｜08-10 02:00</span></a><a href="https://money.udn.com/money/story/5613/9680789" target="_blank" rel="noopener">飆天量！金控投資單季竟爆賺逾9300億元 最大推手是誰？<span class="src">經濟日報｜08-09 22:32</span></a><a href="https://money.udn.com/money/story/5613/9680801" target="_blank" rel="noopener">金控海外銀彈大搬風！曝險半年暴增1.75兆 近九成流向放款<span class="src">經濟日報｜08-09 22:40</span></a><a href="https://money.udn.com/money/story/5613/9680874" target="_blank" rel="noopener">企業授信 推升海外曝險額<span class="src">經濟日報｜08-10 01:57</span></a></details>
 </section><section class="theme" id="t5">
+<span class="tnum">06</span>
 <h2>記憶體被喊快跑，地緣風險多空拉鋸</h2>
 <div class="tmeta">PTT股版風向｜5 篇來源</div>
 <div class="art">本期股版討論焦點偏向風險控管，記憶體相關話題明顯偏空。對大摩轉多，主流留言解讀成「出貨訊號」，認為南亞科、華邦電、旺宏可能續弱，甚至直喊「快跑、丸子」；但也有少數人認為股價已跌深，可採戰術性買進，等待反彈，並提醒外資反覆喊多空，未必適合照單全收。
