@@ -135,7 +135,7 @@ color:var(--accent);border-radius:12px;padding:0 22px;font-size:.95rem;cursor:po
 <input id="q" list="stocks" placeholder="輸入股名或代號（如 台積電 或 2330）">
 <datalist id="stocks"></datalist>
 <button id="btn">查詢</button></div>
-<div id="result"><div class="empty">輸入股票後顯示：近三日直接提及＋產業相關新聞（最多 10 篇，逐篇列出）</div></div>
+<div id="result"><div class="empty">輸入股票後顯示：近七日直接提及＋產業相關新聞（最多 10 篇，逐篇列出）</div></div>
 </div><script type="module">
 const D = await (await fetch('stock_news.json')).json();
 document.getElementById('upd').textContent = '資料更新 ' + D.updated + '｜近' + D.days + '日新聞';
