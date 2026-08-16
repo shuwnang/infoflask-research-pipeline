@@ -1,0 +1,166 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>個股新聞查詢｜INFOFLASK 新聞</title><style>
+:root{--bg:#0A0C10;--surface:#12151C;--surface-2:#171B24;--surface-3:#1D2330;
+--border:#232936;--border-strong:#2E3646;--text:#E7EBF2;--text-2:#9AA4B2;--text-3:#5C6675;
+--accent:#E8C158;--accent-2:#F0D488;--accent-soft:rgba(232,193,88,0.10);--link:#6CA8FF;
+--shadow:0 10px 32px rgba(0,0,0,.35)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);
+font-family:"Inter","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;line-height:1.75;
+background-image:radial-gradient(1100px 420px at 50% -180px,rgba(232,193,88,.07),transparent 70%)}
+a{color:var(--link);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:820px;margin:0 auto;padding:24px 18px 90px}
+h1{font-size:1.45rem;letter-spacing:.02em;margin-bottom:2px}
+.sub{color:var(--text-3);font-size:.85rem;margin-bottom:20px}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px;position:sticky;top:0;z-index:5;
+padding:12px 0;background:rgba(10,12,16,.82);backdrop-filter:blur(10px);
+-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.nav a{background:var(--surface-2);border:1px solid var(--border);border-radius:20px;
+padding:4px 13px;font-size:.78rem;color:var(--text-2);transition:.15s}
+.nav a:hover{color:var(--accent);border-color:rgba(232,193,88,.45);text-decoration:none;
+background:var(--accent-soft)}
+.theme{background:linear-gradient(180deg,var(--surface-2),var(--surface) 42%);
+border:1px solid var(--border);border-radius:18px;padding:26px 28px 22px;margin-bottom:22px;
+box-shadow:var(--shadow);scroll-margin-top:64px;position:relative;overflow:hidden}
+.theme:before{content:"";position:absolute;inset:0 auto auto 0;width:100%;height:2px;
+background:linear-gradient(90deg,var(--accent),rgba(232,193,88,.06) 55%,transparent)}
+.tnum{position:absolute;top:18px;right:22px;font-size:2rem;font-weight:800;
+color:rgba(232,193,88,.13);letter-spacing:.04em;font-variant-numeric:tabular-nums}
+.theme h2{font-size:1.22rem;line-height:1.55;margin-bottom:6px;padding-right:56px;
+background:linear-gradient(90deg,var(--accent-2),var(--accent));
+-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.tmeta{color:var(--text-3);font-size:.75rem;margin-bottom:14px;display:flex;gap:8px;align-items:center}
+.tmeta:before{content:"";width:18px;height:1px;background:var(--accent);opacity:.6}
+.art{color:var(--text-2);font-size:.94rem;line-height:1.85;margin-bottom:16px;
+padding:12px 16px;background:rgba(255,255,255,.02);border-left:3px solid var(--border-strong);
+border-radius:0 10px 10px 0;white-space:pre-wrap}
+.facts{margin-bottom:6px}
+.facts li{list-style:none;position:relative;color:var(--text);font-size:.96rem;line-height:1.7;
+padding:9px 4px 9px 30px;border-bottom:1px solid rgba(255,255,255,.045)}
+.facts li:last-child{border-bottom:none}
+.facts li:before{content:"";position:absolute;left:8px;top:1.05em;width:7px;height:7px;
+border-radius:2px;background:linear-gradient(135deg,var(--accent-2),var(--accent));
+transform:rotate(45deg)}
+.facts li:hover{background:rgba(255,255,255,.025);border-radius:8px}
+.watch{background:var(--accent-soft);border:1px solid rgba(232,193,88,.22);
+border-left:3px solid var(--accent);padding:10px 14px;border-radius:0 10px 10px 0;
+font-size:.88rem;color:var(--text-2);margin:14px 0 4px}
+details{margin-top:14px;border-top:1px solid var(--border);padding-top:10px}
+summary{color:var(--text-3);font-size:.8rem;cursor:pointer;transition:.15s}
+summary:hover{color:var(--text-2)}
+details a{display:block;padding:4px 0;font-size:.85rem}
+details .src{color:var(--text-3);font-size:.73rem;margin-left:6px}
+.top{margin-bottom:14px}
+.top a{font-size:.85rem;color:var(--text-2)}
+/* ── 首頁 ── */
+.hero{text-align:center;padding:40px 0 8px}
+.hero h1{font-size:1.9rem;letter-spacing:.05em;
+background:linear-gradient(90deg,var(--text) 20%,var(--accent-2) 60%,var(--accent));
+-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero .sub{margin-top:8px;margin-bottom:0;letter-spacing:.03em}
+.cloud{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:2px 10px;
+  padding:30px 14px 22px;margin:18px 0 30px;background:var(--surface);border:1px solid var(--border);
+  border-radius:16px;line-height:1.05}
+.cloud span{white-space:nowrap;transition:.18s;cursor:default;display:inline-block}
+.cloud span:hover{color:var(--accent)!important;transform:scale(1.12)!important;z-index:2;position:relative}
+.cloud .v{writing-mode:vertical-rl;letter-spacing:.08em}
+.cloud .cl-note{width:100%;text-align:center;color:var(--text-3);font-size:.72rem;margin-top:10px}
+.dgroup{margin-bottom:26px}
+.dgroup h3{font-size:.95rem;color:var(--text-2);margin-bottom:10px;font-weight:600;
+  border-left:3px solid var(--accent);padding-left:10px}
+.edrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.edcard{display:block;background:linear-gradient(180deg,var(--surface-2),var(--surface) 55%);
+  border:1px solid var(--border);border-radius:16px;padding:20px 22px;transition:.2s;
+  position:relative;overflow:hidden}
+.edcard:after{content:"";position:absolute;inset:0;opacity:0;transition:.25s;pointer-events:none;
+  background:radial-gradient(420px 140px at 50% 0%,rgba(232,193,88,.10),transparent 70%)}
+.edcard:hover{border-color:rgba(232,193,88,.35);text-decoration:none;
+  transform:translateY(-3px);box-shadow:var(--shadow)}
+.edcard:hover:after{opacity:1}
+.badge{display:inline-block;font-size:.72rem;border-radius:20px;padding:2px 11px;margin-right:8px;
+  border:1px solid rgba(232,193,88,.4);color:var(--accent);background:var(--accent-soft)}
+.badge.pm{border-color:rgba(108,168,255,.4);color:var(--link);background:rgba(108,168,255,.08)}
+.edcard .cnt{color:var(--text-3);font-size:.76rem}
+.tlist{margin-top:12px}
+.tlist li{list-style:none;padding:4px 0 4px 16px;position:relative;color:var(--text-2);
+  font-size:.86rem;line-height:1.5}
+.tlist li:before{content:"›";position:absolute;left:2px;color:var(--accent);font-weight:700}
+.hotrow{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+.hotchip{font-size:.78rem;border:1px solid var(--border-strong);border-radius:20px;
+  padding:3px 12px;color:var(--text-2);background:var(--surface-2)}
+.hotchip b{color:var(--accent);font-weight:600}
+.post{margin:14px 0;padding:12px 14px;border:1px solid var(--border);border-radius:10px;
+  background:var(--surface-2)}
+.post .ptitle{font-size:.9rem;font-weight:600;line-height:1.5}
+.post .ptitle a{color:var(--text-1)}
+.post .pmeta{font-size:.72rem;color:var(--text-3);margin:2px 0 6px}
+.post ul{margin:0;padding-left:18px}
+.post li{font-size:.84rem;color:var(--text-2);line-height:1.6}
+.sent{display:inline-block;font-size:.7rem;border-radius:4px;padding:1px 7px;margin-left:6px}
+.sent.bull{color:#f28b82;background:rgba(242,139,130,.12)}
+.sent.bear{color:#81c995;background:rgba(129,201,149,.12)}
+.sent.mix{color:var(--accent);background:var(--accent-soft)}
+.sent.neu{color:var(--text-3);background:var(--surface-3)}
+.sitenav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.sitenav a{font-size:.78rem;color:var(--text-3);text-decoration:none;
+  border:1px solid var(--border);border-radius:20px;padding:3px 12px;transition:.15s}
+.sitenav a:hover{color:var(--text-1);border-color:var(--border-strong);background:var(--surface-2)}
+.sitenav a.on{color:var(--accent);border-color:var(--accent);pointer-events:none}
+
+.searchrow{display:flex;gap:10px;margin:18px 0 26px}
+.searchrow input{flex:1;background:var(--surface-2);border:1px solid var(--border-strong);
+border-radius:12px;padding:12px 16px;color:var(--text);font-size:1rem;outline:none}
+.searchrow input:focus{border-color:var(--accent)}
+.searchrow button{background:var(--accent-soft);border:1px solid rgba(232,193,88,.45);
+color:var(--accent);border-radius:12px;padding:0 22px;font-size:.95rem;cursor:pointer}
+.rhead{font-size:1.05rem;font-weight:600;color:var(--accent);margin-bottom:10px}
+.empty{color:var(--text-3);padding:30px 0;text-align:center}
+.pone{font-size:.84rem;color:var(--text-2);margin-top:4px}</style></head><body>
+<div class="wrap">
+<nav class="sitenav">
+<a href="../index.html">模型首頁</a>
+<a href="../scores.html">評分表</a>
+<a href="../holdings.html">模型持股</a>
+<a href="../performance.html">績效表</a>
+<a href="../market.html">大盤觀測</a>
+<a href="../treemap.html">選股地圖</a>
+<a href="index.html">新聞</a>
+<a class="on" href="stock.html">個股新聞</a>
+</nav>
+<h1>🔍 個股新聞查詢</h1>
+<div class="sub" id="upd">載入中…</div>
+<div class="searchrow">
+<input id="q" list="stocks" placeholder="輸入股名或代號（如 台積電 或 2330）">
+<datalist id="stocks"></datalist>
+<button id="btn">查詢</button></div>
+<div id="result"><div class="empty">輸入股票後顯示：近三日直接提及＋產業相關新聞（最多 10 篇，逐篇列出）</div></div>
+</div><script type="module">
+const D = await (await fetch('stock_news.json')).json();
+document.getElementById('upd').textContent = '資料更新 ' + D.updated + '｜近' + D.days + '日新聞';
+const dl = document.getElementById('stocks');
+D.stocks.forEach(s => { const o = document.createElement('option'); o.value = s.n + ' ' + s.c; dl.appendChild(o); });
+const box = document.getElementById('result');
+function render(code) {
+  const e = D.news[code];
+  const name = (D.stocks.find(s => s.c === code) || {}).n || code;
+  if (!e) { box.innerHTML = '<div class="empty">' + name + '（' + code + '）近' + D.days + '日沒有相關新聞</div>'; return; }
+  box.innerHTML = '<div class="rhead">' + e.name + '（' + code + '）｜' + e.articles.length + ' 篇</div>' +
+    e.articles.map(a =>
+      '<div class="post"><div class="ptitle"><a href="' + a.u + '" target="_blank" rel="noopener">' +
+      a.t.replace(/</g,'&lt;') + '</a><span class="sent ' + (a.m === 'direct' ? 'bull' : 'neu') + '">' +
+      (a.m === 'direct' ? '直接提及' : '相關 ' + (a.sim || '')) + '</span></div>' +
+      '<div class="pmeta">' + a.s + '｜' + a.d + '</div>' +
+      (a.o ? '<div class="pone">' + a.o.replace(/</g,'&lt;') + '</div>' : '') + '</div>').join('');
+}
+function go() {
+  const v = document.getElementById('q').value.trim();
+  const m = v.match(/([0-9]{4}[A-Z]?)/);
+  let code = m ? m[1] : null;
+  if (!code) { const hit = D.stocks.find(s => s.n === v) || D.stocks.find(s => s.n.includes(v)); code = hit && hit.c; }
+  if (code) render(code);
+}
+document.getElementById('q').addEventListener('change', go);
+document.getElementById('btn').addEventListener('click', go);
+</script></body></html>
