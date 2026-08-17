@@ -123,6 +123,22 @@
     .val-best  { color: var(--up-bright); }
     .val-days  { color: var(--dn-bright); }
 
+    #news-card { background: var(--surface, #12151C); border: 1px solid var(--border, #232936);
+      border-radius: 12px; padding: 14px 18px; }
+    .nc-head { font-size: .95rem; font-weight: 600; color: var(--accent, #E8C158); margin-bottom: 6px; }
+    .nc-sub { font-size: .72rem; color: var(--text-3, #5C6675); font-weight: 400; margin-left: 10px; }
+    .nc-item { padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,.05); }
+    .nc-item:last-child { border-bottom: none; }
+    .nc-t { font-size: .9rem; line-height: 1.5; }
+    .nc-t a { color: var(--text, #E7EBF2); text-decoration: none; }
+    .nc-t a:hover { color: var(--accent, #E8C158); }
+    .nc-tag { display: inline-block; font-size: .68rem; border-radius: 4px; padding: 1px 7px; margin-left: 8px;
+      vertical-align: 1px; }
+    .nc-tag.d { color: #f28b82; background: rgba(242,139,130,.12); }
+    .nc-tag.s { color: #9AA4B2; background: rgba(255,255,255,.06); }
+    .nc-m { font-size: .72rem; color: var(--text-3, #5C6675); margin-top: 2px; }
+    .nc-o { font-size: .82rem; color: var(--text-2, #9AA4B2); margin-top: 3px; }
+    .nc-empty { color: var(--text-3, #5C6675); font-size: .85rem; padding: 8px 0; }
     #chart-card {
       background: linear-gradient(180deg, #151A23 0%, var(--surface) 100%);
       border: 1px solid var(--border); border-radius: 16px;
@@ -199,6 +215,10 @@
         <div id="tooltip"></div>
       </div>
       <div class="note" id="chart-note"></div>
+    </div>
+    <div id="news-card">
+      <div class="nc-head">📰 近期新聞<span class="nc-sub" id="nc-sub"></span></div>
+      <div id="nc-list"></div>
     </div>
   </div>
   <div class="placeholder" id="placeholder">
@@ -321,6 +341,27 @@ function render(sid) {
     : '';
 
   draw();
+  loadNews(sid);
+}
+
+let NEWS = null, newsFail = false;
+async function loadNews(sid) {
+  const card = document.getElementById('news-card');
+  const list = document.getElementById('nc-list');
+  if (newsFail) return;
+  try {
+    if (!NEWS) NEWS = await (await fetch('news/stock_news.json')).json();
+  } catch (e) { newsFail = true; card.style.display = 'none'; return; }
+  document.getElementById('nc-sub').textContent = '近' + NEWS.days + '日｜資料更新 ' + NEWS.updated;
+  const entry = NEWS.news[sid];
+  if (!entry) { list.innerHTML = '<div class="nc-empty">近' + NEWS.days + '日無相關新聞</div>'; return; }
+  const esc = s => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  list.innerHTML = entry.articles.map(a =>
+    '<div class="nc-item"><div class="nc-t"><a href="' + a.u + '" target="_blank" rel="noopener">' + esc(a.t) +
+    '</a><span class="nc-tag ' + (a.m === 'direct' ? 'd' : 's') + '">' +
+    (a.m === 'direct' ? '直接提及' : '相關' + (a.sim ? ' ' + a.sim : '')) + '</span></div>' +
+    '<div class="nc-m">' + esc(a.s) + '｜' + esc(a.d) + '</div>' +
+    (a.o ? '<div class="nc-o">' + esc(a.o) + '</div>' : '') + '</div>').join('');
 }
 
 function draw() {
