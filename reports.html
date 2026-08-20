@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>個股研究報告</title>
+  <style>
+    :root {
+      --bg:#0A0C10; --surface:#12151C; --surface-2:#171B24; --surface-3:#1D2330;
+      --border:#232936; --border-strong:#2E3646;
+      --text:#E7EBF2; --text-2:#9AA4B2; --text-3:#5C6675;
+      --accent:#E8C158; --accent-soft:rgba(232,193,88,0.10);
+      --link:#6CA8FF; --up:#F0544C; --up-bright:#FF7B72;
+      --dn:#3FBF7F; --dn-bright:#5CD99A;
+    }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    body { background:var(--bg); color:var(--text);
+      font-family:"Inter","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
+      -webkit-font-smoothing:antialiased; }
+    ::selection { background:rgba(108,168,255,0.28); }
+    header { display:flex; align-items:center; flex-wrap:wrap; gap:14px;
+      padding:12px 22px; background:rgba(10,12,16,0.88); backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--border); position:sticky; top:0; z-index:20; }
+    .brand { font-size:17px; font-weight:900; color:#fff; letter-spacing:0.08em; }
+    .brand-page { font-size:13px; font-weight:500; color:var(--text-3); margin-left:2px; }
+    .site-nav { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+    .nav-link { color:var(--text-2); text-decoration:none; font-size:13px; font-weight:500;
+      padding:5px 14px; border:1px solid var(--border); border-radius:999px;
+      white-space:nowrap; transition:all .15s ease; }
+    .nav-link:hover { color:var(--text); border-color:var(--border-strong); background:var(--surface-2); }
+
+    .wrap { max-width:880px; margin:0 auto; padding:28px 20px 60px; }
+    .page-head h1 { font-size:22px; font-weight:800; letter-spacing:0.04em; }
+    .page-head .intro { color:var(--text-2); font-size:13px; margin-top:6px; line-height:1.7; }
+
+    details.report { background:linear-gradient(180deg,#151A23 0%,var(--surface) 100%);
+      border:1px solid var(--border); border-radius:14px; margin-top:18px; overflow:hidden; }
+    details.report[open] { border-color:var(--border-strong); }
+    summary { list-style:none; cursor:pointer; padding:16px 20px;
+      display:flex; flex-wrap:wrap; align-items:center; gap:10px; }
+    summary::-webkit-details-marker { display:none; }
+    summary:hover { background:var(--surface-2); }
+    .r-date { font-size:12px; color:var(--text-3); font-variant-numeric:tabular-nums;
+      border:1px solid var(--border); border-radius:8px; padding:2px 8px; white-space:nowrap; }
+    .r-title { font-size:16px; font-weight:800; letter-spacing:0.02em; flex:1; min-width:200px; }
+    .r-stock { font-size:13px; font-weight:700; color:var(--accent); white-space:nowrap; }
+    .chips { display:flex; gap:6px; flex-wrap:wrap; }
+    .chip { font-size:11px; font-weight:700; padding:2px 9px; border-radius:999px;
+      border:1px solid; white-space:nowrap; }
+    .chip-gold  { color:var(--accent);    border-color:rgba(232,193,88,0.45); background:var(--accent-soft); }
+    .chip-red   { color:var(--up-bright); border-color:rgba(240,84,76,0.45);  background:rgba(240,84,76,0.10); }
+    .chip-blue  { color:var(--link);      border-color:rgba(108,168,255,0.45);background:rgba(108,168,255,0.10); }
+    .chip-green { color:var(--dn-bright); border-color:rgba(63,191,127,0.45); background:rgba(63,191,127,0.10); }
+    .caret { color:var(--text-3); font-size:12px; transition:transform .15s ease; }
+    details[open] .caret { transform:rotate(90deg); }
+
+    .r-body { padding:4px 22px 20px; border-top:1px solid var(--border); }
+    .buy-line { margin:14px 0 4px; font-size:15px; font-weight:800; }
+    .buy-line .lbl { color:var(--text-3); font-size:12px; font-weight:600;
+      letter-spacing:0.08em; margin-right:8px; }
+    .yq-link { color:var(--text); text-decoration:none; border-bottom:1px dotted var(--link); }
+    .yq-link:hover { color:var(--link); }
+    .reasons { margin:12px 0 0; counter-reset:rs; }
+    .reason { display:flex; gap:14px; margin-top:14px; }
+    .reason .no { counter-increment:rs; flex-shrink:0; width:26px; height:26px;
+      border-radius:8px; background:var(--surface-3); border:1px solid var(--border);
+      color:var(--accent); font-weight:800; font-size:13px;
+      display:flex; align-items:center; justify-content:center; }
+    .reason p { color:var(--text-2); font-size:14px; line-height:1.95; text-align:justify; }
+    .r-meta { margin-top:18px; padding-top:12px; border-top:1px dashed var(--border);
+      display:flex; flex-wrap:wrap; gap:8px 22px; font-size:12px; color:var(--text-3); }
+    .r-meta b { color:var(--text-2); font-weight:600; }
+    .disclaim { margin-top:26px; font-size:11.5px; color:var(--text-3); line-height:1.8;
+      border-top:1px solid var(--border); padding-top:14px; }
+    .empty-msg { text-align:center; padding:60px 0; color:var(--text-3); }
+  </style>
+</head>
+<body>
+<header>
+  <div class="brand">INFOFLASK<span class="brand-page">｜研究報告</span></div>
+  <nav class="site-nav">
+    <a href="index.html" class="nav-link">首頁</a>
+    <a href="scores.html" class="nav-link">評分表</a>
+    <a href="holdings.html" class="nav-link">模型持股</a>
+    <a href="sub.html" class="nav-link">副模型持股</a>
+    <a href="realized.html" class="nav-link">已實現損益</a>
+    <a href="performance.html" class="nav-link">績效表</a>
+    <a href="trend.html" class="nav-link">排名趨勢</a>
+    <a href="market.html" class="nav-link">大盤觀測</a>
+    <a href="news/index.html" class="nav-link">新聞</a>
+  </nav>
+</header>
+<div class="wrap">
+  <div class="page-head">
+    <h1>個股研究報告</h1>
+    <div class="intro">由四大量化模型名單（動能／防禦／趨勢／籌碼）交集出發，結合近三日新聞流與情緒訊號，
+    AI 分析師逐日選出一檔標的撰寫深度研究。已排除收購、分割等非正常營運事件之公司。</div>
+  </div>
+  <details class="report" open>
+    <summary>
+      <span class="r-date">2026-08-20</span>
+      <span class="r-title">液冷滲透過半，AI散熱規格升級受惠</span>
+      <span class="r-stock">健策 3653.TW</span>
+      <span class="chips"><span class="chip chip-gold">高波動能</span><span class="chip chip-red">低波動能</span><span class="chip chip-green">籌碼模型</span></span>
+      <span class="caret">▶</span>
+    </summary>
+    <div class="r-body">
+      <div class="buy-line"><span class="lbl">推薦買入</span>
+        <a class="yq-link" href="https://tw.stock.yahoo.com/quote/3653.TW"
+           target="_blank" rel="noopener">健策 3653.TW</a></div>
+      <div class="reasons"><div class="reason"><div class="no">1</div><p>AI伺服器散熱正由選配走向標配，液冷滲透率估計已達53%，意味超過半數需求開始採用更高階的散熱方案。這是健策投資論點最直接的基本面催化劑：公司具備AI液冷商機，受益邏輯不再只是整體伺服器出貨循環，而是AI運算推動散熱規格升級。液冷普及一旦跨過五成門檻，客戶採用決策將更傾向標準配置，相關需求的延續性與市場能見度可望同步提升。</p></div><div class="reason"><div class="no">2</div><p>液冷滲透率升至53%的意義，在於散熱產業的競爭焦點已從是否導入液冷，轉向液冷方案在AI系統中的配置深度。對具備AI液冷商機的健策而言，這將擴大可服務的需求基礎，並使成長動能與AI基礎設施投資的連結更加緊密。市場評價的關鍵也將由傳統散熱景氣循環，轉向能否掌握AI規格升級帶來的結構性機會；滲透率持續提升，將是驗證此一重估邏輯的核心指標。</p></div><div class="reason"><div class="no">3</div><p>健策於8月19日單日漲幅逾5%，且發生在台股氣氛偏弱之際，顯示資金已開始聚焦AI液冷題材對個別散熱標的的差異化影響。短線價格表現本身不能取代基本面驗證，但其意義在於，市場已將液冷滲透率過半視為可交易的產業轉折，而非遙不可及的概念。後續若液冷作為AI標配的趨勢延續，健策的AI液冷商機有機會持續成為營收預期與評價討論的主要驅動因子。</p></div><div class="reason"><div class="no">4</div><p>量化訊號為本案提供了題材之外的交叉驗證：在2026年8月19日模型名單中，健策高波動能排名第3、低波動能排名第6，籌碼模型亦列第15，三項訊號均進入Top20。高、低波動能同時居前，反映其不僅具備短期動能，也在不同波動框架下獲得模型支持；籌碼排名則進一步補強資金面訊號。近三日僅兩篇關聯資訊、淨情緒為+2，正向催化劑已形成，但尚未出現資訊過度擁擠的跡象。</p></div></div>
+      <div class="r-meta">
+        <span>推薦日期 <b>2026-08-20</b></span>
+        <span>推薦模型 <b>高波動能／低波動能／籌碼模型</b></span>
+        <span>模型名次 <b>高波動能 第3名、低波動能 第6名、籌碼模型 第15名</b></span>
+        <span>近3日新聞 <b>2 篇</b>（淨情緒 +2）</span>
+      </div>
+    </div>
+  </details>
+  <div class="disclaim">本頁報告由量化模型訊號與新聞資料經 AI 自動產生，僅供研究參考，
+  不構成任何投資建議；投資人應自行評估風險。</div>
+</div>
+</body>
+</html>
