@@ -96,7 +96,7 @@
     <div class="intro">由四大量化模型名單（動能／防禦／趨勢／籌碼）交集出發，結合近三日新聞流與情緒訊號，
     AI 分析師逐日選出一檔標的撰寫深度研究。已排除收購、分割等非正常營運事件之公司。</div>
   </div>
-  <details class="report" open>
+  <details class="report" id="r-2026-08-20" open>
     <summary>
       <span class="r-date">2026-08-20</span>
       <span class="r-title">液冷滲透過半，AI散熱規格升級受惠</span>
@@ -120,5 +120,12 @@
   <div class="disclaim">本頁報告由量化模型訊號與新聞資料經 AI 自動產生，僅供研究參考，
   不構成任何投資建議；投資人應自行評估風險。</div>
 </div>
+<script>
+// 從新聞頁以 #r-{date} 錨點連入時：展開該篇並捲動到位
+if (location.hash) {
+  const el = document.querySelector(location.hash.replace(/[^#\w-]/g, ""));
+  if (el && el.tagName === "DETAILS") { el.open = true; el.scrollIntoView(); }
+}
+</script>
 </body>
 </html>
