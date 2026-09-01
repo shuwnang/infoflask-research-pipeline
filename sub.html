@@ -6,250 +6,104 @@
   <title>副模型持股</title>
   <style>
     :root {
-      --bg: #0A0C10;
-      --surface: #12151C;
-      --surface-2: #171B24;
-      --surface-3: #1D2330;
-      --border: #232936;
-      --border-strong: #2E3646;
-      --text: #E7EBF2;
-      --text-2: #9AA4B2;
-      --text-3: #5C6675;
-      --accent: #E8C158;
-      --accent-soft: rgba(232,193,88,0.10);
-      --link: #6CA8FF;
-      --up: #F0544C;
-      --up-bright: #FF7B72;
-      --up-bg: #1D0F0E;
-      --dn: #3FBF7F;
-      --dn-bright: #5CD99A;
-      --dn-bg: #0C1B14;
-      --warn: #F5A524;
-      --risk: #F0544C;
+      --bg:#0A0C10; --surface:#12151C; --surface-2:#171B24; --surface-3:#1D2330;
+      --border:#232936; --border-strong:#2E3646;
+      --text:#E7EBF2; --text-2:#9AA4B2; --text-3:#5C6675;
+      --accent:#E8C158; --accent-soft:rgba(232,193,88,0.10); --link:#6CA8FF;
+      --up:#F0544C; --dn:#3FBF7F; --warn:#F5A524;
     }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
     body {
-      background:
-        radial-gradient(1200px 600px at 100% -10%, rgba(108,168,255,0.05), transparent 60%),
-        var(--bg);
-      color: var(--text);
-      font-family: "Inter", "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
-      -webkit-font-smoothing: antialiased;
-      font-variant-numeric: tabular-nums;
-      height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
+      background: radial-gradient(1200px 600px at 100% -10%, rgba(108,168,255,0.05), transparent 60%), var(--bg);
+      color:var(--text);
+      font-family:"Inter","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
+      -webkit-font-smoothing:antialiased; font-variant-numeric:tabular-nums;
+      min-height:100dvh;
     }
-
-    /* ── Header ── */
     header {
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 14px;
-      padding: 12px 22px;
-      background: rgba(10,12,16,0.88);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      position: sticky; top: 0;
-      z-index: 20;
+      display:flex; align-items:center; flex-wrap:wrap; gap:14px; padding:12px 22px;
+      background:rgba(10,12,16,0.88); backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--border); position:sticky; top:0; z-index:20;
     }
-    .brand { font-size: 17px; font-weight: 900; color: #fff; letter-spacing: 0.08em; white-space: nowrap; }
-    .brand-page { font-size: 13px; font-weight: 500; color: var(--text-3); margin-left: 2px; }
+    .brand { font-size:17px; font-weight:900; color:#fff; letter-spacing:0.08em; white-space:nowrap; }
+    .brand-page { font-size:13px; font-weight:500; color:var(--text-3); margin-left:2px; }
+    .site-nav { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
     .nav-link {
-      color: var(--text-2); text-decoration: none; font-size: 13px; font-weight: 500;
-      padding: 5px 14px; border: 1px solid var(--border); border-radius: 999px;
-      background: transparent;
-      white-space: nowrap; transition: all 0.15s ease;
+      color:var(--text-2); text-decoration:none; font-size:13px; font-weight:500;
+      padding:5px 14px; border:1px solid var(--border); border-radius:999px;
+      white-space:nowrap; transition:all .15s ease;
     }
-    .nav-link:hover { color: var(--text); border-color: var(--border-strong); background: var(--surface-2); }
-    .site-nav { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-    .nav-link.active { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); pointer-events: none; }
-
-    .date-badge { font-size: 12px; color: var(--text-3); white-space: nowrap; }
-
-    /* filter buttons */
-    .filter-group { display: flex; gap: 6px; align-items: center; }
-    .filter-btn {
-      background: var(--surface-2); color: var(--text-2);
-      border: 1px solid var(--border); border-radius: 999px;
-      padding: 4px 14px; font-size: 12px; font-weight: 600;
-      cursor: pointer; transition: all 0.15s; white-space: nowrap;
+    .nav-link:hover { color:var(--text); border-color:var(--border-strong); background:var(--surface-2); }
+    .nav-link.active { color:var(--accent); border-color:var(--accent); background:var(--accent-soft); pointer-events:none; }
+    .date-badge { font-size:12px; color:var(--text-3); white-space:nowrap; margin-left:auto; }
+    .subtitle { padding:10px 24px 0; font-size:12.5px; color:var(--text-2); }
+    .stats-row { display:flex; gap:14px; flex-wrap:wrap; padding:14px 24px 4px; }
+    .stat {
+      background:linear-gradient(180deg,#151A23 0%,var(--surface) 100%);
+      border:1px solid var(--border); border-radius:12px; padding:12px 20px;
+      display:flex; flex-direction:column; gap:4px; min-width:130px;
     }
-    .filter-btn:hover { border-color: var(--border-strong); color: var(--text); background: var(--surface-3); }
-    .filter-btn.act-all  { background: rgba(108,168,255,0.10); border-color: var(--link); color: var(--link); }
-    .filter-btn.act-c    { background: rgba(240,84,76,0.10); border-color: var(--up); color: var(--up); }
-    .filter-btn.act-s    { background: rgba(63,191,127,0.10); border-color: var(--dn); color: var(--dn); }
-    .filter-btn.act-gold { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
-
-    /* stats pills */
-    .stats-pills {
-      margin-left: auto;
-      display: flex; gap: 20px; align-items: center;
-      font-size: 12px; color: var(--text-2); flex-wrap: wrap;
+    .stat .lbl { font-size:11px; color:var(--text-3); letter-spacing:.08em; }
+    .stat .val { font-size:1.35rem; font-weight:800; line-height:1; font-variant-numeric:tabular-nums; }
+    .stat .sub { font-size:.72rem; color:var(--text-3); }
+    .pos { color:var(--up); } .neg { color:var(--dn); }
+    h2 { font-size:14px; color:var(--text-2); font-weight:700; letter-spacing:.05em; padding:18px 24px 8px; }
+    h2 .h2-note { font-weight:400; font-size:12px; color:var(--text-3); margin-left:8px; }
+    /* 買賣訊號區 */
+    .actions-row { display:flex; gap:14px; flex-wrap:wrap; padding:0 24px; }
+    .action-card {
+      flex:1; min-width:280px;
+      background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:12px 16px;
     }
-    .stat-chip { display: flex; flex-direction: column; align-items: center; gap: 1px; }
-    .stat-num  { font-size: 18px; font-weight: 700; color: var(--text); line-height: 1; font-variant-numeric: tabular-nums; }
-    .stat-num.pos { color: var(--up); }
-    .stat-num.neg { color: var(--dn); }
-    .stat-lbl  { font-size: 10px; color: var(--text-3); letter-spacing: 0.08em; }
-
-    /* ── Table area ── */
-    #table-wrap {
-      flex: 1;
-      overflow-y: auto;
-      overflow-x: auto;
-      margin: 14px 16px 16px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      background: var(--surface);
+    .action-card .ac-title { font-size:12px; font-weight:700; letter-spacing:.06em; margin-bottom:8px; }
+    .ac-buy .ac-title { color:var(--warn); }
+    .ac-sell .ac-title { color:var(--text-3); }
+    .chip-list { display:flex; gap:8px; flex-wrap:wrap; }
+    .chip {
+      display:inline-flex; align-items:center; gap:6px; padding:4px 12px;
+      border-radius:999px; font-size:13px; border:1px solid var(--border); background:var(--surface-2);
     }
-    #table-wrap::-webkit-scrollbar { width: 8px; height: 8px; }
-    #table-wrap::-webkit-scrollbar-track { background: transparent; }
-    #table-wrap::-webkit-scrollbar-thumb { background: #2A3140; border-radius: 4px; }
-
-    table { width: 100%; border-collapse: collapse; font-size: 13px; }
-
+    .chip.buy  { border-color:rgba(245,165,36,0.5); background:rgba(245,165,36,0.08); }
+    .chip.sell { border-color:var(--border-strong); color:var(--text-2); }
+    .chip .yq-link { font-weight:700; }
+    .ac-empty { color:var(--text-3); font-size:13px; }
+    /* 表格 */
+    .table-wrap {
+      margin:0 16px 8px; border:1px solid var(--border); border-radius:14px;
+      background:var(--surface); overflow-x:auto;
+    }
+    table { width:100%; border-collapse:collapse; font-size:13px; }
     thead th {
-      position: sticky; top: 0; z-index: 10;
-      background: var(--surface-2);
-      color: var(--text-3); font-weight: 600; font-size: 11px;
-      text-transform: uppercase; letter-spacing: 0.08em;
-      padding: 10px 16px;
-      border-bottom: 1px solid var(--border);
-      white-space: nowrap; text-align: center;
-      cursor: pointer; user-select: none;
+      position:sticky; top:0; z-index:10;
+      background:var(--surface-2); color:var(--text-3); font-weight:600; font-size:11px;
+      text-transform:uppercase; letter-spacing:0.08em; padding:10px 14px;
+      border-bottom:1px solid var(--border); white-space:nowrap; text-align:center;
     }
-    thead th:hover { color: var(--text); }
-    thead th .sort-arrow { opacity: 0.4; margin-left: 4px; }
-    thead th.sorted .sort-arrow { opacity: 1; color: var(--link); }
-
-    tbody tr {
-      border-bottom: 1px solid #1A1F29;
-      transition: background 0.10s;
-      cursor: pointer;
+    tbody tr { border-bottom:1px solid #1A1F29; transition:background 0.10s; }
+    tbody tr:last-child { border-bottom:none; }
+    tbody tr:hover { background:var(--surface-2); }
+    tbody tr.row-buy  { background:rgba(245,165,36,0.06); }
+    tbody tr.row-sell { opacity:0.65; }
+    td { padding:10px 16px; vertical-align:middle; text-align:center; white-space:nowrap; font-variant-numeric:tabular-nums; }
+    td.l { text-align:left; }
+    .yq-link { color:var(--link); text-decoration:none; font-weight:700; }
+    .yq-link:hover { text-decoration:underline; }
+    .badge {
+      display:inline-block; padding:2px 10px; border-radius:999px;
+      font-size:11px; font-weight:700; letter-spacing:.05em;
     }
-    tbody tr.hidden-row { display: none; }
-
-    /* ── 行左邊框顏色 ── */
-    tbody tr { border-left: 3px solid transparent; }
-    tbody tr.row-up      { background: var(--up-bg); border-left-color: var(--up); }
-    tbody tr.row-up:hover      { background: #271513; }
-    tbody tr.row-down    { background: var(--dn-bg); border-left-color: var(--dn); }
-    tbody tr.row-down:hover    { background: #12241B; }
-    tbody tr.row-neutral { background: #0D1420; border-left-color: var(--link); }
-    tbody tr.row-neutral:hover { background: #121A28; }
-    tbody tr.row-sell    { background: var(--surface); border-left-color: var(--text-3); }
-    tbody tr.row-sell:hover    { background: var(--surface-3); }
-    tbody tr.row-buy     { background: #1A1408; border-left-color: var(--warn); }
-    tbody tr.row-buy:hover     { background: #221A0C; }
-    /* 金色外框（雙艙共識股）：左邊框改金色 */
-    tbody tr.row-gold-border { border-left-color: var(--accent) !important; }
-
-    td { padding: 10px 16px; vertical-align: middle; white-space: nowrap; text-align: center; font-variant-numeric: tabular-nums; }
-
-    /* stock id */
-    .td-id { font-weight: 700; min-width: 72px; }
-    .yq-link { color: var(--text); text-decoration: none; border-bottom: 1px dotted var(--link); }
-    .yq-link:hover { color: var(--link); }
-    #trend-modal {
-      position: fixed; inset: 0; z-index: 100;
-      background: rgba(1,4,9,0.72); backdrop-filter: blur(3px);
-      display: none; align-items: center; justify-content: center;
-      padding: 24px;
-    }
-    #trend-modal.open { display: flex; }
-    .modal-box {
-      width: min(1100px, 100%); height: min(680px, 100%);
-      background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
-      box-shadow: 0 24px 64px -12px rgba(0,0,0,0.9);
-      display: flex; flex-direction: column; overflow: hidden;
-    }
-    .modal-bar {
-      flex-shrink: 0; display: flex; align-items: center; gap: 10px;
-      padding: 10px 16px; background: var(--surface-2); border-bottom: 1px solid var(--border);
-    }
-    .modal-title { font-size: 14px; font-weight: 700; color: var(--text); }
-    .modal-title .sid { color: var(--accent); }
-    .modal-open-page {
-      margin-left: auto; color: var(--link); text-decoration: none; font-size: 12px;
-      padding: 4px 10px; border: 1px solid var(--border); border-radius: 999px;
-    }
-    .modal-open-page:hover { border-color: var(--border-strong); background: var(--surface-2); }
-    .modal-close {
-      background: var(--surface-2); color: var(--text-2); border: 1px solid var(--border); border-radius: 8px;
-      width: 28px; height: 28px; font-size: 15px; cursor: pointer; line-height: 1;
-    }
-    .modal-close:hover { color: var(--text); border-color: var(--border-strong); }
-    .modal-box iframe { flex: 1; border: none; width: 100%; background: var(--bg); }
-    .gold-dot {
-      display: inline-block; width: 7px; height: 7px;
-      background: var(--accent); border-radius: 50%;
-      margin-left: 5px; vertical-align: middle;
-    }
-
-    /* stock name */
-    .td-name { color: var(--text-2); min-width: 110px; }
-
-    /* return pct */
-    .td-ret { font-weight: 700; font-size: 14px; min-width: 80px; }
-    .ret-pos  { color: var(--up-bright); }
-    .ret-neg  { color: var(--dn-bright); }
-    .ret-zero { color: var(--text-3); }
-
-    /* today change */
-    .td-chg { min-width: 80px; font-weight: 600; }
-    .chg-pos { color: var(--up); }
-    .chg-neg { color: var(--dn); }
-    .chg-zero { color: var(--text-3); }
-
-    /* buy date */
-    .td-date { color: var(--text-3); min-width: 90px; font-size: 12px; }
-
-    /* price */
-    .td-price { color: var(--text); min-width: 80px; }
-
-    /* action badge */
-    .action-pill {
-      display: inline-block;
-      padding: 3px 12px; border-radius: 999px;
-      font-size: 12px; font-weight: 700;
-    }
-    .ap-hold { background: rgba(108,168,255,0.12); color: var(--link); }
-    .ap-sell { background: var(--surface-2); color: var(--text-2); border: 1px solid var(--border-strong); }
-    .ap-buy  { background: rgba(245,165,36,0.10); color: var(--warn); border: 1px solid rgba(245,165,36,0.5); }
-
-    /* empty */
-    .empty-msg { text-align: center; padding: 40px; color: var(--text-3); font-size: 14px; }
-
-    /* 艙位徽章 */
-    .td-sleeve { min-width: 68px; }
-    .sleeve-badge {
-      display: inline-flex; align-items: center; justify-content: center;
-      padding: 3px 10px; border-radius: 999px;
-      font-weight: 700; font-size: 12px; min-width: 52px;
-      font-variant-numeric: tabular-nums;
-    }
-    .sleeve-c    { background: rgba(240,84,76,0.10); color: var(--up-bright); border: 1px solid rgba(240,84,76,0.4); }
-    .sleeve-s    { background: rgba(63,191,127,0.10); color: var(--dn-bright); border: 1px solid rgba(63,191,127,0.4); }
-    .dual-badge  { display:inline-block; margin-left:5px; padding:1px 7px; border-radius:10px;
-      font-size:10px; font-weight:800; letter-spacing:1px;
-      background:var(--accent-soft); color:var(--accent); border:1px solid rgba(232,193,88,0.5); }
-
-    /* ── polish ── */
-    thead th { box-shadow: 0 6px 10px -8px rgba(0,0,0,0.75); }
-    tbody tr { transition: background 0.12s ease; }
-    td { padding-top: 10px; padding-bottom: 10px; }
-    ::selection { background: rgba(108,168,255,0.28); }
-    .filter-btn { transition: all 0.15s ease; letter-spacing: 0.02em; }
-    .filter-btn:hover { transform: translateY(-1px); }
-    #table-wrap::-webkit-scrollbar-thumb:hover { background: #38424F; }
-  </style>
+    .badge.up   { background:rgba(240,84,76,0.12); color:var(--up); border:1px solid rgba(240,84,76,0.35); }
+    .badge.dn   { background:rgba(63,191,127,0.12); color:var(--dn); border:1px solid rgba(63,191,127,0.35); }
+    .badge.gold { background:var(--accent-soft); color:var(--accent); border:1px solid rgba(232,193,88,0.35); }
+    .badge.gray { background:var(--surface-3); color:var(--text-2); border:1px solid var(--border-strong); }
+    .act-tag { font-size:12px; font-weight:700; }
+    .act-hold { color:var(--text-3); }
+    .act-buy  { color:var(--warn); }
+    .act-sell { color:var(--text-2); }
+    footer { padding:16px 24px 24px; font-size:11.5px; color:var(--text-3); }
+</style>
 </head>
 <body>
-
 <header>
   <div class="brand">INFOFLASK<span class="brand-page">｜副模型持股</span></div>
   <nav class="site-nav">
@@ -267,232 +121,25 @@
     <a href="reports.html" class="nav-link">研究報告</a>
     <a href="news/index.html" class="nav-link">新聞</a>
   </nav>
-  <div class="date-badge">持股日期：2026-08-31</div>
-
-  <div class="filter-group">
-    <button class="filter-btn act-all"  data-filter="all">全部</button>
-    <button class="filter-btn"          data-filter="c">C 艙</button>
-    <button class="filter-btn"          data-filter="s">S 艙</button>
-    <button class="filter-btn"          data-filter="gold">雙艙</button>
-  </div>
-
-  <div class="stats-pills">
-    <div class="stat-chip">
-      <div class="stat-num" id="s-hold">—</div>
-      <div class="stat-lbl">持倉槽數</div>
-    </div>
-    <div class="stat-chip">
-      <div class="stat-num" id="s-avg">—</div>
-      <div class="stat-lbl">平均報酬</div>
-    </div>
-    <div class="stat-chip">
-      <div class="stat-num" id="s-sell">—</div>
-      <div class="stat-lbl">明日賣出</div>
-    </div>
-    <div class="stat-chip">
-      <div class="stat-num" id="s-buy">—</div>
-      <div class="stat-lbl">明日買入</div>
-    </div>
-  </div>
+  <div class="date-badge">資料日期：2026-08-31</div>
 </header>
-
-<div id="table-wrap">
-  <table id="main-table">
-    <thead>
-      <tr>
-        <th data-col="id">股票代號 <span class="sort-arrow">▲</span></th>
-        <th class="no-sort">股票名稱</th>
-        <th data-col="sleeve">艙位 <span class="sort-arrow">▲</span></th>
-        <th data-col="return_pct">累計報酬 <span class="sort-arrow">▲</span></th>
-        <th data-col="today_chg">今日漲跌 <span class="sort-arrow">▲</span></th>
-        <th data-col="buy_date">買入日期 <span class="sort-arrow">▲</span></th>
-        <th data-col="buy_price">買入價 <span class="sort-arrow">▲</span></th>
-        <th data-col="cur_price">現價 <span class="sort-arrow">▲</span></th>
-        <th data-col="action_tomorrow">明日行動 <span class="sort-arrow">▲</span></th>
-      </tr>
-    </thead>
-    <tbody id="tbody"></tbody>
-  </table>
-  <div class="empty-msg" id="empty-msg" style="display:none">沒有符合條件的股票</div>
+<div class="subtitle">副模型 dual_v1.2 分點雙艙 ── C 艙=c5bk（分點籌碼,Top10 進/跌出 30 出）＋S 艙=spr_main（自身 PR97 進/PR90 出）各 10 槽,同股可雙艙（金色徽章）・T+1 開盤成交・每日 22:00 更新,15:00 盤後先行更新今日成交</div>
+<div class="stats-row"><div class="stat"><span class="lbl">目前淨值</span><span class="val ">20,288,289</span><span class="sub">本金 10,000,000</span></div><div class="stat"><span class="lbl">累積報酬率</span><span class="val pos">+102.88%</span><span class="sub">2026-01-05 起</span></div><div class="stat"><span class="lbl">今日報酬</span><span class="val pos">+1.41%</span><span class="sub">持倉 20 槽（18 列）</span></div><div class="stat"><span class="lbl">最大回撤</span><span class="val neg">-11.90%</span><span class="sub">日收盤淨值</span></div><div class="stat"><span class="lbl">已實現交易</span><span class="val ">367</span><span class="sub">勝率 45.5%</span></div></div>
+<h2>最新買賣訊號<span class="h2-note">2026-08-31 訊號・次一交易日開盤執行</span></h2>
+<div class="actions-row">
+  <div class="action-card ac-buy"><div class="ac-title">買入（2 檔）</div><div class="chip-list"><span class="chip buy"><a class="yq-link" href="https://tw.stock.yahoo.com/quote/4908.TWO" target="_blank" rel="noopener">4908</a> 前鼎 <span class="badge up">C 艙</span></span><span class="chip buy"><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6491.TW" target="_blank" rel="noopener">6491</a> 晶碩 <span class="badge dn">S 艙</span></span></div></div>
+  <div class="action-card ac-sell"><div class="ac-title">賣出（2 檔）</div><div class="chip-list"><span class="chip sell"><a class="yq-link" href="https://tw.stock.yahoo.com/quote/1904.TW" target="_blank" rel="noopener">1904</a> 正隆 <span class="badge up">C 艙</span></span><span class="chip sell"><a class="yq-link" href="https://tw.stock.yahoo.com/quote/4931.TWO" target="_blank" rel="noopener">4931</a> 新盛力 <span class="badge dn">S 艙</span></span></div></div>
 </div>
-
-<div id="trend-modal">
-  <div class="modal-box">
-    <div class="modal-bar">
-      <div class="modal-title" id="modal-title"><span class="sid"></span> 排名趨勢</div>
-      <a class="modal-open-page" id="modal-open-page" href="trend.html" target="_blank">開新分頁 ↗</a>
-      <button class="modal-close" id="modal-close" title="關閉">✕</button>
-    </div>
-    <iframe id="trend-frame" src="about:blank" loading="lazy"></iframe>
-  </div>
-</div>
-
-<script>
-const BLOCKS = [{"id": "3605", "mk": "TW", "name": "宏致", "type": "hold", "color": "up", "sleeve": "C", "is_dual": false, "return_pct": 51.3, "today_chg": 6.11, "buy_date": "2026-08-05", "buy_price": 91.87, "cur_price": 139.0, "action_tomorrow": "HOLD"}, {"id": "2546", "mk": "TW", "name": "根基", "type": "hold", "color": "neutral", "sleeve": "C", "is_dual": false, "return_pct": 6.93, "today_chg": 0.0, "buy_date": "2026-08-13", "buy_price": 99.6, "cur_price": 106.5, "action_tomorrow": "HOLD"}, {"id": "5314", "mk": "TWO", "name": "世紀*", "type": "hold", "color": "up", "sleeve": "C", "is_dual": true, "return_pct": 102.25, "today_chg": 5.26, "buy_date": "2026-08-17", "buy_price": 17.8, "cur_price": 36.0, "action_tomorrow": "HOLD"}, {"id": "2031", "mk": "TW", "name": "新光鋼", "type": "hold", "color": "down", "sleeve": "C", "is_dual": true, "return_pct": 3.69, "today_chg": -0.88, "buy_date": "2026-08-17", "buy_price": 43.4, "cur_price": 45.0, "action_tomorrow": "HOLD"}, {"id": "1909", "mk": "TW", "name": "榮成", "type": "hold", "color": "up", "sleeve": "C", "is_dual": true, "return_pct": 5.21, "today_chg": 2.3, "buy_date": "2026-08-17", "buy_price": 10.55, "cur_price": 11.1, "action_tomorrow": "HOLD"}, {"id": "3008", "mk": "TW", "name": "大立光", "type": "hold", "color": "up", "sleeve": "C", "is_dual": false, "return_pct": 37.34, "today_chg": 8.28, "buy_date": "2026-08-20", "buy_price": 5570.0, "cur_price": 7650.0, "action_tomorrow": "HOLD"}, {"id": "2851", "mk": "TW", "name": "中再保", "type": "hold", "color": "up", "sleeve": "C", "is_dual": true, "return_pct": -1.49, "today_chg": 2.44, "buy_date": "2026-08-24", "buy_price": 46.9, "cur_price": 46.2, "action_tomorrow": "HOLD"}, {"id": "3406", "mk": "TW", "name": "玉晶光", "type": "hold", "color": "up", "sleeve": "C", "is_dual": false, "return_pct": 19.64, "today_chg": 9.6, "buy_date": "2026-08-28", "buy_price": 840.0, "cur_price": 1005.0, "action_tomorrow": "HOLD"}, {"id": "2426", "mk": "TW", "name": "鼎元", "type": "hold", "color": "up", "sleeve": "C", "is_dual": false, "return_pct": -1.21, "today_chg": 1.77, "buy_date": "2026-08-28", "buy_price": 99.0, "cur_price": 97.8, "action_tomorrow": "HOLD"}, {"id": "4908", "mk": "TWO", "name": "前鼎", "type": "buy", "color": "buy", "sleeve": "C", "is_dual": false, "return_pct": null, "today_chg": 10.0, "buy_date": null, "buy_price": null, "cur_price": 209.0, "action_tomorrow": "BUY"}, {"id": "2031", "mk": "TW", "name": "新光鋼", "type": "hold", "color": "down", "sleeve": "S", "is_dual": true, "return_pct": -1.53, "today_chg": -0.88, "buy_date": "2026-08-10", "buy_price": 45.7, "cur_price": 45.0, "action_tomorrow": "HOLD"}, {"id": "5314", "mk": "TWO", "name": "世紀*", "type": "hold", "color": "up", "sleeve": "S", "is_dual": true, "return_pct": 84.14, "today_chg": 5.26, "buy_date": "2026-08-18", "buy_price": 19.55, "cur_price": 36.0, "action_tomorrow": "HOLD"}, {"id": "1909", "mk": "TW", "name": "榮成", "type": "hold", "color": "up", "sleeve": "S", "is_dual": true, "return_pct": 2.3, "today_chg": 2.3, "buy_date": "2026-08-19", "buy_price": 10.85, "cur_price": 11.1, "action_tomorrow": "HOLD"}, {"id": "1216", "mk": "TW", "name": "統一", "type": "hold", "color": "up", "sleeve": "S", "is_dual": false, "return_pct": -1.68, "today_chg": 0.66, "buy_date": "2026-08-20", "buy_price": 77.5, "cur_price": 76.2, "action_tomorrow": "HOLD"}, {"id": "2851", "mk": "TW", "name": "中再保", "type": "hold", "color": "up", "sleeve": "S", "is_dual": true, "return_pct": -4.74, "today_chg": 2.44, "buy_date": "2026-08-21", "buy_price": 48.5, "cur_price": 46.2, "action_tomorrow": "HOLD"}, {"id": "2606", "mk": "TW", "name": "裕民", "type": "hold", "color": "up", "sleeve": "S", "is_dual": false, "return_pct": 2.84, "today_chg": 5.4, "buy_date": "2026-08-25", "buy_price": 74.0, "cur_price": 76.1, "action_tomorrow": "HOLD"}, {"id": "6547", "mk": "TWO", "name": "高端疫苗", "type": "hold", "color": "down", "sleeve": "S", "is_dual": false, "return_pct": 3.23, "today_chg": -1.69, "buy_date": "2026-08-27", "buy_price": 61.9, "cur_price": 63.9, "action_tomorrow": "HOLD"}, {"id": "3376", "mk": "TW", "name": "新日興", "type": "hold", "color": "down", "sleeve": "S", "is_dual": false, "return_pct": 1.9, "today_chg": -1.38, "buy_date": "2026-08-28", "buy_price": 210.0, "cur_price": 214.0, "action_tomorrow": "HOLD"}, {"id": "2059", "mk": "TW", "name": "川湖", "type": "hold", "color": "down", "sleeve": "S", "is_dual": false, "return_pct": -2.21, "today_chg": -0.84, "buy_date": "2026-08-28", "buy_price": 14500.0, "cur_price": 14180.0, "action_tomorrow": "HOLD"}, {"id": "6491", "mk": "TW", "name": "晶碩", "type": "buy", "color": "buy", "sleeve": "S", "is_dual": false, "return_pct": null, "today_chg": 5.97, "buy_date": null, "buy_price": null, "cur_price": 399.5, "action_tomorrow": "BUY"}, {"id": "1904", "mk": "TW", "name": "正隆", "type": "hold", "color": "sell", "sleeve": "C", "is_dual": false, "return_pct": null, "today_chg": 0.2, "buy_date": null, "buy_price": null, "cur_price": 25.2, "action_tomorrow": "SELL"}, {"id": "4931", "mk": "TWO", "name": "新盛力", "type": "hold", "color": "sell", "sleeve": "S", "is_dual": false, "return_pct": null, "today_chg": -4.95, "buy_date": null, "buy_price": null, "cur_price": 259.0, "action_tomorrow": "SELL"}];
-
-// ── 統計 ──
-const holds  = BLOCKS.filter(b => b.action_tomorrow !== 'SELL');
-const buys   = BLOCKS.filter(b => b.action_tomorrow === 'BUY');
-const sells  = BLOCKS.filter(b => b.action_tomorrow === 'SELL');
-const retRows = holds.filter(b => b.return_pct !== null && b.return_pct !== undefined);
-const avgRet = retRows.length
-  ? retRows.reduce((s, b) => s + b.return_pct, 0) / retRows.length : 0;
-
-document.getElementById('s-hold').textContent = holds.length;
-const avgEl = document.getElementById('s-avg');
-avgEl.textContent = (avgRet >= 0 ? '+' : '') + avgRet.toFixed(2) + '%';
-avgEl.className   = 'stat-num ' + (avgRet > 0 ? 'pos' : avgRet < 0 ? 'neg' : '');
-document.getElementById('s-sell').textContent = sells.length;
-document.getElementById('s-buy').textContent  = buys.length;
-
-// ── sort ──
-let sortCol = 'return_pct', sortDir = -1;
-
-function sortedBlocks() {
-  return [...BLOCKS].sort((a, b) => {
-    if (a.type === 'buy' && b.type !== 'buy') return 1;
-    if (b.type === 'buy' && a.type !== 'buy') return -1;
-    let va = a[sortCol], vb = b[sortCol];
-    if (va === null || va === undefined) va = sortDir > 0 ? Infinity : -Infinity;
-    if (vb === null || vb === undefined) vb = sortDir > 0 ? Infinity : -Infinity;
-    return sortDir * (va < vb ? -1 : va > vb ? 1 : 0);
-  });
-}
-
-// ── render ──
-let currentFilter = 'all';
-
-function rowClass(b) {
-  if (b.type === 'buy') return 'row-buy';
-  return 'row-' + b.color;
-}
-
-function filterPasses(b) {
-  if (currentFilter === 'c')    return b.sleeve === 'C';
-  if (currentFilter === 's')    return b.sleeve === 'S';
-  if (currentFilter === 'gold') return b.is_dual === true;
-  return true;
-}
-
-function renderTable() {
-  const tbody = document.getElementById('tbody');
-  tbody.innerHTML = '';
-
-  sortedBlocks().forEach(b => {
-    const tr = document.createElement('tr');
-    let cls = rowClass(b);
-    if (b.is_dual && b.color !== 'sell') cls += ' row-gold-border';
-    if (!filterPasses(b)) cls += ' hidden-row';
-    tr.className = cls;
-
-    // 累計報酬
-    const retCls  = (b.return_pct === null || b.return_pct === undefined) ? 'ret-zero'
-                  : b.return_pct > 0 ? 'ret-pos' : b.return_pct < 0 ? 'ret-neg' : 'ret-zero';
-    const retTxt  = (b.return_pct !== null && b.return_pct !== undefined)
-                  ? (b.return_pct >= 0 ? '+' : '') + b.return_pct.toFixed(2) + '%' : '—';
-
-    // 今日漲跌
-    let chgCls = 'chg-zero', chgTxt = '—';
-    if (b.today_chg !== null && b.today_chg !== undefined) {
-      const arrow = b.today_chg > 0 ? '▲' : b.today_chg < 0 ? '▼' : '─';
-      chgCls = b.today_chg > 0.05 ? 'chg-pos' : b.today_chg < -0.05 ? 'chg-neg' : 'chg-zero';
-      chgTxt = `${arrow} ${b.today_chg >= 0 ? '+' : ''}${b.today_chg.toFixed(2)}%`;
-    }
-
-    // action pill
-    let pillCls = 'ap-hold', pillTxt = '繼續持有';
-    if (b.action_tomorrow === 'SELL') { pillCls = 'ap-sell'; pillTxt = '明日賣出'; }
-    if (b.action_tomorrow === 'BUY')  { pillCls = 'ap-buy';  pillTxt = '明日買入'; }
-    const pillHtml = b.action_tomorrow === 'PENDING'
-      ? '<span style="color:var(--text-3)" title="預測資料 21:30 後更新">—</span>'
-      : `<span class="action-pill ${pillCls}">${pillTxt}</span>`;
-
-    // gold dot（雙艙共識）
-    const goldDot = (b.is_dual && b.color !== 'sell') ? '<span class="gold-dot"></span>' : '';
-
-    // price cells
-    const buyPriceTxt = (b.buy_price !== null && b.buy_price !== undefined && b.buy_price > 0)
-                      ? b.buy_price.toFixed(2) : '—';
-    const curPriceTxt = (b.cur_price !== null && b.cur_price !== undefined && b.cur_price > 0)
-                      ? b.cur_price.toFixed(2) : '—';
-
-    // 艙位徽章（C=分點動能/S=自身分位;雙艙加金標）
-    const slCls = b.sleeve === 'C' ? 'sleeve-c' : 'sleeve-s';
-    const slTxt = b.sleeve === 'C' ? 'C 艙' : 'S 艙';
-    const dualTag = b.is_dual ? '<span class="dual-badge">雙艙</span>' : '';
-    const sleeveCell = `<span class="sleeve-badge ${slCls}">${slTxt}</span>${dualTag}`;
-
-    tr.innerHTML = `
-      <td class="td-id"><a class="yq-link" href="https://tw.stock.yahoo.com/quote/${b.id}.${b.mk || 'TW'}" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Yahoo 看盤">${b.id}</a>${goldDot}</td>
-      <td class="td-name">${b.name || '—'}</td>
-      <td class="td-sleeve">${sleeveCell}</td>
-      <td class="td-ret ${retCls}">${retTxt}</td>
-      <td class="td-chg ${chgCls}">${chgTxt}</td>
-      <td class="td-date">${b.buy_date || '—'}</td>
-      <td class="td-price">${buyPriceTxt}</td>
-      <td class="td-price">${curPriceTxt}</td>
-      <td>${pillHtml}</td>
-    `;
-    tr.style.cursor = 'pointer';
-    tr.addEventListener('click', () => openTrend(b.id, b.name));
-    tbody.appendChild(tr);
-  });
-
-  updateEmpty();
-}
-
-// ── 排名趨勢 modal（與模型持股頁同款）──────────────────────────────────────
-const trendModal = document.getElementById('trend-modal');
-const trendFrame = document.getElementById('trend-frame');
-function openTrend(sid, name) {
-  document.querySelector('#modal-title .sid').textContent = sid + (name ? ' ' + name : '');
-  document.getElementById('modal-open-page').href = `trend.html?sid=${sid}`;
-  trendFrame.src = `trend.html?sid=${sid}&embed=1`;
-  trendModal.classList.add('open');
-}
-function closeTrend() {
-  trendModal.classList.remove('open');
-  trendFrame.src = 'about:blank';
-}
-document.getElementById('modal-close').addEventListener('click', closeTrend);
-trendModal.addEventListener('click', e => { if (e.target === trendModal) closeTrend(); });
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape' && trendModal.classList.contains('open')) closeTrend();
-});
-
-function updateEmpty() {
-  const vis = document.querySelectorAll('#tbody tr:not(.hidden-row)').length;
-  document.getElementById('empty-msg').style.display = vis === 0 ? 'block' : 'none';
-}
-
-// ── sort headers ──
-document.querySelectorAll('thead th[data-col]').forEach(th => {
-  th.addEventListener('click', () => {
-    const col = th.dataset.col;
-    sortDir = sortCol === col ? -sortDir : -1;
-    sortCol = col;
-    document.querySelectorAll('thead th').forEach(t => t.classList.remove('sorted'));
-    th.classList.add('sorted');
-    th.querySelector('.sort-arrow').textContent = sortDir > 0 ? '▲' : '▼';
-    renderTable();
-  });
-});
-document.querySelector('thead th[data-col="return_pct"]').classList.add('sorted');
-document.querySelector('thead th[data-col="return_pct"] .sort-arrow').textContent = '▼';
-
-// ── filter buttons ──
-const ACT = { all: 'act-all', c: 'act-c', s: 'act-s', gold: 'act-gold' };
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    currentFilter = btn.dataset.filter;
-    document.querySelectorAll('.filter-btn').forEach(b => {
-      b.className = 'filter-btn' + (b.dataset.filter === currentFilter ? ' ' + ACT[currentFilter] : '');
-    });
-    renderTable();
-  });
-});
-
-renderTable();
-</script>
+<h2>目前持股（18 檔）</h2>
+<div class="table-wrap"><table>
+  <thead><tr><th>代號</th><th>名稱</th><th>艙位</th><th>買入日期</th><th>買入價</th><th>現價</th><th>累計報酬</th><th>今日漲跌</th><th>持有天數</th><th>明日行動</th></tr></thead>
+  <tbody><tr><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/5314.TWO" target="_blank" rel="noopener">5314</a></td><td class="l">世紀*</td><td><span class="badge gold">雙艙</span></td><td>2026-08-17</td><td>17.80</td><td>36.00</td><td class="pos" style="font-weight:700">+102.25%</td><td class="pos" style="font-weight:700">+5.26%</td><td>14</td><td><span class="act-tag act-hold">持有</span></td></tr><tr><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3605.TW" target="_blank" rel="noopener">3605</a></td><td class="l">宏致</td><td><span class="badge up">C 艙</span></td><td>2026-08-05</td><td>91.87</td><td>139.00</td><td class="pos" style="font-weight:700">+51.30%</td><td class="pos" style="font-weight:700">+6.11%</td><td>26</td><td><span class="act-tag act-hold">持有</span></td></tr><tr><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3008.TW" target="_blank" rel="noopener">3008</a></td><td class="l">大立光</td><td><span class="badge up">C 艙</span></td><td>2026-08-20</td><td>5,570.00</td><td>7,650.00</td><td class="pos" style="font-weight:700">+37.34%</td><td class="pos" style="font-weight:700">+8.28%</td><td>11</td><td><span class="act-tag act-hold">持有</span></td></tr><tr><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3406.TW" target="_blank" rel="noopener">3406</a></td><td class="l">玉晶光</td><td><span class="badge up">C 艙</span></td><td>2026-08-28</td><td>840.00</td><td>1,005.00</td><td class="pos" style="font-weight:700">+19.64%</td><td class="pos" style="font-weight:700">+9.60%</td><td>3</td><td><span class="act-tag act-hold">持有</span></td></tr><tr><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2546.TW" target="_blank" rel="noopener">2546</a></td><td class="l">根基</td><td><span class="badge up">C 艙</span></td><td>2026-08-13</td><td>99.60</td><td>106.50</td><td class="pos" style="font-weight:700">+6.93%</td><td class="pos" style="font-weight:700">+0.00%</td><td>18</td><td><span class="act-tag act-hold">持有</span></td></tr><tr><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/1909.TW" target="_blank" rel="noopener">1909</a></td><td class="l">榮成</td><td><span class="badge gold">雙艙</span></td><td>2026-08-17</td><td>10.55</td><td>11.10</td><td class="pos" style="font-weight:700">+5.21%</td><td class="pos" style="font-weight:700">+2.30%</td><td>14</td><td><span class="act-tag act-hold">持有</span></td></tr><tr><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2031.TW" target="_blank" rel="noopener">2031</a></td><td class="l">新光鋼</td><td><span class="badge gold">雙艙</span></td><td>2026-08-17</td><td>43.40</td><td>45.00</td><td class="pos" style="font-weight:700">+3.69%</td><td class="neg" style="font-weight:700">-0.88%</td><td>14</td><td><span class="act-tag act-hold">持有</span></td></tr><tr><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6547.TWO" target="_blank" rel="noopener">6547</a></td><td class="l">高端疫苗</td><td><span class="badge dn">S 艙</span></td><td>2026-08-27</td><td>61.90</td><td>63.90</td><td class="pos" style="font-weight:700">+3.23%</td><td class="neg" style="font-weight:700">-1.69%</td><td>4</td><td><span class="act-tag act-hold">持有</span></td></tr><tr><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2606.TW" target="_blank" rel="noopener">2606</a></td><td class="l">裕民</td><td><span class="badge dn">S 艙</span></td><td>2026-08-25</td><td>74.00</td><td>76.10</td><td class="pos" style="font-weight:700">+2.84%</td><td class="pos" style="font-weight:700">+5.40%</td><td>6</td><td><span class="act-tag act-hold">持有</span></td></tr><tr><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3376.TW" target="_blank" rel="noopener">3376</a></td><td class="l">新日興</td><td><span class="badge dn">S 艙</span></td><td>2026-08-28</td><td>210.00</td><td>214.00</td><td class="pos" style="font-weight:700">+1.90%</td><td class="neg" style="font-weight:700">-1.38%</td><td>3</td><td><span class="act-tag act-hold">持有</span></td></tr><tr><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2426.TW" target="_blank" rel="noopener">2426</a></td><td class="l">鼎元</td><td><span class="badge up">C 艙</span></td><td>2026-08-28</td><td>99.00</td><td>97.80</td><td class="neg" style="font-weight:700">-1.21%</td><td class="pos" style="font-weight:700">+1.77%</td><td>3</td><td><span class="act-tag act-hold">持有</span></td></tr><tr><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2851.TW" target="_blank" rel="noopener">2851</a></td><td class="l">中再保</td><td><span class="badge gold">雙艙</span></td><td>2026-08-24</td><td>46.90</td><td>46.20</td><td class="neg" style="font-weight:700">-1.49%</td><td class="pos" style="font-weight:700">+2.44%</td><td>7</td><td><span class="act-tag act-hold">持有</span></td></tr><tr><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/1216.TW" target="_blank" rel="noopener">1216</a></td><td class="l">統一</td><td><span class="badge dn">S 艙</span></td><td>2026-08-20</td><td>77.50</td><td>76.20</td><td class="neg" style="font-weight:700">-1.68%</td><td class="pos" style="font-weight:700">+0.66%</td><td>11</td><td><span class="act-tag act-hold">持有</span></td></tr><tr><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2059.TW" target="_blank" rel="noopener">2059</a></td><td class="l">川湖</td><td><span class="badge dn">S 艙</span></td><td>2026-08-28</td><td>14,500.00</td><td>14,180.00</td><td class="neg" style="font-weight:700">-2.21%</td><td class="neg" style="font-weight:700">-0.84%</td><td>3</td><td><span class="act-tag act-hold">持有</span></td></tr><tr class="row-buy"><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/4908.TWO" target="_blank" rel="noopener">4908</a></td><td class="l">前鼎</td><td><span class="badge up">C 艙</span></td><td>—</td><td style="color:var(--text-3)">—</td><td>209.00</td><td class="l" style="text-align:center;color:var(--text-3)">—</td><td class="pos" style="font-weight:700">+10.00%</td><td>—</td><td><span class="act-tag act-buy">明日買入</span></td></tr><tr class="row-buy"><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6491.TW" target="_blank" rel="noopener">6491</a></td><td class="l">晶碩</td><td><span class="badge dn">S 艙</span></td><td>—</td><td style="color:var(--text-3)">—</td><td>399.50</td><td class="l" style="text-align:center;color:var(--text-3)">—</td><td class="pos" style="font-weight:700">+5.97%</td><td>—</td><td><span class="act-tag act-buy">明日買入</span></td></tr><tr class="row-sell"><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/1904.TW" target="_blank" rel="noopener">1904</a></td><td class="l">正隆</td><td><span class="badge up">C 艙</span></td><td>—</td><td style="color:var(--text-3)">—</td><td>25.20</td><td class="l" style="text-align:center;color:var(--text-3)">—</td><td class="pos" style="font-weight:700">+0.20%</td><td>—</td><td><span class="act-tag act-sell">明日賣出</span></td></tr><tr class="row-sell"><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/4931.TWO" target="_blank" rel="noopener">4931</a></td><td class="l">新盛力</td><td><span class="badge dn">S 艙</span></td><td>—</td><td style="color:var(--text-3)">—</td><td>259.00</td><td class="l" style="text-align:center;color:var(--text-3)">—</td><td class="neg" style="font-weight:700">-4.95%</td><td>—</td><td><span class="act-tag act-sell">明日賣出</span></td></tr></tbody>
+</table></div>
+<h2>已實現交易<span class="h2-note">近 100 筆,共 367 筆</span></h2>
+<div class="table-wrap"><table>
+  <thead><tr><th>賣出日</th><th>代號</th><th>名稱</th><th>艙位</th><th>買入日</th><th>買入價</th><th>賣出價</th><th>損益</th><th>持有天數</th></tr></thead>
+  <tbody><tr><td>2026-08-31</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/9907.TW" target="_blank" rel="noopener">9907</a></td><td class="l">統一實</td><td><span class="badge dn">S 艙</span></td><td>2026-08-28</td><td>15.45</td><td>15.35</td><td class="neg" style="font-weight:700">-1.03%</td><td>3</td></tr><tr><td>2026-08-28</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/8039.TW" target="_blank" rel="noopener">8039</a></td><td class="l">台虹</td><td><span class="badge up">C 艙</span></td><td>2026-08-19</td><td>270.00</td><td>363.50</td><td class="pos" style="font-weight:700">+34.11%</td><td>9</td></tr><tr><td>2026-08-28</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/4736.TW" target="_blank" rel="noopener">4736</a></td><td class="l">泰博</td><td><span class="badge dn">S 艙</span></td><td>2026-08-13</td><td>120.72</td><td>125.50</td><td class="pos" style="font-weight:700">+3.56%</td><td>15</td></tr><tr><td>2026-08-28</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2884.TW" target="_blank" rel="noopener">2884</a></td><td class="l">玉山金</td><td><span class="badge dn">S 艙</span></td><td>2026-08-05</td><td>38.10</td><td>38.50</td><td class="pos" style="font-weight:700">+0.66%</td><td>23</td></tr><tr><td>2026-08-28</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2915.TW" target="_blank" rel="noopener">2915</a></td><td class="l">潤泰全</td><td><span class="badge dn">S 艙</span></td><td>2026-08-17</td><td>59.50</td><td>58.70</td><td class="neg" style="font-weight:700">-1.72%</td><td>11</td></tr><tr><td>2026-08-28</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/5607.TW" target="_blank" rel="noopener">5607</a></td><td class="l">遠雄港</td><td><span class="badge up">C 艙</span></td><td>2026-08-21</td><td>55.30</td><td>52.60</td><td class="neg" style="font-weight:700">-5.25%</td><td>7</td></tr><tr><td>2026-08-27</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2615.TW" target="_blank" rel="noopener">2615</a></td><td class="l">萬海</td><td><span class="badge dn">S 艙</span></td><td>2026-07-27</td><td>86.00</td><td>113.00</td><td class="pos" style="font-weight:700">+30.89%</td><td>31</td></tr><tr><td>2026-08-25</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2359.TW" target="_blank" rel="noopener">2359</a></td><td class="l">所羅門</td><td><span class="badge up">C 艙</span></td><td>2026-08-14</td><td>157.50</td><td>145.00</td><td class="neg" style="font-weight:700">-8.29%</td><td>11</td></tr><tr><td>2026-08-25</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2359.TW" target="_blank" rel="noopener">2359</a></td><td class="l">所羅門</td><td><span class="badge dn">S 艙</span></td><td>2026-08-14</td><td>157.50</td><td>145.00</td><td class="neg" style="font-weight:700">-8.29%</td><td>11</td></tr><tr><td>2026-08-24</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6550.TW" target="_blank" rel="noopener">6550</a></td><td class="l">北極星藥業-KY</td><td><span class="badge up">C 艙</span></td><td>2026-08-04</td><td>11.05</td><td>12.95</td><td class="pos" style="font-weight:700">+16.74%</td><td>20</td></tr><tr><td>2026-08-21</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6214.TW" target="_blank" rel="noopener">6214</a></td><td class="l">精誠</td><td><span class="badge up">C 艙</span></td><td>2026-08-19</td><td>174.50</td><td>179.50</td><td class="pos" style="font-weight:700">+2.47%</td><td>2</td></tr><tr><td>2026-08-21</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6214.TW" target="_blank" rel="noopener">6214</a></td><td class="l">精誠</td><td><span class="badge dn">S 艙</span></td><td>2026-08-18</td><td>175.00</td><td>179.50</td><td class="pos" style="font-weight:700">+2.18%</td><td>3</td></tr><tr><td>2026-08-20</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3406.TW" target="_blank" rel="noopener">3406</a></td><td class="l">玉晶光</td><td><span class="badge up">C 艙</span></td><td>2026-08-18</td><td>676.00</td><td>665.00</td><td class="neg" style="font-weight:700">-2.01%</td><td>2</td></tr><tr><td>2026-08-19</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2886.TW" target="_blank" rel="noopener">2886</a></td><td class="l">兆豐金</td><td><span class="badge dn">S 艙</span></td><td>2026-07-24</td><td>45.41</td><td>46.90</td><td class="pos" style="font-weight:700">+2.89%</td><td>26</td></tr><tr><td>2026-08-19</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/5607.TW" target="_blank" rel="noopener">5607</a></td><td class="l">遠雄港</td><td><span class="badge up">C 艙</span></td><td>2026-08-18</td><td>53.00</td><td>53.40</td><td class="pos" style="font-weight:700">+0.37%</td><td>1</td></tr><tr><td>2026-08-19</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3617.TW" target="_blank" rel="noopener">3617</a></td><td class="l">碩天</td><td><span class="badge dn">S 艙</span></td><td>2026-08-18</td><td>260.00</td><td>255.50</td><td class="neg" style="font-weight:700">-2.11%</td><td>1</td></tr><tr><td>2026-08-19</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2886.TW" target="_blank" rel="noopener">2886</a></td><td class="l">兆豐金</td><td><span class="badge up">C 艙</span></td><td>2026-08-04</td><td>48.78</td><td>46.90</td><td class="neg" style="font-weight:700">-4.23%</td><td>15</td></tr><tr><td>2026-08-18</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/8436.TWO" target="_blank" rel="noopener">8436</a></td><td class="l">大江</td><td><span class="badge dn">S 艙</span></td><td>2026-08-12</td><td>126.00</td><td>123.00</td><td class="neg" style="font-weight:700">-2.76%</td><td>6</td></tr><tr><td>2026-08-18</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2354.TW" target="_blank" rel="noopener">2354</a></td><td class="l">鴻準</td><td><span class="badge dn">S 艙</span></td><td>2026-08-11</td><td>63.10</td><td>61.50</td><td class="neg" style="font-weight:700">-2.91%</td><td>7</td></tr><tr><td>2026-08-18</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2362.TW" target="_blank" rel="noopener">2362</a></td><td class="l">藍天</td><td><span class="badge dn">S 艙</span></td><td>2026-08-07</td><td>50.70</td><td>48.35</td><td class="neg" style="font-weight:700">-5.00%</td><td>11</td></tr><tr><td>2026-08-18</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2362.TW" target="_blank" rel="noopener">2362</a></td><td class="l">藍天</td><td><span class="badge up">C 艙</span></td><td>2026-08-07</td><td>50.70</td><td>48.35</td><td class="neg" style="font-weight:700">-5.00%</td><td>11</td></tr><tr><td>2026-08-18</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/4147.TWO" target="_blank" rel="noopener">4147</a></td><td class="l">中裕</td><td><span class="badge up">C 艙</span></td><td>2026-08-13</td><td>66.50</td><td>62.60</td><td class="neg" style="font-weight:700">-6.23%</td><td>5</td></tr><tr><td>2026-08-17</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2540.TW" target="_blank" rel="noopener">2540</a></td><td class="l">愛山林</td><td><span class="badge up">C 艙</span></td><td>2026-08-12</td><td>43.55</td><td>45.00</td><td class="pos" style="font-weight:700">+2.93%</td><td>5</td></tr><tr><td>2026-08-17</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6206.TW" target="_blank" rel="noopener">6206</a></td><td class="l">飛捷</td><td><span class="badge up">C 艙</span></td><td>2026-08-05</td><td>142.50</td><td>142.50</td><td class="neg" style="font-weight:700">-0.39%</td><td>12</td></tr><tr><td>2026-08-17</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6206.TW" target="_blank" rel="noopener">6206</a></td><td class="l">飛捷</td><td><span class="badge dn">S 艙</span></td><td>2026-08-05</td><td>142.50</td><td>142.50</td><td class="neg" style="font-weight:700">-0.39%</td><td>12</td></tr><tr><td>2026-08-17</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/5904.TWO" target="_blank" rel="noopener">5904</a></td><td class="l">寶雅</td><td><span class="badge up">C 艙</span></td><td>2026-08-12</td><td>90.60</td><td>77.80</td><td class="neg" style="font-weight:700">-14.46%</td><td>5</td></tr><tr><td>2026-08-14</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/1216.TW" target="_blank" rel="noopener">1216</a></td><td class="l">統一</td><td><span class="badge dn">S 艙</span></td><td>2026-07-23</td><td>73.76</td><td>76.20</td><td class="pos" style="font-weight:700">+2.91%</td><td>22</td></tr><tr><td>2026-08-14</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2464.TW" target="_blank" rel="noopener">2464</a></td><td class="l">盟立</td><td><span class="badge up">C 艙</span></td><td>2026-08-13</td><td>198.00</td><td>197.00</td><td class="neg" style="font-weight:700">-0.89%</td><td>1</td></tr><tr><td>2026-08-13</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3022.TW" target="_blank" rel="noopener">3022</a></td><td class="l">威強電</td><td><span class="badge up">C 艙</span></td><td>2026-08-06</td><td>94.54</td><td>102.64</td><td class="pos" style="font-weight:700">+8.14%</td><td>7</td></tr><tr><td>2026-08-13</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/1904.TW" target="_blank" rel="noopener">1904</a></td><td class="l">正隆</td><td><span class="badge up">C 艙</span></td><td>2026-08-12</td><td>24.70</td><td>25.30</td><td class="pos" style="font-weight:700">+2.03%</td><td>1</td></tr><tr><td>2026-08-13</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3704.TW" target="_blank" rel="noopener">3704</a></td><td class="l">合勤控</td><td><span class="badge up">C 艙</span></td><td>2026-08-11</td><td>47.20</td><td>42.85</td><td class="neg" style="font-weight:700">-9.57%</td><td>2</td></tr><tr><td>2026-08-12</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2059.TW" target="_blank" rel="noopener">2059</a></td><td class="l">川湖</td><td><span class="badge up">C 艙</span></td><td>2026-08-07</td><td>11,070.95</td><td>12,206.94</td><td class="pos" style="font-weight:700">+9.84%</td><td>5</td></tr><tr><td>2026-08-12</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/1303.TW" target="_blank" rel="noopener">1303</a></td><td class="l">南亞</td><td><span class="badge up">C 艙</span></td><td>2026-08-10</td><td>188.50</td><td>195.00</td><td class="pos" style="font-weight:700">+3.05%</td><td>2</td></tr><tr><td>2026-08-12</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6768.TW" target="_blank" rel="noopener">6768</a></td><td class="l">志強-KY</td><td><span class="badge up">C 艙</span></td><td>2026-08-05</td><td>66.00</td><td>68.20</td><td class="pos" style="font-weight:700">+2.94%</td><td>7</td></tr><tr><td>2026-08-12</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6768.TW" target="_blank" rel="noopener">6768</a></td><td class="l">志強-KY</td><td><span class="badge dn">S 艙</span></td><td>2026-08-05</td><td>66.00</td><td>68.20</td><td class="pos" style="font-weight:700">+2.94%</td><td>7</td></tr><tr><td>2026-08-12</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/5880.TW" target="_blank" rel="noopener">5880</a></td><td class="l">合庫金</td><td><span class="badge dn">S 艙</span></td><td>2026-08-03</td><td>25.53</td><td>24.00</td><td class="neg" style="font-weight:700">-6.36%</td><td>9</td></tr><tr><td>2026-08-11</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2546.TW" target="_blank" rel="noopener">2546</a></td><td class="l">根基</td><td><span class="badge up">C 艙</span></td><td>2026-08-04</td><td>87.93</td><td>90.30</td><td class="pos" style="font-weight:700">+2.30%</td><td>7</td></tr><tr><td>2026-08-11</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2546.TW" target="_blank" rel="noopener">2546</a></td><td class="l">根基</td><td><span class="badge dn">S 艙</span></td><td>2026-08-04</td><td>87.93</td><td>90.30</td><td class="pos" style="font-weight:700">+2.30%</td><td>7</td></tr><tr><td>2026-08-10</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/9907.TW" target="_blank" rel="noopener">9907</a></td><td class="l">統一實</td><td><span class="badge dn">S 艙</span></td><td>2026-08-05</td><td>14.75</td><td>14.65</td><td class="neg" style="font-weight:700">-1.06%</td><td>5</td></tr><tr><td>2026-08-10</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2849.TW" target="_blank" rel="noopener">2849</a></td><td class="l">安泰銀</td><td><span class="badge up">C 艙</span></td><td>2026-08-04</td><td>14.80</td><td>14.60</td><td class="neg" style="font-weight:700">-1.73%</td><td>6</td></tr><tr><td>2026-08-07</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/9802.TW" target="_blank" rel="noopener">9802</a></td><td class="l">鈺齊-KY</td><td><span class="badge dn">S 艙</span></td><td>2026-08-06</td><td>69.10</td><td>70.20</td><td class="pos" style="font-weight:700">+1.20%</td><td>1</td></tr><tr><td>2026-08-07</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3217.TWO" target="_blank" rel="noopener">3217</a></td><td class="l">優群</td><td><span class="badge up">C 艙</span></td><td>2026-08-05</td><td>142.50</td><td>144.00</td><td class="pos" style="font-weight:700">+0.66%</td><td>2</td></tr><tr><td>2026-08-07</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6579.TW" target="_blank" rel="noopener">6579</a></td><td class="l">研揚</td><td><span class="badge up">C 艙</span></td><td>2026-08-06</td><td>180.00</td><td>173.00</td><td class="neg" style="font-weight:700">-4.26%</td><td>1</td></tr><tr><td>2026-08-06</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2834.TW" target="_blank" rel="noopener">2834</a></td><td class="l">臺企銀</td><td><span class="badge dn">S 艙</span></td><td>2026-07-28</td><td>16.63</td><td>16.70</td><td class="pos" style="font-weight:700">+0.05%</td><td>9</td></tr><tr><td>2026-08-06</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2834.TW" target="_blank" rel="noopener">2834</a></td><td class="l">臺企銀</td><td><span class="badge up">C 艙</span></td><td>2026-08-03</td><td>16.77</td><td>16.70</td><td class="neg" style="font-weight:700">-0.78%</td><td>3</td></tr><tr><td>2026-08-06</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3231.TW" target="_blank" rel="noopener">3231</a></td><td class="l">緯創</td><td><span class="badge up">C 艙</span></td><td>2026-08-05</td><td>198.00</td><td>193.50</td><td class="neg" style="font-weight:700">-2.65%</td><td>1</td></tr><tr><td>2026-08-05</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/4542.TWO" target="_blank" rel="noopener">4542</a></td><td class="l">科嶠</td><td><span class="badge up">C 艙</span></td><td>2026-08-04</td><td>257.00</td><td>306.50</td><td class="pos" style="font-weight:700">+18.80%</td><td>1</td></tr><tr><td>2026-08-05</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6269.TW" target="_blank" rel="noopener">6269</a></td><td class="l">台郡</td><td><span class="badge up">C 艙</span></td><td>2026-08-03</td><td>49.00</td><td>57.00</td><td class="pos" style="font-weight:700">+15.88%</td><td>2</td></tr><tr><td>2026-08-05</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3035.TW" target="_blank" rel="noopener">3035</a></td><td class="l">智原</td><td><span class="badge up">C 艙</span></td><td>2026-08-03</td><td>148.00</td><td>172.00</td><td class="pos" style="font-weight:700">+15.77%</td><td>2</td></tr><tr><td>2026-08-05</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6188.TWO" target="_blank" rel="noopener">6188</a></td><td class="l">廣明</td><td><span class="badge up">C 艙</span></td><td>2026-07-30</td><td>62.60</td><td>70.02</td><td class="pos" style="font-weight:700">+11.42%</td><td>6</td></tr><tr><td>2026-08-05</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/4583.TW" target="_blank" rel="noopener">4583</a></td><td class="l">台灣精銳</td><td><span class="badge up">C 艙</span></td><td>2026-07-30</td><td>493.00</td><td>491.50</td><td class="neg" style="font-weight:700">-0.69%</td><td>6</td></tr><tr><td>2026-08-05</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/1234.TW" target="_blank" rel="noopener">1234</a></td><td class="l">黑松</td><td><span class="badge dn">S 艙</span></td><td>2026-07-29</td><td>33.90</td><td>33.55</td><td class="neg" style="font-weight:700">-1.41%</td><td>7</td></tr><tr><td>2026-08-05</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/9930.TW" target="_blank" rel="noopener">9930</a></td><td class="l">中聯資源</td><td><span class="badge dn">S 艙</span></td><td>2026-07-30</td><td>64.30</td><td>62.60</td><td class="neg" style="font-weight:700">-3.02%</td><td>6</td></tr><tr><td>2026-08-05</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2371.TW" target="_blank" rel="noopener">2371</a></td><td class="l">大同</td><td><span class="badge dn">S 艙</span></td><td>2026-07-20</td><td>26.20</td><td>25.45</td><td class="neg" style="font-weight:700">-3.24%</td><td>16</td></tr><tr><td>2026-08-05</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2412.TW" target="_blank" rel="noopener">2412</a></td><td class="l">中華電</td><td><span class="badge dn">S 艙</span></td><td>2026-07-29</td><td>141.00</td><td>136.50</td><td class="neg" style="font-weight:700">-3.56%</td><td>7</td></tr><tr><td>2026-08-04</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/5439.TWO" target="_blank" rel="noopener">5439</a></td><td class="l">高技</td><td><span class="badge up">C 艙</span></td><td>2026-07-30</td><td>192.50</td><td>214.00</td><td class="pos" style="font-weight:700">+10.74%</td><td>5</td></tr><tr><td>2026-08-04</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/5439.TWO" target="_blank" rel="noopener">5439</a></td><td class="l">高技</td><td><span class="badge dn">S 艙</span></td><td>2026-07-30</td><td>192.50</td><td>214.00</td><td class="pos" style="font-weight:700">+10.74%</td><td>5</td></tr><tr><td>2026-08-04</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6781.TW" target="_blank" rel="noopener">6781</a></td><td class="l">AES-KY</td><td><span class="badge up">C 艙</span></td><td>2026-07-31</td><td>904.00</td><td>958.00</td><td class="pos" style="font-weight:700">+5.57%</td><td>4</td></tr><tr><td>2026-08-04</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6125.TWO" target="_blank" rel="noopener">6125</a></td><td class="l">廣運</td><td><span class="badge up">C 艙</span></td><td>2026-07-30</td><td>43.55</td><td>46.03</td><td class="pos" style="font-weight:700">+5.27%</td><td>5</td></tr><tr><td>2026-08-04</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/5314.TWO" target="_blank" rel="noopener">5314</a></td><td class="l">世紀*</td><td><span class="badge up">C 艙</span></td><td>2026-07-29</td><td>12.78</td><td>13.23</td><td class="pos" style="font-weight:700">+3.18%</td><td>6</td></tr><tr><td>2026-08-04</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3013.TW" target="_blank" rel="noopener">3013</a></td><td class="l">晟銘電</td><td><span class="badge up">C 艙</span></td><td>2026-07-29</td><td>79.60</td><td>78.40</td><td class="neg" style="font-weight:700">-1.89%</td><td>6</td></tr><tr><td>2026-08-03</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/1232.TW" target="_blank" rel="noopener">1232</a></td><td class="l">大統益</td><td><span class="badge dn">S 艙</span></td><td>2026-07-07</td><td>151.00</td><td>154.00</td><td class="pos" style="font-weight:700">+1.59%</td><td>27</td></tr><tr><td>2026-08-03</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/1232.TW" target="_blank" rel="noopener">1232</a></td><td class="l">大統益</td><td><span class="badge up">C 艙</span></td><td>2026-07-17</td><td>167.00</td><td>154.00</td><td class="neg" style="font-weight:700">-8.14%</td><td>17</td></tr><tr><td>2026-08-03</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3026.TW" target="_blank" rel="noopener">3026</a></td><td class="l">禾伸堂</td><td><span class="badge up">C 艙</span></td><td>2026-07-29</td><td>474.50</td><td>430.00</td><td class="neg" style="font-weight:700">-9.73%</td><td>5</td></tr><tr><td>2026-08-03</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/1718.TW" target="_blank" rel="noopener">1718</a></td><td class="l">中纖</td><td><span class="badge up">C 艙</span></td><td>2026-06-26</td><td>10.35</td><td>8.80</td><td class="neg" style="font-weight:700">-15.30%</td><td>38</td></tr><tr><td>2026-07-31</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6550.TW" target="_blank" rel="noopener">6550</a></td><td class="l">北極星藥業-KY</td><td><span class="badge up">C 艙</span></td><td>2026-07-24</td><td>12.65</td><td>11.35</td><td class="neg" style="font-weight:700">-10.62%</td><td>7</td></tr><tr><td>2026-07-30</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/8415.TWO" target="_blank" rel="noopener">8415</a></td><td class="l">大國鋼</td><td><span class="badge up">C 艙</span></td><td>2026-07-23</td><td>37.40</td><td>38.15</td><td class="pos" style="font-weight:700">+1.61%</td><td>7</td></tr><tr><td>2026-07-30</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/5871.TW" target="_blank" rel="noopener">5871</a></td><td class="l">中租-KY</td><td><span class="badge dn">S 艙</span></td><td>2026-07-24</td><td>111.03</td><td>112.50</td><td class="pos" style="font-weight:700">+0.94%</td><td>6</td></tr><tr><td>2026-07-30</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/5876.TW" target="_blank" rel="noopener">5876</a></td><td class="l">上海商銀</td><td><span class="badge dn">S 艙</span></td><td>2026-07-27</td><td>44.08</td><td>44.40</td><td class="pos" style="font-weight:700">+0.33%</td><td>3</td></tr><tr><td>2026-07-30</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2332.TW" target="_blank" rel="noopener">2332</a></td><td class="l">友訊</td><td><span class="badge up">C 艙</span></td><td>2026-07-28</td><td>23.70</td><td>23.65</td><td class="neg" style="font-weight:700">-0.60%</td><td>2</td></tr><tr><td>2026-07-30</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/8039.TW" target="_blank" rel="noopener">8039</a></td><td class="l">台虹</td><td><span class="badge up">C 艙</span></td><td>2026-07-21</td><td>196.00</td><td>158.00</td><td class="neg" style="font-weight:700">-19.70%</td><td>9</td></tr><tr><td>2026-07-30</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/1710.TW" target="_blank" rel="noopener">1710</a></td><td class="l">東聯</td><td><span class="badge up">C 艙</span></td><td>2026-07-22</td><td>17.00</td><td>13.00</td><td class="neg" style="font-weight:700">-23.82%</td><td>8</td></tr><tr><td>2026-07-29</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/1434.TW" target="_blank" rel="noopener">1434</a></td><td class="l">福懋</td><td><span class="badge dn">S 艙</span></td><td>2026-07-03</td><td>17.05</td><td>18.20</td><td class="pos" style="font-weight:700">+6.32%</td><td>26</td></tr><tr><td>2026-07-29</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3374.TWO" target="_blank" rel="noopener">3374</a></td><td class="l">精材</td><td><span class="badge up">C 艙</span></td><td>2026-07-02</td><td>295.00</td><td>308.50</td><td class="pos" style="font-weight:700">+4.17%</td><td>27</td></tr><tr><td>2026-07-29</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/1434.TW" target="_blank" rel="noopener">1434</a></td><td class="l">福懋</td><td><span class="badge up">C 艙</span></td><td>2026-07-07</td><td>18.51</td><td>18.20</td><td class="neg" style="font-weight:700">-2.08%</td><td>22</td></tr><tr><td>2026-07-29</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6414.TW" target="_blank" rel="noopener">6414</a></td><td class="l">樺漢</td><td><span class="badge dn">S 艙</span></td><td>2026-07-22</td><td>470.00</td><td>440.00</td><td class="neg" style="font-weight:700">-6.74%</td><td>7</td></tr><tr><td>2026-07-29</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6414.TW" target="_blank" rel="noopener">6414</a></td><td class="l">樺漢</td><td><span class="badge up">C 艙</span></td><td>2026-07-24</td><td>494.50</td><td>440.00</td><td class="neg" style="font-weight:700">-11.36%</td><td>5</td></tr><tr><td>2026-07-28</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6525.TW" target="_blank" rel="noopener">6525</a></td><td class="l">捷敏-KY</td><td><span class="badge up">C 艙</span></td><td>2026-06-29</td><td>143.00</td><td>136.50</td><td class="neg" style="font-weight:700">-4.91%</td><td>29</td></tr><tr><td>2026-07-28</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6505.TW" target="_blank" rel="noopener">6505</a></td><td class="l">台塑化</td><td><span class="badge dn">S 艙</span></td><td>2026-07-17</td><td>79.60</td><td>74.00</td><td class="neg" style="font-weight:700">-7.39%</td><td>11</td></tr><tr><td>2026-07-27</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/9925.TW" target="_blank" rel="noopener">9925</a></td><td class="l">新保</td><td><span class="badge dn">S 艙</span></td><td>2026-07-14</td><td>39.45</td><td>40.40</td><td class="pos" style="font-weight:700">+2.02%</td><td>13</td></tr><tr><td>2026-07-24</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3013.TW" target="_blank" rel="noopener">3013</a></td><td class="l">晟銘電</td><td><span class="badge up">C 艙</span></td><td>2026-07-21</td><td>85.30</td><td>87.50</td><td class="pos" style="font-weight:700">+2.18%</td><td>3</td></tr><tr><td>2026-07-24</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3013.TW" target="_blank" rel="noopener">3013</a></td><td class="l">晟銘電</td><td><span class="badge dn">S 艙</span></td><td>2026-07-21</td><td>85.30</td><td>87.50</td><td class="pos" style="font-weight:700">+2.18%</td><td>3</td></tr><tr><td>2026-07-24</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6125.TWO" target="_blank" rel="noopener">6125</a></td><td class="l">廣運</td><td><span class="badge up">C 艙</span></td><td>2026-07-20</td><td>49.99</td><td>50.28</td><td class="pos" style="font-weight:700">+0.21%</td><td>4</td></tr><tr><td>2026-07-24</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2704.TW" target="_blank" rel="noopener">2704</a></td><td class="l">國賓</td><td><span class="badge dn">S 艙</span></td><td>2026-07-22</td><td>47.70</td><td>45.15</td><td class="neg" style="font-weight:700">-5.71%</td><td>2</td></tr><tr><td>2026-07-24</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/1707.TW" target="_blank" rel="noopener">1707</a></td><td class="l">葡萄王</td><td><span class="badge dn">S 艙</span></td><td>2026-06-24</td><td>97.00</td><td>90.80</td><td class="neg" style="font-weight:700">-6.75%</td><td>30</td></tr><tr><td>2026-07-23</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6781.TW" target="_blank" rel="noopener">6781</a></td><td class="l">AES-KY</td><td><span class="badge up">C 艙</span></td><td>2026-07-21</td><td>960.00</td><td>1,010.00</td><td class="pos" style="font-weight:700">+4.80%</td><td>2</td></tr><tr><td>2026-07-23</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2206.TW" target="_blank" rel="noopener">2206</a></td><td class="l">三陽工業</td><td><span class="badge dn">S 艙</span></td><td>2026-07-15</td><td>60.27</td><td>60.50</td><td class="pos" style="font-weight:700">-0.00%</td><td>8</td></tr><tr><td>2026-07-22</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2849.TW" target="_blank" rel="noopener">2849</a></td><td class="l">安泰銀</td><td><span class="badge dn">S 艙</span></td><td>2026-06-24</td><td>14.19</td><td>15.10</td><td class="pos" style="font-weight:700">+6.02%</td><td>28</td></tr><tr><td>2026-07-22</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/1726.TW" target="_blank" rel="noopener">1726</a></td><td class="l">永記</td><td><span class="badge dn">S 艙</span></td><td>2026-07-20</td><td>77.36</td><td>75.90</td><td class="neg" style="font-weight:700">-2.26%</td><td>2</td></tr><tr><td>2026-07-22</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3413.TW" target="_blank" rel="noopener">3413</a></td><td class="l">京鼎</td><td><span class="badge up">C 艙</span></td><td>2026-07-17</td><td>355.50</td><td>339.00</td><td class="neg" style="font-weight:700">-5.01%</td><td>5</td></tr><tr><td>2026-07-21</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/1326.TW" target="_blank" rel="noopener">1326</a></td><td class="l">台化</td><td><span class="badge up">C 艙</span></td><td>2026-07-03</td><td>63.00</td><td>65.00</td><td class="pos" style="font-weight:700">+2.78%</td><td>18</td></tr><tr><td>2026-07-21</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6024.TW" target="_blank" rel="noopener">6024</a></td><td class="l">群益期</td><td><span class="badge up">C 艙</span></td><td>2026-07-20</td><td>58.02</td><td>57.13</td><td class="neg" style="font-weight:700">-1.92%</td><td>1</td></tr><tr><td>2026-07-21</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2103.TW" target="_blank" rel="noopener">2103</a></td><td class="l">台橡</td><td><span class="badge up">C 艙</span></td><td>2026-07-15</td><td>24.00</td><td>23.10</td><td class="neg" style="font-weight:700">-4.12%</td><td>6</td></tr><tr><td>2026-07-21</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2103.TW" target="_blank" rel="noopener">2103</a></td><td class="l">台橡</td><td><span class="badge dn">S 艙</span></td><td>2026-07-15</td><td>24.00</td><td>23.10</td><td class="neg" style="font-weight:700">-4.12%</td><td>6</td></tr><tr><td>2026-07-20</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/1301.TW" target="_blank" rel="noopener">1301</a></td><td class="l">台塑</td><td><span class="badge up">C 艙</span></td><td>2026-07-15</td><td>64.00</td><td>63.70</td><td class="neg" style="font-weight:700">-0.85%</td><td>5</td></tr><tr><td>2026-07-20</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2634.TW" target="_blank" rel="noopener">2634</a></td><td class="l">漢翔</td><td><span class="badge dn">S 艙</span></td><td>2026-07-15</td><td>66.80</td><td>63.40</td><td class="neg" style="font-weight:700">-5.46%</td><td>5</td></tr><tr><td>2026-07-20</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2645.TW" target="_blank" rel="noopener">2645</a></td><td class="l">長榮航太</td><td><span class="badge up">C 艙</span></td><td>2026-07-15</td><td>242.50</td><td>217.00</td><td class="neg" style="font-weight:700">-10.86%</td><td>5</td></tr><tr><td>2026-07-20</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2332.TW" target="_blank" rel="noopener">2332</a></td><td class="l">友訊</td><td><span class="badge dn">S 艙</span></td><td>2026-07-13</td><td>24.85</td><td>20.65</td><td class="neg" style="font-weight:700">-17.22%</td><td>7</td></tr><tr><td>2026-07-17</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/1714.TW" target="_blank" rel="noopener">1714</a></td><td class="l">和桐</td><td><span class="badge up">C 艙</span></td><td>2026-06-04</td><td>11.77</td><td>15.68</td><td class="pos" style="font-weight:700">+32.68%</td><td>43</td></tr><tr><td>2026-07-17</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/1714.TW" target="_blank" rel="noopener">1714</a></td><td class="l">和桐</td><td><span class="badge dn">S 艙</span></td><td>2026-06-09</td><td>13.75</td><td>15.68</td><td class="pos" style="font-weight:700">+13.59%</td><td>38</td></tr></tbody>
+</table></div>
+<footer>模擬口徑：訊號次一交易日還原開盤價成交;費用 0.1425%×0.3 買賣＋賣出稅 0.3%;帳本=槽預算 50 萬×20 固定制。雙艙=C/S 兩艙同時持有（隱性共識加權）。本頁為觀察記錄模式,非投資建議。</footer>
 </body>
 </html>
