@@ -9,9 +9,11 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: #0d1117;
-      color: #e2e8f0;
-      font-family: 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei', system-ui, sans-serif;
+      background: #0A0C10;
+      color: #E7EBF2;
+      font-family: "Inter", "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      font-variant-numeric: tabular-nums;
       height: 100dvh;
       display: flex;
       flex-direction: column;
@@ -23,20 +25,31 @@
       flex-shrink: 0;
       display: flex;
       align-items: center;
-      gap: 16px;
-      padding: 10px 18px;
-      background: #161b22;
-      border-bottom: 1px solid #30363d;
+      gap: 14px;
+      padding: 12px 22px;
+      background: rgba(10,12,16,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #232936;
       flex-wrap: wrap;
+      position: sticky; top: 0; z-index: 20;
     }
 
     .brand {
-      font-size: 16px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      color: #f0f6fc;
+      font-size: 17px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      color: #FFFFFF;
       white-space: nowrap;
     }
+    .brand-page { font-size: 13px; font-weight: 500; color: #5C6675; margin-left: 2px; }
+    .site-nav { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .nav-link {
+      color: #9AA4B2; text-decoration: none; font-size: 13px; font-weight: 500;
+      padding: 5px 14px; border: 1px solid #232936; border-radius: 999px; background: transparent;
+      white-space: nowrap; transition: all 0.15s ease;
+    }
+    .nav-link:hover { color: #E7EBF2; border-color: #2E3646; background: #171B24; }
+    .nav-link.active { color: #E8C158; border-color: #E8C158; background: rgba(232,193,88,0.10); pointer-events: none; }
 
     .date-selector {
       display: flex;
@@ -46,14 +59,14 @@
 
     .date-selector label {
       font-size: 12px;
-      color: #8b949e;
+      color: #9AA4B2;
       white-space: nowrap;
     }
 
     select {
-      background: #21262d;
-      color: #c9d1d9;
-      border: 1px solid #30363d;
+      background: #171B24;
+      color: #E7EBF2;
+      border: 1px solid #232936;
       border-radius: 6px;
       padding: 4px 28px 4px 10px;
       font-size: 13px;
@@ -64,7 +77,7 @@
       background-position: right 8px center;
     }
 
-    select:focus { outline: none; border-color: #58a6ff; }
+    select:focus { outline: none; border-color: #6CA8FF; }
 
     /* ── Legend ── */
     .legend {
@@ -80,7 +93,7 @@
       align-items: center;
       gap: 5px;
       font-size: 12px;
-      color: #8b949e;
+      color: #9AA4B2;
       white-space: nowrap;
     }
 
@@ -91,16 +104,16 @@
       flex-shrink: 0;
     }
 
-    .swatch-top10    { background: #ffd700; border: 2px solid #ef4444; }
+    .swatch-top10    { background: #E8C158; border: 2px solid #ef4444; }
     .swatch-size     { border: 1px dashed #475569; background: transparent; }
 
     .holdings-link {
-      color: #ffd700;
+      color: #E8C158;
       text-decoration: none;
       font-size: 13px;
       font-weight: 600;
       padding: 4px 12px;
-      border: 1px solid #ffd700;
+      border: 1px solid #E8C158;
       border-radius: 6px;
       white-space: nowrap;
       transition: background 0.15s;
@@ -119,7 +132,7 @@
     .tile { cursor: pointer; }
 
     .tile rect.bg {
-      stroke: #0d1117;
+      stroke: #0A0C10;
       stroke-width: 2px;
       transition: filter 0.15s;
     }
@@ -158,8 +171,8 @@
     .overlay.open { display: flex; }
 
     .modal {
-      background: #161b22;
-      border: 1px solid #30363d;
+      background: #12151C;
+      border: 1px solid #232936;
       border-radius: 12px;
       padding: 24px 28px;
       min-width: 300px;
@@ -180,12 +193,12 @@
       right: 16px;
       background: none;
       border: none;
-      color: #8b949e;
+      color: #9AA4B2;
       font-size: 20px;
       cursor: pointer;
       line-height: 1;
     }
-    .modal-close:hover { color: #f0f6fc; }
+    .modal-close:hover { color: #FFFFFF; }
 
     .modal-header {
       display: flex;
@@ -199,13 +212,13 @@
     .modal-id {
       font-size: 26px;
       font-weight: 800;
-      color: #f0f6fc;
+      color: #FFFFFF;
       letter-spacing: 0.03em;
     }
 
     .modal-name {
       font-size: 15px;
-      color: #8b949e;
+      color: #9AA4B2;
       margin-top: 2px;
     }
 
@@ -223,8 +236,8 @@
       display: inline-block;
     }
     .badge-top10 { background: #7f1d1d; color: #ef4444; border: 1px solid #ef4444; }
-    .badge-top30 { background: #78350f; color: #ffd700; border: 1px solid #ffd700; }
-    .badge-other { background: #1e3a5f; color: #60a5fa; border: 1px solid #1d4ed8; }
+    .badge-top30 { background: #78350f; color: #E8C158; border: 1px solid #E8C158; }
+    .badge-other { background: #1e3a5f; color: #6CA8FF; border: 1px solid #1d4ed8; }
 
     .modal-total-score {
       font-size: 36px;
@@ -233,14 +246,14 @@
     }
     .score-top10 { color: #ef4444; }
     .score-top30 { color: #f59e0b; }
-    .score-other { color: #60a5fa; }
+    .score-other { color: #6CA8FF; }
 
     /* 模型分數區塊 */
     .scores-section { margin-bottom: 12px; }
 
     .scores-label {
       font-size: 10px;
-      color: #8b949e;
+      color: #9AA4B2;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       margin-bottom: 6px;
@@ -253,21 +266,21 @@
     }
 
     .metric-card {
-      background: #21262d;
+      background: #171B24;
       border-radius: 8px;
       padding: 8px 10px;
     }
 
     .metric-label {
       font-size: 10px;
-      color: #8b949e;
+      color: #9AA4B2;
       margin-bottom: 4px;
     }
 
     .metric-value {
       font-size: 15px;
       font-weight: 700;
-      color: #f0f6fc;
+      color: #FFFFFF;
     }
     .metric-value.up-val { color: #f59e0b; }
     .metric-value.dn-val { color: #ef4444; }
@@ -277,13 +290,13 @@
       justify-content: space-between;
       align-items: center;
       padding: 8px 14px;
-      background: #21262d;
+      background: #171B24;
       border-radius: 8px;
       font-size: 13px;
-      color: #8b949e;
+      color: #9AA4B2;
       margin-bottom: 8px;
     }
-    .info-val { color: #c9d1d9; font-weight: 600; }
+    .info-val { color: #E7EBF2; font-weight: 600; }
 
     .new-badge-row {
       display: none;
@@ -303,9 +316,9 @@
       align-items: center;
     }
     .filter-btn {
-      background: #21262d;
-      color: #8b949e;
-      border: 1px solid #30363d;
+      background: #171B24;
+      color: #9AA4B2;
+      border: 1px solid #232936;
       border-radius: 20px;
       padding: 4px 14px;
       font-size: 12px;
@@ -314,9 +327,9 @@
       transition: all 0.15s;
       white-space: nowrap;
     }
-    .filter-btn:hover { border-color: #58a6ff; color: #c9d1d9; }
+    .filter-btn:hover { border-color: #6CA8FF; color: #E7EBF2; }
     .filter-btn.active-all  { background: #1f6feb; border-color: #388bfd; color: #fff; }
-    .filter-btn.active-gold { background: #78350f; border-color: #ffd700; color: #ffd700; }
+    .filter-btn.active-gold { background: #78350f; border-color: #E8C158; color: #E8C158; }
     .filter-btn.active-buy  { background: #451a03; border-color: #d97706; color: #d97706; }
     .filter-btn.active-new  { background: #7f1d1d; border-color: #fca5a5; color: #fca5a5; }
 
@@ -327,18 +340,22 @@
 <body>
 
 <header>
-  <div class="brand">台股選股地圖</div>
-  <a href="index.html" class="holdings-link">首頁</a>
-  <a href="scores.html"    class="holdings-link" style="color:#60a5fa;border-color:#60a5fa;">評分表</a>
-  <a href="holdings.html" class="holdings-link">模型持股</a>
-  <a href="sub.html" class="holdings-link">副模型持股</a>
-  <a href="short3d.html" class="holdings-link">短天組合</a>
-  <a href="shortbk.html" class="holdings-link">短天籌碼</a>
-  <a href="realized.html" class="holdings-link">已實現損益</a>
-  <a href="performance.html" class="holdings-link">績效表</a>
-  <a href="trend.html" class="holdings-link">排名趨勢</a>
-  <a href="market.html" class="holdings-link">大盤觀測</a>
-  <a href="news/index.html" class="holdings-link">新聞</a>
+  <div class="brand">INFOFLASK<span class="brand-page">｜選股地圖</span></div>
+  <nav class="site-nav">
+    <a href="index.html" class="nav-link">首頁</a>
+    <a href="scores.html" class="nav-link">評分表</a>
+    <a href="holdings.html" class="nav-link">模型持股</a>
+    <a href="sub.html" class="nav-link">副模型持股</a>
+    <a href="short3d.html" class="nav-link">短天組合</a>
+    <a href="shortbk.html" class="nav-link">短天籌碼</a>
+    <a href="realized.html" class="nav-link">已實現損益</a>
+    <a href="performance.html" class="nav-link">績效表</a>
+    <a href="trend.html" class="nav-link">排名趨勢</a>
+    <a href="market.html" class="nav-link">大盤觀測</a>
+    <a href="treemap.html" class="nav-link active">選股地圖</a>
+    <a href="reports.html" class="nav-link">研究報告</a>
+    <a href="news/index.html" class="nav-link">新聞</a>
+  </nav>
 
   <div class="date-selector">
     <label for="date-sel">預測日期</label>
@@ -353,7 +370,7 @@
 
   <div class="legend">
     <div class="legend-item">
-      <div class="legend-swatch" style="background:#ffd700;"></div>
+      <div class="legend-swatch" style="background:#E8C158;"></div>
       score&gt;3（金色）
     </div>
     <div class="legend-item">
@@ -365,7 +382,7 @@
       Top 10（紅框）
     </div>
     <div class="legend-item">
-      <span style="color:#ffd700;font-size:12px;">★★★☆☆</span>&nbsp;評分星星
+      <span style="color:#E8C158;font-size:12px;">★★★☆☆</span>&nbsp;評分星星
     </div>
     <div class="legend-item">
       <span style="font-size:11px; color:#fca5a5; font-weight:700;">NEW</span>
@@ -426,7 +443,7 @@ const DATES    = ["2026-08-31", "2026-08-28", "2026-08-27", "2026-08-26", "2026-
 
 // ── 色彩：score > 3 → 金色，score 1–3 → 藍色 ──
 function tileColor(score) {
-  return score > 3.0 ? "#ffd700" : "#0f4c81";
+  return score > 3.0 ? "#E8C158" : "#0f4c81";
 }
 
 // 星星字串：Math.round(score) 顆實心星 + 空心補足至 5 顆
@@ -558,7 +575,7 @@ function renderTreemap(dateStr) {
     // 星星評分
     if (showStars) {
       const starY   = (showName ? nameY : cy + fontSize * 0.55) + 14;
-      const starClr = score > 3.0 ? '#7c3a00' : '#ffd700';
+      const starClr = score > 3.0 ? '#7c3a00' : '#E8C158';
       g.append("text")
         .attr("x", cx).attr("y", starY)
         .attr("text-anchor", "middle")
@@ -606,7 +623,7 @@ function buildScoreCards(scores, direction) {
   const marker = isUp ? "↑" : "↓";
   const entries = Object.entries(scores).filter(([label]) => label.includes(marker));
   if (entries.length === 0) {
-    return `<div style="color:#8b949e;font-size:12px;padding:8px;">（無資料）</div>`;
+    return `<div style="color:#9AA4B2;font-size:12px;padding:8px;">（無資料）</div>`;
   }
   return entries.map(([label, score]) => {
     const cls  = isUp ? "up-val" : "dn-val";
