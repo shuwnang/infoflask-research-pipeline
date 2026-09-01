@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>短天籌碼組合</title>
+  <style>
+    :root {
+      --bg:#0A0C10; --surface:#12151C; --surface-2:#171B24; --surface-3:#1D2330;
+      --border:#232936; --border-strong:#2E3646;
+      --text:#E7EBF2; --text-2:#9AA4B2; --text-3:#5C6675;
+      --accent:#E8C158; --accent-soft:rgba(232,193,88,0.10); --link:#6CA8FF;
+      --up:#F0544C; --dn:#3FBF7F;
+    }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    body {
+      background: radial-gradient(1200px 600px at 100% -10%, rgba(108,168,255,0.05), transparent 60%), var(--bg);
+      color:var(--text);
+      font-family:"Inter","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
+      -webkit-font-smoothing:antialiased; font-variant-numeric:tabular-nums;
+      min-height:100dvh;
+    }
+    header {
+      display:flex; align-items:center; flex-wrap:wrap; gap:14px; padding:12px 22px;
+      background:rgba(10,12,16,0.88); backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--border); position:sticky; top:0; z-index:20;
+    }
+    .brand { font-size:17px; font-weight:900; color:#fff; letter-spacing:0.08em; white-space:nowrap; }
+    .brand-page { font-size:13px; font-weight:500; color:var(--text-3); margin-left:2px; }
+    .site-nav { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+    .nav-link {
+      color:var(--text-2); text-decoration:none; font-size:13px; font-weight:500;
+      padding:5px 14px; border:1px solid var(--border); border-radius:999px;
+      white-space:nowrap; transition:all .15s ease;
+    }
+    .nav-link:hover { color:var(--text); border-color:var(--border-strong); background:var(--surface-2); }
+    .date-badge { font-size:12px; color:var(--text-3); white-space:nowrap; margin-left:auto; }
+    .subtitle { padding:10px 24px 0; font-size:12.5px; color:var(--text-2); }
+    .stats-row {
+      display:flex; gap:14px; flex-wrap:wrap; padding:14px 24px 4px;
+    }
+    .stat {
+      background:linear-gradient(180deg,#151A23 0%,var(--surface) 100%);
+      border:1px solid var(--border); border-radius:12px; padding:12px 20px;
+      display:flex; flex-direction:column; gap:4px; min-width:130px;
+    }
+    .stat .lbl { font-size:11px; color:var(--text-3); letter-spacing:.08em; }
+    .stat .val { font-size:1.35rem; font-weight:800; line-height:1; font-variant-numeric:tabular-nums; }
+    .stat .sub { font-size:.72rem; color:var(--text-3); }
+    .pos { color:var(--up); } .neg { color:var(--dn); }
+    h2 { font-size:14px; color:var(--text-2); font-weight:700; letter-spacing:.05em; padding:18px 24px 8px; }
+    .table-wrap {
+      margin:0 16px 8px; border:1px solid var(--border); border-radius:14px;
+      background:var(--surface); overflow-x:auto;
+    }
+    table { width:100%; border-collapse:collapse; font-size:13px; }
+    thead th {
+      background:var(--surface-2); color:var(--text-3); font-weight:600; font-size:11px;
+      text-transform:uppercase; letter-spacing:0.08em; padding:10px 14px;
+      border-bottom:1px solid var(--border); white-space:nowrap; text-align:center;
+    }
+    tbody tr { border-bottom:1px solid #1A1F29; }
+    tbody tr:last-child { border-bottom:none; }
+    tbody tr:hover { background:var(--surface-2); }
+    td { padding:9px 14px; text-align:center; white-space:nowrap; }
+    td.l { text-align:left; }
+    .yq-link { color:var(--link); text-decoration:none; font-weight:700; }
+    .yq-link:hover { text-decoration:underline; }
+    .badge {
+      display:inline-block; padding:2px 10px; border-radius:999px;
+      font-size:11px; font-weight:700; letter-spacing:.05em;
+    }
+    .badge.up   { background:rgba(240,84,76,0.12); color:var(--up); border:1px solid rgba(240,84,76,0.35); }
+    .badge.dn   { background:rgba(63,191,127,0.12); color:var(--dn); border:1px solid rgba(63,191,127,0.35); }
+    .badge.gold { background:var(--accent-soft); color:var(--accent); border:1px solid rgba(232,193,88,0.35); }
+    footer { padding:16px 24px 24px; font-size:11.5px; color:var(--text-3); }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">INFOFLASK<span class="brand-page">｜短天籌碼組合</span></div>
+  <nav class="site-nav">
+    <a href="index.html" class="nav-link">首頁</a>
+    <a href="scores.html" class="nav-link">評分表</a>
+    <a href="holdings.html" class="nav-link">模型持股</a>
+    <a href="sub.html" class="nav-link">副模型持股</a>
+    <a href="realized.html" class="nav-link">已實現損益</a>
+    <a href="performance.html" class="nav-link">績效表</a>
+    <a href="trend.html" class="nav-link">排名趨勢</a>
+    <a href="market.html" class="nav-link">大盤觀測</a>
+    <a href="news/index.html" class="nav-link">新聞</a>
+    <a href="short3d.html" class="nav-link" style="border-style:dashed">短天組合持股</a>
+  </nav>
+  <div class="date-badge">資料日期：2026-08-31</div>
+</header>
+<div class="subtitle">c3bk 分點 3 日模型 ── Top10 進、跌出 30 出,10 槽（半年重訓無 in-sample）（模擬帳本自 2026-01-01 起,含手續費與證交稅,T+1 開盤成交,每日 22:00 更新）</div>
+<div class="stats-row"><div class="stat"><span class="lbl">目前淨值</span><span class="val ">24,722,901</span><span class="sub">本金 10,000,000</span></div><div class="stat"><span class="lbl">累積報酬率</span><span class="val pos">+147.23%</span><span class="sub">2026-01-01 起</span></div><div class="stat"><span class="lbl">今日報酬</span><span class="val pos">+1.15%</span><span class="sub">持倉 10 檔</span></div><div class="stat"><span class="lbl">最大回撤</span><span class="val neg">-16.70%</span><span class="sub">日收盤淨值</span></div><div class="stat"><span class="lbl">已實現交易</span><span class="val ">232</span><span class="sub">勝率 50.9%</span></div></div>
+<h2>目前持股（10 檔）</h2>
+<div class="table-wrap"><table>
+  <thead><tr><th>代號</th><th>名稱</th><th>艙位</th><th>買入日期</th><th>買入價</th><th>現價</th><th>累計報酬</th><th>持有天數</th></tr></thead>
+  <tbody><tr><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/8039.TW" target="_blank" rel="noopener">8039</a></td><td class="l">台虹</td><td><span class="badge gold">籌碼</span></td><td>2026-08-04</td><td>191.50</td><td>327.00</td><td class="pos" style="font-weight:700">+70.10%</td><td>27</td></tr><tr><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3605.TW" target="_blank" rel="noopener">3605</a></td><td class="l">宏致</td><td><span class="badge gold">籌碼</span></td><td>2026-08-05</td><td>91.87</td><td>139.00</td><td class="pos" style="font-weight:700">+50.71%</td><td>26</td></tr><tr><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3008.TW" target="_blank" rel="noopener">3008</a></td><td class="l">大立光</td><td><span class="badge gold">籌碼</span></td><td>2026-08-21</td><td>5,520.00</td><td>7,650.00</td><td class="pos" style="font-weight:700">+38.05%</td><td>10</td></tr><tr><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2546.TW" target="_blank" rel="noopener">2546</a></td><td class="l">根基</td><td><span class="badge gold">籌碼</span></td><td>2026-07-29</td><td>82.32</td><td>106.50</td><td class="pos" style="font-weight:700">+28.87%</td><td>33</td></tr><tr><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3406.TW" target="_blank" rel="noopener">3406</a></td><td class="l">玉晶光</td><td><span class="badge gold">籌碼</span></td><td>2026-08-28</td><td>840.00</td><td>1,005.00</td><td class="pos" style="font-weight:700">+19.18%</td><td>3</td></tr><tr><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3234.TWO" target="_blank" rel="noopener">3234</a></td><td class="l">光環</td><td><span class="badge gold">籌碼</span></td><td>2026-08-26</td><td>179.50</td><td>185.00</td><td class="pos" style="font-weight:700">+2.67%</td><td>5</td></tr><tr><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2426.TW" target="_blank" rel="noopener">2426</a></td><td class="l">鼎元</td><td><span class="badge gold">籌碼</span></td><td>2026-08-28</td><td>99.00</td><td>97.80</td><td class="neg" style="font-weight:700">-1.59%</td><td>3</td></tr><tr><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2031.TW" target="_blank" rel="noopener">2031</a></td><td class="l">新光鋼</td><td><span class="badge gold">籌碼</span></td><td>2026-08-14</td><td>46.00</td><td>45.00</td><td class="neg" style="font-weight:700">-2.55%</td><td>17</td></tr><tr><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2851.TW" target="_blank" rel="noopener">2851</a></td><td class="l">中再保</td><td><span class="badge gold">籌碼</span></td><td>2026-08-21</td><td>48.50</td><td>46.20</td><td class="neg" style="font-weight:700">-5.11%</td><td>10</td></tr><tr><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2637.TW" target="_blank" rel="noopener">2637</a></td><td class="l">慧洋-KY</td><td><span class="badge gold">籌碼</span></td><td>2026-08-24</td><td>103.00</td><td>94.10</td><td class="neg" style="font-weight:700">-8.99%</td><td>7</td></tr></tbody>
+</table></div>
+<h2>已實現交易（近 40 筆,共 232 筆）</h2>
+<div class="table-wrap"><table>
+  <thead><tr><th>賣出日</th><th>代號</th><th>名稱</th><th>艙位</th><th>買入日</th><th>買入價</th><th>賣出價</th><th>損益</th><th>持有天數</th></tr></thead>
+  <tbody><tr><td>2026-08-28</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2606.TW" target="_blank" rel="noopener">2606</a></td><td class="l">裕民</td><td><span class="badge gold">籌碼</span></td><td>2026-08-25</td><td>74.00</td><td>73.80</td><td class="neg" style="font-weight:700">-0.65%</td><td>3</td></tr><tr><td>2026-08-28</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/5607.TW" target="_blank" rel="noopener">5607</a></td><td class="l">遠雄港</td><td><span class="badge gold">籌碼</span></td><td>2026-08-21</td><td>55.30</td><td>52.60</td><td class="neg" style="font-weight:700">-5.25%</td><td>7</td></tr><tr><td>2026-08-26</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2359.TW" target="_blank" rel="noopener">2359</a></td><td class="l">所羅門</td><td><span class="badge gold">籌碼</span></td><td>2026-08-14</td><td>157.50</td><td>145.00</td><td class="neg" style="font-weight:700">-8.29%</td><td>12</td></tr><tr><td>2026-08-25</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2426.TW" target="_blank" rel="noopener">2426</a></td><td class="l">鼎元</td><td><span class="badge gold">籌碼</span></td><td>2026-08-24</td><td>84.90</td><td>82.20</td><td class="neg" style="font-weight:700">-3.55%</td><td>1</td></tr><tr><td>2026-08-24</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/5314.TWO" target="_blank" rel="noopener">5314</a></td><td class="l">世紀*</td><td><span class="badge gold">籌碼</span></td><td>2026-08-20</td><td>23.65</td><td>28.60</td><td class="pos" style="font-weight:700">+20.46%</td><td>4</td></tr><tr><td>2026-08-24</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/1909.TW" target="_blank" rel="noopener">1909</a></td><td class="l">榮成</td><td><span class="badge gold">籌碼</span></td><td>2026-08-20</td><td>11.15</td><td>11.20</td><td class="pos" style="font-weight:700">+0.06%</td><td>4</td></tr><tr><td>2026-08-21</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3406.TW" target="_blank" rel="noopener">3406</a></td><td class="l">玉晶光</td><td><span class="badge gold">籌碼</span></td><td>2026-08-14</td><td>623.00</td><td>653.00</td><td class="pos" style="font-weight:700">+4.41%</td><td>7</td></tr><tr><td>2026-08-21</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6214.TW" target="_blank" rel="noopener">6214</a></td><td class="l">精誠</td><td><span class="badge gold">籌碼</span></td><td>2026-08-19</td><td>174.50</td><td>179.50</td><td class="pos" style="font-weight:700">+2.47%</td><td>2</td></tr><tr><td>2026-08-21</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2880.TW" target="_blank" rel="noopener">2880</a></td><td class="l">華南金</td><td><span class="badge gold">籌碼</span></td><td>2026-08-17</td><td>38.60</td><td>38.65</td><td class="neg" style="font-weight:700">-0.26%</td><td>4</td></tr><tr><td>2026-08-20</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/1303.TW" target="_blank" rel="noopener">1303</a></td><td class="l">南亞</td><td><span class="badge gold">籌碼</span></td><td>2026-08-17</td><td>213.50</td><td>190.50</td><td class="neg" style="font-weight:700">-11.12%</td><td>3</td></tr><tr><td>2026-08-20</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/5904.TWO" target="_blank" rel="noopener">5904</a></td><td class="l">寶雅</td><td><span class="badge gold">籌碼</span></td><td>2026-08-12</td><td>90.60</td><td>77.50</td><td class="neg" style="font-weight:700">-14.79%</td><td>8</td></tr><tr><td>2026-08-19</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6206.TW" target="_blank" rel="noopener">6206</a></td><td class="l">飛捷</td><td><span class="badge gold">籌碼</span></td><td>2026-08-17</td><td>142.50</td><td>142.50</td><td class="neg" style="font-weight:700">-0.39%</td><td>2</td></tr><tr><td>2026-08-17</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/4736.TW" target="_blank" rel="noopener">4736</a></td><td class="l">泰博</td><td><span class="badge gold">籌碼</span></td><td>2026-08-13</td><td>120.72</td><td>122.90</td><td class="pos" style="font-weight:700">+1.42%</td><td>4</td></tr><tr><td>2026-08-17</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2464.TW" target="_blank" rel="noopener">2464</a></td><td class="l">盟立</td><td><span class="badge gold">籌碼</span></td><td>2026-08-13</td><td>198.00</td><td>197.00</td><td class="neg" style="font-weight:700">-0.89%</td><td>4</td></tr><tr><td>2026-08-17</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/1590.TW" target="_blank" rel="noopener">1590</a></td><td class="l">亞德客-KY</td><td><span class="badge gold">籌碼</span></td><td>2026-08-11</td><td>1,565.00</td><td>1,440.00</td><td class="neg" style="font-weight:700">-8.34%</td><td>6</td></tr><tr><td>2026-08-14</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3702.TW" target="_blank" rel="noopener">3702</a></td><td class="l">大聯大</td><td><span class="badge gold">籌碼</span></td><td>2026-08-13</td><td>118.36</td><td>120.29</td><td class="pos" style="font-weight:700">+1.24%</td><td>1</td></tr><tr><td>2026-08-14</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/4147.TWO" target="_blank" rel="noopener">4147</a></td><td class="l">中裕</td><td><span class="badge gold">籌碼</span></td><td>2026-08-13</td><td>66.50</td><td>65.20</td><td class="neg" style="font-weight:700">-2.33%</td><td>1</td></tr><tr><td>2026-08-14</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2886.TW" target="_blank" rel="noopener">2886</a></td><td class="l">兆豐金</td><td><span class="badge gold">籌碼</span></td><td>2026-08-03</td><td>50.42</td><td>45.85</td><td class="neg" style="font-weight:700">-9.42%</td><td>11</td></tr><tr><td>2026-08-13</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/1303.TW" target="_blank" rel="noopener">1303</a></td><td class="l">南亞</td><td><span class="badge gold">籌碼</span></td><td>2026-08-06</td><td>174.00</td><td>191.00</td><td class="pos" style="font-weight:700">+9.35%</td><td>7</td></tr><tr><td>2026-08-13</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3022.TW" target="_blank" rel="noopener">3022</a></td><td class="l">威強電</td><td><span class="badge gold">籌碼</span></td><td>2026-08-07</td><td>97.34</td><td>102.64</td><td class="pos" style="font-weight:700">+5.04%</td><td>6</td></tr><tr><td>2026-08-13</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2031.TW" target="_blank" rel="noopener">2031</a></td><td class="l">新光鋼</td><td><span class="badge gold">籌碼</span></td><td>2026-08-10</td><td>45.70</td><td>45.80</td><td class="neg" style="font-weight:700">-0.17%</td><td>3</td></tr><tr><td>2026-08-13</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3704.TW" target="_blank" rel="noopener">3704</a></td><td class="l">合勤控</td><td><span class="badge gold">籌碼</span></td><td>2026-08-11</td><td>47.20</td><td>42.85</td><td class="neg" style="font-weight:700">-9.57%</td><td>2</td></tr><tr><td>2026-08-12</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2359.TW" target="_blank" rel="noopener">2359</a></td><td class="l">所羅門</td><td><span class="badge gold">籌碼</span></td><td>2026-08-11</td><td>150.00</td><td>140.00</td><td class="neg" style="font-weight:700">-7.03%</td><td>1</td></tr><tr><td>2026-08-11</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2059.TW" target="_blank" rel="noopener">2059</a></td><td class="l">川湖</td><td><span class="badge gold">籌碼</span></td><td>2026-08-07</td><td>11,070.95</td><td>11,658.88</td><td class="pos" style="font-weight:700">+4.90%</td><td>4</td></tr><tr><td>2026-08-11</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6414.TW" target="_blank" rel="noopener">6414</a></td><td class="l">樺漢</td><td><span class="badge gold">籌碼</span></td><td>2026-08-07</td><td>467.50</td><td>474.00</td><td class="pos" style="font-weight:700">+1.00%</td><td>4</td></tr><tr><td>2026-08-11</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2850.TW" target="_blank" rel="noopener">2850</a></td><td class="l">新產</td><td><span class="badge gold">籌碼</span></td><td>2026-08-05</td><td>159.00</td><td>161.00</td><td class="pos" style="font-weight:700">+0.87%</td><td>6</td></tr><tr><td>2026-08-10</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6206.TW" target="_blank" rel="noopener">6206</a></td><td class="l">飛捷</td><td><span class="badge gold">籌碼</span></td><td>2026-08-06</td><td>148.50</td><td>147.50</td><td class="neg" style="font-weight:700">-1.06%</td><td>4</td></tr><tr><td>2026-08-07</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6768.TW" target="_blank" rel="noopener">6768</a></td><td class="l">志強-KY</td><td><span class="badge gold">籌碼</span></td><td>2026-08-05</td><td>66.00</td><td>66.80</td><td class="pos" style="font-weight:700">+0.82%</td><td>2</td></tr><tr><td>2026-08-07</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2849.TW" target="_blank" rel="noopener">2849</a></td><td class="l">安泰銀</td><td><span class="badge gold">籌碼</span></td><td>2026-07-29</td><td>14.95</td><td>14.35</td><td class="neg" style="font-weight:700">-4.38%</td><td>9</td></tr><tr><td>2026-08-07</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3231.TW" target="_blank" rel="noopener">3231</a></td><td class="l">緯創</td><td><span class="badge gold">籌碼</span></td><td>2026-08-05</td><td>198.00</td><td>188.00</td><td class="neg" style="font-weight:700">-5.42%</td><td>2</td></tr><tr><td>2026-08-06</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3035.TW" target="_blank" rel="noopener">3035</a></td><td class="l">智原</td><td><span class="badge gold">籌碼</span></td><td>2026-08-04</td><td>160.00</td><td>170.50</td><td class="pos" style="font-weight:700">+6.15%</td><td>2</td></tr><tr><td>2026-08-06</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/8261.TW" target="_blank" rel="noopener">8261</a></td><td class="l">富鼎</td><td><span class="badge gold">籌碼</span></td><td>2026-08-04</td><td>171.50</td><td>177.50</td><td class="pos" style="font-weight:700">+3.10%</td><td>2</td></tr><tr><td>2026-08-05</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3026.TW" target="_blank" rel="noopener">3026</a></td><td class="l">禾伸堂</td><td><span class="badge gold">籌碼</span></td><td>2026-08-04</td><td>479.50</td><td>525.00</td><td class="pos" style="font-weight:700">+9.07%</td><td>1</td></tr><tr><td>2026-08-05</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6505.TW" target="_blank" rel="noopener">6505</a></td><td class="l">台塑化</td><td><span class="badge gold">籌碼</span></td><td>2026-08-04</td><td>65.60</td><td>67.60</td><td class="pos" style="font-weight:700">+2.65%</td><td>1</td></tr><tr><td>2026-08-05</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2834.TW" target="_blank" rel="noopener">2834</a></td><td class="l">臺企銀</td><td><span class="badge gold">籌碼</span></td><td>2026-08-04</td><td>16.80</td><td>16.95</td><td class="pos" style="font-weight:700">+0.50%</td><td>1</td></tr><tr><td>2026-08-05</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/4583.TW" target="_blank" rel="noopener">4583</a></td><td class="l">台灣精銳</td><td><span class="badge gold">籌碼</span></td><td>2026-07-30</td><td>493.00</td><td>491.50</td><td class="neg" style="font-weight:700">-0.69%</td><td>6</td></tr><tr><td>2026-08-04</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/5439.TWO" target="_blank" rel="noopener">5439</a></td><td class="l">高技</td><td><span class="badge gold">籌碼</span></td><td>2026-07-30</td><td>192.50</td><td>214.00</td><td class="pos" style="font-weight:700">+10.74%</td><td>5</td></tr><tr><td>2026-08-04</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3013.TW" target="_blank" rel="noopener">3013</a></td><td class="l">晟銘電</td><td><span class="badge gold">籌碼</span></td><td>2026-07-30</td><td>71.20</td><td>78.40</td><td class="pos" style="font-weight:700">+9.69%</td><td>5</td></tr><tr><td>2026-08-04</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6269.TW" target="_blank" rel="noopener">6269</a></td><td class="l">台郡</td><td><span class="badge gold">籌碼</span></td><td>2026-08-03</td><td>49.00</td><td>53.50</td><td class="pos" style="font-weight:700">+8.76%</td><td>1</td></tr><tr><td>2026-08-04</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/5314.TWO" target="_blank" rel="noopener">5314</a></td><td class="l">世紀*</td><td><span class="badge gold">籌碼</span></td><td>2026-07-31</td><td>12.13</td><td>13.23</td><td class="pos" style="font-weight:700">+8.71%</td><td>4</td></tr></tbody>
+</table></div>
+<footer>回測口徑：半年重訓（訓至 2025 預測上半年／訓至 2026-06 預測下半年）、全程無 in-sample;買賣以訊號次一交易日還原開盤價成交;費用 0.1425%×0.3 買賣＋賣出稅 0.3%。本頁為觀察追蹤,非投資建議。</footer>
+</body>
+</html>
