@@ -2,40 +2,46 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>投資績效 | 2026-09-01</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>績效表</title>
 <style>
-  :root {
-    --bg:#0A0C10; --surface:#12151C; --surface-2:#171B24; --surface-3:#1D2330;
-    --border:#232936; --border-strong:#2E3646;
-    --text:#E7EBF2; --text-2:#9AA4B2; --text-3:#5C6675;
-    --accent:#E8C158; --accent-soft:rgba(232,193,88,0.10);
-    --link:#6CA8FF;
-    --up:#F0544C; --up-bg:#1D0F0E; --dn:#3FBF7F; --dn-bg:#0C1B14;
-    --warn:#F5A524; --risk:#F0544C;
-  }
+
+    :root {
+      --bg:#0A0C10; --surface:#12151C; --surface-2:#171B24; --surface-3:#1D2330;
+      --surface-grad:#151A23; --row-line:#1A1F29;
+      --border:#232936; --border-strong:#2E3646;
+      --text:#E7EBF2; --text-2:#9AA4B2; --text-3:#5C6675;
+      --accent:#E8C158; --accent-soft:rgba(232,193,88,0.10); --link:#6CA8FF;
+      --up:#F0544C; --up-bright:#FF7B72; --up-bg:#1D0F0E;
+      --dn:#3FBF7F; --dn-bright:#5CD99A; --dn-bg:#0C1B14;
+      --warn:#F5A524; --risk:#F0544C;
+      --sb-thumb:#2A3140; --sb-thumb-h:#38424F;
+      --grp-hv:#FF9E97; --grp-bk:#E8C158; --grp-hf:#B48CFF; --grp-hb:#4FD8C8;
+    }
+    ::-webkit-scrollbar { width:8px; height:8px; }
+    ::-webkit-scrollbar-thumb { background:var(--sb-thumb); border-radius:4px; }
+    ::-webkit-scrollbar-thumb:hover { background:var(--sb-thumb-h); }
+    ::-webkit-scrollbar-track { background:transparent; }
+    ::selection { background:rgba(108,168,255,0.28); }
+
   *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
   body {
     background:
-      radial-gradient(1200px 600px at 100% -10%, rgba(108,168,255,0.06), transparent 60%),
+      radial-gradient(1200px 600px at 100% -10%, rgba(108,168,255,0.05), transparent 60%),
       var(--bg);
     color:var(--text);
     font-family:"Inter","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
     -webkit-font-smoothing:antialiased;
     font-variant-numeric:tabular-nums;
-    min-height:100vh;
+    min-height:100dvh;
   }
-  ::-webkit-scrollbar { width:8px; height:8px; }
-  ::-webkit-scrollbar-thumb { background:#2A3140; border-radius:4px; }
-  ::-webkit-scrollbar-thumb:hover { background:#38424F; }
-  ::-webkit-scrollbar-track { background:transparent; }
   /* Header — 與其他頁一致的全寬列 */
   header {
     display:flex; align-items:center; gap:14px; flex-wrap:wrap;
     padding:12px 22px;
     background:rgba(10,12,16,0.88); backdrop-filter:blur(12px);
     border-bottom:1px solid var(--border);
-    position:sticky; top:0; z-index:50;
+    position:sticky; top:0; z-index:20;
   }
   .brand { font-size:17px; font-weight:900; color:#fff; letter-spacing:0.08em; white-space:nowrap; }
   .brand-page { font-size:13px; font-weight:500; color:var(--text-3); margin-left:2px; }
@@ -55,24 +61,40 @@
   /* 統計卡列 */
   .stats-row { display:flex; flex-wrap:wrap; gap:12px; padding:6px 0 22px; }
   .stat {
-    display:flex; flex-direction:column; gap:4px;
-    background:linear-gradient(180deg,#151A23 0%, var(--surface) 100%);
-    border:1px solid var(--border); border-radius:12px; padding:14px 20px;
-    box-shadow:0 10px 30px -18px rgba(0,0,0,0.7);
+    display:flex; flex-direction:column; gap:4px; min-width:130px;
+    background:linear-gradient(180deg,var(--surface-grad) 0%, var(--surface) 100%);
+    border:1px solid var(--border); border-radius:12px; padding:12px 20px;
   }
   .stat .lbl { font-size:11px; color:var(--text-3); letter-spacing:.08em; }
-  .stat .val { font-size:1.5rem; font-weight:800; letter-spacing:-0.01em; line-height:1; font-variant-numeric:tabular-nums; }
+  .stat .val { font-size:1.35rem; font-weight:800; line-height:1; font-variant-numeric:tabular-nums; }
   .stat .sub { font-size:.72rem; color:var(--text-3); }
 
   /* 圖表卡（頁面主角） */
   .chart {
-    background:linear-gradient(180deg,#151A23 0%, var(--surface) 100%);
+    background:linear-gradient(180deg,var(--surface-grad) 0%, var(--surface) 100%);
     border:1px solid var(--border); border-radius:16px; padding:20px 22px;
     box-shadow:0 10px 30px -18px rgba(0,0,0,0.7);
   }
   .chart h2 { font-size:.9rem; color:var(--text-2); font-weight:600; margin-bottom:10px; letter-spacing:.02em; }
-  footer { color:var(--text-3); font-size:.74rem; margin-top:18px; text-align:center; }
-  ::selection { background:rgba(108,168,255,0.28); }
+  footer { color:var(--text-3); font-size:11.5px; margin-top:18px; border-top:1px solid var(--border); padding-top:12px; }
+
+    @media (max-width: 768px) {
+      header { padding:10px 12px; gap:8px; }
+      .brand { font-size:15px; }
+      .site-nav { gap:6px; }
+      .nav-link { padding:4px 10px; font-size:12px; }
+      .date-badge { flex-basis:100%; margin-left:0; }
+      .subtitle { padding-left:12px; padding-right:12px; }
+      .stats-row { padding:12px 12px 4px; gap:8px; }
+      .stat { min-width:calc(50% - 8px); flex:1; padding:10px 12px; }
+      h2 { padding-left:12px; padding-right:12px; }
+      .actions-row { padding:0 12px; }
+      .table-wrap { margin:0 8px 8px; border-radius:10px; }
+      td, thead th { padding:8px 8px; }
+      footer { padding:14px 12px 20px; }
+    }
+
+  @media (max-width: 768px) { .wrap { padding:14px 10px 32px; } .chart { padding:14px 10px; } }
 </style>
 </head>
 <body>
@@ -80,7 +102,7 @@
     <div class="brand">INFOFLASK<span class="brand-page">｜績效表</span></div>
     <nav class="site-nav">
       <a href="index.html" class="nav-link">首頁</a>
-    <a href="scores.html" class="nav-link">評分表</a>
+      <a href="scores.html" class="nav-link">評分表</a>
       <a href="holdings.html" class="nav-link">高波動能</a>
       <a href="sub.html" class="nav-link">籌碼趨勢</a>
       <a href="short3d.html" class="nav-link">高頻動能</a>
@@ -88,7 +110,7 @@
       <a href="performance.html" class="nav-link active">績效表</a>
       <a href="market.html" class="nav-link">大盤觀測</a>
       <a href="reports.html" class="nav-link">研究報告</a>
-    <a href="news/index.html" class="nav-link">新聞</a>
+      <a href="news/index.html" class="nav-link">新聞</a>
     </nav>
     <span class="spacer"></span>
     <span class="date-badge">2026-09-01｜2026-01-02 起・初始 1,000 萬</span>

@@ -1,71 +1,38 @@
-# INFOFLASK 統一設計規格 v1（2026-07-22）
+# INFOFLASK 統一設計規格 v2（2026-09-02）
 
-全站 7 頁（index/scores/holdings/realized/performance/trend/market）共用。
-目標：現代、簡潔、質感。**只改設計，資料內容/JS 邏輯/連結一律不動。**
+全站 10 頁（index/scores/holdings/sub/short3d/shortbk/performance/market/reports/news*）共用。
+**真相源：`holdings_common.py`** —— `TOKENS_CSS`（色彩+捲軸+selection）、`MEDIA_CSS`（≤768px 響應式層）、`FOOTER_TEXT`（標準免責）。各產生器以 `__COMMON_CSS__`/`__MEDIA_CSS__` 佔位符（或直接 import）注入；新聞線 `news/edition/web.py` 亦 import 同一份。**改色一律改 holdings_common，禁止在各頁散寫 hex。**
 
-## 色彩 Tokens
+## 色彩 Tokens（完整集，全頁一致）
+
+v1 基礎集不變（--bg #0A0C10 / --surface #12151C / --surface-2 #171B24 / --surface-3 #1D2330 / --border #232936 / --border-strong #2E3646 / --text #E7EBF2 / --text-2 #9AA4B2 / --text-3 #5C6675 / --accent #E8C158 / --accent-soft / --link #6CA8FF / --up #F0544C / --dn #3FBF7F …），v2 收編新增：
 
 | Token | 值 | 用途 |
 |---|---|---|
-| --bg | `#0A0C10` | 頁面背景（深近黑） |
-| --surface | `#12151C` | 卡片/表格底 |
-| --surface-2 | `#171B24` | 表頭/次層/chip 底 |
-| --surface-3 | `#1D2330` | hover 底 |
-| --border | `#232936` | 邊框（1px） |
-| --border-strong | `#2E3646` | hover 邊框 |
-| --text | `#E7EBF2` | 主文字 |
-| --text-2 | `#9AA4B2` | 次要文字 |
-| --text-3 | `#5C6675` | 弱化文字（註記/日期） |
-| --accent | `#E8C158` | 金（品牌強調、active、高分）——取代舊 #ffd700 |
-| --accent-soft | `rgba(232,193,88,0.10)` | 金底 |
-| --link | `#6CA8FF` | 連結/藍強調——取代舊 #79b8ff/#58a6ff |
-| --up | `#F0544C` | 台股紅=漲/賺（文字），亮版 `#FF7B72` |
-| --up-bg | `#1D0F0E` | 賺錢列底 |
-| --dn | `#3FBF7F` | 台股綠=跌/虧（文字），亮版 `#5CD99A` |
-| --dn-bg | `#0C1B14` | 虧損列底 |
-| --warn | `#F5A524` | 警示橘 |
-| --risk | `#F0544C` | 高風險紅 |
+| --surface-grad | `#151A23` | 卡片漸層頂（原裸 hex） |
+| --row-line | `#1A1F29` | 表格列分隔線（原裸 hex） |
+| --sb-thumb / --sb-thumb-h | `#2A3140` / `#38424F` | 捲軸 |
+| --grp-hv / --grp-bk / --grp-hf / --grp-hb | `#FF9E97` / `#E8C158` / `#B48CFF` / `#4FD8C8` | 四模型組識別色（評分表表頭/首頁帳本卡） |
+| --up-bright / --dn-bright | `#FF7B72` / `#5CD99A` | 亮版漲跌（新聞情緒沿用） |
+| --up-bg / --dn-bg / --warn / --risk | 同 v1 | 全頁皆備（v1 時代每頁配備不一） |
 
-漲跌紅綠語意（台股慣例）不可對調。舊色系（#0d1117/#161b22/#21262d/#262c36/#8b949e/#ffd700/#79b8ff/#f85149/#3fb950/#ef4444/#22c55e/#f87171/#4ade80…）全部映射到上表最接近的 token。
+台股紅漲綠跌不可對調。新聞線情緒色已歸隊（bull=--up-bright／bear=--dn-bright）。
 
-## 字體與數字
+## 全站統一規範（v2 定案）
 
-- `font-family: "Inter","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;`
-- 全域 `-webkit-font-smoothing: antialiased;`
-- 所有數字欄位/大數字加 `font-variant-numeric: tabular-nums;`
-- 標題字距 `letter-spacing: 0.02em`；表頭/標籤小字 `11px、letter-spacing 0.08em`（可 uppercase 英文）
+- **viewport**：`initial-scale=1.0`；**body**：字體堆疊同 v1＋`-webkit-font-smoothing:antialiased`＋`font-variant-numeric:tabular-nums`＋`min-height:100dvh`＋藍暈背景 `radial-gradient(1200px 600px at 100% -10%, rgba(108,168,255,0.05), transparent 60%)`（scores 為 app-shell 例外：`height:100dvh; overflow:hidden`）
+- **Header（每頁）**：sticky top-0 z-20、`rgba(10,12,16,0.88)+blur(12px)`；`.brand`「INFOFLASK」+`.brand-page`「｜{頁名}」（nowrap）；`.site-nav`>10 顆 `.nav-link` 藥丸，順序：首頁/評分表/高波動能/籌碼趨勢/高頻動能/高頻籌碼/績效表/大盤觀測/研究報告/新聞（=holdings_common.NAV_ITEMS，改導覽只改那裡）
+- **統計卡**：`.stats-row > .stat > (.lbl/.val/.sub)`；val `1.35rem/800`、padding `12px 20px`、min-width 130px、漸層底（market 舊 `.chips/.chip/.lab` 已收編）
+- **表格**：`.table-wrap`（overflow-x:auto、圓角 14、外框）；sticky thead（surface-2 / 11px / 0.08em）；列線 `var(--row-line)`；首頁 mini-table 外包 `.table-scroll`
+- **Footer（每頁必備）**：`<footer>` 元素、11.5px、`--text-3`、上邊線 `1px solid var(--border)`，內容含免責句（`FOOTER_TEXT`）；reports/news 已由 div 升級為 `<footer>`
+- **響應式**：`MEDIA_CSS`（≤768px：header/nav 縮距、stat 兩欄、表格 padding 縮、`.date-badge` 換行）＋各頁一行頁專屬補充；v1 時代全站 0 條 @media 的缺口已補
+- **容器寬**：閱讀頁（reports/news）880px；儀表頁 index/performance 1180px、market 1280px；資料表頁（scores/四持股）全幅
+- **`<title>`**：與導覽標籤一致（首頁=INFOFLASK；不得帶日期）
 
-## Header（每頁完全一致）
+## 鐵律（沿用 v1 並追加）
 
-```html
-<header>
-  <div class="brand">INFOFLASK<span class="brand-page">｜{頁名}</span></div>
-  <nav class="site-nav"> …7 鈕，順序：首頁/評分表/模型持股/已實現損益/績效表/排名趨勢/大盤觀測… </nav>
-  …（該頁原有的功能元件：日期選單/搜尋/篩選鈕等，照舊保留，只重新上色）
-</header>
-```
-
-- header：`background: rgba(10,12,16,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); position: sticky; top: 0;` padding `12px 22px`
-- `.brand`：`17px / 900 / #fff / letter-spacing 0.08em`；`.brand-page`：`13px / 500 / var(--text-3); margin-left 2px`
-- `.nav-link`：藥丸形 `border-radius 999px; padding 5px 14px; font-size 13px; color: var(--text-2); border: 1px solid var(--border); background: transparent;`
-  - hover：`color: var(--text); border-color: var(--border-strong); background: var(--surface-2);`
-  - active：`color: var(--accent); border-color: var(--accent); background: var(--accent-soft); pointer-events: none;`
-- **各頁 nav 的 href/順序/active 位置不可變**，只改樣式。
-
-## 元件
-
-- **卡片**：`background: linear-gradient(180deg,#151A23 0%, var(--surface) 100%); border:1px solid var(--border); border-radius:16px; padding:20px 22px; box-shadow:0 10px 30px -18px rgba(0,0,0,0.7);` hover（可點卡片）`border-color: var(--border-strong); transform: translateY(-2px);`
-- **表格**：外框 `border:1px solid var(--border); border-radius:14px; overflow:hidden`；表頭 `background: var(--surface-2); color: var(--text-3); 11px; letter-spacing 0.08em;`（sticky 者維持 sticky）；列 `border-bottom:1px solid #1A1F29`；hover `background: var(--surface-3)`；儲存格 padding 維持原有密度
-- **按鈕/篩選鈕/切換鈕**：藥丸形、`background: var(--surface-2); border:1px solid var(--border); color: var(--text-2);` active 態用該功能原本的語意色（金/紅/綠/橘）但底用對應 10% 透明版
-- **chip/統計膠囊**：同卡片語言縮小版，`border-radius 12px`
-- **捲軸**：`width 8px; thumb #2A3140; hover #38424F; track transparent`
-- **selection**：`rgba(108,168,255,0.28)`
-- **警示 banner**（首頁）：`background: rgba(240,84,76,0.10); border:1px solid rgba(240,84,76,0.55);`
-- 圖表 canvas 內的線色/柱色屬於資料語意，維持語意但可映射到本表 token（TAIEX 線→var(--link)、波動柱→var(--warn)、警戒→var(--risk)、分數金/紅/綠→--accent/--up/--dn）
-
-## 鐵律（每個改動者必守）
-
-1. 只動 `<style>` 區塊、inline style、與 header 品牌列 HTML；**資料載入、計算、JS 渲染邏輯、欄位、文案、連結 href、embed/modal 行為一律不碰**。
-2. Python f-string 內的 CSS 大括號是 `{{ }}`，改完必須能無錯執行產生器。
-3. 改完跑一次產生器，用快照比對資料（`<script>` 內 JSON 資料陣列必須逐字元相同；表格列數相同）。
-4. 台股紅賺綠虧不可反。
+1. 只動樣式/模板結構；資料載入、計算、JS 邏輯、欄位、連結 href 一律不碰。
+2. f-string 模板內 CSS 大括號 `{{ }}`；共用 CSS 一律走佔位符 replace（佔位符本身無大括號）。
+3. 改完必跑產生器＋資料快照比對（可見文字與 `<script>` JSON 須等值，白名單差異除外）。
+4. 排名/名次類排序必須決定性（tie-break 末位加代號；2026-09-02 修正評分表平手隨機序）。
+5. 台股紅賺綠虧不可反。

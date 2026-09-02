@@ -7,11 +7,22 @@
   <style>
     :root {
       --bg:#0A0C10; --surface:#12151C; --surface-2:#171B24; --surface-3:#1D2330;
+      --surface-grad:#151A23; --row-line:#1A1F29;
       --border:#232936; --border-strong:#2E3646;
       --text:#E7EBF2; --text-2:#9AA4B2; --text-3:#5C6675;
       --accent:#E8C158; --accent-soft:rgba(232,193,88,0.10); --link:#6CA8FF;
-      --up:#F0544C; --dn:#3FBF7F; --warn:#F5A524;
+      --up:#F0544C; --up-bright:#FF7B72; --up-bg:#1D0F0E;
+      --dn:#3FBF7F; --dn-bright:#5CD99A; --dn-bg:#0C1B14;
+      --warn:#F5A524; --risk:#F0544C;
+      --sb-thumb:#2A3140; --sb-thumb-h:#38424F;
+      --grp-hv:#FF9E97; --grp-bk:#E8C158; --grp-hf:#B48CFF; --grp-hb:#4FD8C8;
     }
+    ::-webkit-scrollbar { width:8px; height:8px; }
+    ::-webkit-scrollbar-thumb { background:var(--sb-thumb); border-radius:4px; }
+    ::-webkit-scrollbar-thumb:hover { background:var(--sb-thumb-h); }
+    ::-webkit-scrollbar-track { background:transparent; }
+    ::selection { background:rgba(108,168,255,0.28); }
+
     *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
     body {
       background: radial-gradient(1200px 600px at 100% -10%, rgba(108,168,255,0.05), transparent 60%), var(--bg);
@@ -39,7 +50,7 @@
     .subtitle { padding:10px 24px 0; font-size:12.5px; color:var(--text-2); }
     .stats-row { display:flex; gap:14px; flex-wrap:wrap; padding:14px 24px 4px; }
     .stat {
-      background:linear-gradient(180deg,#151A23 0%,var(--surface) 100%);
+      background:linear-gradient(180deg,var(--surface-grad) 0%,var(--surface) 100%);
       border:1px solid var(--border); border-radius:12px; padding:12px 20px;
       display:flex; flex-direction:column; gap:4px; min-width:130px;
     }
@@ -79,7 +90,7 @@
       text-transform:uppercase; letter-spacing:0.08em; padding:10px 14px;
       border-bottom:1px solid var(--border); white-space:nowrap; text-align:center;
     }
-    tbody tr { border-bottom:1px solid #1A1F29; transition:background 0.10s; }
+    tbody tr { border-bottom:1px solid var(--row-line); transition:background 0.10s; }
     tbody tr:last-child { border-bottom:none; }
     tbody tr:hover { background:var(--surface-2); }
     tbody tr.row-buy  { background:rgba(245,165,36,0.06); }
@@ -100,7 +111,23 @@
     .act-hold { color:var(--text-3); }
     .act-buy  { color:var(--warn); }
     .act-sell { color:var(--text-2); }
-    footer { padding:16px 24px 24px; font-size:11.5px; color:var(--text-3); }
+    footer { padding:16px 24px 24px; font-size:11.5px; color:var(--text-3); border-top:1px solid var(--border); margin-top:10px; }
+
+    @media (max-width: 768px) {
+      header { padding:10px 12px; gap:8px; }
+      .brand { font-size:15px; }
+      .site-nav { gap:6px; }
+      .nav-link { padding:4px 10px; font-size:12px; }
+      .date-badge { flex-basis:100%; margin-left:0; }
+      .subtitle { padding-left:12px; padding-right:12px; }
+      .stats-row { padding:12px 12px 4px; gap:8px; }
+      .stat { min-width:calc(50% - 8px); flex:1; padding:10px 12px; }
+      h2 { padding-left:12px; padding-right:12px; }
+      .actions-row { padding:0 12px; }
+      .table-wrap { margin:0 8px 8px; border-radius:10px; }
+      td, thead th { padding:8px 8px; }
+      footer { padding:14px 12px 20px; }
+    }
 </style>
 </head>
 <body>

@@ -2,35 +2,41 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Distilling Information into Insight.</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INFOFLASK</title>
 <style>
-  :root {
-    --bg: #0A0C10; --surface: #12151C; --surface-2: #171B24; --surface-3: #1D2330;
-    --border: #232936; --border-strong: #2E3646;
-    --text: #E7EBF2; --text-2: #9AA4B2; --text-3: #5C6675;
-    --accent: #E8C158; --accent-soft: rgba(232,193,88,0.10);
-    --link: #6CA8FF;
-    --up: #F0544C; --up-bright: #FF7B72; --up-bg: #1D0F0E;
-    --dn: #3FBF7F; --dn-bright: #5CD99A; --dn-bg: #0C1B14;
-    --warn: #F5A524; --risk: #F0544C;
-  }
+
+    :root {
+      --bg:#0A0C10; --surface:#12151C; --surface-2:#171B24; --surface-3:#1D2330;
+      --surface-grad:#151A23; --row-line:#1A1F29;
+      --border:#232936; --border-strong:#2E3646;
+      --text:#E7EBF2; --text-2:#9AA4B2; --text-3:#5C6675;
+      --accent:#E8C158; --accent-soft:rgba(232,193,88,0.10); --link:#6CA8FF;
+      --up:#F0544C; --up-bright:#FF7B72; --up-bg:#1D0F0E;
+      --dn:#3FBF7F; --dn-bright:#5CD99A; --dn-bg:#0C1B14;
+      --warn:#F5A524; --risk:#F0544C;
+      --sb-thumb:#2A3140; --sb-thumb-h:#38424F;
+      --grp-hv:#FF9E97; --grp-bk:#E8C158; --grp-hf:#B48CFF; --grp-hb:#4FD8C8;
+    }
+    ::-webkit-scrollbar { width:8px; height:8px; }
+    ::-webkit-scrollbar-thumb { background:var(--sb-thumb); border-radius:4px; }
+    ::-webkit-scrollbar-thumb:hover { background:var(--sb-thumb-h); }
+    ::-webkit-scrollbar-track { background:transparent; }
+    ::selection { background:rgba(108,168,255,0.28); }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: var(--bg); color: var(--text);
+  body { background: radial-gradient(1200px 600px at 100% -10%, rgba(108,168,255,0.05), transparent 60%), var(--bg);
+         color: var(--text);
          font-family: "Inter", "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
-         -webkit-font-smoothing: antialiased;
-         min-height: 100vh; display: flex; flex-direction: column; }
-  ::selection { background: rgba(108,168,255,0.28); }
-  ::-webkit-scrollbar { width: 8px; height: 8px; }
-  ::-webkit-scrollbar-thumb { background: #2A3140; border-radius: 4px; }
-  ::-webkit-scrollbar-thumb:hover { background: #38424F; }
-  ::-webkit-scrollbar-track { background: transparent; }
+         -webkit-font-smoothing: antialiased; font-variant-numeric: tabular-nums;
+         min-height: 100dvh; display: flex; flex-direction: column; }
   header { display: flex; gap: 14px; align-items: center; flex-wrap: wrap;
             padding: 12px 22px; background: rgba(10,12,16,0.88);
             backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
             position: sticky; top: 0; z-index: 20; }
   .brand { font-size: 17px; font-weight: 900; color: #ffffff; letter-spacing: 0.08em; white-space: nowrap; }
+  .brand-page { font-size: 13px; font-weight: 500; color: var(--text-3); margin-left: 2px; }
   .site-nav { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
   .nav-link { color: var(--text-2); text-decoration: none; font-size: 13px; font-weight: 500;
     padding: 5px 14px; border: 1px solid var(--border); border-radius: 999px; background: transparent;
@@ -55,13 +61,14 @@
 
   .card-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 16px; margin-top: 26px; }
-  .card { background: linear-gradient(180deg, #151A23 0%, var(--surface) 100%);
+  .card { background: linear-gradient(180deg, var(--surface-grad) 0%, var(--surface) 100%);
     border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px;
     box-shadow: 0 10px 30px -18px rgba(0,0,0,0.7);
     display: flex; flex-direction: column; gap: 8px; }
   .card .c-title { font-size: 11px; color: var(--text-3); letter-spacing: 0.08em; font-weight: 600; }
   .big-num { font-size: clamp(34px, 5vw, 46px); font-weight: 800; line-height: 1.1;
     font-variant-numeric: tabular-nums; }
+  .big-num.sm { font-size: clamp(26px, 3.6vw, 34px); }
   .pos { color: var(--up); } .neg { color: var(--dn); }
   .sub-line { font-size: 13px; color: var(--text-2); font-variant-numeric: tabular-nums; }
   .sub-line b { color: var(--text); }
@@ -86,7 +93,7 @@
   .sec-head .sec-date { font-size: 12px; color: var(--text-3); margin-left: auto; font-variant-numeric: tabular-nums; }
 
   .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
-  .page-tile { background: linear-gradient(180deg, #151A23 0%, var(--surface) 100%);
+  .page-tile { background: linear-gradient(180deg, var(--surface-grad) 0%, var(--surface) 100%);
     border: 1px solid var(--border); border-radius: 16px; padding: 18px 14px;
     box-shadow: 0 10px 30px -18px rgba(0,0,0,0.7);
     text-align: center; text-decoration: none; transition: all 0.15s ease; }
@@ -99,8 +106,9 @@
     border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
   .mini-table th { background: var(--surface-2); color: var(--text-3); font-size: 11px; font-weight: 600;
     padding: 9px 14px; text-align: left; letter-spacing: 0.08em; }
-  .mini-table td { padding: 9px 14px; font-size: 14px; border-top: 1px solid #1A1F29;
+  .mini-table td { padding: 9px 14px; font-size: 14px; border-top: 1px solid var(--row-line);
     font-variant-numeric: tabular-nums; }
+  .table-scroll { overflow-x: auto; }
   .mini-table tbody tr:hover { background: var(--surface-3); }
   .td-rank { color: var(--text-2); width: 56px; }
   .td-name { color: var(--text); }
@@ -112,14 +120,32 @@
   .empty-msg { background: var(--surface); border: 1px dashed var(--border-strong); border-radius: 12px;
     padding: 22px; text-align: center; color: var(--text-2); font-size: 14px; }
 
-  footer { text-align: center; padding: 22px; font-size: 11px; color: var(--text-3);
+  footer { text-align: center; padding: 22px; font-size: 11.5px; color: var(--text-3);
     border-top: 1px solid var(--border); }
+
+    @media (max-width: 768px) {
+      header { padding:10px 12px; gap:8px; }
+      .brand { font-size:15px; }
+      .site-nav { gap:6px; }
+      .nav-link { padding:4px 10px; font-size:12px; }
+      .date-badge { flex-basis:100%; margin-left:0; }
+      .subtitle { padding-left:12px; padding-right:12px; }
+      .stats-row { padding:12px 12px 4px; gap:8px; }
+      .stat { min-width:calc(50% - 8px); flex:1; padding:10px 12px; }
+      h2 { padding-left:12px; padding-right:12px; }
+      .actions-row { padding:0 12px; }
+      .table-wrap { margin:0 8px 8px; border-radius:10px; }
+      td, thead th { padding:8px 8px; }
+      footer { padding:14px 12px 20px; }
+    }
+
+  @media (max-width: 768px) { #main { padding: 16px 10px 28px; } .hero { padding: 14px 6px 4px; } }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="brand">INFOFLASK</div>
+  <div class="brand">INFOFLASK<span class="brand-page">｜首頁</span></div>
   <nav class="site-nav">
     <a href="index.html" class="nav-link active">首頁</a>
     <a href="scores.html" class="nav-link">評分表</a>
@@ -150,19 +176,19 @@
     </div>
     <div class="card" style="border-color:#E8C15855">
       <div class="c-title" style="color:#E8C158">籌碼趨勢（分點雙艙）</div>
-      <div class="big-num pos" style="font-size:clamp(26px,3.6vw,34px)">+101.6%</div>
+      <div class="big-num sm pos">+101.6%</div>
       <div class="sub-line">今日 <b>-0.61%</b>・持倉 20 支・回撤 <b>-11.9%</b></div>
       <a class="card-link" href="sub.html">查看持股 →</a>
     </div>
     <div class="card" style="border-color:#B48CFF55">
       <div class="c-title" style="color:#B48CFF">高頻動能（全套 3d）</div>
-      <div class="big-num pos" style="font-size:clamp(26px,3.6vw,34px)">+116.3%</div>
+      <div class="big-num sm pos">+116.3%</div>
       <div class="sub-line">今日 <b>-0.31%</b>・持倉 20 支・回撤 <b>-20.5%</b></div>
       <a class="card-link" href="short3d.html">查看持股 →</a>
     </div>
     <div class="card" style="border-color:#4FD8C855">
       <div class="c-title" style="color:#4FD8C8">高頻籌碼（c3bk）</div>
-      <div class="big-num pos" style="font-size:clamp(26px,3.6vw,34px)">+146.8%</div>
+      <div class="big-num sm pos">+146.8%</div>
       <div class="sub-line">今日 <b>-0.16%</b>・持倉 10 支・回撤 <b>-16.7%</b></div>
       <a class="card-link" href="shortbk.html">查看持股 →</a>
     </div>
@@ -170,7 +196,7 @@
       <div class="c-title">大盤警示程度（AI 預測未來 5 日波動）</div>
       <div style="display:flex;align-items:center;gap:14px;">
         <span class="lvl-badge" style="color:#3FBF7F;border-color:#3FBF7F;background:rgba(255,255,255,0.03);">正常</span>
-        <span style="font-size:15px;color:#e6edf3;">近3年第 <b style="font-size:22px;color:#3FBF7F;">42</b> 分位</span>
+        <span style="font-size:15px;color:var(--text);">近3年第 <b style="font-size:22px;color:#3FBF7F;">42</b> 分位</span>
       </div>
       <div class="gauge-wrap">
         <div class="gauge-bar"><div class="gauge-pin" style="left:calc(42.4% - 2px);"></div></div>
@@ -229,7 +255,7 @@
       <a class="sec-link" href="scores.html">完整評分表 →</a>
       <span class="sec-date">預測日 2026-09-01</span>
     </div>
-    <table class="mini-table">
+    <div class="table-scroll"><table class="mini-table">
       <thead><tr><th>排名</th><th>代號</th><th>名稱</th><th>總分（0-33）</th></tr></thead>
       <tbody>
 <tr><td class="td-rank">1</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3008.TW" target="_blank" rel="noopener">3008</a></td><td class="td-name">大立光</td><td class="td-score s-gold">30</td></tr>
@@ -243,7 +269,7 @@
 <tr><td class="td-rank">9</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/5314.TWO" target="_blank" rel="noopener">5314</a></td><td class="td-name">世紀*</td><td class="td-score s-red">15</td></tr>
 <tr><td class="td-rank">10</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3443.TW" target="_blank" rel="noopener">3443</a></td><td class="td-name">創意</td><td class="td-score s-red">14</td></tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
 
   <div class="sec">
@@ -252,9 +278,9 @@
       <a class="sec-link" href="holdings.html">目前持股 →</a>
       <span class="sec-date">訊號日 2026-09-01</span>
     </div>
-    <table class="mini-table">
+    <div class="table-scroll"><table class="mini-table">
       <thead><tr><th>綜合排名</th><th>代號</th><th>名稱</th><th>總分（0-33）</th></tr></thead>
-      <tbody><tr><td class="td-rank">16</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3374.TWO" target="_blank" rel="noopener">3374</a></td><td class="td-name">精材</td><td class="td-score s-red">11</td></tr></tbody></table>
+      <tbody><tr><td class="td-rank">16</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3374.TWO" target="_blank" rel="noopener">3374</a></td><td class="td-name">精材</td><td class="td-score s-red">11</td></tr></tbody></table></div>
       <div class="hint">以上為模型訊號，將於下一交易日開盤買進</div>
   </div>
 

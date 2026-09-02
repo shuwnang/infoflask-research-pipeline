@@ -1,20 +1,50 @@
 <!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>2026-08-12 早報｜INFOFLASK 新聞</title><style>
-:root{--bg:#0A0C10;--surface:#12151C;--surface-2:#171B24;--surface-3:#1D2330;
---border:#232936;--border-strong:#2E3646;--text:#E7EBF2;--text-2:#9AA4B2;--text-3:#5C6675;
---accent:#E8C158;--accent-2:#F0D488;--accent-soft:rgba(232,193,88,0.10);--link:#6CA8FF;
---shadow:0 10px 32px rgba(0,0,0,.35)}
+    :root {
+      --bg:#0A0C10; --surface:#12151C; --surface-2:#171B24; --surface-3:#1D2330;
+      --surface-grad:#151A23; --row-line:#1A1F29;
+      --border:#232936; --border-strong:#2E3646;
+      --text:#E7EBF2; --text-2:#9AA4B2; --text-3:#5C6675;
+      --accent:#E8C158; --accent-soft:rgba(232,193,88,0.10); --link:#6CA8FF;
+      --up:#F0544C; --up-bright:#FF7B72; --up-bg:#1D0F0E;
+      --dn:#3FBF7F; --dn-bright:#5CD99A; --dn-bg:#0C1B14;
+      --warn:#F5A524; --risk:#F0544C;
+      --sb-thumb:#2A3140; --sb-thumb-h:#38424F;
+      --grp-hv:#FF9E97; --grp-bk:#E8C158; --grp-hf:#B48CFF; --grp-hb:#4FD8C8;
+    }
+    ::-webkit-scrollbar { width:8px; height:8px; }
+    ::-webkit-scrollbar-thumb { background:var(--sb-thumb); border-radius:4px; }
+    ::-webkit-scrollbar-thumb:hover { background:var(--sb-thumb-h); }
+    ::-webkit-scrollbar-track { background:transparent; }
+    ::selection { background:rgba(108,168,255,0.28); }
+
+:root{--accent-2:#F0D488;--shadow:0 10px 32px rgba(0,0,0,.35)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);
 font-family:"Inter","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;line-height:1.75;
+-webkit-font-smoothing:antialiased;
 background-image:radial-gradient(1100px 420px at 50% -180px,rgba(232,193,88,.07),transparent 70%)}
 a{color:var(--link);text-decoration:none}a:hover{text-decoration:underline}
-.wrap{max-width:820px;margin:0 auto;padding:24px 18px 90px}
+.wrap{max-width:880px;margin:0 auto;padding:24px 18px 90px}
+/* 全站標準 sticky 表頭（2026-09-02 由頁內 .sitenav 升級） */
+header.site{display:flex;align-items:center;flex-wrap:wrap;gap:14px;padding:12px 22px;
+background:rgba(10,12,16,0.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+border-bottom:1px solid var(--border);position:sticky;top:0;z-index:20}
+.brand{font-size:17px;font-weight:900;color:#fff;letter-spacing:0.08em;white-space:nowrap}
+.brand-page{font-size:13px;font-weight:500;color:var(--text-3);margin-left:2px}
+.site-nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.nav-link{color:var(--text-2);text-decoration:none;font-size:13px;font-weight:500;
+padding:5px 14px;border:1px solid var(--border);border-radius:999px;
+white-space:nowrap;transition:all .15s ease}
+.nav-link:hover{color:var(--text);border-color:var(--border-strong);background:var(--surface-2);text-decoration:none}
+.nav-link.active{color:var(--accent);border-color:var(--accent);background:var(--accent-soft);pointer-events:none}
+footer{max-width:880px;margin:0 auto;padding:0 18px 24px;font-size:11.5px;color:var(--text-3);line-height:1.8}
+footer .fline{border-top:1px solid var(--border);padding-top:12px}
 h1{font-size:1.45rem;letter-spacing:.02em;margin-bottom:2px}
 .sub{color:var(--text-3);font-size:.85rem;margin-bottom:20px}
-.nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px;position:sticky;top:0;z-index:5;
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px;position:sticky;top:53px;z-index:5;
 padding:12px 0;background:rgba(10,12,16,.82);backdrop-filter:blur(10px);
 -webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
 .nav a{background:var(--surface-2);border:1px solid var(--border);border-radius:20px;
@@ -89,7 +119,7 @@ background:linear-gradient(90deg,var(--text) 20%,var(--accent-2) 60%,var(--accen
 .badge{display:inline-block;font-size:.72rem;border-radius:20px;padding:2px 11px;margin-right:8px;
   border:1px solid rgba(232,193,88,.4);color:var(--accent);background:var(--accent-soft)}
 .badge.pm{border-color:rgba(108,168,255,.4);color:var(--link);background:rgba(108,168,255,.08)}
-.badge.rp{border-color:rgba(63,191,127,.4);color:#5CD99A;background:rgba(63,191,127,.08)}
+.badge.rp{border-color:rgba(63,191,127,.4);color:var(--dn-bright);background:rgba(63,191,127,.08)}
 .edcard .cnt{color:var(--text-3);font-size:.76rem}
 .tlist{margin-top:12px}
 .tlist li{list-style:none;padding:4px 0 4px 16px;position:relative;color:var(--text-2);
@@ -102,34 +132,50 @@ background:linear-gradient(90deg,var(--text) 20%,var(--accent-2) 60%,var(--accen
 .post{margin:14px 0;padding:12px 14px;border:1px solid var(--border);border-radius:10px;
   background:var(--surface-2)}
 .post .ptitle{font-size:.9rem;font-weight:600;line-height:1.5}
-.post .ptitle a{color:var(--text-1)}
+.post .ptitle a{color:var(--text)}
 .post .pmeta{font-size:.72rem;color:var(--text-3);margin:2px 0 6px}
 .post ul{margin:0;padding-left:18px}
 .post li{font-size:.84rem;color:var(--text-2);line-height:1.6}
 .sent{display:inline-block;font-size:.7rem;border-radius:4px;padding:1px 7px;margin-left:6px}
-.sent.bull{color:#f28b82;background:rgba(242,139,130,.12)}
-.sent.bear{color:#81c995;background:rgba(129,201,149,.12)}
+.sent.bull{color:var(--up-bright);background:rgba(240,84,76,.12)}
+.sent.bear{color:var(--dn-bright);background:rgba(63,191,127,.12)}
 .sent.mix{color:var(--accent);background:var(--accent-soft)}
 .sent.neu{color:var(--text-3);background:var(--surface-3)}
-.sitenav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
-.sitenav a{font-size:.78rem;color:var(--text-3);text-decoration:none;
-  border:1px solid var(--border);border-radius:20px;padding:3px 12px;transition:.15s}
-.sitenav a:hover{color:var(--text-1);border-color:var(--border-strong);background:var(--surface-2)}
-.sitenav a.on{color:var(--accent);border-color:var(--accent);pointer-events:none}
+
+    @media (max-width: 768px) {
+      header { padding:10px 12px; gap:8px; }
+      .brand { font-size:15px; }
+      .site-nav { gap:6px; }
+      .nav-link { padding:4px 10px; font-size:12px; }
+      .date-badge { flex-basis:100%; margin-left:0; }
+      .subtitle { padding-left:12px; padding-right:12px; }
+      .stats-row { padding:12px 12px 4px; gap:8px; }
+      .stat { min-width:calc(50% - 8px); flex:1; padding:10px 12px; }
+      h2 { padding-left:12px; padding-right:12px; }
+      .actions-row { padding:0 12px; }
+      .table-wrap { margin:0 8px 8px; border-radius:10px; }
+      td, thead th { padding:8px 8px; }
+      footer { padding:14px 12px 20px; }
+    }
+
+@media (max-width: 768px){.wrap{padding:16px 10px 60px}.nav{top:0}}
 </style></head><body>
-<div class="wrap">
-<nav class="sitenav">
-<a href="../index.html">首頁</a>
-<a href="../scores.html">評分表</a>
-<a href="../holdings.html">高波動能</a>
-<a href="../sub.html">籌碼趨勢</a>
-<a href="../short3d.html">高頻動能</a>
-<a href="../shortbk.html">高頻籌碼</a>
-<a href="../performance.html">績效表</a>
-<a href="../market.html">大盤觀測</a>
-<a href="../reports.html">研究報告</a>
-<a class="on" href="index.html">新聞</a>
+<header class="site">
+<div class="brand">INFOFLASK<span class="brand-page">｜新聞</span></div>
+<nav class="site-nav">
+<a href="../index.html" class="nav-link">首頁</a>
+<a href="../scores.html" class="nav-link">評分表</a>
+<a href="../holdings.html" class="nav-link">高波動能</a>
+<a href="../sub.html" class="nav-link">籌碼趨勢</a>
+<a href="../short3d.html" class="nav-link">高頻動能</a>
+<a href="../shortbk.html" class="nav-link">高頻籌碼</a>
+<a href="../performance.html" class="nav-link">績效表</a>
+<a href="../market.html" class="nav-link">大盤觀測</a>
+<a href="../reports.html" class="nav-link">研究報告</a>
+<a href="index.html" class="nav-link active">新聞</a>
 </nav>
+</header>
+<div class="wrap">
 <div class="top"><a href="index.html">← 期別列表</a></div>
 <h1>📰 2026-08-12 <span style="color:var(--accent)">早報</span></h1>
 <div class="sub">前日18:30–當日06:30｜10 個主題｜候選 253 篇精選 120 篇</div>
@@ -239,4 +285,5 @@ background:linear-gradient(90deg,var(--text) 20%,var(--accent-2) 60%,var(--accen
 <div class="watch">👁 觀察星宇第三季油價回落能否改善獲利，以及楠梓電高階產品出貨是否帶動本業轉盈。</div>
 
 </section>
-</div></body></html>
+</div>
+<footer><div class="fline">本網站內容為機器學習模型之研究模擬結果，非投資建議；股市有風險，投資請獨立判斷。</div></footer></body></html>
