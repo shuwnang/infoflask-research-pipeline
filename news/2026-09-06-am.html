@@ -1,0 +1,249 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>2026-09-06 早報｜INFOFLASK 新聞</title><style>
+    :root {
+      --bg:#0A0C10; --surface:#12151C; --surface-2:#171B24; --surface-3:#1D2330;
+      --surface-grad:#151A23; --row-line:#1A1F29;
+      --border:#232936; --border-strong:#2E3646;
+      --text:#E7EBF2; --text-2:#9AA4B2; --text-3:#5C6675;
+      --accent:#E8C158; --accent-soft:rgba(232,193,88,0.10); --link:#6CA8FF;
+      --up:#F0544C; --up-bright:#FF7B72; --up-bg:#1D0F0E;
+      --dn:#3FBF7F; --dn-bright:#5CD99A; --dn-bg:#0C1B14;
+      --warn:#F5A524; --risk:#F0544C;
+      --sb-thumb:#2A3140; --sb-thumb-h:#38424F;
+      --grp-hv:#FF9E97; --grp-bk:#E8C158; --grp-hf:#B48CFF; --grp-hb:#4FD8C8;
+    }
+    ::-webkit-scrollbar { width:8px; height:8px; }
+    ::-webkit-scrollbar-thumb { background:var(--sb-thumb); border-radius:4px; }
+    ::-webkit-scrollbar-thumb:hover { background:var(--sb-thumb-h); }
+    ::-webkit-scrollbar-track { background:transparent; }
+    ::selection { background:rgba(108,168,255,0.28); }
+
+:root{--accent-2:#F0D488;--shadow:0 10px 32px rgba(0,0,0,.35)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);
+font-family:"Inter","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;line-height:1.75;
+-webkit-font-smoothing:antialiased;
+background-image:radial-gradient(1100px 420px at 50% -180px,rgba(232,193,88,.07),transparent 70%)}
+a{color:var(--link);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:880px;margin:0 auto;padding:24px 18px 90px}
+/* 全站標準 sticky 表頭（2026-09-02 由頁內 .sitenav 升級） */
+header.site{display:flex;align-items:center;flex-wrap:wrap;gap:14px;padding:12px 22px;
+background:rgba(10,12,16,0.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+border-bottom:1px solid var(--border);position:sticky;top:0;z-index:20}
+.brand{font-size:17px;font-weight:900;color:#fff;letter-spacing:0.08em;white-space:nowrap}
+.brand-page{font-size:13px;font-weight:500;color:var(--text-3);margin-left:2px}
+.site-nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.nav-link{color:var(--text-2);text-decoration:none;font-size:13px;font-weight:500;
+padding:5px 14px;border:1px solid var(--border);border-radius:999px;
+white-space:nowrap;transition:all .15s ease}
+.nav-link:hover{color:var(--text);border-color:var(--border-strong);background:var(--surface-2);text-decoration:none}
+.nav-link.active{color:var(--accent);border-color:var(--accent);background:var(--accent-soft);pointer-events:none}
+footer{max-width:880px;margin:0 auto;padding:0 18px 24px;font-size:11.5px;color:var(--text-3);line-height:1.8}
+footer .fline{border-top:1px solid var(--border);padding-top:12px}
+h1{font-size:1.45rem;letter-spacing:.02em;margin-bottom:2px}
+.sub{color:var(--text-3);font-size:.85rem;margin-bottom:20px}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px;position:sticky;top:53px;z-index:5;
+padding:12px 0;background:rgba(10,12,16,.82);backdrop-filter:blur(10px);
+-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.nav a{background:var(--surface-2);border:1px solid var(--border);border-radius:20px;
+padding:4px 13px;font-size:.78rem;color:var(--text-2);transition:.15s}
+.nav a:hover{color:var(--accent);border-color:rgba(232,193,88,.45);text-decoration:none;
+background:var(--accent-soft)}
+.theme{background:linear-gradient(180deg,var(--surface-2),var(--surface) 42%);
+border:1px solid var(--border);border-radius:18px;padding:26px 28px 22px;margin-bottom:22px;
+box-shadow:var(--shadow);scroll-margin-top:64px;position:relative;overflow:hidden}
+.theme:before{content:"";position:absolute;inset:0 auto auto 0;width:100%;height:2px;
+background:linear-gradient(90deg,var(--accent),rgba(232,193,88,.06) 55%,transparent)}
+.tnum{position:absolute;top:18px;right:22px;font-size:2rem;font-weight:800;
+color:rgba(232,193,88,.13);letter-spacing:.04em;font-variant-numeric:tabular-nums}
+.theme h2{font-size:1.22rem;line-height:1.55;margin-bottom:6px;padding-right:56px;
+background:linear-gradient(90deg,var(--accent-2),var(--accent));
+-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.tmeta{color:var(--text-3);font-size:.75rem;margin-bottom:14px;display:flex;gap:8px;align-items:center}
+.tmeta:before{content:"";width:18px;height:1px;background:var(--accent);opacity:.6}
+.art{color:var(--text-2);font-size:.94rem;line-height:1.85;margin-bottom:16px;
+padding:12px 16px;background:rgba(255,255,255,.02);border-left:3px solid var(--border-strong);
+border-radius:0 10px 10px 0;white-space:pre-wrap}
+.facts{margin-bottom:6px}
+.facts li{list-style:none;position:relative;color:var(--text);font-size:.96rem;line-height:1.7;
+padding:9px 4px 9px 30px;border-bottom:1px solid rgba(255,255,255,.045)}
+.facts li:last-child{border-bottom:none}
+.facts li:before{content:"";position:absolute;left:8px;top:1.05em;width:7px;height:7px;
+border-radius:2px;background:linear-gradient(135deg,var(--accent-2),var(--accent));
+transform:rotate(45deg)}
+.facts li:hover{background:rgba(255,255,255,.025);border-radius:8px}
+.watch{background:var(--accent-soft);border:1px solid rgba(232,193,88,.22);
+border-left:3px solid var(--accent);padding:10px 14px;border-radius:0 10px 10px 0;
+font-size:.88rem;color:var(--text-2);margin:14px 0 4px}
+details{margin-top:14px;border-top:1px solid var(--border);padding-top:10px}
+summary{color:var(--text-3);font-size:.8rem;cursor:pointer;transition:.15s}
+summary:hover{color:var(--text-2)}
+details a{display:block;padding:4px 0;font-size:.85rem}
+details .src{color:var(--text-3);font-size:.73rem;margin-left:6px}
+.top{margin-bottom:14px}
+.top a{font-size:.85rem;color:var(--text-2)}
+/* ── 首頁 ── */
+.hero{text-align:center;padding:40px 0 8px}
+.hero h1{font-size:1.9rem;letter-spacing:.05em;
+background:linear-gradient(90deg,var(--text) 20%,var(--accent-2) 60%,var(--accent));
+-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero .sub{margin-top:8px;margin-bottom:0;letter-spacing:.03em}
+.searchcard{background:linear-gradient(180deg,var(--surface-2),var(--surface) 55%);
+  border:1px solid var(--border);border-radius:16px;padding:20px 22px;margin:18px 0 30px;
+  box-shadow:var(--shadow)}
+.schead{font-size:1rem;font-weight:600;color:var(--accent);margin-bottom:12px}
+.scupd{font-size:.72rem;color:var(--text-3);font-weight:400;margin-left:10px}
+.searchrow{display:flex;gap:10px;margin-bottom:6px}
+.searchrow input{flex:1;background:var(--surface);border:1px solid var(--border-strong);
+  border-radius:12px;padding:11px 15px;color:var(--text);font-size:.95rem;outline:none}
+.searchrow input:focus{border-color:var(--accent)}
+.searchrow button{background:var(--accent-soft);border:1px solid rgba(232,193,88,.45);
+  color:var(--accent);border-radius:12px;padding:0 20px;font-size:.9rem;cursor:pointer}
+.rhead{font-size:1rem;font-weight:600;color:var(--accent);margin:12px 0 6px}
+.empty{color:var(--text-3);padding:16px 0;text-align:center;font-size:.86rem}
+.pone{font-size:.84rem;color:var(--text-2);margin-top:4px}
+.dgroup{margin-bottom:26px}
+.dgroup h3{font-size:.95rem;color:var(--text-2);margin-bottom:10px;font-weight:600;
+  border-left:3px solid var(--accent);padding-left:10px}
+.edrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.edcard{display:block;background:linear-gradient(180deg,var(--surface-2),var(--surface) 55%);
+  border:1px solid var(--border);border-radius:16px;padding:20px 22px;transition:.2s;
+  position:relative;overflow:hidden}
+.edcard:after{content:"";position:absolute;inset:0;opacity:0;transition:.25s;pointer-events:none;
+  background:radial-gradient(420px 140px at 50% 0%,rgba(232,193,88,.10),transparent 70%)}
+.edcard:hover{border-color:rgba(232,193,88,.35);text-decoration:none;
+  transform:translateY(-3px);box-shadow:var(--shadow)}
+.edcard:hover:after{opacity:1}
+.badge{display:inline-block;font-size:.72rem;border-radius:20px;padding:2px 11px;margin-right:8px;
+  border:1px solid rgba(232,193,88,.4);color:var(--accent);background:var(--accent-soft)}
+.badge.pm{border-color:rgba(108,168,255,.4);color:var(--link);background:rgba(108,168,255,.08)}
+.badge.rp{border-color:rgba(63,191,127,.4);color:var(--dn-bright);background:rgba(63,191,127,.08)}
+.edcard .cnt{color:var(--text-3);font-size:.76rem}
+.tlist{margin-top:12px}
+.tlist li{list-style:none;padding:4px 0 4px 16px;position:relative;color:var(--text-2);
+  font-size:.86rem;line-height:1.5}
+.tlist li:before{content:"›";position:absolute;left:2px;color:var(--accent);font-weight:700}
+.hotrow{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+.hotchip{font-size:.78rem;border:1px solid var(--border-strong);border-radius:20px;
+  padding:3px 12px;color:var(--text-2);background:var(--surface-2)}
+.hotchip b{color:var(--accent);font-weight:600}
+.post{margin:14px 0;padding:12px 14px;border:1px solid var(--border);border-radius:10px;
+  background:var(--surface-2)}
+.post .ptitle{font-size:.9rem;font-weight:600;line-height:1.5}
+.post .ptitle a{color:var(--text)}
+.post .pmeta{font-size:.72rem;color:var(--text-3);margin:2px 0 6px}
+.post ul{margin:0;padding-left:18px}
+.post li{font-size:.84rem;color:var(--text-2);line-height:1.6}
+.sent{display:inline-block;font-size:.7rem;border-radius:4px;padding:1px 7px;margin-left:6px}
+.sent.bull{color:var(--up-bright);background:rgba(240,84,76,.12)}
+.sent.bear{color:var(--dn-bright);background:rgba(63,191,127,.12)}
+.sent.mix{color:var(--accent);background:var(--accent-soft)}
+.sent.neu{color:var(--text-3);background:var(--surface-3)}
+
+    @media (max-width: 768px) {
+      header { padding:10px 12px; gap:8px; }
+      .brand { font-size:15px; }
+      .site-nav { gap:6px; }
+      .nav-link { padding:4px 10px; font-size:12px; }
+      .date-badge { flex-basis:100%; margin-left:0; }
+      .subtitle { padding-left:12px; padding-right:12px; }
+      .stats-row { padding:12px 12px 4px; gap:8px; }
+      .stat { min-width:calc(50% - 8px); flex:1; padding:10px 12px; }
+      h2 { padding-left:12px; padding-right:12px; }
+      .actions-row { padding:0 12px; }
+      .table-wrap { margin:0 8px 8px; border-radius:10px; }
+      td, thead th { padding:8px 8px; }
+      footer { padding:14px 12px 20px; }
+    }
+
+@media (max-width: 768px){.wrap{padding:16px 10px 60px}.nav{top:0}}
+</style></head><body>
+<header class="site">
+<div class="brand">INFOFLASK<span class="brand-page">｜新聞</span></div>
+<nav class="site-nav">
+<a href="../index.html" class="nav-link">首頁</a>
+<a href="../scores.html" class="nav-link">評分表</a>
+<a href="../holdings.html" class="nav-link">高波動能</a>
+<a href="../sub.html" class="nav-link">籌碼趨勢</a>
+<a href="../short3d.html" class="nav-link">高頻動能</a>
+<a href="../shortbk.html" class="nav-link">高頻籌碼</a>
+<a href="../performance.html" class="nav-link">績效表</a>
+<a href="../market.html" class="nav-link">大盤觀測</a>
+<a href="../reports.html" class="nav-link">研究報告</a>
+<a href="index.html" class="nav-link active">新聞</a>
+</nav>
+</header>
+<div class="wrap">
+<div class="top"><a href="index.html">← 期別列表</a></div>
+<h1>📰 2026-09-06 <span style="color:var(--accent)">早報</span></h1>
+<div class="sub">前日18:30–當日06:30｜6 個主題｜候選 88 篇精選 44 篇</div>
+<div class="nav"><a href="#t0">費半漲3.38%但升息壓力增</a><a href="#t1">博通營收296億美元增86%</a><a href="#t2">輝達股權投資增逾13倍至99</a><a href="#t3">美軍攻擊3艘伊朗油輪，荷莫茲</a><a href="#t4">蘋果9月發布iPhone 1</a><a href="#t5">金融股追高疑慮升溫，盯盤派與</a></div>
+<section class="theme" id="t0">
+<span class="tnum">01</span>
+<h2>費半漲3.38%但升息壓力增，台股開盤偏漲、信心偏低</h2>
+<div class="tmeta">台股開盤研判｜7 篇來源｜固定主題</div>
+<div class="art">台股開盤偏漲，信心偏低；主要受費半指數逆勢上漲3.38%、AI硬體資金回流支撐，但美股三大指數收黑、Fed升息機率升至約6成，將壓抑風險偏好。</div>
+<ul class="facts"><li>費半指數漲3.38%至11,735.26點，資金由軟體股轉向AI硬體股。</li><li>美國8月非農新增16.2萬人，為市場預估三倍，推升升息預期。</li><li>聯邦資金期貨顯示Fed於9月升息機率升至約60%。</li><li>美股三大指數於2026年9月4日收黑，原文未提供各指數收盤點位與跌幅。</li><li>美國10年期公債殖利率一度升至4.814%，創2023年11月以來新高。</li><li>美國30年期公債殖利率升至5.28%，高利率環境壓抑股市評價。</li><li>美國失業率為4.1%，醫療保健與飯店休旅業持續增加工作。</li><li>製造業就業增長停滯，女性新增就業15.8萬人、占98%。</li><li>輸入未提供台指期夜盤點位與漲跌，亦未提供台廠ADR表現。</li></ul>
+
+
+<div class="watch">👁 留意9月10日、11日公布的PPI與CPI，牽動9月15日至16日Fed會議；另關注川普施壓降息、關稅威脅，以及殖利率與油價走勢。</div>
+<details><summary>原始報導（7）</summary><a href="https://money.udn.com/money/story/5599/9736939" target="_blank" rel="noopener">川普撂狠話要求 Fed 降息 強調主席和理事應愛國 華許陷兩難<span class="src">經濟日報｜09-06 02:11</span></a><a href="https://money.udn.com/money/story/123398/9736887" target="_blank" rel="noopener">費半強漲 台積ADR上周五彈升2.9% 本周通膨數據牽動美股後市<span class="src">經濟日報｜09-06 02:06</span></a><a href="https://www.cnbc.com/2026/09/05/trump-warsh-fed-september-rate-hike.html" target="_blank" rel="noopener">Trump turns up the heat on Warsh as Fed rate hike looms<span class="src">CNBC｜09-06 02:10</span></a><a href="https://www.ctee.com.tw/news/20260905700717-430701" target="_blank" rel="noopener">美國8月就業數據亮眼 聯準會9月升息機率增 專家：下周通膨數據是關鍵<span class="src">工商時報｜09-05 20:57</span></a><a href="https://www.ctee.com.tw/news/20260905700716-430702" target="_blank" rel="noopener">不甩三大指數收黑 費半逆勢走揚 科技股後市有戲<span class="src">工商時報｜09-05 20:55</span></a><a href="https://www.ctee.com.tw/news/20260905700743-430701" target="_blank" rel="noopener">美國8月新增就業人口逾16萬 女性比重達98％<span class="src">工商時報｜09-05 21:44</span></a><a href="https://finance.yahoo.com/economy/policy/article/divide-over-yields-fed-officials-see-a-stronger-economy-wall-street-frets-over-oil-prices-and-deficits-193739245.html" target="_blank" rel="noopener">Divide over yields: Fed officials see a stronger economy, Wall Street frets over oil prices and deficits.<span class="src">Yahoo Finance｜09-06 01:01</span></a></details>
+</section><section class="theme" id="t1">
+<span class="tnum">02</span>
+<h2>博通營收296億美元增86%，AMD擬投資50億美元，KLA股價漲7.3%</h2>
+<div class="tmeta">美股焦點個股｜3 篇來源｜固定主題</div>
+<div class="art">本期焦點集中在AI半導體供應鏈：博通公布強勁財報但財測略低預期，AMD宣布對Anthropic的鉅額投資；半導體設備股KLA、科林研究也同步走強。</div>
+<ul class="facts"><li>【博通 AVGO】第三季營收296億美元，年增86%</li><li>【博通 AVGO】AI半導體營收167億美元，年增221%</li><li>【博通 AVGO】預估第四季營收348億美元，低於預期350.3億美元</li><li>【博通 AVGO】Truist將目標價由550美元降至520美元</li><li>【超微 AMD】承諾最高投資Anthropic 50億美元</li><li>【超微 AMD】資金預計於2028財政年度前撥付，受特定條件限制</li><li>【KLA Corporation KLAC】股價上漲7.3%，第四季營收36.6億美元</li><li>【科林研究 LRCX】股價上漲5.1%，六月季度營收67.2億美元</li><li>【輝達 NVDA】股價上漲0.8%，漲幅低於KLA與科林研究</li></ul>
+
+
+<div class="watch">👁 博通已於9月2日公布2026財年第三季業績；KLA與科林研究股價動態見9月4日報導。Anthropic預計於勞動節假期後提交IPO招股書，最早於9月底或10月初上市；AMD投資預計透過2028財政年度撥付。</div>
+<details><summary>原始報導（3）</summary><a href="https://finance.yahoo.com/markets/stocks/articles/broadcom-avgo-ai-revenue-soars-145838390.html" target="_blank" rel="noopener">Broadcom (AVGO) AI Revenue Soars, But Wall Street Wants More<span class="src">Yahoo Finance｜09-05 22:58</span></a><a href="https://finance.yahoo.com/technology/ai/articles/amd-committed-5-billion-anthropic-220301412.html" target="_blank" rel="noopener">AMD Committed Up to $5 Billion to Anthropic, and Anthropic&#x27;s IPO Prospectus Is Reportedly Days Away<span class="src">Yahoo Finance｜09-06 06:03</span></a><a href="https://finance.yahoo.com/technology/articles/two-chip-equipment-stocks-just-184332143.html" target="_blank" rel="noopener">Two Chip-Equipment Stocks Just Crushed Nvidia. Is the AI Rally Broadening?<span class="src">Yahoo Finance｜09-06 02:43</span></a></details>
+</section><section class="theme" id="t2">
+<span class="tnum">03</span>
+<h2>輝達股權投資增逾13倍至990億美元；聯發科獲35億美元投資</h2>
+<div class="tmeta">AI與半導體｜19 篇來源｜固定主題</div>
+<div class="art">AI基礎建設需求持續推動資金、記憶體與客製晶片供應鏈擴張，帶動台灣半導體業者營收與接單成長。記憶體供應緊張、先進封裝及光互連技術則成為下一階段競爭焦點。</div>
+<ul class="facts"><li>輝達股權投資價值增逾13倍至990億美元。</li><li>輝達2026年投入AI籌資活動資金已逾400億美元。</li><li>輝達8月31日投資聯發科（2454）35億美元，深化AI合作。</li><li>長鑫存儲DRAM全球營收市占升至10%，排名全球第四。</li><li>鴻海（2317）8月營收9,217億元，年增51.9%。</li><li>世芯-KY（3661）7月營收74.33億元，年增181.8%。</li><li>信驊（5274）8月營收16.26億元，年增118.42%創高。</li><li>家登（3680）前7月營收50.5億元，年增約29%創同期新高。</li><li>健策（3653）第三季營收估96.65億元，季增約33%。</li><li>穎崴（6515）CPO專案逾10個，預估2027年下半年小量生產。</li><li>鎧俠CXL模組容量增一倍、效能提升30%，瞄準部分DRAM需求。</li><li>全新（2455）磷化銦基板預計2026年第四季漲價10%。</li></ul>
+
+
+<div class="watch">👁 2026年第三、第四季留意AI需求、產品報價與供應瓶頸變化；2026年9月21日世芯-KY將遭台灣50指數剔除；2027年下半年留意穎崴CPO小量生產，2027年底留意世芯-KY 2奈米AI加速器量產及神達美國新產能開出。</div>
+<details><summary>原始報導（19）</summary><a href="https://money.udn.com/money/story/5607/9737006" target="_blank" rel="noopener">9月6日 五件財經大事搶先看<span class="src">經濟日報｜09-06 02:50</span></a><a href="https://money.udn.com/money/story/123398/9736907" target="_blank" rel="noopener">輝達拚 AI 股權投資年增13倍 有助強化產業版圖<span class="src">經濟日報｜09-06 01:54</span></a><a href="https://money.udn.com/money/story/5604/9736906" target="_blank" rel="noopener">長鑫全球 DRAM 市占衝10%<span class="src">經濟日報｜09-06 01:05</span></a><a href="https://money.udn.com/money/story/5607/9732588" target="_blank" rel="noopener">千金ASIC股漲一輪，接下來看封測？輝達投資聯發科　投信默默在買這一檔<span class="src">經濟日報｜09-05 20:45</span></a><a href="https://money.udn.com/money/story/5607/9732580" target="_blank" rel="noopener">這檔半導體不只吃EUV紅利，先進封裝營收前7月已達去年全年244%　第二成長引擎成形<span class="src">經濟日報｜09-05 20:58</span></a><a href="https://money.udn.com/money/story/5612/9736934" target="_blank" rel="noopener">鴻海營收創最強8月達9,217億 前八月同步攻頂 本季看旺<span class="src">經濟日報｜09-06 02:14</span></a><a href="https://www.ctee.com.tw/news/20260906700143-439903" target="_blank" rel="noopener">信驊 營收再寫新高<span class="src">工商時報｜09-06 03:00</span></a><a href="https://www.ctee.com.tw/news/20260906700139-439903" target="_blank" rel="noopener">世芯-KY 營運逐季走升<span class="src">工商時報｜09-06 03:00</span></a><a href="https://www.ctee.com.tw/news/20260906700151-439903" target="_blank" rel="noopener">台玻 玻纖布需求熱<span class="src">工商時報｜09-06 03:00</span></a><a href="https://www.ctee.com.tw/news/20260906700141-439903" target="_blank" rel="noopener">神達 加碼美國產能<span class="src">工商時報｜09-06 03:00</span></a><a href="https://www.ctee.com.tw/news/20260906700145-439903" target="_blank" rel="noopener">穎崴 投信持續買超<span class="src">工商時報｜09-06 03:00</span></a><a href="https://www.ctee.com.tw/news/20260906700133-439903" target="_blank" rel="noopener">瑞昱 土洋法人對作<span class="src">工商時報｜09-06 03:00</span></a><a href="https://www.ctee.com.tw/news/20260906700129-439903" target="_blank" rel="noopener">華通 多方逢低承接<span class="src">工商時報｜09-06 03:00</span></a><a href="https://www.ctee.com.tw/news/20260905700694-430804" target="_blank" rel="noopener">突破EUV封鎖 北方華創攻克3D DRAM關鍵製程<span class="src">工商時報｜09-05 19:09</span></a><a href="https://money.udn.com/money/story/5599/9736908" target="_blank" rel="noopener">鎧俠新招 NAND 替代 DRAM<span class="src">經濟日報｜09-06 01:50</span></a><a href="https://money.udn.com/money/story/5607/9732600" target="_blank" rel="noopener">從精密沖壓做到AI高階散熱！它切入Rubin、Trainium3　法人一路上修EPS<span class="src">經濟日報｜09-05 20:17</span></a><a href="https://money.udn.com/money/story/5607/9732607" target="_blank" rel="noopener">光通訊行情從大立光燒到磷化銦！聯亞先漲116%　法人資金開始往二線股擴散<span class="src">經濟日報｜09-05 20:11</span></a><a href="https://finance.yahoo.com/markets/stocks/articles/p-500-fell-2-ai-190345284.html" target="_blank" rel="noopener">The S&amp;P 500 Fell, but These 2 AI Memory Stocks Exploded Higher<span class="src">Yahoo Finance｜09-06 03:03</span></a><a href="https://finance.yahoo.com/markets/stocks/articles/nvidia-barely-moved-2-ai-185658418.html" target="_blank" rel="noopener">Nvidia Barely Moved. These 2 AI Connectivity Stocks Jumped More Than 7%<span class="src">Yahoo Finance｜09-06 02:56</span></a></details>
+</section><section class="theme" id="t3">
+<span class="tnum">04</span>
+<h2>美軍攻擊3艘伊朗油輪，荷莫茲關閉；布蘭特破90美元；美國儲備2.897億桶</h2>
+<div class="tmeta">美伊衝突升溫與油價風險｜6 篇來源</div>
+<div class="art">美伊軍事衝突擴大至油輪與荷莫茲海峽，直接阻礙伊朗原油運輸並推升能源價格。美國戰略石油儲備處於低檔，供應中斷與能源成本風險同步升高。</div>
+<ul class="facts"><li>2026年9月5日美軍攻擊3艘伊朗油輪，2艘永久失能、1艘空載遭摧毀。</li><li>伊朗革命衛隊曾以彈道飛彈攻擊美軍航艦與驅逐艦，但未命中且無美軍傷亡。</li><li>荷莫茲海峽已實際關閉，伊朗原油運輸因此受阻。</li><li>美伊衝突持續超過六個月，造成18名美軍官兵死亡及汽油價格飆升。</li><li>2026年8月31日布蘭特原油突破每桶90美元。</li><li>美國駕駛2026年8月平均每天支付逾4美元油價，創最昂貴8月紀錄。</li><li>美國戰略石油儲備約2.897億桶，創1982年來最低。</li><li>若美國釋出3,900萬桶戰略石油儲備，庫存可能降至約2.43億桶。</li><li>川普稱大陸50%石油來自荷莫茲，購買伊朗石油攸關經濟穩定。</li><li>美國已啟動經濟放逐行動，大陸金融機構是否遭制裁仍受關注。</li><li>專家警告制裁大陸金融機構可能引發報復，危及貿易緩和。</li><li>油價因中東軍事 strikes升破每桶95美元，能源與通膨風險升溫。</li></ul>
+
+
+<div class="watch">👁 留意2026年9月24日川習會，以及大陸金融機構是否遭美國制裁；另關注美國是否釋出3,900萬桶戰略石油儲備。</div>
+<details><summary>原始報導（6）</summary><a href="https://money.udn.com/money/story/5599/9736930" target="_blank" rel="noopener">美國中央司令部：伊朗襲擊美軍航艦與驅逐艦 美報復攻擊伊朗油輪<span class="src">經濟日報｜09-05 23:20</span></a><a href="https://money.udn.com/money/story/5599/9736914" target="_blank" rel="noopener">美伊衝突半年 18美軍陣亡 川普：戰爭對美是小事一樁<span class="src">經濟日報｜09-06 01:21</span></a><a href="https://www.cnbc.com/2026/09/05/us-iran-oil-tankers-navy-missile-attack.html" target="_blank" rel="noopener">U.S. attacks 3 Iranian oil tankers after missiles target Navy warships<span class="src">CNBC｜09-05 22:59</span></a><a href="https://money.udn.com/money/story/5599/9736959" target="_blank" rel="noopener">美軍稱船艦躲過飛彈來襲後　成功打擊伊朗3艘油輪<span class="src">經濟日報｜09-05 23:45</span></a><a href="https://www.ctee.com.tw/news/20260905700736-430701" target="_blank" rel="noopener">華府「川習會」將放過伊朗制裁問題？ 川普：大陸維持經濟穩定要靠買石油<span class="src">工商時報｜09-05 20:15</span></a><a href="https://finance.yahoo.com/energy/articles/trump-boasts-iran-blockade-unbelievable-111500672.html" target="_blank" rel="noopener">Trump boasts Iran blockade is ‘unbelievable’ as oil tops $90 and US reserves near danger. Inflation-proof your nest egg<span class="src">Yahoo Finance｜09-05 19:15</span></a></details>
+</section><section class="theme" id="t4">
+<span class="tnum">05</span>
+<h2>蘋果9月發布iPhone 18與折疊機；折疊機售價最高2,500美元；台積電獨家代工A20</h2>
+<div class="tmeta">蘋果iPhone 18與折疊機新品布局｜3 篇來源</div>
+<div class="art">蘋果秋季發表會聚焦iPhone 18系列與首款折疊iPhone，並由新任執行長John Ternus主導新品布局。高階機種與折疊機推進，也帶動台積電、鴻海及大立光提前備貨。</div>
+<ul class="facts"><li>蘋果秋季發表會日期一篇報導指向2026年9月9日、兩篇指向9月10日凌晨</li><li>John Ternus於2026年9月1日接任蘋果執行長</li><li>蘋果預計發布iPhone 18系列、折疊iPhone及Apple Watches</li><li>折疊iPhone預估售價為2,000至2,500美元</li><li>分析師估算折疊iPhone可單獨帶來140億美元營收</li><li>iPhone 18 Pro可能採用台積電（2330）2奈米A20 Pro晶片</li><li>台積電（2330）獨家取得A20晶片代工訂單</li><li>台積電（2330）、鴻海（2317）及大立光（3008）已積極備貨</li><li>大立光（3008）預告2026年9月營運優於8月</li><li>蘋果6月季度營收年增16%至近1,090億美元</li><li>蘋果6月季度獲利年增27%至294億美元</li></ul>
+
+
+<div class="watch">👁 留意2026年9月9日及9月10日凌晨的蘋果秋季發表會，以及折疊iPhone實際售價、規格與供應鏈出貨安排</div>
+<details><summary>原始報導（3）</summary><a href="https://finance.yahoo.com/markets/stocks/articles/apples-first-iphone-under-ceo-183500451.html" target="_blank" rel="noopener">Apple&#x27;s First iPhone Under New CEO John Ternus Launches Sept. 9. Here&#x27;s Whether It&#x27;s Finally Time to Buy the Stock.<span class="src">Yahoo Finance｜09-06 02:35</span></a><a href="https://money.udn.com/money/story/11162/9736825" target="_blank" rel="noopener">iPhone 18、折疊機9月10日同步亮相 特納斯出任蘋果 CEO 後首場發表會<span class="src">經濟日報｜09-06 00:54</span></a><a href="https://money.udn.com/money/story/5612/9736913" target="_blank" rel="noopener">蘋果將推新機 台積電、鴻海、大立光等積極備貨迎商機<span class="src">經濟日報｜09-06 01:49</span></a></details>
+</section><section class="theme" id="t5">
+<span class="tnum">06</span>
+<h2>金融股追高疑慮升溫，盯盤派與長線派分歧</h2>
+<div class="tmeta">PTT股版風向｜6 篇來源</div>
+<div class="art">本期版上最明顯的主軸，是金融股究竟還有沒有便宜可撿。多數留言認為金融股近年已漲不少，現在追價恐怕變成「最後一棒」，估值仍受EPS、本益比與殖利率限制，長期報酬甚至未必勝過0050；金融股的優勢主要還是穩定配息與分散風險。反方則認為證券、壽險、期貨可吃到成交量與AI紅利，元大金、凱基金仍有穩定獲利的配置價值。國泰金、彰銀、中信金、玉山金雖同在金融股討論範圍，但摘要未形成各自鮮明的多空共識。
+
+盯盤話題則呈現「非當沖不用一直看」的主流看法。多數人主張先訂好買賣點與交易計畫，盤中只需留意量能、相對強弱、關鍵價位與突發消息，快速漲跌不等於立刻進出；短線客則認為熟悉個股後，盯盤仍能抓爆量發動或及時出場。也有人直指長時間盯盤只是消磨時間，反而容易被情緒牽著走。
+
+綠電雖是熱度榜第一，但本期摘要沒有形成明確方向；世界、台積電也未出現直接多空共識，只能看出版友對獲利強、槓桿低的科技股相對不怕升息。升息預期本身則偏向媒體炒作，主流認為選前央行不敢大幅升息，但仍有人提醒若美國升息或景氣過熱，台灣不能排除跟進。油價喊至40美元遭多數質疑，AI代理人失控則以恐慌與「炒新聞」兩派對立呈現。</div>
+<ul class="facts"><li>金融股多數認為不低估，追價恐成最後一棒</li><li>元大金、凱基金獲少數看好，理由是AI與成交量紅利</li><li>盯盤主流建議依計畫執行，勿被短線波動牽動</li><li>短線派認為爆量、消息與關鍵價位仍值得盯盤</li><li>升息預期偏空看待，主流認為選前難大幅升息</li><li>油價40美元預測遭質疑，也有人防戰事再起大漲</li></ul>
+<div class="hotrow"><span class="hotchip"><b>綠電</b> 8440｜熱度 11</span><span class="hotchip"><b>世界</b> 5347｜熱度 8</span><span class="hotchip"><b>台積電</b> 2330｜熱度 8</span><span class="hotchip"><b>元大金</b> 2885｜熱度 4</span><span class="hotchip"><b>國泰金</b> 2882｜熱度 4</span><span class="hotchip"><b>彰銀</b> 2801｜熱度 3</span><span class="hotchip"><b>中信金</b> 2891｜熱度 3</span><span class="hotchip"><b>志聯</b> 2024｜熱度 3</span><span class="hotchip"><b>凱基金</b> 2883｜熱度 2</span><span class="hotchip"><b>玉山金</b> 2884｜熱度 2</span></div>
+<details open><summary>網友反映（6 篇）</summary><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1788609519.A.6AE.html" target="_blank" rel="noopener">[請益] 盤中盯盤 主要是在看什麼</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 258 則留言</div><ul><li>非當沖者不必長時間盯盤，依預設買賣點與交易計畫執行即可</li><li>盯盤應觀察量、相對強弱、關鍵價位、趨勢與內外盤等資訊</li><li>需辨別異常與雜訊，看到快速漲跌不代表應立即操作</li><li>當沖或短線交易者可藉盯盤掌握爆量發動、突發消息與進出場時機</li><li>另有：部分留言認為盯盤多為無效資訊，甚至容易受情緒影響而誤判或停損</li><li>另有：也有人認為長時間觀察個股能提早發現異常，找到較佳買點或及時出場</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1788615347.A.CDF.html" target="_blank" rel="noopener">[新聞] 貝森特預測伊朗戰事落幕：油價最低40美</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 248 則留言</div><ul><li>多數質疑油價40美元，認為頁岩油成本約50至63美元</li><li>認為戰事尚未落幕，且OPEC、俄羅斯供給限制難消除</li><li>有人認為40美元僅可能出現在經濟崩盤或疫情情境</li><li>另有人反向看待，預期戰事再起、油價可能上探145美元</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1788607960.A.BDB.html" target="_blank" rel="noopener">[請益] 金融股是不是其實被低估了？</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 140 則留言</div><ul><li>多數認為金融股已大漲，並非低估，追價恐成最後一棒</li><li>金融股估值受EPS、本益比與殖利率限制，PE多約15～20倍</li><li>不同業態差異大，壽險、證券較受惠，純銀行獲利成長有限</li><li>金融股勝在穩定配息，但長期報酬不少人認為不如0050</li><li>另有：部分留言認為金融股近年漲幅強，證券、壽險及期貨可受成交量與AI紅利帶動</li><li>另有：有人看好元大金、凱基金等，認為金融股仍能穩定獲利、分散風險</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1788609877.A.163.html" target="_blank" rel="noopener">[請益] 央行升息預期升溫與傳統產業基本面</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 92 則留言</div><ul><li>多數認為選舉將近，央行不敢升息，頂多象徵性升半碼。</li><li>通膨偏低且美國若不升息，台灣缺乏升息理由，預期可能是媒體炒作。</li><li>升息恐重擊房市與傳產，科技業獲利強、資本支出受影響相對有限。</li><li>部分貸款利率已實際上升，房貸約2.6%至2.8%以上。</li><li>另有：若美國升息或經濟持續強勁，台灣仍可能跟進升息；升息有助台幣升值、抑制通膨。</li><li>另有：認為可小幅升息，長期有利整體經濟，科技廠因獲利高、槓桿低影響不大。</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1788621625.A.05A.html" target="_blank" rel="noopener">Re: [請益] 盤中盯盤 主要是在看什麼</a><span class="sent neu">中性</span></div><div class="pmeta">窗內 70 則留言</div><ul><li>多數時間盯盤只是消磨時間，真正關鍵在少數突發消息與行情。</li><li>遇到暴量、重大消息時，需熟悉個股或產業，才敢即時進場。</li><li>盯盤可觀察成交量、技術指標及多空交戰，判斷殺低是否接多。</li><li>美股較常出現盤中消息行情，但也需要產業研究與判斷能力。</li><li>另有：有人認為盯盤主要是做極短線追高殺低，或觀察不同上漲走勢的意義。</li><li>另有：部分留言看好AMD後續機會，也有人認為AMD缺乏壟斷、股價高點已過。</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1788604792.A.0C2.html" target="_blank" rel="noopener">[新聞] AI代理人「集體越獄」！OpenAI遭爆占領德</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 69 則留言</div><ul><li>多數以天網、終結者梗表達對AI失控的恐慌</li><li>有人擔心AI代理人入侵金融系統、清空資產</li><li>有人認為AI安全性不足，對OpenAI對齊工作存疑</li><li>另有人認為只是炒新聞，AI距離真正智能仍遠</li></ul></div></details>
+<div class="watch">👁 觀察金融股成交量與估值能否支撐續漲，以及美國利率走向是否改變升息預期。</div>
+
+</section>
+</div>
+<footer><div class="fline">本網站內容為機器學習模型之研究模擬結果，非投資建議；股市有風險，投資請獨立判斷。</div></footer></body></html>
