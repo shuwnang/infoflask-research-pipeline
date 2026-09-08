@@ -166,7 +166,7 @@
     </tr>
     <tr class="sub" id="subhead">
       <th data-k="r">排名</th><th data-k="id">代號</th><th data-k="name">名稱</th>
-      <th data-k="hn" title="目前哪些帳本持有:主=高波動能/籌=籌碼趨勢/頻=高頻動能/c3=高頻籌碼;≥2 帳本=金框（重複持股）">持有</th>
+      <th data-k="hn" title="目前哪些帳本持有:波動=高波動能/趨勢=籌碼趨勢/頻動=高頻動能/頻籌=高頻籌碼;≥2 帳本=金框（重複持股）。長期籌碼(c20bk)僅為名次模型無持股帳本">持有</th>
       <th data-k="cp">前日漲跌</th><th data-k="ct">當日漲跌</th>
       <th data-k="t" class="g-hv">動能T</th><th data-k="s" class="g-hv">平滑S</th>
       <th data-k="l" class="g-hv">寬鬆L</th><th data-k="c" class="g-hv">複合C</th>
@@ -191,7 +191,7 @@ const dates = Object.keys(DATA).sort().reverse();
 dates.forEach(d => { const o = document.createElement('option'); o.value = d; o.textContent = d; sel.appendChild(o); });
 let curDate = dates[0], sortKey = 'r', sortAsc = true, filterG = 'all';
 
-const HOLD_DEFS = [[1,'主','var(--grp-hv)'],[2,'籌','var(--grp-bk)'],[4,'頻','var(--grp-hf)'],[8,'c3','var(--grp-hb)']];
+const HOLD_DEFS = [[1,'波動','var(--grp-hv)'],[2,'趨勢','var(--grp-bk)'],[4,'頻動','var(--grp-hf)'],[8,'頻籌','var(--grp-hb)']];
 function holdCell(r) {
   const hd = r.hd || 0;
   if (!hd) return '<td class="dim">—</td>';
