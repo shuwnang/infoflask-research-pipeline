@@ -62,6 +62,13 @@
     }
     .filter-btn:hover { border-color:var(--border-strong); color:var(--text); }
     .filter-btn.on { background:var(--accent-soft); border-color:var(--accent); color:var(--accent); }
+    /* 持有欄（2026-09-08）:各帳本迷你徽章,≥2 帳本=金框標示重複持股 */
+    .hold-td { white-space:nowrap; }
+    .hold-b {
+      display:inline-block; font-size:10px; font-weight:700; line-height:1;
+      padding:2px 4px; margin:0 1px; border:1px solid; border-radius:4px;
+    }
+    .hold-multi { box-shadow:inset 0 0 0 1px var(--accent); border-radius:6px; }
     #table-wrap {
       flex:1; overflow:auto; margin:14px 16px 16px;
       border:1px solid var(--border); border-radius:14px; background:var(--surface);
@@ -141,6 +148,8 @@
     <button class="filter-btn" data-g="hf">高頻動能前10</button>
     <button class="filter-btn" data-g="hb">高頻籌碼前10</button>
     <button class="filter-btn" data-g="lc">長期籌碼前10</button>
+    <button class="filter-btn" data-g="held">持有中</button>
+    <button class="filter-btn" data-g="multi">重複持股</button>
   </div>
 </header>
 <div id="table-wrap">
@@ -157,6 +166,7 @@
     </tr>
     <tr class="sub" id="subhead">
       <th data-k="r">排名</th><th data-k="id">代號</th><th data-k="name">名稱</th>
+      <th data-k="hn" title="目前哪些帳本持有:主=高波動能/籌=籌碼趨勢/頻=高頻動能/c3=高頻籌碼;≥2 帳本=金框（重複持股）">持有</th>
       <th data-k="cp">前日漲跌</th><th data-k="ct">當日漲跌</th>
       <th data-k="t" class="g-hv">動能T</th><th data-k="s" class="g-hv">平滑S</th>
       <th data-k="l" class="g-hv">寬鬆L</th><th data-k="c" class="g-hv">複合C</th>
@@ -181,6 +191,14 @@ const dates = Object.keys(DATA).sort().reverse();
 dates.forEach(d => { const o = document.createElement('option'); o.value = d; o.textContent = d; sel.appendChild(o); });
 let curDate = dates[0], sortKey = 'r', sortAsc = true, filterG = 'all';
 
+const HOLD_DEFS = [[1,'主','var(--grp-hv)'],[2,'籌','var(--grp-bk)'],[4,'頻','var(--grp-hf)'],[8,'c3','var(--grp-hb)']];
+function holdCell(r) {
+  const hd = r.hd || 0;
+  if (!hd) return '<td class="dim">—</td>';
+  const bs = HOLD_DEFS.filter(([b]) => hd & b)
+    .map(([b,t,c]) => `<span class="hold-b" style="color:${c};border-color:${c}">${t}</span>`).join('');
+  return `<td class="hold-td${(r.hn||0) >= 2 ? ' hold-multi' : ''}">${bs}</td>`;
+}
 function rkCell(v) {
   if (v === null || v === undefined) return '<td class="rkX">—</td>';
   const cls = v <= 10 ? 'rk10' : v <= 30 ? 'rk30' : 'rkX';
@@ -192,7 +210,9 @@ function pctCell(v) {
 }
 function render() {
   let rows = DATA[curDate].slice();
-  if (filterG !== 'all') rows = rows.filter(r => GRP[filterG].some(k => r[k] !== null && r[k] !== undefined && r[k] <= 10));
+  if (filterG === 'held') rows = rows.filter(r => (r.hn || 0) >= 1);
+  else if (filterG === 'multi') rows = rows.filter(r => (r.hn || 0) >= 2);
+  else if (filterG !== 'all') rows = rows.filter(r => GRP[filterG].some(k => r[k] !== null && r[k] !== undefined && r[k] <= 10));
   rows.sort((a, b) => {
     let x = a[sortKey], y = b[sortKey];
     if (x === null || x === undefined) x = sortAsc ? 1e9 : -1e9;
@@ -205,7 +225,7 @@ function render() {
       : `<td class="${r.sn > 0 ? 'senti-pos' : r.sn < 0 ? 'senti-neg' : 'dim'}">${r.sn > 0 ? '+' : ''}${r.sn}（${r.sa}篇）</td>`;
     return `<tr><td>${r.r}</td>` +
       `<td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/${r.id}.${r.mk}" target="_blank" rel="noopener">${r.id}</a></td>` +
-      `<td class="l">${r.name}</td>${pctCell(r.cp)}${pctCell(r.ct)}` +
+      `<td class="l">${r.name}</td>${holdCell(r)}${pctCell(r.cp)}${pctCell(r.ct)}` +
       RANK_KEYS.map(k => rkCell(r[k])).join('') +
       `<td class="sc">${r.sc}</td>${senti}</tr>`;
   }).join('');
@@ -217,7 +237,7 @@ sel.addEventListener('change', () => { curDate = sel.value; render(); });
 document.querySelectorAll('#subhead th').forEach(th => th.addEventListener('click', () => {
   const k = th.dataset.k;
   if (sortKey === k) sortAsc = !sortAsc;
-  else { sortKey = k; sortAsc = !(k === 'sc' || k === 'cp' || k === 'ct' || k === 'sn'); }
+  else { sortKey = k; sortAsc = !(k === 'sc' || k === 'cp' || k === 'ct' || k === 'sn' || k === 'hn'); }
   render();
 }));
 document.querySelectorAll('.filter-btn').forEach(b => b.addEventListener('click', () => {
