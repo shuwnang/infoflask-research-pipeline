@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
+  <title>券商報告整理</title>
+  <style>
+
+    :root {
+      --bg:#0A0C10; --surface:#12151C; --surface-2:#171B24; --surface-3:#1D2330;
+      --surface-grad:#151A23; --row-line:#1A1F29;
+      --border:#232936; --border-strong:#2E3646;
+      --text:#E7EBF2; --text-2:#9AA4B2; --text-3:#5C6675;
+      --accent:#E8C158; --accent-soft:rgba(232,193,88,0.10); --link:#6CA8FF;
+      --up:#F0544C; --up-bright:#FF7B72; --up-bg:#1D0F0E;
+      --dn:#3FBF7F; --dn-bright:#5CD99A; --dn-bg:#0C1B14;
+      --warn:#F5A524; --risk:#F0544C;
+      --sb-thumb:#2A3140; --sb-thumb-h:#38424F;
+      --grp-hv:#FF9E97; --grp-bk:#E8C158; --grp-hf:#B48CFF; --grp-hb:#4FD8C8;
+    }
+    ::-webkit-scrollbar { width:8px; height:8px; }
+    ::-webkit-scrollbar-thumb { background:var(--sb-thumb); border-radius:4px; }
+    ::-webkit-scrollbar-thumb:hover { background:var(--sb-thumb-h); }
+    ::-webkit-scrollbar-track { background:transparent; }
+    ::selection { background:rgba(108,168,255,0.28); }
+
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    body { background:var(--bg); color:var(--text); min-height:100dvh;
+      font-family:"Inter","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
+      -webkit-font-smoothing:antialiased; font-variant-numeric:tabular-nums; }
+    header { display:flex; align-items:center; flex-wrap:wrap; gap:14px;
+      padding:12px 22px; background:rgba(10,12,16,0.88); backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--border); position:sticky; top:0; z-index:20; }
+    .brand { font-size:17px; font-weight:900; color:#fff; letter-spacing:0.08em; white-space:nowrap; }
+    .brand-page { font-size:13px; font-weight:500; color:var(--text-3); margin-left:2px; }
+    .site-nav { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+    .nav-link { color:var(--text-2); text-decoration:none; font-size:13px; font-weight:500;
+      padding:5px 14px; border:1px solid var(--border); border-radius:999px;
+      white-space:nowrap; transition:all .15s ease; }
+    .nav-link:hover { color:var(--text); border-color:var(--border-strong); background:var(--surface-2); }
+    .wrap { max-width:880px; margin:0 auto; padding:28px 20px 60px; }
+    .page-head h1 { font-size:22px; font-weight:800; letter-spacing:0.04em; }
+    .page-head .intro { color:var(--text-2); font-size:13px; margin-top:6px; line-height:1.7; }
+    details.report { background:linear-gradient(180deg,#151A23 0%,var(--surface) 100%);
+      border:1px solid var(--border); border-radius:14px; margin-top:18px; overflow:hidden; }
+    details.report[open] { border-color:var(--border-strong); }
+    summary { list-style:none; cursor:pointer; padding:14px 18px;
+      display:flex; flex-wrap:wrap; align-items:center; gap:10px; }
+    summary::-webkit-details-marker { display:none; }
+    summary:hover { background:var(--surface-2); }
+    .r-date { font-size:12px; color:var(--text-3); border:1px solid var(--border);
+      border-radius:8px; padding:2px 8px; white-space:nowrap; }
+    .r-title { font-size:16px; font-weight:800; flex:1; min-width:160px; }
+    .r-stock { font-size:13px; font-weight:700; color:var(--accent); }
+    .chips { display:flex; gap:6px; flex-wrap:wrap; }
+    .chip { font-size:11px; font-weight:700; padding:2px 9px; border-radius:999px;
+      border:1px solid; white-space:nowrap; }
+    .chip-gold  { color:var(--accent); border-color:rgba(232,193,88,0.45); background:var(--accent-soft); }
+    .chip-blue  { color:var(--link); border-color:rgba(108,168,255,0.45); background:rgba(108,168,255,0.10); }
+    .chip-red   { color:var(--up-bright); border-color:rgba(240,84,76,0.45); background:rgba(240,84,76,0.10); }
+    .chip-green { color:var(--dn-bright); border-color:rgba(63,191,127,0.45); background:rgba(63,191,127,0.10); }
+    .caret { color:var(--text-3); font-size:12px; transition:transform .15s ease; }
+    details[open] .caret { transform:rotate(90deg); }
+    .r-body { padding:4px 22px 20px; border-top:1px solid var(--border); }
+    table.kv { width:100%; margin-top:14px; border-collapse:collapse; }
+    table.kv td { padding:6px 10px 6px 0; vertical-align:top; }
+    .kv .lbl { font-size:11px; color:var(--text-3); letter-spacing:0.06em; }
+    .kv .val { font-size:15px; font-weight:800; margin-top:2px; }
+    .val.up { color:var(--up-bright); } .val.dn { color:var(--dn-bright); }
+    .sec { margin-top:16px; font-size:12px; font-weight:700; color:var(--text-3);
+      letter-spacing:0.1em; border-left:3px solid var(--accent); padding-left:8px; }
+    ul.pts { margin:8px 0 0 2px; list-style:none; }
+    ul.pts li { font-size:14px; line-height:1.75; padding-left:16px; position:relative; }
+    ul.pts li::before { content:"›"; position:absolute; left:2px; color:var(--accent); font-weight:900; }
+    ul.pts.fin li::before { color:var(--link); }
+    .newsa { margin-top:8px; font-size:13.5px; line-height:1.8; color:var(--text-2); }
+    .srcline { margin-top:14px; font-size:11.5px; color:var(--text-3);
+      border-top:1px solid var(--row-line); padding-top:10px; }
+    footer { margin-top:36px; font-size:11.5px; color:var(--text-3); line-height:1.7;
+      border-top:1px solid var(--border); padding-top:14px; }
+    .empty-msg { text-align:center; padding:60px 0; color:var(--text-3); }
+
+    @media (max-width: 768px) {
+      header { padding:10px 12px; gap:8px; }
+      .brand { font-size:15px; }
+      .site-nav { gap:6px; }
+      .nav-link { padding:4px 10px; font-size:12px; }
+      .date-badge { flex-basis:100%; margin-left:0; }
+      .subtitle { padding-left:12px; padding-right:12px; }
+      .stats-row { padding:12px 12px 4px; gap:8px; }
+      .stat { min-width:calc(50% - 8px); flex:1; padding:10px 12px; }
+      h2 { padding-left:12px; padding-right:12px; }
+      .actions-row { padding:0 12px; }
+      .table-wrap { margin:0 8px 8px; border-radius:10px; }
+      td, thead th { padding:8px 8px; }
+      footer { padding:14px 12px 20px; }
+    }
+
+    @media (max-width: 768px) { .wrap { padding-left:12px; padding-right:12px; }
+      table.kv td { display:inline-block; margin-right:14px; } }
+  </style>
+</head>
+<body>
+<header>
+  <div class="brand">INFOFLASK<span class="brand-page">｜券商報告</span></div>
+  <nav class="site-nav">
+    <a href="index.html" class="nav-link">首頁</a>
+    <a href="scores.html" class="nav-link">評分表</a>
+    <a href="holdings.html" class="nav-link">高波動能</a>
+    <a href="sub.html" class="nav-link">籌碼趨勢</a>
+    <a href="short3d.html" class="nav-link">高頻動能</a>
+    <a href="shortbk.html" class="nav-link">高頻籌碼</a>
+    <a href="performance.html" class="nav-link">績效表</a>
+    <a href="market.html" class="nav-link">大盤觀測</a>
+    <a href="reports.html" class="nav-link">研究報告</a>
+    <a href="news/index.html" class="nav-link">新聞</a>
+  </nav>
+</header>
+<div class="wrap">
+  <div class="page-head">
+    <h1>券商報告整理</h1>
+    <div class="intro">券商個股研究報告之 AI 重點整理——聚焦最新消息與預估變動，
+    並比對該股近 10 日新聞流。潛在漲跌幅以本站最新收盤價計算。僅供個人研究參考。</div>
+  </div>
+
+  <details class="report" open id="d-20260910_6510">
+    <summary>
+      <span class="r-date">2026-09-10</span>
+      <span class="r-title">精測 <span class="r-stock">(6510)</span></span>
+      <span class="chips"><span class="chip chip-gold">評等 買進</span>
+      <span class="chip chip-blue">目標價 4250</span>
+      <span class="chip chip-red">潛在 +17.7%</span></span>
+      <span class="caret">▶</span>
+    </summary>
+    <div class="r-body">
+      <table class="kv"><tr>
+        <td><div class="lbl">公司</div><div class="val">精測</div></td>
+        <td><div class="lbl">代號</div><div class="val">6510</div></td>
+        <td><div class="lbl">目標價</div><div class="val">4250</div></td>
+        <td><div class="lbl">收盤(2026-09-09)</div><div class="val">3610.0</div></td>
+        <td><div class="lbl">潛在漲跌幅</div><div class="val up">+17.7%</div></td>
+      </tr></table>
+      <div class="sec">報告重點</div><ul class="pts"><li>首次給予買進評等與4,250元目標價，較9月9日收盤3,610元隱含上漲空間17.7%；評價基礎為2027F EPS 120元、本益比35倍。</li><li>3Q26預估營收19.4億元，季增18%、年增56%，GPU後段測試板及ASIC前段測試板進入放量，EPS估16.72元、季增11.3%、年增98.9%。</li><li>4Q26預估營收21.7億元，季增12%、年增81%，第二波擴產開始出貨予預燒爐客戶、TPU新品量產；EPS估18.92元，季增13.2%、年增117.9%。</li><li>EV AI雙晶片探針卡已通過客戶驗證，預計1H27量產；單張逾4萬針、2027年出貨約100張，貢獻營收約8%，將成最大單一探針卡專案。</li><li>MEMS探針月產能預計於2Q27由70至80萬根擴至120至130萬根、增幅約67%；AI CPU案預計4Q26至1Q27 tape-out，量產貢獻主要落在2H27。</li><li>相較市場共識，券商2026F EPS 61.2元低4.6%，但2027F EPS 119.6元高5.2%；預估HPC探針卡2027年營收年增282%、營收占比由8%升至17%。</li></ul>
+      <div class="sec">財務數字預估</div><ul class="pts fin"><li>2026F 營收71.0億元(+47.8%) / EPS 61.24元(+293.4%) / 毛利率55.6% / 營益率33.4%</li><li>2027F 營收126.5億元(+78.1%) / EPS 119.56元(+95.2%) / 毛利率54.7% / 營益率37.5%</li><li>3Q26F 營收19.41億元(+56.3% YoY、+18.4% QoQ) / EPS 16.72元 / 毛利率54.9%</li><li>4Q26F 營收21.65億元(+81.0% YoY、+11.5% QoQ) / EPS 18.92元 / 毛利率54.0%</li><li>目標價採2027F EPS 120元與35倍本益比；目前股價對應2026F、2027F本益比分別為59.0倍、30.2倍。</li></ul>
+      <div class="sec">近10日新聞分析（12 篇）</div>
+      <div class="newsa">近10日新聞與報告高度呼應：8月營收創高、單月獲利1.74億元且年增95%，以及AI、CPO測試題材推升探針卡族群，支持GPU/ASIC放量論述。惟大盤高檔震盪、法人賣超與同業強勢，可能加大短線評價及資金輪動波動。</div>
+      <div class="srcline">來源報告：精測 (6510 TT)：探針卡業務展望正向，有利評價提升｜gpt-5.6-terra 整理</div>
+    </div>
+  </details>
+  <details class="report" id="d-20260909_8086">
+    <summary>
+      <span class="r-date">2026-09-09</span>
+      <span class="r-title">宏捷科 <span class="r-stock">(8086)</span></span>
+      <span class="chips"><span class="chip chip-gold">評等 買進</span>
+      <span class="chip chip-blue">目標價 150</span>
+      <span class="chip chip-red">潛在 +32.2%</span></span>
+      <span class="caret">▶</span>
+    </summary>
+    <div class="r-body">
+      <table class="kv"><tr>
+        <td><div class="lbl">公司</div><div class="val">宏捷科</div></td>
+        <td><div class="lbl">代號</div><div class="val">8086</div></td>
+        <td><div class="lbl">目標價</div><div class="val">150</div></td>
+        <td><div class="lbl">收盤(2026-09-09)</div><div class="val">113.5</div></td>
+        <td><div class="lbl">潛在漲跌幅</div><div class="val up">+32.2%</div></td>
+      </tr></table>
+      <div class="sec">報告重點</div><ul class="pts"><li>3Q26營收預估下修8%至12.4億元、EPS下修15%至1.22元，獲利年增率由30%降至10%；主因手機營收由原估季增1%轉為季減4%。</li><li>受上游Epi及原物料漲價且未能即時完全轉嫁影響，3Q26毛利率下修1.4個百分點至29.4%。</li><li>2026F/2027F EPS分別下修5.8%/8.3%至5.29元/6.00元；目標本益比由30倍降為25倍，目標價自195元下調至150元。</li><li>光通訊VCSEL營收估2026F/2027F年增80%/59%，營收占比升至6%/8%；940nm、1060nm VCSEL、PD及InP新案持續研發，顯著新案貢獻預計2028年後。</li><li>無人機PA自1Q26開始大量出貨，客戶由2家增至4家；因單機PA用量由1顆提高至4顆，預估2026F/2027F營收年增150%/39%，占比達4%/6%。</li></ul>
+      <div class="sec">財務數字預估</div><ul class="pts fin"><li>2026F 營收49.66億元(+20.6%)／毛利率30.8%／EPS 5.29元(+57.5%)</li><li>2027F 營收54.30億元(+9.3%)／毛利率31.5%／EPS 6.00元(+13.4%)</li><li>3Q26F 營收12.40億元(+11.0%)／毛利率29.4%／EPS 1.22元(+10.4%)</li><li>4Q26F 營收12.05億元／EPS 1.14元，分別季減2.8%與7.1%</li><li>目標價150元，採2027F EPS 6.00元及25倍目標本益比；以報告收盤價110元計隱含上漲空間36.4%</li></ul>
+      <div class="sec">近10日新聞分析（4 篇）</div>
+      <div class="newsa">9月10日新聞重申法人給予買進、目標價150元，與報告對光通訊及無人機PA長期動能的觀點一致。8月營收4.22億元、前8月累計33.61億元年增35.83%，支持全年成長，但公司預期3Q營收持平或小幅季減，呼應報告對手機需求轉弱及原料漲價壓抑毛利的短期風險。</div>
+      <div class="srcline">來源報告：宏捷科 (8086 TT)：光通訊應用及無人機具未來潛力｜gpt-5.6-terra 整理</div>
+    </div>
+  </details>
+  <details class="report" id="d-20260908_4958">
+    <summary>
+      <span class="r-date">2026-09-08</span>
+      <span class="r-title">臻鼎-KY <span class="r-stock">(4958)</span></span>
+      <span class="chips"><span class="chip chip-gold">評等 買進</span>
+      <span class="chip chip-blue">目標價 680</span>
+      <span class="chip chip-red">潛在 +35.5%</span></span>
+      <span class="caret">▶</span>
+    </summary>
+    <div class="r-body">
+      <table class="kv"><tr>
+        <td><div class="lbl">公司</div><div class="val">臻鼎-KY</div></td>
+        <td><div class="lbl">代號</div><div class="val">4958</div></td>
+        <td><div class="lbl">目標價</div><div class="val">680</div></td>
+        <td><div class="lbl">收盤(2026-09-09)</div><div class="val">502.0</div></td>
+        <td><div class="lbl">潛在漲跌幅</div><div class="val up">+35.5%</div></td>
+      </tr></table>
+      <div class="sec">報告重點</div><ul class="pts"><li>2Q26伺服器、光模組及IC載板營收占比由1Q26的19.7%升至23.2%，相關業務1H26營收年增113%，帶動毛利率升至23.1%、季增1.5個百分點。</li><li>2Q26營收484.3億元、年增26.8%，營業利益37.6億元、年增55.1%；稅後純益23.9億元、年增295.3%，EPS為2.16元。</li><li>預估3Q26/4Q26營收分別為603.0億/685.6億元，季增24.5%/13.7%；毛利率將續升至24.0%/25.9%，EPS為3.07元/4.51元。</li><li>淮安及泰國高階PCB新產能自4Q26起陸續試產，淮安HD園區預計2027年3月投產、2Q27量產；泰國廠已於2026年7月損益兩平。</li><li>預估伺服器、光模組及IC載板營收占比將由2026F的23%升至2027F的37%，相關營收年增119%/121%，成為2027年獲利加速主因。</li><li>維持買進與680元目標價，以2027F EPS 27.33元、25倍本益比評價；相對9月9日收盤502元具約35.5%上行空間。</li></ul>
+      <div class="sec">財務數字預估</div><ul class="pts fin"><li>2026F 營收2,180.1億元(+19.4%) / EPS 11.07元(+69.2%) / 毛利率23.9%</li><li>2027F 營收2,796.8億元(+28.3%) / EPS 27.33元(+146.8%) / 毛利率28.7%</li><li>2026F 營業利益190.5億元(+36.8%) / 稅後純益122.3億元(+80.1%)</li><li>2027F 營業利益420.4億元(+120.7%) / 稅後純益303.1億元(+147.8%)</li><li>目標價680元，採2027F EPS 27.33元與25倍本益比；2026F/2027F本益比分別45.2倍/18.3倍</li></ul>
+      <div class="sec">近10日新聞分析（12 篇）</div>
+      <div class="newsa">新聞與報告高度呼應：iPhone Duo折疊機亮相、外資預估出貨1,400萬至3,500萬支，有利提高PCB單機價值；AI/HPC推升ABF規格及1.6T光模組mSAP擴產題材，支持高階產品占比提升。惟蘋果新品發表後供應鏈股價走弱，且高售價恐抑制終端需求，為短期風險。</div>
+      <div class="srcline">來源報告：臻鼎-KY (4958 TT)：高階產品占比持續提升，2027營運可望加速成長｜gpt-5.6-terra 整理</div>
+    </div>
+  </details>
+  <details class="report" id="d-20260908_1504">
+    <summary>
+      <span class="r-date">2026-09-08</span>
+      <span class="r-title">東元 <span class="r-stock">(1504)</span></span>
+      <span class="chips"><span class="chip chip-gold">評等 持有-超越同業</span>
+      <span class="chip chip-blue">目標價 80</span>
+      <span class="chip chip-red">潛在 +12.8%</span></span>
+      <span class="caret">▶</span>
+    </summary>
+    <div class="r-body">
+      <table class="kv"><tr>
+        <td><div class="lbl">公司</div><div class="val">東元</div></td>
+        <td><div class="lbl">代號</div><div class="val">1504</div></td>
+        <td><div class="lbl">目標價</div><div class="val">80</div></td>
+        <td><div class="lbl">收盤(2026-09-09)</div><div class="val">70.9</div></td>
+        <td><div class="lbl">潛在漲跌幅</div><div class="val up">+12.8%</div></td>
+      </tr></table>
+      <div class="sec">報告重點</div><ul class="pts"><li>目標價由76元上調至80元，係以2027F EPS 3.52元、23倍本益比評價；惟現價評價已處歷史區間高檔，維持持有-超越同業。</li><li>2026F EPS上修6.6%至3.15元，主因納入較高的金融資產評價利益；2027F EPS則下修5.6%至3.52元。</li><li>3Q26F營收估174.8億元，季增5.3%、年增20.2%，成長主力為電力能源AIDC業務；毛利率估季減0.8個百分點至24.4%。</li><li>AIDC 2026/2027F營收預估54億元、93億元，占營收8%、12%；其中2027年預估較前次147億元大幅下修，因美國資料中心客戶選址問題尚未形成訂單。</li><li>2026年AIDC接單目標100億元，前7月已取得50至60億元，約60%至70%預計於2027年認列；MDC產品預計4Q26完成POC，最快2027年出貨。</li><li>美國大馬達1至7月接單年增近30%，但國內離岸風電與台電Statcom案件遞延，為下修2027年電力能源業務預估的主要風險。</li></ul>
+      <div class="sec">財務數字預估</div><ul class="pts fin"><li>2026F 營收667.1億元(+12.9%) / EPS 3.15元(+35.3%) / 毛利率24.4%</li><li>2027F 營收774.5億元(+16.1%) / EPS 3.52元(+11.7%) / 毛利率24.3%</li><li>3Q26F 營收174.8億元(+20.2% YoY、+5.3% QoQ) / EPS 0.82元 / 毛利率24.4%</li><li>目標價80元，採2027F EPS 3.52元之23倍本益比；2026F/2027F預估本益比分別22.8倍/20.4倍</li></ul>
+      <div class="sec">近10日新聞分析（12 篇）</div>
+      <div class="newsa">近10日新聞呼應報告對AIDC的正向看法：東元擴大模組化工業基建與綠色能源應用，且AI資料中心用電需求預估至2030年高速成長，均支持東南亞AIDC接單與MDC催化劑；惟新聞未能改善美國案場選址、訂單未落地及國內工程遞延風險。</div>
+      <div class="srcline">來源報告：東元 (1504 TT)：AIDC業務成長強勁，惟目前評價合理｜gpt-5.6-terra 整理</div>
+    </div>
+  </details>
+  <details class="report" id="d-20260907_1477">
+    <summary>
+      <span class="r-date">2026-09-07</span>
+      <span class="r-title">聚陽 <span class="r-stock">(1477)</span></span>
+      <span class="chips"><span class="chip chip-gold">評等 買進</span>
+      <span class="chip chip-blue">目標價 260</span>
+      <span class="chip chip-red">潛在 +31.6%</span></span>
+      <span class="caret">▶</span>
+    </summary>
+    <div class="r-body">
+      <table class="kv"><tr>
+        <td><div class="lbl">公司</div><div class="val">聚陽</div></td>
+        <td><div class="lbl">代號</div><div class="val">1477</div></td>
+        <td><div class="lbl">目標價</div><div class="val">260</div></td>
+        <td><div class="lbl">收盤(2026-09-09)</div><div class="val">197.5</div></td>
+        <td><div class="lbl">潛在漲跌幅</div><div class="val up">+31.6%</div></td>
+      </tr></table>
+      <div class="sec">報告重點</div><ul class="pts"><li>8月營收35.54億元，月增18.5%、優於預期；3Q26營收預估上修1.2%至94.72億元，年增6.6%。</li><li>3Q26稅後EPS上修1.1%至4.14元，季增25.2%、年增18.9%，旺季獲利動能優於原估。</li><li>4Q26採挑單策略、預期ASP年增5%至7%；營收上修3.5%至84.78億元，EPS上修3.5%至3.94元、年增11.8%。</li><li>2026/2027年EPS分別上修1.8%/0.5%至15.73元/17.08元，受低庫存回補訂單及擴產規劃支撐。</li><li>維持買進，但因美伊和談與消費不確定性，目標價由310元下調至260元，評價倍數由20倍降至16倍。</li><li>日系客戶及Dick’s訂單預計雙位數成長、Under Armour訂單年增50%，Athleta訂單恢復成長，為訂單復甦催化劑。</li></ul>
+      <div class="sec">財務數字預估</div><ul class="pts fin"><li>2026F 營收350.13億元(+1.7%)／毛利率25.3%／EPS 15.73元(+7.3%)／現金殖利率8.0%</li><li>2027F 營收388.04億元(+10.8%)／毛利率25.3%／EPS 17.08元(+8.8%)</li><li>3Q26F 營收94.72億元(+6.6% YoY)／毛利率24.7%／EPS 4.14元(+18.9% YoY)</li><li>4Q26F 營收84.78億元(+7.0% YoY)／毛利率26.0%／EPS 3.94元(+11.8% YoY)</li><li>以2026F/2027F EPS計算本益比分別12.5倍/11.5倍；目標價260元採16倍本益比及2H26-1H27 EPS 16.07元估算</li></ul>
+      <div class="sec">近10日新聞分析（12 篇）</div>
+      <div class="newsa">8月營收35.54億元、月增18.5%及3Q、4Q訂單維持成長軌道，呼應報告的旺季復甦與庫存回補判斷；品牌分散下單亦利於接單。國泰人壽持股增至5.13%為籌碼催化劑，但8月年減5.1%及地緣政治、通膨仍是短單化風險。</div>
+      <div class="srcline">來源報告：聚陽 (1477 TT)：訂單復甦方向不變，重啟成長，殖利率達8%，極具吸引力｜gpt-5.6-terra 整理</div>
+    </div>
+  </details>  <footer>本頁由 AI 自動整理券商研究報告與新聞資料，內容可能有誤，僅供個人研究參考，
+  不構成任何投資建議；報告著作權屬原券商所有。</footer>
+</div>
+<script>
+if (location.hash) {
+  const el = document.querySelector(location.hash.replace(/[^#\w-]/g, ""));
+  if (el && el.tagName === "DETAILS") { el.open = true; el.scrollIntoView(); }
+}
+</script>
+</body>
+</html>
