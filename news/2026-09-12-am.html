@@ -1,0 +1,246 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>2026-09-12 早報｜INFOFLASK 新聞</title><style>
+    :root {
+      --bg:#0A0C10; --surface:#12151C; --surface-2:#171B24; --surface-3:#1D2330;
+      --surface-grad:#151A23; --row-line:#1A1F29;
+      --border:#232936; --border-strong:#2E3646;
+      --text:#E7EBF2; --text-2:#9AA4B2; --text-3:#5C6675;
+      --accent:#E8C158; --accent-soft:rgba(232,193,88,0.10); --link:#6CA8FF;
+      --up:#F0544C; --up-bright:#FF7B72; --up-bg:#1D0F0E;
+      --dn:#3FBF7F; --dn-bright:#5CD99A; --dn-bg:#0C1B14;
+      --warn:#F5A524; --risk:#F0544C;
+      --sb-thumb:#2A3140; --sb-thumb-h:#38424F;
+      --grp-hv:#FF9E97; --grp-bk:#E8C158; --grp-hf:#B48CFF; --grp-hb:#4FD8C8;
+    }
+    ::-webkit-scrollbar { width:8px; height:8px; }
+    ::-webkit-scrollbar-thumb { background:var(--sb-thumb); border-radius:4px; }
+    ::-webkit-scrollbar-thumb:hover { background:var(--sb-thumb-h); }
+    ::-webkit-scrollbar-track { background:transparent; }
+    ::selection { background:rgba(108,168,255,0.28); }
+
+:root{--accent-2:#F0D488;--shadow:0 10px 32px rgba(0,0,0,.35)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);
+font-family:"Inter","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;line-height:1.75;
+-webkit-font-smoothing:antialiased;
+background-image:radial-gradient(1100px 420px at 50% -180px,rgba(232,193,88,.07),transparent 70%)}
+a{color:var(--link);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:880px;margin:0 auto;padding:24px 18px 90px}
+/* 全站標準 sticky 表頭（2026-09-02 由頁內 .sitenav 升級） */
+header.site{display:flex;align-items:center;flex-wrap:wrap;gap:14px;padding:12px 22px;
+background:rgba(10,12,16,0.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+border-bottom:1px solid var(--border);position:sticky;top:0;z-index:20}
+.brand{font-size:17px;font-weight:900;color:#fff;letter-spacing:0.08em;white-space:nowrap}
+.brand-page{font-size:13px;font-weight:500;color:var(--text-3);margin-left:2px}
+.site-nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.nav-link{color:var(--text-2);text-decoration:none;font-size:13px;font-weight:500;
+padding:5px 14px;border:1px solid var(--border);border-radius:999px;
+white-space:nowrap;transition:all .15s ease}
+.nav-link:hover{color:var(--text);border-color:var(--border-strong);background:var(--surface-2);text-decoration:none}
+.nav-link.active{color:var(--accent);border-color:var(--accent);background:var(--accent-soft);pointer-events:none}
+footer{max-width:880px;margin:0 auto;padding:0 18px 24px;font-size:11.5px;color:var(--text-3);line-height:1.8}
+footer .fline{border-top:1px solid var(--border);padding-top:12px}
+h1{font-size:1.45rem;letter-spacing:.02em;margin-bottom:2px}
+.sub{color:var(--text-3);font-size:.85rem;margin-bottom:20px}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px;position:sticky;top:53px;z-index:5;
+padding:12px 0;background:rgba(10,12,16,.82);backdrop-filter:blur(10px);
+-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.nav a{background:var(--surface-2);border:1px solid var(--border);border-radius:20px;
+padding:4px 13px;font-size:.78rem;color:var(--text-2);transition:.15s}
+.nav a:hover{color:var(--accent);border-color:rgba(232,193,88,.45);text-decoration:none;
+background:var(--accent-soft)}
+.theme{background:linear-gradient(180deg,var(--surface-2),var(--surface) 42%);
+border:1px solid var(--border);border-radius:18px;padding:26px 28px 22px;margin-bottom:22px;
+box-shadow:var(--shadow);scroll-margin-top:64px;position:relative;overflow:hidden}
+.theme:before{content:"";position:absolute;inset:0 auto auto 0;width:100%;height:2px;
+background:linear-gradient(90deg,var(--accent),rgba(232,193,88,.06) 55%,transparent)}
+.tnum{position:absolute;top:18px;right:22px;font-size:2rem;font-weight:800;
+color:rgba(232,193,88,.13);letter-spacing:.04em;font-variant-numeric:tabular-nums}
+.theme h2{font-size:1.22rem;line-height:1.55;margin-bottom:6px;padding-right:56px;
+background:linear-gradient(90deg,var(--accent-2),var(--accent));
+-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.tmeta{color:var(--text-3);font-size:.75rem;margin-bottom:14px;display:flex;gap:8px;align-items:center}
+.tmeta:before{content:"";width:18px;height:1px;background:var(--accent);opacity:.6}
+.art{color:var(--text-2);font-size:.94rem;line-height:1.85;margin-bottom:16px;
+padding:12px 16px;background:rgba(255,255,255,.02);border-left:3px solid var(--border-strong);
+border-radius:0 10px 10px 0;white-space:pre-wrap}
+.facts{margin-bottom:6px}
+.facts li{list-style:none;position:relative;color:var(--text);font-size:.96rem;line-height:1.7;
+padding:9px 4px 9px 30px;border-bottom:1px solid rgba(255,255,255,.045)}
+.facts li:last-child{border-bottom:none}
+.facts li:before{content:"";position:absolute;left:8px;top:1.05em;width:7px;height:7px;
+border-radius:2px;background:linear-gradient(135deg,var(--accent-2),var(--accent));
+transform:rotate(45deg)}
+.facts li:hover{background:rgba(255,255,255,.025);border-radius:8px}
+.watch{background:var(--accent-soft);border:1px solid rgba(232,193,88,.22);
+border-left:3px solid var(--accent);padding:10px 14px;border-radius:0 10px 10px 0;
+font-size:.88rem;color:var(--text-2);margin:14px 0 4px}
+details{margin-top:14px;border-top:1px solid var(--border);padding-top:10px}
+summary{color:var(--text-3);font-size:.8rem;cursor:pointer;transition:.15s}
+summary:hover{color:var(--text-2)}
+details a{display:block;padding:4px 0;font-size:.85rem}
+details .src{color:var(--text-3);font-size:.73rem;margin-left:6px}
+.top{margin-bottom:14px}
+.top a{font-size:.85rem;color:var(--text-2)}
+/* ── 首頁 ── */
+.hero{text-align:center;padding:40px 0 8px}
+.hero h1{font-size:1.9rem;letter-spacing:.05em;
+background:linear-gradient(90deg,var(--text) 20%,var(--accent-2) 60%,var(--accent));
+-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero .sub{margin-top:8px;margin-bottom:0;letter-spacing:.03em}
+.searchcard{background:linear-gradient(180deg,var(--surface-2),var(--surface) 55%);
+  border:1px solid var(--border);border-radius:16px;padding:20px 22px;margin:18px 0 30px;
+  box-shadow:var(--shadow)}
+.schead{font-size:1rem;font-weight:600;color:var(--accent);margin-bottom:12px}
+.scupd{font-size:.72rem;color:var(--text-3);font-weight:400;margin-left:10px}
+.searchrow{display:flex;gap:10px;margin-bottom:6px}
+.searchrow input{flex:1;background:var(--surface);border:1px solid var(--border-strong);
+  border-radius:12px;padding:11px 15px;color:var(--text);font-size:.95rem;outline:none}
+.searchrow input:focus{border-color:var(--accent)}
+.searchrow button{background:var(--accent-soft);border:1px solid rgba(232,193,88,.45);
+  color:var(--accent);border-radius:12px;padding:0 20px;font-size:.9rem;cursor:pointer}
+.rhead{font-size:1rem;font-weight:600;color:var(--accent);margin:12px 0 6px}
+.empty{color:var(--text-3);padding:16px 0;text-align:center;font-size:.86rem}
+.pone{font-size:.84rem;color:var(--text-2);margin-top:4px}
+.dgroup{margin-bottom:26px}
+.dgroup h3{font-size:.95rem;color:var(--text-2);margin-bottom:10px;font-weight:600;
+  border-left:3px solid var(--accent);padding-left:10px}
+.edrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.edcard{display:block;background:linear-gradient(180deg,var(--surface-2),var(--surface) 55%);
+  border:1px solid var(--border);border-radius:16px;padding:20px 22px;transition:.2s;
+  position:relative;overflow:hidden}
+.edcard:after{content:"";position:absolute;inset:0;opacity:0;transition:.25s;pointer-events:none;
+  background:radial-gradient(420px 140px at 50% 0%,rgba(232,193,88,.10),transparent 70%)}
+.edcard:hover{border-color:rgba(232,193,88,.35);text-decoration:none;
+  transform:translateY(-3px);box-shadow:var(--shadow)}
+.edcard:hover:after{opacity:1}
+.badge{display:inline-block;font-size:.72rem;border-radius:20px;padding:2px 11px;margin-right:8px;
+  border:1px solid rgba(232,193,88,.4);color:var(--accent);background:var(--accent-soft)}
+.badge.pm{border-color:rgba(108,168,255,.4);color:var(--link);background:rgba(108,168,255,.08)}
+.badge.rp{border-color:rgba(63,191,127,.4);color:var(--dn-bright);background:rgba(63,191,127,.08)}
+.badge.bk{border-color:rgba(180,140,255,.4);color:#B48CFF;background:rgba(180,140,255,.08)}
+.edcard .cnt{color:var(--text-3);font-size:.76rem}
+.tlist{margin-top:12px}
+.tlist li{list-style:none;padding:4px 0 4px 16px;position:relative;color:var(--text-2);
+  font-size:.86rem;line-height:1.5}
+.tlist li:before{content:"›";position:absolute;left:2px;color:var(--accent);font-weight:700}
+.hotrow{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+.hotchip{font-size:.78rem;border:1px solid var(--border-strong);border-radius:20px;
+  padding:3px 12px;color:var(--text-2);background:var(--surface-2)}
+.hotchip b{color:var(--accent);font-weight:600}
+.post{margin:14px 0;padding:12px 14px;border:1px solid var(--border);border-radius:10px;
+  background:var(--surface-2)}
+.post .ptitle{font-size:.9rem;font-weight:600;line-height:1.5}
+.post .ptitle a{color:var(--text)}
+.post .pmeta{font-size:.72rem;color:var(--text-3);margin:2px 0 6px}
+.post ul{margin:0;padding-left:18px}
+.post li{font-size:.84rem;color:var(--text-2);line-height:1.6}
+.sent{display:inline-block;font-size:.7rem;border-radius:4px;padding:1px 7px;margin-left:6px}
+.sent.bull{color:var(--up-bright);background:rgba(240,84,76,.12)}
+.sent.bear{color:var(--dn-bright);background:rgba(63,191,127,.12)}
+.sent.mix{color:var(--accent);background:var(--accent-soft)}
+.sent.neu{color:var(--text-3);background:var(--surface-3)}
+
+    @media (max-width: 768px) {
+      header { padding:10px 12px; gap:8px; }
+      .brand { font-size:15px; }
+      .site-nav { gap:6px; }
+      .nav-link { padding:4px 10px; font-size:12px; }
+      .date-badge { flex-basis:100%; margin-left:0; }
+      .subtitle { padding-left:12px; padding-right:12px; }
+      .stats-row { padding:12px 12px 4px; gap:8px; }
+      .stat { min-width:calc(50% - 8px); flex:1; padding:10px 12px; }
+      h2 { padding-left:12px; padding-right:12px; }
+      .actions-row { padding:0 12px; }
+      .table-wrap { margin:0 8px 8px; border-radius:10px; }
+      td, thead th { padding:8px 8px; }
+      footer { padding:14px 12px 20px; }
+    }
+
+@media (max-width: 768px){.wrap{padding:16px 10px 60px}.nav{top:0}}
+</style></head><body>
+<header class="site">
+<div class="brand">INFOFLASK<span class="brand-page">｜新聞</span></div>
+<nav class="site-nav">
+<a href="../index.html" class="nav-link">首頁</a>
+<a href="../scores.html" class="nav-link">評分表</a>
+<a href="../holdings.html" class="nav-link">高波動能</a>
+<a href="../sub.html" class="nav-link">籌碼趨勢</a>
+<a href="../short3d.html" class="nav-link">高頻動能</a>
+<a href="../shortbk.html" class="nav-link">高頻籌碼</a>
+<a href="../performance.html" class="nav-link">績效表</a>
+<a href="../market.html" class="nav-link">大盤觀測</a>
+<a href="../reports.html" class="nav-link">研究報告</a>
+<a href="index.html" class="nav-link active">新聞</a>
+</nav>
+</header>
+<div class="wrap">
+<div class="top"><a href="index.html">← 期別列表</a></div>
+<h1>📰 2026-09-12 <span style="color:var(--accent)">早報</span></h1>
+<div class="sub">前日18:30–當日06:30｜6 個主題｜候選 119 篇精選 72 篇</div>
+<div class="nav"><a href="#t0">台指期夜盤漲373點、台積電</a><a href="#t1">甲骨文雲端營收增62%、輝達</a><a href="#t2">微軟2032年前資料中心擴至</a><a href="#t3">IEA估供給減570萬桶/日</a><a href="#t4">凱基金前八月362.9億元獲</a><a href="#t5">融資多軍亢奮，台中銀成版上空</a></div>
+<section class="theme" id="t0">
+<span class="tnum">01</span>
+<h2>台指期夜盤漲373點、台積電期夜盤漲16元，台股開盤偏漲；留意升息與油價</h2>
+<div class="tmeta">台股開盤研判｜14 篇來源｜固定主題</div>
+<div class="art">台股今日開盤偏漲，把握度中等。台指期夜盤上漲373點至46,560點，台積電期夜盤漲16元至2,432元，美股盤初三大指數均漲逾1%，但通膨與升息預期仍限制反彈空間。</div>
+<ul class="facts"><li>台指期夜盤報46,560點，上漲373點，最高至46,574點</li><li>台積電期夜盤約2,432元，上漲16元，有利權值股開盤表現</li><li>美股9月11日盤初三大指數均漲逾1%，原文未提供收盤數據</li><li>道瓊盤初漲647.79點或1.24%，報52,713.39點</li><li>美國8月CPI月增0.4%、年增3.4%，核心CPI月增0.3%</li><li>CME FedWatch顯示9月16日升息機率升至90%，年底前升息兩次預期升溫</li><li>中東緊張情勢緩和帶動美股電子盤反彈，但油價曾突破每桶105美元</li><li>日本銀行預計9月17日至18日升息至1.25%，政策緊縮風險升高</li><li>台灣ADR表現原文未提供；台股前一日外資賣超892.7億元</li></ul>
+
+
+<div class="watch">👁 開盤後留意台積電等電子權值股能否延續夜盤反彈，以及油價與中東情勢；盤中關注9月15日至16日聯準會會議、9月17日至18日日銀會議前的升息預期變化。</div>
+<details><summary>原始報導（14）</summary><a href="https://money.udn.com/money/story/5607/9749616" target="_blank" rel="noopener">台股外資狂砍 打46K 保衛戰 國家隊即刻救援 低接台積電、世芯等半導體股<span class="src">經濟日報｜09-12 01:02</span></a><a href="https://www.cnbc.com/2026/09/11/kevin-warsh-fed-cpi-inflation-rate-hike-analysis.html" target="_blank" rel="noopener">Analysis: Hot inflation data sets up a Fed rate hike. What happens if Warsh wavers<span class="src">CNBC｜09-11 21:34</span></a><a href="https://money.udn.com/money/story/5607/9749715" target="_blank" rel="noopener">9月12日 五件財經大事搶先看<span class="src">經濟日報｜09-12 01:57</span></a><a href="https://money.udn.com/money/story/5599/9749621" target="_blank" rel="noopener">美 CPI 上揚 8月核心數據月增0.3%高於預期 升息機率90%<span class="src">經濟日報｜09-12 01:20</span></a><a href="https://www.ctee.com.tw/news/20260911701824-430201" target="_blank" rel="noopener">台股慘遭血洗 下周一快逃？專家拆解CPI「2大結局」 大魔王在後頭<span class="src">工商時報｜09-11 20:18</span></a><a href="https://money.udn.com/money/story/5616/9749233" target="_blank" rel="noopener">憂慮通膨外資撤退 新台幣盤中貶1.5角收31.638元<span class="src">經濟日報｜09-11 18:46</span></a><a href="https://money.udn.com/money/story/5618/9749387" target="_blank" rel="noopener">台股重摔 三檔金融及高股息 ETF 逆勢奔新高<span class="src">經濟日報｜09-11 20:55</span></a><a href="https://www.ctee.com.tw/news/20260911701869-430701" target="_blank" rel="noopener">美國8月核心CPI月增0.3％、超預期 聯準會升息機率破9成<span class="src">工商時報｜09-11 21:36</span></a><a href="https://money.udn.com/money/story/5599/9749523" target="_blank" rel="noopener">通膨壓力增 日媒：日銀擬升息至1.25%創31年新高<span class="src">經濟日報｜09-11 22:45</span></a><a href="https://money.udn.com/money/story/123398/9749501" target="_blank" rel="noopener">美股3大指數盤初漲逾1%　投資人評估美最新通膨數據<span class="src">經濟日報｜09-11 22:21</span></a><a href="https://money.udn.com/money/story/11112/9749404" target="_blank" rel="noopener">CPI 數據出爐 台指期夜盤大漲回應<span class="src">經濟日報｜09-11 21:07</span></a><a href="https://www.ctee.com.tw/news/20260911701884-430701" target="_blank" rel="noopener">不懼升息！美股開盤三大指數逆勢漲 道瓊力拚終結連四黑<span class="src">工商時報｜09-11 21:54</span></a><a href="https://finance.yahoo.com/economy/policy/article/fed-rate-hike-odds-surge-to-90-on-monthly-jump-in-core-prices-131206510.html" target="_blank" rel="noopener">Fed rate hike odds surge to 90% on monthly jump in core prices<span class="src">Yahoo Finance｜09-11 23:10</span></a><a href="https://money.udn.com/money/story/5599/9749600" target="_blank" rel="noopener">日銀利率 下周估調升1碼 物價壓力推升通膨超標風險<span class="src">經濟日報｜09-12 01:28</span></a></details>
+</section><section class="theme" id="t1">
+<span class="tnum">02</span>
+<h2>甲骨文雲端營收增62%、輝達布局資安、高通攬600億美元訂單</h2>
+<div class="tmeta">美股焦點個股｜10 篇來源｜固定主題</div>
+<div class="art">美光熱度23居冠，但本期無相關新聞。甲骨文因財報與AI合約受矚目，輝達則聚焦聯發科投資及AI資安合作，高通也傳出與Amazon的巨額合作。</div>
+<ul class="facts"><li>【甲骨文 ORCL】第一季營收193.5億美元，年增近30%</li><li>【甲骨文 ORCL】雲端營收116.1億美元，年增62%</li><li>【甲骨文 ORCL】AI合約逾300億美元，資本支出285億美元</li><li>【甲骨文 ORCL】雲端基礎設施營收年增121%，新增850MW容量</li><li>【輝達 NVDA】認購聯發科可轉債約35億美元，占發行額約90%</li><li>【輝達 NVDA】攜思科、Palantir與CrowdStrike開發AI資安工具</li><li>【高通 QCOM】Amazon最高採購AI晶片600億美元，另涉40億美元認股權</li><li>【高通 QCOM】與AWS合作跨多世代客製化AI推論晶片</li><li>【蘋果 AAPL】折疊iPhone Duo英國起價1,999英鎊，股價漲3%至335.49美元</li><li>【戴爾 Dell】RBC首評跑贏大盤，目標價640美元，股價盤中漲10%</li></ul>
+
+
+<div class="watch">👁 甲骨文已於9月10日公布2027財年第一季財報；蘋果已宣布推出iPhone Duo。原文未提供後續財報日或產品發布的完整絕對日期。</div>
+<details><summary>原始報導（10）</summary><a href="https://money.udn.com/money/story/5607/9746666" target="_blank" rel="noopener">不只Google TPU！聯發科攜輝達攻NVLink Fusion　從一顆晶片做到機櫃級AI<span class="src">經濟日報｜09-11 23:56</span></a><a href="https://finance.yahoo.com/technology/ai/articles/qualcomm-aws-deal-takes-aim-154005241.html" target="_blank" rel="noopener">Qualcomm’s AWS Deal Takes Aim at Nvidia, But Comes With Fine Print<span class="src">Yahoo Finance｜09-11 23:40</span></a><a href="https://www.ctee.com.tw/news/20260911701849-430704" target="_blank" rel="noopener">雲端業務助攻！甲骨文Q1營收達193億美元 年增3成<span class="src">工商時報｜09-11 21:10</span></a><a href="https://www.cnbc.com/2026/09/11/5-things-to-know-before-the-stock-market-opens.html" target="_blank" rel="noopener">CPI report, Oracle earnings, Trump’s cash promises and more in Morning Squawk<span class="src">CNBC｜09-11 21:06</span></a><a href="https://www.cnbc.com/2026/09/11/oracle-stock-q1-earnings-ai-cloud.html" target="_blank" rel="noopener">Oracle jumps 6% after reporting 30% revenue growth fueled by AI cloud demand <span class="src">CNBC｜09-11 19:22</span></a><a href="https://www.cnbc.com/2026/09/11/dell-stock-rbc-initiation.html" target="_blank" rel="noopener">Dell stock jumps on RBC initiation, now up nearly 350% in 2026<span class="src">CNBC｜09-12 01:37</span></a><a href="https://finance.yahoo.com/markets/article/oracle-stock-trims-gains-as-ai-cloud-demand-outpaces-supply-122103986.html" target="_blank" rel="noopener">Oracle stock trims gains as AI cloud demand outpaces supply<span class="src">Yahoo Finance｜09-11 23:05</span></a><a href="https://finance.yahoo.com/markets/stocks/articles/apple-advances-3-first-foldable-153741184.html" target="_blank" rel="noopener">Apple Advances 3% as First Foldable iPhone Arrives at Its Highest Price Ever; Skyworks Rallies 9%, Alphabet Ticks Up<span class="src">Yahoo Finance｜09-11 23:37</span></a><a href="https://finance.yahoo.com/technology/ai/articles/qualcomm-ai-ambitions-boost-amazon-151217166.html" target="_blank" rel="noopener">Qualcomm’s AI Ambitions Get a Boost From Amazon Partnership<span class="src">Yahoo Finance｜09-11 23:12</span></a><a href="https://www.ctee.com.tw/news/20260911701890-430704" target="_blank" rel="noopener">繼程式設計之後⋯黃仁勳喊下一個AI商機在網路安全<span class="src">工商時報｜09-11 22:07</span></a></details>
+</section><section class="theme" id="t2">
+<span class="tnum">03</span>
+<h2>微軟2032年前資料中心擴至逾38GW，推升台廠擴產；記憶體供需偏緊，南亞科8月營收年增560.8%</h2>
+<div class="tmeta">AI與半導體｜20 篇來源｜固定主題</div>
+<div class="art">AI資料中心擴建、推論運算與高效能運算需求持續擴大，帶動晶片、記憶體、先進封裝、材料及伺服器供應鏈成長。供給端則受先進製程、封裝與記憶體產能限制影響，相關廠商加速擴產並受惠報價上行。</div>
+<ul class="facts"><li>微軟計畫2032年前將資料中心容量由12GW擴至逾38GW，帶動台廠擴產。</li><li>台積電（2330）長期毛利率目標維持56%以上，CoWoS產能仍吃緊。</li><li>台積電（2330）未來五年約30%先進製程產能將位於台灣以外。</li><li>南亞科（2408）8月營收446.9億元，年增560.8%，創歷史單月新高。</li><li>華邦電（2344）8月營收273億元，年增289.4%，創歷史單月新高。</li><li>旺宏（2337）8月營收81.45億元，年增218.5%，受AI儲存需求帶動。</li><li>群聯（8299）8月營收282.76億元，年增376.5%，創歷史新高。</li><li>高階CCL需求升溫，台光電（2383）8月營收年增129.8%。</li><li>日月光投控（3711）斥資3.34億元採購AOI、AVI設備，擴充先進封測產能。</li><li>力成（6239）今年資本支出提高至500億元，FOPLP預計2027年中量產。</li><li>聯鈞（3450）8月營收年增逾100%，光學次模組毛利率升至32.4%。</li><li>營邦（3693）前八月營收65.88億元，AMD Helios與NVIDIA AI Storage產品量產。</li><li>創控（6909）受AI與HBM建廠潮帶動，AMC監測設備出貨量攀升。</li></ul>
+
+
+<div class="watch">👁 2026年9月：旺宏與群聯預估營收續創新高，矽力-KY預期第3季優於第2季；2027年中力成FOPLP量產，2027年記憶體供需短缺預期加劇。</div>
+<details><summary>原始報導（20）</summary><a href="https://money.udn.com/money/story/5739/9749345" target="_blank" rel="noopener">南亞科、華邦電 四檔夯<span class="src">經濟日報｜09-11 23:55</span></a><a href="https://money.udn.com/money/story/5739/9749347" target="_blank" rel="noopener">旺宏、群聯 挑逾四個月<span class="src">經濟日報｜09-11 23:55</span></a><a href="https://money.udn.com/money/story/5739/9749355" target="_blank" rel="noopener">矽力 兩檔展望佳<span class="src">經濟日報｜09-11 23:53</span></a><a href="https://money.udn.com/money/story/5607/9746666" target="_blank" rel="noopener">不只Google TPU！聯發科攜輝達攻NVLink Fusion　從一顆晶片做到機櫃級AI<span class="src">經濟日報｜09-11 23:56</span></a><a href="https://money.udn.com/money/story/5607/9746660" target="_blank" rel="noopener">2027記憶體恐爆「前所未有短缺」！三星、海力士庫存不到10天　台廠還有新一波行情？<span class="src">經濟日報｜09-11 23:52</span></a><a href="https://money.udn.com/money/story/5710/9749367" target="_blank" rel="noopener">日月光衝刺先進封測<span class="src">經濟日報｜09-11 22:55</span></a><a href="https://money.udn.com/money/story/5607/9749299" target="_blank" rel="noopener">CCL 四強營運熱 搶 AI 商機 將受惠漲價效益<span class="src">經濟日報｜09-11 23:17</span></a><a href="https://www.ctee.com.tw/news/20260911701908-430801" target="_blank" rel="noopener">陸公安事故頻傳 國常會部署安全生產兼顧算力網及老舊水庫改造<span class="src">工商時報｜09-11 21:36</span></a><a href="https://www.ctee.com.tw/news/20260911701801-430301" target="_blank" rel="noopener">AI需求強勁 上市櫃企業8月營收均年增逾4成<span class="src">工商時報｜09-11 20:14</span></a><a href="https://money.udn.com/money/story/5612/9749606" target="_blank" rel="noopener">台積：長期毛利率56%有信心<span class="src">經濟日報｜09-12 00:40</span></a><a href="https://money.udn.com/money/story/5612/9749611" target="_blank" rel="noopener">微軟算力大擴張 鴻海受惠大 廣達、緯穎也沾光<span class="src">經濟日報｜09-12 00:33</span></a><a href="https://money.udn.com/money/story/5612/9749599" target="_blank" rel="noopener">微軟算力大擴張 資料中心容量將增逾兩倍 台廠喜訊<span class="src">經濟日報｜09-12 00:37</span></a><a href="https://money.udn.com/money/story/5604/9749536" target="_blank" rel="noopener">長鑫利潤率超越美光、三星 第2季高達82%<span class="src">經濟日報｜09-12 00:59</span></a><a href="https://finance.yahoo.com/technology/ai/articles/qualcomm-ai-ambitions-boost-amazon-151217166.html" target="_blank" rel="noopener">Qualcomm’s AI Ambitions Get a Boost From Amazon Partnership<span class="src">Yahoo Finance｜09-11 23:12</span></a><a href="https://money.udn.com/money/story/5710/9749373" target="_blank" rel="noopener">創控設備供貨將攀升<span class="src">經濟日報｜09-11 22:54</span></a><a href="https://money.udn.com/money/story/5612/9749298" target="_blank" rel="noopener">日月光半導體再斥資3.34億元 向牧德購入機器設備<span class="src">經濟日報｜09-11 19:43</span></a><a href="https://money.udn.com/money/story/5607/9746662" target="_blank" rel="noopener">AI封裝下一棒看這檔？AMD FOPLP、博通CPO雙卡位　2027年迎量產關鍵期<span class="src">經濟日報｜09-11 23:59</span></a><a href="https://money.udn.com/money/story/5607/9746672" target="_blank" rel="noopener">跌停後反而接近支撐？光通訊上游缺貨外溢　它3個月營收連創新高<span class="src">經濟日報｜09-11 23:42</span></a><a href="https://money.udn.com/money/story/5607/9746652" target="_blank" rel="noopener">從機殼廠變身AI準系統供應商！它連3月營收創高　兩成長引擎浮現力拚千金股<span class="src">經濟日報｜09-11 23:32</span></a><a href="https://money.udn.com/money/story/5739/9749360" target="_blank" rel="noopener">穩懋 押價內外15%<span class="src">經濟日報｜09-11 23:53</span></a></details>
+</section><section class="theme" id="t3">
+<span class="tnum">04</span>
+<h2>IEA估供給減570萬桶/日，布蘭特破百；沙國管線遭攻，柴油均價6.0556美元</h2>
+<div class="tmeta">美伊衝突推升能源價格｜15 篇來源</div>
+<div class="art">美伊衝突、胡塞襲擊與輸油管線受攻，放大原油與天然氣供應風險，推升能源價格。高油價再傳導至柴油、運輸與進口國通膨，市場同步關注外交協商能否緩解供應壓力。</div>
+<ul class="facts"><li>國際能源總署（IEA）預估2026年石油供給減570萬桶/日，需求減250萬桶/日。</li><li>布蘭特9月11日報每桶105.4美元，WTI報每桶99.86美元。</li><li>布蘭特本週漲8.4%、WTI漲9.2%，儘管9月11日分別下跌3.58%、2.17%。</li><li>沙烏地阿拉伯東西輸油管在利雅德及麥地那遭多次攻擊後預防性關閉。</li><li>歐洲天然氣期貨創2022年以來新高，能源成本推升停滯性通膨疑慮。</li><li>QatarEnergy洽談每年200萬至300萬公噸LNG供應合約，期限至2031年。</li><li>卡達Ras Laffan受損使每年1,280萬公噸LNG產能停擺三至五年。</li><li>美國柴油均價首度站上每加侖6.0556美元，加州達7.9827美元。</li><li>印度布蘭特油價每漲10美元，通膨增0.35個百分點、經濟成長率降0.15個百分點。</li><li>波斯灣外長擬與伊朗協商荷莫茲海峽通行管理，消息帶動油價下跌約3%。</li><li>至少兩家亞洲煉油廠要求Saudi Aramco改用布蘭特作長約定價基準，並討論2027年供貨。</li><li>中石化（1314）表示CPL及PA6售價自3月隨油價與原料成本上升，AN第4季維持低開工率。</li></ul>
+
+
+<div class="watch">👁 留意2026年9月14日波斯灣外長與伊朗協商荷莫茲海峽通行安排，以及沙烏地管線安全評估與亞洲煉廠2027年供貨討論。</div>
+<details><summary>原始報導（15）</summary><a href="https://www.cnbc.com/2026/09/11/iran-war-oil-diesel-iea-hormuz.html" target="_blank" rel="noopener">IEA warns global oil refining system ‘stretched to the limit’ as Iran, Ukraine wars tighten market<span class="src">CNBC｜09-11 18:56</span></a><a href="https://money.udn.com/money/story/5599/9749438" target="_blank" rel="noopener">油價破百美元引發停滯性通膨疑慮　全球債券賣壓加劇<span class="src">經濟日報｜09-11 21:36</span></a><a href="https://www.cnbc.com/2026/09/11/oil-price-today-iran-brent-wti-trump.html" target="_blank" rel="noopener">Oil prices fall sharply after double-digit weekly gains above $100 <span class="src">CNBC｜09-11 18:39</span></a><a href="https://money.udn.com/money/story/5618/9749505" target="_blank" rel="noopener">今日最夯 ETF／美伊衝突再起、油價大漲 00715L 大漲12.1%<span class="src">經濟日報｜09-11 22:26</span></a><a href="https://money.udn.com/money/story/5599/9749733" target="_blank" rel="noopener">沙烏地輸油管遭襲暫停運作　市場關注全球油供風險<span class="src">經濟日報｜09-12 04:21</span></a><a href="https://money.udn.com/money/story/5599/9749231" target="_blank" rel="noopener">油價飆漲引發通膨升息疑慮大增　亞股普遍挫低<span class="src">經濟日報｜09-11 18:45</span></a><a href="https://www.cnbc.com/2026/09/11/bond-yields-treasurys-inflation-oil.html" target="_blank" rel="noopener">Global bond sell-off deepens as $100 oil stokes stagflation fears<span class="src">CNBC｜09-11 18:35</span></a><a href="https://www.cnbc.com/2026/09/11/saudi-arabia-shut-down-east-west-crude-oil-pipeline.html" target="_blank" rel="noopener">Saudi Arabia shut down East-West crude oil pipeline after multiple attacks<span class="src">CNBC｜09-12 02:41</span></a><a href="https://finance.yahoo.com/energy/articles/qatarenergy-seeks-us-lng-deals-150621924.html" target="_blank" rel="noopener">QatarEnergy seeks US LNG deals through to 2031, sources say<span class="src">Yahoo Finance｜09-11 23:06</span></a><a href="https://money.udn.com/money/story/5599/9749615" target="_blank" rel="noopener">油價高掛 亞洲大考驗<span class="src">經濟日報｜09-12 01:27</span></a><a href="https://money.udn.com/money/story/5599/9749632" target="_blank" rel="noopener">波灣外長與伊朗會談 討論重啟荷莫茲海峽<span class="src">經濟日報｜09-12 01:14</span></a><a href="https://money.udn.com/money/story/10511/9749310" target="_blank" rel="noopener">別管美債殖利率了！美銀：柴油價格飆升對美經濟衝擊更大<span class="src">經濟日報｜09-11 19:51</span></a><a href="https://www.cnbc.com/2026/09/11/oil-private-credit-refinancing.html" target="_blank" rel="noopener">The oil shock is testing private credit borrowers already burdened by high debt costs<span class="src">CNBC｜09-11 18:55</span></a><a href="https://money.udn.com/money/story/5599/9749486" target="_blank" rel="noopener">路透：亞洲煉油廠要求沙烏地把長期合約定價指標換成這個...<span class="src">經濟日報｜09-11 22:05</span></a><a href="https://money.udn.com/money/story/5710/9749308" target="_blank" rel="noopener">中石化轉型 活化資產<span class="src">經濟日報｜09-11 23:11</span></a></details>
+</section><section class="theme" id="t4">
+<span class="tnum">05</span>
+<h2>凱基金前八月362.9億元獲利；國票金、彰銀啟動整併評估；王道銀行9月15日測試穩定幣</h2>
+<div class="tmeta">台灣金融業獲利與整併動向｜6 篇來源</div>
+<div class="art">台灣金控獲利主要受股票處分利益與壽險業務挹注，銀行業則同步推進整併評估及數位金融服務。國票金與彰銀的公公併已進入前期評估階段。</div>
+<ul class="facts"><li>凱基金（2883）2026年8月稅後純益57.61億元。</li><li>凱基金2026年前八月稅後純益362.9億元，EPS 2.11元。</li><li>凱基金前八月股票處分利益500.06億元，保留盈餘增加862.96億元。</li><li>凱基人壽2026年8月獲利22.49億元，月增87.2%、年增44.1%。</li><li>凱基人壽2026年前八月獲利126.53億元。</li><li>凱基人壽8月含FVOCI股票處分利益，保留盈餘貢獻51.62億元。</li><li>凱基銀行2026年8月稅後虧損2.99億元。</li><li>三商人壽2026年8月稅後淨損3.48億元，虧損較上月收斂。</li><li>第一金控（2892）2026年前八月獲利238.5億元，EPS 1.66元。</li><li>截至2026年9月11日，七家金控合計獲利1,988.34億元。</li><li>彰銀2026年8月25日啟動策略合作、投資及整併前期評估。</li><li>國票金（2889）已授權尋找財務顧問，推進與彰銀併購評估。</li><li>國票金與彰銀評估合併、維持現狀及成本效益三種方案。</li><li>王道銀行（2897）與幣託集團2026年9月11日啟動穩定幣結算先導計畫。</li><li>Bito.ONE初期篩選10家企業，單筆交易上限新台幣50萬元等值。</li></ul>
+
+
+<div class="watch">👁 2026年9月15日起，Bito.ONE進行風險測試；國票金與彰銀後續留意財務顧問遴選及整併方案評估。</div>
+<details><summary>原始報導（6）</summary><a href="https://money.udn.com/money/story/5613/9749238" target="_blank" rel="noopener">凱基金獲利／前八月賣股進帳500億元 加計達862億元續創新高<span class="src">經濟日報｜09-11 18:49</span></a><a href="https://www.ctee.com.tw/news/20260911701755-430304" target="_blank" rel="noopener">凱基金股利配息穩了？前八月大賺362.9億、EPS 2.11元 超車歷年全年獲利<span class="src">工商時報｜09-11 18:49</span></a><a href="https://money.udn.com/money/story/5613/9749691" target="_blank" rel="noopener">台股8月史上最強行情 凱基壽獲利回溫、三商壽虧損收斂<span class="src">經濟日報｜09-12 00:22</span></a><a href="https://money.udn.com/money/story/122376/9749577" target="_blank" rel="noopener">王道銀推穩定幣跨境收款 攜手幣託集團啟動先導計畫<span class="src">經濟日報｜09-12 00:44</span></a><a href="https://money.udn.com/money/story/5628/9749630" target="_blank" rel="noopener">金融公公併 要綜效更要公共價值<span class="src">經濟日報｜09-12 01:11</span></a><a href="https://money.udn.com/money/story/5613/9749622" target="_blank" rel="noopener">第一金、凱基金前八月獲利飆 每股純益分別達1.66元、2.11元<span class="src">經濟日報｜09-12 01:00</span></a></details>
+</section><section class="theme" id="t5">
+<span class="tnum">06</span>
+<h2>融資多軍亢奮，台中銀成版上空方焦點</h2>
+<div class="tmeta">PTT股版風向｜7 篇來源</div>
+<div class="art">本期股版主軸仍是「數據利空出盡能不能繼續噴」，多數留言把美國CPI解讀為符合預期，認為盤面短線有利多方，甚至喊台指續漲、台積電無腦多；信用交易增加也被正五、正二支持者視為行情續強訊號，出現「大盤上五萬」的亢奮氣氛。不過反方提醒，融資追價、隔日沖與攤平獲利未必能延續，利多反而可能成為拉高倒貨的契機。美股與聯準會方向則爭論激烈：一派認為核心通膨降溫、聯準會不敢升息，另一派擔心核心仍高、油價上行，甚至押注升息與長債、股市同步下殺。個股方面，台積電是多方最明確的偏好標的；彰銀相較之下獲得較正面的相對評價，台中銀則因搜索調查、內控與詐騙疑慮成為空方焦點，不少人喊跌或已先賣出。世界與數字雖在熱度前段，但本期摘要未形成明確多空共識；國巨亦未見一致方向。紅海風險讓油運與通膨疑慮升溫，美光獎金討論則偏向支持員工爭取分紅，並未轉化成明確個股買賣共識。</div>
+<ul class="facts"><li>台積電：版上偏多，搭配大盤續漲與融資做多情緒</li><li>彰銀：相對台中銀獲較正面評價，成為比較型偏好</li><li>台中銀：偏空，內控與調查疑慮使留言喊跌、先賣</li><li>世界：熱度居前，但本期摘要未形成明確多空共識</li><li>數字、國巨：有討論熱度，未見一致方向</li><li>大盤：多軍看續漲，反方警惕融資追價後倒貨</li></ul>
+<div class="hotrow"><span class="hotchip"><b>台積電</b> 2330｜熱度 24</span><span class="hotchip"><b>世界</b> 5347｜熱度 15</span><span class="hotchip"><b>彰銀</b> 2801｜熱度 13</span><span class="hotchip"><b>台中銀</b> 2812｜熱度 13</span><span class="hotchip"><b>數字</b> 5287｜熱度 11</span><span class="hotchip"><b>國巨</b> 2327｜熱度 7</span><span class="hotchip"><b>凱基金</b> 2883｜熱度 7</span><span class="hotchip"><b>川寶</b> 1595｜熱度 7</span><span class="hotchip"><b>力士</b> 4923｜熱度 6</span><span class="hotchip"><b>強茂</b> 2481｜熱度 6</span></div>
+<details open><summary>網友反映（7 篇）</summary><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1789129817.A.8DD.html" target="_blank" rel="noopener">[情報] 美國8月份CPI</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 573 則留言</div><ul><li>多數認為符合預期、利空出盡，台指與小那短線上噴</li><li>不少人質疑數據過度精準，懷疑作假或遭人為控制</li><li>部分留言認為核心CPI仍偏高，聯準會可能升息、股市反而崩</li><li>另有人認為油價上漲與CPI不符，9月數據恐大幅惡化</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1789136449.A.5B0.html" target="_blank" rel="noopener">Re: [情報] 美國8月份CPI</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 135 則留言</div><ul><li>多數認為不敢升息，恐加重美債與川普壓力</li><li>有人依FedWatch與Polymarket，認為升息機率逾八成</li><li>通膨與油價難壓，十年債殖利率接近5%引發擔憂</li><li>另有人認為不升息也無效，長債與股市仍可能大跌</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1789144725.A.B9E.html" target="_blank" rel="noopener">[新聞] 兵臨紅海！葉門青年運動占莫加 沙國求川</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 124 則留言</div><ul><li>多數認為胡塞雖武器簡陋，仍能靠無人機、飛彈騷擾貨輪</li><li>有人認為丕林島易攻難守、缺乏補給，胡塞難打長期消耗戰</li><li>不少留言質疑美軍與沙國軍力，認為美國不是可靠保鏢</li><li>另有人認為伊朗及胡塞已遭重創，持續作戰能力有限，油運風險升高</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1789129433.A.785.html" target="_blank" rel="noopener">[新聞] 獨／美光發每人百萬、最高68個月　員工轟</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 85 則留言</div><ul><li>多數認為HBM高毛利，獎金百萬仍低於台積、三星與海力士</li><li>支持工會罷工，要求提高分紅、改善制度，認為員工有底氣</li><li>另有人認為新進員工不該共享，100萬已不少，不滿可離職</li><li>有人擔心獎金方案是在分化基層，甚至是裁員前兆</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1789139628.A.F46.html" target="_blank" rel="noopener">[情報]</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 71 則留言</div><ul><li>多數留言對台中銀頻遭搜索、調查感到厭煩與負面</li><li>質疑洗錢、詐騙及內控問題，認為公司破事不斷</li><li>認為股價可能下跌，喊「明天一根」並表示已賣出</li><li>有人批評台中銀表現落後彰銀、遠東銀，不願投資</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1789132544.A.B26.html" target="_blank" rel="noopener">Re: [情報] 美國8月份CPI</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 70 則留言</div><ul><li>多數認為市場看華爾街解讀，美股盤前上漲、CPI符合預期可望噴</li><li>有人指出核心CPI下降，認為數據偏正面、升息機率未必大增</li><li>不少人認為數據不重要，重點是聯準會與市場情緒如何反應</li><li>另有人認為利空出盡，短線拉高後可能倒貨，仍應等Fed表態</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1789133264.A.01E.html" target="_blank" rel="noopener">[情報] 115年09月11日信用交易統計</a><span class="sent bull">偏多</span></div><div class="pmeta">窗內 53 則留言</div><ul><li>多數力挺正五、正二融資做多，認為行情會續漲</li><li>網友稱正五隔日沖、攤平凹單仍獲利，情緒亢奮</li><li>部分看好台積與大盤無腦多，喊大盤上5萬</li><li>少數提到貪狗跑了、減碼，並質疑融資持續增加</li><li>另有人認為反油蛙大勝，正五貪狗恐遭大盤教訓</li></ul></div></details>
+<div class="watch">👁 觀察聯準會表態能否壓過CPI利多解讀，以及融資續增是否引發多殺多。</div>
+
+</section>
+</div>
+<footer><div class="fline">本網站內容為機器學習模型之研究模擬結果，非投資建議；股市有風險，投資請獨立判斷。</div></footer></body></html>
