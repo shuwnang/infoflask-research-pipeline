@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>shdd+50</title>
+  <style>
+    :root {
+      --bg:#0A0C10; --surface:#12151C; --surface-2:#171B24; --surface-3:#1D2330;
+      --surface-grad:#151A23; --row-line:#1A1F29;
+      --border:#232936; --border-strong:#2E3646;
+      --text:#E7EBF2; --text-2:#9AA4B2; --text-3:#5C6675;
+      --accent:#E8C158; --accent-soft:rgba(232,193,88,0.10); --link:#6CA8FF;
+      --up:#F0544C; --up-bright:#FF7B72; --up-bg:#1D0F0E;
+      --dn:#3FBF7F; --dn-bright:#5CD99A; --dn-bg:#0C1B14;
+      --warn:#F5A524; --risk:#F0544C;
+      --sb-thumb:#2A3140; --sb-thumb-h:#38424F;
+      --grp-hv:#FF9E97; --grp-bk:#E8C158; --grp-hf:#B48CFF; --grp-hb:#4FD8C8;
+    }
+    ::-webkit-scrollbar { width:8px; height:8px; }
+    ::-webkit-scrollbar-thumb { background:var(--sb-thumb); border-radius:4px; }
+    ::-webkit-scrollbar-thumb:hover { background:var(--sb-thumb-h); }
+    ::-webkit-scrollbar-track { background:transparent; }
+    ::selection { background:rgba(108,168,255,0.28); }
+
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    body {
+      background: radial-gradient(1200px 600px at 100% -10%, rgba(108,168,255,0.05), transparent 60%), var(--bg);
+      color:var(--text);
+      font-family:"Inter","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
+      -webkit-font-smoothing:antialiased; font-variant-numeric:tabular-nums;
+      min-height:100dvh;
+    }
+    header {
+      display:flex; align-items:center; flex-wrap:wrap; gap:14px; padding:12px 22px;
+      background:rgba(10,12,16,0.88); backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--border); position:sticky; top:0; z-index:20;
+    }
+    .brand { font-size:17px; font-weight:900; color:#fff; letter-spacing:0.08em; white-space:nowrap; }
+    .brand-page { font-size:13px; font-weight:500; color:var(--text-3); margin-left:2px; }
+    .site-nav { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+    .nav-link {
+      color:var(--text-2); text-decoration:none; font-size:13px; font-weight:500;
+      padding:5px 14px; border:1px solid var(--border); border-radius:999px;
+      white-space:nowrap; transition:all .15s ease;
+    }
+    .nav-link:hover { color:var(--text); border-color:var(--border-strong); background:var(--surface-2); }
+    .nav-link.active { color:var(--accent); border-color:var(--accent); background:var(--accent-soft); pointer-events:none; }
+    .date-badge { font-size:12px; color:var(--text-3); white-space:nowrap; margin-left:auto; }
+    .subtitle { padding:10px 24px 0; font-size:12.5px; color:var(--text-2); }
+    .stats-row { display:flex; gap:14px; flex-wrap:wrap; padding:14px 24px 4px; }
+    .stat {
+      background:linear-gradient(180deg,var(--surface-grad) 0%,var(--surface) 100%);
+      border:1px solid var(--border); border-radius:12px; padding:12px 20px;
+      display:flex; flex-direction:column; gap:4px; min-width:130px;
+    }
+    .stat .lbl { font-size:11px; color:var(--text-3); letter-spacing:.08em; }
+    .stat .val { font-size:1.35rem; font-weight:800; line-height:1; font-variant-numeric:tabular-nums; }
+    .stat .sub { font-size:.72rem; color:var(--text-3); }
+    .pos { color:var(--up); } .neg { color:var(--dn); }
+    h2 { font-size:14px; color:var(--text-2); font-weight:700; letter-spacing:.05em; padding:18px 24px 8px; }
+    h2 .h2-note { font-weight:400; font-size:12px; color:var(--text-3); margin-left:8px; }
+    /* 買賣訊號區 */
+    .actions-row { display:flex; gap:14px; flex-wrap:wrap; padding:0 24px; }
+    .action-card {
+      flex:1; min-width:280px;
+      background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:12px 16px;
+    }
+    .action-card .ac-title { font-size:12px; font-weight:700; letter-spacing:.06em; margin-bottom:8px; }
+    .ac-buy .ac-title { color:var(--warn); }
+    .ac-sell .ac-title { color:var(--text-3); }
+    .chip-list { display:flex; gap:8px; flex-wrap:wrap; }
+    .chip {
+      display:inline-flex; align-items:center; gap:6px; padding:4px 12px;
+      border-radius:999px; font-size:13px; border:1px solid var(--border); background:var(--surface-2);
+    }
+    .chip.buy  { border-color:rgba(245,165,36,0.5); background:rgba(245,165,36,0.08); }
+    .chip.sell { border-color:var(--border-strong); color:var(--text-2); }
+    .chip .yq-link { font-weight:700; }
+    .ac-empty { color:var(--text-3); font-size:13px; }
+    /* 表格 */
+    .table-wrap {
+      margin:0 16px 8px; border:1px solid var(--border); border-radius:14px;
+      background:var(--surface); overflow-x:auto;
+    }
+    table { width:100%; border-collapse:collapse; font-size:13px; }
+    thead th {
+      position:sticky; top:0; z-index:10;
+      background:var(--surface-2); color:var(--text-3); font-weight:600; font-size:11px;
+      text-transform:uppercase; letter-spacing:0.08em; padding:10px 14px;
+      border-bottom:1px solid var(--border); white-space:nowrap; text-align:center;
+    }
+    tbody tr { border-bottom:1px solid var(--row-line); transition:background 0.10s; }
+    tbody tr:last-child { border-bottom:none; }
+    tbody tr:hover { background:var(--surface-2); }
+    tbody tr.row-buy  { background:rgba(245,165,36,0.06); }
+    tbody tr.row-sell { opacity:0.65; }
+    td { padding:10px 16px; vertical-align:middle; text-align:center; white-space:nowrap; font-variant-numeric:tabular-nums; }
+    td.l { text-align:left; }
+    .yq-link { color:var(--link); text-decoration:none; font-weight:700; }
+    .yq-link:hover { text-decoration:underline; }
+    .badge {
+      display:inline-block; padding:2px 10px; border-radius:999px;
+      font-size:11px; font-weight:700; letter-spacing:.05em;
+    }
+    .badge.up   { background:rgba(240,84,76,0.12); color:var(--up); border:1px solid rgba(240,84,76,0.35); }
+    .badge.dn   { background:rgba(63,191,127,0.12); color:var(--dn); border:1px solid rgba(63,191,127,0.35); }
+    .badge.gold { background:var(--accent-soft); color:var(--accent); border:1px solid rgba(232,193,88,0.35); }
+    .badge.gray { background:var(--surface-3); color:var(--text-2); border:1px solid var(--border-strong); }
+    .act-tag { font-size:12px; font-weight:700; }
+    .act-hold { color:var(--text-3); }
+    .act-buy  { color:var(--warn); }
+    .act-sell { color:var(--text-2); }
+    footer { padding:16px 24px 24px; font-size:11.5px; color:var(--text-3); border-top:1px solid var(--border); margin-top:10px; }
+
+    @media (max-width: 768px) {
+      header { padding:10px 12px; gap:8px; }
+      .brand { font-size:15px; }
+      .site-nav { gap:6px; }
+      .nav-link { padding:4px 10px; font-size:12px; }
+      .date-badge { flex-basis:100%; margin-left:0; }
+      .subtitle { padding-left:12px; padding-right:12px; }
+      .stats-row { padding:12px 12px 4px; gap:8px; }
+      .stat { min-width:calc(50% - 8px); flex:1; padding:10px 12px; }
+      h2 { padding-left:12px; padding-right:12px; }
+      .actions-row { padding:0 12px; }
+      .table-wrap { margin:0 8px 8px; border-radius:10px; }
+      td, thead th { padding:8px 8px; }
+      footer { padding:14px 12px 20px; }
+    }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">INFOFLASK<span class="brand-page">｜shdd+50</span></div>
+  <nav class="site-nav">
+    <a href="index.html" class="nav-link">首頁</a>
+    <a href="scores.html" class="nav-link">評分表</a>
+    <a href="holdings.html" class="nav-link">高波動能</a>
+    <a href="sub.html" class="nav-link">籌碼趨勢</a>
+    <a href="short3d.html" class="nav-link">高頻動能</a>
+    <a href="shortbk.html" class="nav-link">高頻籌碼</a>
+    <a href="shdd50.html" class="nav-link active">shdd+50</a>
+    <a href="performance.html" class="nav-link">績效表</a>
+    <a href="market.html" class="nav-link">大盤觀測</a>
+    <a href="reports.html" class="nav-link">研究報告</a>
+    <a href="broker_digest.html" class="nav-link">券商報告</a>
+    <a href="news/index.html" class="nav-link">新聞</a>
+  </nav>
+  <div class="date-badge">資料日期：2026-09-29</div>
+</header>
+<div class="subtitle">T3 前10 ∩ shdd 前30 認證燈 ── 燈亮買入每檔 25%、持有 5 日（再亮重算）;閒置資金依 MA5 位階持有 0050・模擬帳本自 2026-01-02 起,含費稅、T+1 開盤成交,每日 22:00 更新</div>
+<div class="stats-row"><div class="stat"><span class="lbl">目前淨值</span><span class="val ">20,760,129</span><span class="sub">本金 10,000,000</span></div><div class="stat"><span class="lbl">累積報酬率</span><span class="val pos">+107.60%</span><span class="sub">2026-01-01 起</span></div><div class="stat"><span class="lbl">今日報酬</span><span class="val neg">-0.98%</span><span class="sub">持倉 1 檔</span></div><div class="stat"><span class="lbl">最大回撤</span><span class="val neg">-24.89%</span><span class="sub">日收盤淨值</span></div><div class="stat"><span class="lbl">已實現交易</span><span class="val ">22</span><span class="sub">勝率 72.7%</span></div><div class="stat"><span class="lbl">Sharpe</span><span class="val ">2.79</span><span class="sub">日報酬年化</span></div><div class="stat"><span class="lbl">賺賠比</span><span class="val ">1.41</span><span class="sub">均賺 12.5%／均賠 8.9%</span></div><div class="stat"><span class="lbl">0050 部位</span><span class="val ">100%</span><span class="sub">閒置資金使用率 100%</span></div></div>
+<h2>最新買賣訊號<span class="h2-note">2026-09-29 訊號・次一交易日開盤執行</span></h2>
+<div class="actions-row">
+  <div class="action-card ac-buy"><div class="ac-title">買入（0 檔）</div><div class="ac-empty">無</div></div>
+  <div class="action-card ac-sell"><div class="ac-title">賣出（0 檔）</div><div class="ac-empty">無</div></div>
+</div>
+<h2><span style="color:var(--accent)">今日 shdd 認證燈</span><span class="h2-note">2026-09-29・T3∩shdd 雙門檻同日通過即亮燈;目前大盤 MA5 位階 → 閒置資金 0050 使用率 100%</span></h2>
+<div class="actions-row"><div class="action-card" style="border-color:rgba(232,193,88,0.35)">
+<div class="ac-title" style="color:var(--accent)">今日認證（0 檔）</div><div class="ac-empty">今日無今日 shdd 認證燈股</div></div></div>
+<h2>目前持股（1 檔）</h2>
+<div class="table-wrap"><table>
+  <thead><tr><th>代號</th><th>名稱</th><th>艙位</th><th>買入日期</th><th>買入價</th><th>現價</th><th>累計報酬</th><th>今日漲跌</th><th>持有天數</th><th>明日行動</th></tr></thead>
+  <tbody><tr><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/0050.TW" target="_blank" rel="noopener">0050</a></td><td class="l">元大台灣50</td><td><span class="badge gold">大盤</span></td><td>持續持有</td><td>106.10</td><td>111.30</td><td class="pos" style="font-weight:700">+4.75%</td><td class="neg" style="font-weight:700">-0.98%</td><td>—</td><td><span class="act-tag act-hold">持有</span></td></tr></tbody>
+</table></div>
+<h2>已實現交易<span class="h2-note">近 100 筆,共 22 筆</span></h2>
+<div class="table-wrap"><table>
+  <thead><tr><th>賣出日</th><th>代號</th><th>名稱</th><th>艙位</th><th>買入日</th><th>買入價</th><th>賣出價</th><th>損益</th><th>持有天數</th></tr></thead>
+  <tbody><tr><td>2026-09-14</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6669.TW" target="_blank" rel="noopener">6669</a></td><td class="l">緯穎</td><td><span class="badge up">燈號</span></td><td>2026-09-04</td><td>2,505.00</td><td>2,315.00</td><td class="neg" style="font-weight:700">-7.94%</td><td>10</td></tr><tr><td>2026-09-01</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/1303.TW" target="_blank" rel="noopener">1303</a></td><td class="l">南亞</td><td><span class="badge up">燈號</span></td><td>2026-08-25</td><td>177.00</td><td>250.00</td><td class="pos" style="font-weight:700">+40.70%</td><td>7</td></tr><tr><td>2026-09-01</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3211.TWO" target="_blank" rel="noopener">3211</a></td><td class="l">順達</td><td><span class="badge up">燈號</span></td><td>2026-08-25</td><td>318.00</td><td>395.50</td><td class="pos" style="font-weight:700">+23.89%</td><td>7</td></tr><tr><td>2026-08-26</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/4503.TWO" target="_blank" rel="noopener">4503</a></td><td class="l">金雨</td><td><span class="badge up">燈號</span></td><td>2026-08-19</td><td>23.90</td><td>25.00</td><td class="pos" style="font-weight:700">+4.20%</td><td>7</td></tr><tr><td>2026-08-17</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/8021.TW" target="_blank" rel="noopener">8021</a></td><td class="l">尖點</td><td><span class="badge up">燈號</span></td><td>2026-08-06</td><td>395.50</td><td>423.50</td><td class="pos" style="font-weight:700">+6.67%</td><td>11</td></tr><tr><td>2026-08-17</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2478.TW" target="_blank" rel="noopener">2478</a></td><td class="l">大毅</td><td><span class="badge up">燈號</span></td><td>2026-08-10</td><td>117.50</td><td>125.00</td><td class="pos" style="font-weight:700">+5.97%</td><td>7</td></tr><tr><td>2026-08-14</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/4958.TW" target="_blank" rel="noopener">4958</a></td><td class="l">臻鼎-KY</td><td><span class="badge up">燈號</span></td><td>2026-08-07</td><td>494.50</td><td>481.50</td><td class="neg" style="font-weight:700">-3.00%</td><td>7</td></tr><tr><td>2026-08-13</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2303.TW" target="_blank" rel="noopener">2303</a></td><td class="l">聯電</td><td><span class="badge up">燈號</span></td><td>2026-08-06</td><td>121.50</td><td>125.50</td><td class="pos" style="font-weight:700">+2.89%</td><td>7</td></tr><tr><td>2026-08-07</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/8996.TW" target="_blank" rel="noopener">8996</a></td><td class="l">高力</td><td><span class="badge up">燈號</span></td><td>2026-07-28</td><td>955.00</td><td>1,080.00</td><td class="pos" style="font-weight:700">+12.65%</td><td>10</td></tr><tr><td>2026-08-05</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6415.TW" target="_blank" rel="noopener">6415</a></td><td class="l">矽力*-KY</td><td><span class="badge up">燈號</span></td><td>2026-07-29</td><td>400.00</td><td>453.50</td><td class="pos" style="font-weight:700">+12.94%</td><td>7</td></tr><tr><td>2026-08-05</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/8358.TWO" target="_blank" rel="noopener">8358</a></td><td class="l">金居</td><td><span class="badge up">燈號</span></td><td>2026-07-29</td><td>326.00</td><td>365.00</td><td class="pos" style="font-weight:700">+11.53%</td><td>7</td></tr><tr><td>2026-08-04</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3624.TWO" target="_blank" rel="noopener">3624</a></td><td class="l">光頡</td><td><span class="badge up">燈號</span></td><td>2026-07-28</td><td>69.20</td><td>64.50</td><td class="neg" style="font-weight:700">-7.15%</td><td>7</td></tr><tr><td>2026-07-21</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/6442.TW" target="_blank" rel="noopener">6442</a></td><td class="l">光聖</td><td><span class="badge up">燈號</span></td><td>2026-07-14</td><td>1,368.18</td><td>1,260.00</td><td class="neg" style="font-weight:700">-8.26%</td><td>7</td></tr><tr><td>2026-07-09</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2451.TW" target="_blank" rel="noopener">2451</a></td><td class="l">創見</td><td><span class="badge up">燈號</span></td><td>2026-07-02</td><td>241.50</td><td>252.50</td><td class="pos" style="font-weight:700">+4.15%</td><td>7</td></tr><tr><td>2026-07-06</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3163.TWO" target="_blank" rel="noopener">3163</a></td><td class="l">波若威</td><td><span class="badge up">燈號</span></td><td>2026-06-29</td><td>599.43</td><td>704.72</td><td class="pos" style="font-weight:700">+17.11%</td><td>7</td></tr><tr><td>2026-06-29</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2455.TW" target="_blank" rel="noopener">2455</a></td><td class="l">全新</td><td><span class="badge up">燈號</span></td><td>2026-06-22</td><td>409.21</td><td>339.00</td><td class="neg" style="font-weight:700">-17.48%</td><td>7</td></tr><tr><td>2026-06-24</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/8210.TW" target="_blank" rel="noopener">8210</a></td><td class="l">勤誠</td><td><span class="badge up">燈號</span></td><td>2026-06-16</td><td>1,424.78</td><td>1,296.16</td><td class="neg" style="font-weight:700">-9.38%</td><td>8</td></tr><tr><td>2026-06-11</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2327.TW" target="_blank" rel="noopener">2327</a></td><td class="l">國巨*</td><td><span class="badge up">燈號</span></td><td>2026-06-04</td><td>769.48</td><td>843.94</td><td class="pos" style="font-weight:700">+9.25%</td><td>7</td></tr><tr><td>2026-04-07</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/4973.TWO" target="_blank" rel="noopener">4973</a></td><td class="l">廣穎</td><td><span class="badge up">燈號</span></td><td>2026-03-27</td><td>58.44</td><td>73.25</td><td class="pos" style="font-weight:700">+24.85%</td><td>11</td></tr><tr><td>2026-03-16</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/2360.TW" target="_blank" rel="noopener">2360</a></td><td class="l">致茂</td><td><span class="badge up">燈號</span></td><td>2026-03-09</td><td>1,229.60</td><td>1,507.25</td><td class="pos" style="font-weight:700">+22.11%</td><td>7</td></tr><tr><td>2026-02-24</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/3443.TW" target="_blank" rel="noopener">3443</a></td><td class="l">創意</td><td><span class="badge up">燈號</span></td><td>2026-02-06</td><td>2,349.30</td><td>2,374.18</td><td class="pos" style="font-weight:700">+0.67%</td><td>18</td></tr><tr><td>2026-01-15</td><td><a class="yq-link" href="https://tw.stock.yahoo.com/quote/8210.TW" target="_blank" rel="noopener">8210</a></td><td class="l">勤誠</td><td><span class="badge up">燈號</span></td><td>2026-01-08</td><td>958.76</td><td>966.68</td><td class="pos" style="font-weight:700">+0.44%</td><td>7</td></tr></tbody>
+</table></div>
+<footer>規則:燈號=T3（半年重訓）前10 ∩ shdd λ10k（訓至 2024-12）前30,共同宇宙重排名;個股每檔 25% 淨值、最多 4 檔,持有 5 個交易日、持有中再亮燈重算;閒置資金依 TAIEX MA5 位階持有 0050（MA5≥MA60 100%／<MA60 75%／<MA120 50%,偏離 >3% 才再平衡）。買賣以訊號次一交易日還原開盤價成交;個股費用 0.1425%×0.3 買賣＋賣出稅 0.3%,0050 賣出稅 0.1%。已實現交易僅列個股。本頁為觀察追蹤,非投資建議。</footer>
+</body>
+</html>
