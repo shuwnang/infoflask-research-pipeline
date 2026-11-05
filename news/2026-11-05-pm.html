@@ -1,0 +1,289 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>2026-11-05 晚報｜INFOFLASK 新聞</title><style>
+    :root {
+      --bg:#0A0C10; --surface:#12151C; --surface-2:#171B24; --surface-3:#1D2330;
+      --surface-grad:#151A23; --row-line:#1A1F29;
+      --border:#232936; --border-strong:#2E3646;
+      --text:#E7EBF2; --text-2:#9AA4B2; --text-3:#5C6675;
+      --accent:#E8C158; --accent-soft:rgba(232,193,88,0.10); --link:#6CA8FF;
+      --up:#F0544C; --up-bright:#FF7B72; --up-bg:#1D0F0E;
+      --dn:#3FBF7F; --dn-bright:#5CD99A; --dn-bg:#0C1B14;
+      --warn:#F5A524; --risk:#F0544C;
+      --sb-thumb:#2A3140; --sb-thumb-h:#38424F;
+      --grp-hv:#FF9E97; --grp-bk:#E8C158; --grp-hf:#B48CFF; --grp-hb:#4FD8C8;
+    }
+    ::-webkit-scrollbar { width:8px; height:8px; }
+    ::-webkit-scrollbar-thumb { background:var(--sb-thumb); border-radius:4px; }
+    ::-webkit-scrollbar-thumb:hover { background:var(--sb-thumb-h); }
+    ::-webkit-scrollbar-track { background:transparent; }
+    ::selection { background:rgba(108,168,255,0.28); }
+
+:root{--accent-2:#F0D488;--shadow:0 10px 32px rgba(0,0,0,.35)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);
+font-family:"Inter","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;line-height:1.75;
+-webkit-font-smoothing:antialiased;
+background-image:radial-gradient(1100px 420px at 50% -180px,rgba(232,193,88,.07),transparent 70%)}
+a{color:var(--link);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:880px;margin:0 auto;padding:24px 18px 90px}
+/* 全站標準 sticky 表頭（2026-09-02 由頁內 .sitenav 升級） */
+header.site{display:flex;align-items:center;flex-wrap:wrap;gap:14px;padding:12px 22px;
+background:rgba(10,12,16,0.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+border-bottom:1px solid var(--border);position:sticky;top:0;z-index:20}
+.brand{font-size:17px;font-weight:900;color:#fff;letter-spacing:0.08em;white-space:nowrap}
+.brand-page{font-size:13px;font-weight:500;color:var(--text-3);margin-left:2px}
+.site-nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.nav-link{color:var(--text-2);text-decoration:none;font-size:13px;font-weight:500;
+padding:5px 14px;border:1px solid var(--border);border-radius:999px;
+white-space:nowrap;transition:all .15s ease}
+.nav-link:hover{color:var(--text);border-color:var(--border-strong);background:var(--surface-2);text-decoration:none}
+.nav-link.active{color:var(--accent);border-color:var(--accent);background:var(--accent-soft);pointer-events:none}
+footer{max-width:880px;margin:0 auto;padding:0 18px 24px;font-size:11.5px;color:var(--text-3);line-height:1.8}
+footer .fline{border-top:1px solid var(--border);padding-top:12px}
+h1{font-size:1.45rem;letter-spacing:.02em;margin-bottom:2px}
+.sub{color:var(--text-3);font-size:.85rem;margin-bottom:20px}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px;position:sticky;top:53px;z-index:5;
+padding:12px 0;background:rgba(10,12,16,.82);backdrop-filter:blur(10px);
+-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.nav a{background:var(--surface-2);border:1px solid var(--border);border-radius:20px;
+padding:4px 13px;font-size:.78rem;color:var(--text-2);transition:.15s}
+.nav a:hover{color:var(--accent);border-color:rgba(232,193,88,.45);text-decoration:none;
+background:var(--accent-soft)}
+.theme{background:linear-gradient(180deg,var(--surface-2),var(--surface) 42%);
+border:1px solid var(--border);border-radius:18px;padding:26px 28px 22px;margin-bottom:22px;
+box-shadow:var(--shadow);scroll-margin-top:64px;position:relative;overflow:hidden}
+.theme:before{content:"";position:absolute;inset:0 auto auto 0;width:100%;height:2px;
+background:linear-gradient(90deg,var(--accent),rgba(232,193,88,.06) 55%,transparent)}
+.tnum{position:absolute;top:18px;right:22px;font-size:2rem;font-weight:800;
+color:rgba(232,193,88,.13);letter-spacing:.04em;font-variant-numeric:tabular-nums}
+.theme h2{font-size:1.22rem;line-height:1.55;margin-bottom:6px;padding-right:56px;
+background:linear-gradient(90deg,var(--accent-2),var(--accent));
+-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.tmeta{color:var(--text-3);font-size:.75rem;margin-bottom:14px;display:flex;gap:8px;align-items:center}
+.tmeta:before{content:"";width:18px;height:1px;background:var(--accent);opacity:.6}
+.art{color:var(--text-2);font-size:.94rem;line-height:1.85;margin-bottom:16px;
+padding:12px 16px;background:rgba(255,255,255,.02);border-left:3px solid var(--border-strong);
+border-radius:0 10px 10px 0;white-space:pre-wrap}
+.facts{margin-bottom:6px}
+.facts li{list-style:none;position:relative;color:var(--text);font-size:.96rem;line-height:1.7;
+padding:9px 4px 9px 30px;border-bottom:1px solid rgba(255,255,255,.045)}
+.facts li:last-child{border-bottom:none}
+.facts li:before{content:"";position:absolute;left:8px;top:1.05em;width:7px;height:7px;
+border-radius:2px;background:linear-gradient(135deg,var(--accent-2),var(--accent));
+transform:rotate(45deg)}
+.facts li:hover{background:rgba(255,255,255,.025);border-radius:8px}
+.watch{background:var(--accent-soft);border:1px solid rgba(232,193,88,.22);
+border-left:3px solid var(--accent);padding:10px 14px;border-radius:0 10px 10px 0;
+font-size:.88rem;color:var(--text-2);margin:14px 0 4px}
+details{margin-top:14px;border-top:1px solid var(--border);padding-top:10px}
+summary{color:var(--text-3);font-size:.8rem;cursor:pointer;transition:.15s}
+summary:hover{color:var(--text-2)}
+details a{display:block;padding:4px 0;font-size:.85rem}
+details .src{color:var(--text-3);font-size:.73rem;margin-left:6px}
+.top{margin-bottom:14px}
+.top a{font-size:.85rem;color:var(--text-2)}
+/* ── 首頁 ── */
+.hero{text-align:center;padding:40px 0 8px}
+.hero h1{font-size:1.9rem;letter-spacing:.05em;
+background:linear-gradient(90deg,var(--text) 20%,var(--accent-2) 60%,var(--accent));
+-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero .sub{margin-top:8px;margin-bottom:0;letter-spacing:.03em}
+.searchcard{background:linear-gradient(180deg,var(--surface-2),var(--surface) 55%);
+  border:1px solid var(--border);border-radius:16px;padding:20px 22px;margin:18px 0 30px;
+  box-shadow:var(--shadow)}
+.schead{font-size:1rem;font-weight:600;color:var(--accent);margin-bottom:12px}
+.scupd{font-size:.72rem;color:var(--text-3);font-weight:400;margin-left:10px}
+.searchrow{display:flex;gap:10px;margin-bottom:6px}
+.searchrow input{flex:1;background:var(--surface);border:1px solid var(--border-strong);
+  border-radius:12px;padding:11px 15px;color:var(--text);font-size:.95rem;outline:none}
+.searchrow input:focus{border-color:var(--accent)}
+.searchrow button{background:var(--accent-soft);border:1px solid rgba(232,193,88,.45);
+  color:var(--accent);border-radius:12px;padding:0 20px;font-size:.9rem;cursor:pointer}
+.rhead{font-size:1rem;font-weight:600;color:var(--accent);margin:12px 0 6px}
+.empty{color:var(--text-3);padding:16px 0;text-align:center;font-size:.86rem}
+.pone{font-size:.84rem;color:var(--text-2);margin-top:4px}
+.dgroup{margin-bottom:26px}
+.dgroup h3{font-size:.95rem;color:var(--text-2);margin-bottom:10px;font-weight:600;
+  border-left:3px solid var(--accent);padding-left:10px}
+.edrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.edcard{display:block;background:linear-gradient(180deg,var(--surface-2),var(--surface) 55%);
+  border:1px solid var(--border);border-radius:16px;padding:20px 22px;transition:.2s;
+  position:relative;overflow:hidden}
+.edcard:after{content:"";position:absolute;inset:0;opacity:0;transition:.25s;pointer-events:none;
+  background:radial-gradient(420px 140px at 50% 0%,rgba(232,193,88,.10),transparent 70%)}
+.edcard:hover{border-color:rgba(232,193,88,.35);text-decoration:none;
+  transform:translateY(-3px);box-shadow:var(--shadow)}
+.edcard:hover:after{opacity:1}
+.badge{display:inline-block;font-size:.72rem;border-radius:20px;padding:2px 11px;margin-right:8px;
+  border:1px solid rgba(232,193,88,.4);color:var(--accent);background:var(--accent-soft)}
+.badge.pm{border-color:rgba(108,168,255,.4);color:var(--link);background:rgba(108,168,255,.08)}
+.badge.rp{border-color:rgba(63,191,127,.4);color:var(--dn-bright);background:rgba(63,191,127,.08)}
+.badge.bk{border-color:rgba(180,140,255,.4);color:#B48CFF;background:rgba(180,140,255,.08)}
+.edcard .cnt{color:var(--text-3);font-size:.76rem}
+.tlist{margin-top:12px}
+.tlist li{list-style:none;padding:4px 0 4px 16px;position:relative;color:var(--text-2);
+  font-size:.86rem;line-height:1.5}
+.tlist li:before{content:"›";position:absolute;left:2px;color:var(--accent);font-weight:700}
+.hotrow{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+.hotchip{font-size:.78rem;border:1px solid var(--border-strong);border-radius:20px;
+  padding:3px 12px;color:var(--text-2);background:var(--surface-2)}
+.hotchip b{color:var(--accent);font-weight:600}
+.post{margin:14px 0;padding:12px 14px;border:1px solid var(--border);border-radius:10px;
+  background:var(--surface-2)}
+.post .ptitle{font-size:.9rem;font-weight:600;line-height:1.5}
+.post .ptitle a{color:var(--text)}
+.post .pmeta{font-size:.72rem;color:var(--text-3);margin:2px 0 6px}
+.post ul{margin:0;padding-left:18px}
+.post li{font-size:.84rem;color:var(--text-2);line-height:1.6}
+.sent{display:inline-block;font-size:.7rem;border-radius:4px;padding:1px 7px;margin-left:6px}
+.sent.bull{color:var(--up-bright);background:rgba(240,84,76,.12)}
+.sent.bear{color:var(--dn-bright);background:rgba(63,191,127,.12)}
+.sent.mix{color:var(--accent);background:var(--accent-soft)}
+.sent.neu{color:var(--text-3);background:var(--surface-3)}
+
+    @media (max-width: 768px) {
+      header { padding:10px 12px; gap:8px; }
+      .brand { font-size:15px; }
+      .site-nav { gap:6px; }
+      .nav-link { padding:4px 10px; font-size:12px; }
+      .date-badge { flex-basis:100%; margin-left:0; }
+      .subtitle { padding-left:12px; padding-right:12px; }
+      .stats-row { padding:12px 12px 4px; gap:8px; }
+      .stat { min-width:calc(50% - 8px); flex:1; padding:10px 12px; }
+      h2 { padding-left:12px; padding-right:12px; }
+      .actions-row { padding:0 12px; }
+      .table-wrap { margin:0 8px 8px; border-radius:10px; }
+      td, thead th { padding:8px 8px; }
+      footer { padding:14px 12px 20px; }
+    }
+
+@media (max-width: 768px){.wrap{padding:16px 10px 60px}.nav{top:0}}
+</style></head><body>
+<header class="site">
+<div class="brand">INFOFLASK<span class="brand-page">｜新聞</span></div>
+<nav class="site-nav">
+<a href="../index.html" class="nav-link">首頁</a>
+<a href="../scores.html" class="nav-link">評分表</a>
+<a href="../holdings.html" class="nav-link">高波動能</a>
+<a href="../sub.html" class="nav-link">籌碼趨勢</a>
+<a href="../short3d.html" class="nav-link">高頻動能</a>
+<a href="../shortbk.html" class="nav-link">高頻籌碼</a>
+<a href="../shdd50.html" class="nav-link">shdd+50</a>
+<a href="../p2050.html" class="nav-link">P20/50</a>
+<a href="../performance.html" class="nav-link">績效表</a>
+<a href="../market.html" class="nav-link">大盤觀測</a>
+<a href="../reports.html" class="nav-link">研究報告</a>
+<a href="../broker_digest.html" class="nav-link">券商報告</a>
+<a href="index.html" class="nav-link active">新聞</a>
+</nav>
+</header>
+<div class="wrap">
+<div class="top"><a href="index.html">← 期別列表</a></div>
+<h1>📰 2026-11-05 <span style="color:var(--accent)">晚報</span></h1>
+<div class="sub">當日06:30–18:30｜10 個主題｜候選 274 篇精選 150 篇</div>
+<div class="nav"><a href="#t0">台股重挫1,374點收41,</a><a href="#t1">新台幣貶至32.965元創逾</a><a href="#t2">集邦估AI伺服器出貨增36%</a><a href="#t3">民主黨奪眾院228席、參院5</a><a href="#t4">布蘭特跌8.8%至每桶94.</a><a href="#t5">櫃買中心拚2030年債券發行</a><a href="#t6">中華電Q3 EPS 1.57</a><a href="#t7">酷澎增資255億元擴大台灣電</a><a href="#t8">台塑四寶加碼123.5億元擴</a><a href="#t9">外資提款、AI疑慮壓盤，台積</a></div>
+<section class="theme" id="t0">
+<span class="tnum">01</span>
+<h2>台股重挫1,374點收41,575點；外資連5日賣超5,120億元</h2>
+<div class="tmeta">今日臺股盤勢｜20 篇來源｜固定主題</div>
+<div class="art">美國期中選舉結果引發AI資料中心監管與建置進度疑慮，電子權值股賣壓拖累台股重挫。資金一度轉向金融等非電子族群，但外資連續賣超、台幣走貶，市場承壓。</div>
+<ul class="facts"><li>2026年11月5日加權指數收41,574.72點，跌1,374.19點、3.2%。</li><li>單日跌點為歷年第13大，收盤失守42,000點。</li><li>當日成交金額達9,260.24億元。</li><li>盤中最低41,866.1點，較前收一度跌1,082.81點。</li><li>外資連5個交易日賣超5,120.1億元；11月5日單日賣超1,024.61億元。</li><li>三大法人11月5日合計賣超1,234.57億元。</li><li>指數較2026年10月6日盤中高點49,968.92點回檔逾8,000點。</li><li>AI資料中心監管疑慮拖累電子權值、半導體、散熱與PCB族群。</li><li>民主黨11月4日掌美國國會兩院後，AI監管疑慮升高，輝達跌3.17%。</li><li>監管疑慮拖累亞洲晶片股，SK海力士跌逾7%、三星電子跌5.5%。</li><li>2026年11月5日華邦電（2344）、南亞科（2408）、群聯（8299）盤中均跌逾7%。</li><li>金融類股指數早盤一度漲逾2%，資金轉向金融股。</li><li>富邦投顧估第4季台股震盪4萬至5萬點，4萬點附近有支撐。</li></ul>
+
+
+<div class="watch">👁 後續留意外資轉買、融資餘額下降及盤底訊號；富邦投顧估融資仍有約500億至600億元待消化。</div>
+<details><summary>原始報導（20）</summary><a href="https://money.udn.com/money/story/5612/9860153" target="_blank" rel="noopener">台股連日重挫　金管會提2數據強調風險可控、緊盯股市波動<span class="src">經濟日報｜11-05 18:12</span></a><a href="https://money.udn.com/money/story/5607/9858696" target="_blank" rel="noopener">台股再殺千點 金融股撐盤 國泰金、玉山金早盤逆勢上攻<span class="src">經濟日報｜11-05 10:39</span></a><a href="https://money.udn.com/money/story/5607/9858688" target="_blank" rel="noopener">台股砍融資氛圍濃盤中再跌逾千點 新台幣貶破32.9<span class="src">經濟日報｜11-05 10:38</span></a><a href="https://money.udn.com/money/story/5607/9859619" target="_blank" rel="noopener">台股續挫1374點摜破42000點 寫歷年第13大收盤跌點<span class="src">經濟日報｜11-05 15:01</span></a><a href="https://money.udn.com/money/story/5607/9859099" target="_blank" rel="noopener">新台幣大貶逼近33元、外資狂殺下誰敢買台股？分析師直指這些人<span class="src">經濟日報｜11-05 12:15</span></a><a href="https://money.udn.com/money/story/5607/9860099" target="_blank" rel="noopener">外資賣超1,024億元 狂賣主動式 ETF 但竟大買航空股<span class="src">經濟日報｜11-05 17:57</span></a><a href="https://money.udn.com/money/story/5612/9859874" target="_blank" rel="noopener">台股1個月暴跌逾8000點　證交所籲回歸基本面理性判斷<span class="src">經濟日報｜11-05 16:37</span></a><a href="https://money.udn.com/money/story/11112/9859525" target="_blank" rel="noopener">11月5日期交所日盤行情<span class="src">經濟日報｜11-05 14:30</span></a><a href="https://money.udn.com/money/story/11112/9859412" target="_blank" rel="noopener">11月台股期指跌1288點<span class="src">經濟日報｜11-05 14:00</span></a><a href="https://www.ctee.com.tw/news/20261105701061-430202" target="_blank" rel="noopener">台指期再挫千點 跌破42K<span class="src">工商時報｜11-05 12:20</span></a><a href="https://www.ctee.com.tw/news/20261105701047-430201" target="_blank" rel="noopener">《盤中解析》台股驚魂殺千點 跌破4萬2又急拉<span class="src">工商時報｜11-05 11:02</span></a><a href="https://money.udn.com/money/story/5607/9860166" target="_blank" rel="noopener">台股一個月慘跌8千點 10月和前10月外資賣超創最慘單月和同期紀錄<span class="src">經濟日報｜11-05 18:18</span></a><a href="https://money.udn.com/money/story/123398/9858373" target="_blank" rel="noopener">台積電ADR跌2.2% 台指期漲201點<span class="src">經濟日報｜11-05 07:11</span></a><a href="https://www.ctee.com.tw/news/20261105701149-430201" target="_blank" rel="noopener">千金股潰不成軍 創意、健策等一片綠油油 僅剩39檔撐場<span class="src">工商時報｜11-05 13:09</span></a><a href="https://money.udn.com/money/story/5607/9860165" target="_blank" rel="noopener">台股殺千點還沒跌完？富邦投顧總座：融資斷頭賣壓將至、4萬點成關鍵<span class="src">經濟日報｜11-05 18:18</span></a><a href="https://www.ctee.com.tw/news/20261105701307-430403" target="_blank" rel="noopener">技術性熊市功力見真章 台股波段跌21.41％、主動ETF績效分流<span class="src">工商時報｜11-05 14:28</span></a><a href="https://www.ctee.com.tw/news/20261105700803-430201" target="_blank" rel="noopener">台股今早半小時殺融資 跌千點摜破42K 浮額清洗後跌點收斂一半<span class="src">工商時報｜11-05 10:45</span></a><a href="https://www.ctee.com.tw/news/20261105700369-430702" target="_blank" rel="noopener">美股｜藍潮席捲 道瓊飆1,569點 亞馬遜、微軟強彈逾6％ 費半崩3％ 台積電ADR跌2.24％<span class="src">工商時報｜11-05 06:52</span></a><a href="https://www.ctee.com.tw/news/20261105701265-430201" target="_blank" rel="noopener">台股下殺逾千點42K失守 金融、生技護法 航空四雄齊飛揚<span class="src">工商時報｜11-05 14:15</span></a><a href="https://money.udn.com/money/story/5607/9859746" target="_blank" rel="noopener">證交所喊話：台股展現穩健韌性 經濟及企業基本面強化市場信心<span class="src">經濟日報｜11-05 15:55</span></a></details>
+</section><section class="theme" id="t1">
+<span class="tnum">02</span>
+<h2>新台幣貶至32.965元創逾一年半低；2026年10月CPI年增2.33%，連六個月高於2%</h2>
+<div class="tmeta">總經動態｜15 篇來源｜固定主題</div>
+<div class="art">外資匯出與匯市供需變化加重新台幣貶壓；台灣物價漲勢仍高於警戒線，但進口成本急升尚未被主計總處判定為輸入性通膨。海外利率、貿易及能源政策也牽動市場預期。</div>
+<ul class="facts"><li>2026年11月5日，新台幣盤中貶至32.965元，距33元僅3.5分，創逾一年半新低。</li><li>截至2026年11月5日，新台幣11月以來4個交易日重貶3.98角。</li><li>2026年10月CPI年增2.33%，低於9月的2.74%，但連續6個月高於2%；核心CPI漲2.23%。</li><li>2026年10月進口物價以新台幣計價年增33.32%，創1977年統計以來最大漲幅；主計總處稱尚無輸入性通膨。</li><li>台灣央行公布2026年10月底外匯存底為5,964.37億美元，較9月底減少43.08億美元。</li><li>美國期中選舉後民主黨掌控參眾兩院，美元承壓；美國10年期公債殖利率由4.95%高點降至約4.85%。</li><li>韓國2026年9月經常帳盈餘614.6億美元，創單月新高；前9個月累計3,406.6億美元。</li><li>路透社調查預估日本央行2026年12月升息至1.5%，最終利率約為1.75%至2%。</li><li>美國2026年9月貿易逆差縮小0.7%至1,050億美元；進口額增至4,266億美元，創歷史新高。</li><li>中國大陸設定2030年單位GDP能耗較2025年降低約10%，主要再生資源年循環利用量達5.1億噸。</li><li>川普提出2027會計年度1.5兆美元國防預算，較前一年增加44%。</li></ul>
+
+
+<div class="watch">👁 留意2026年11月CPI年增率是否仍高於2%且漲幅較10月擴大，以及日本央行2026年12月利率決策。</div>
+<details><summary>原始報導（15）</summary><a href="https://money.udn.com/money/story/10869/9858644" target="_blank" rel="noopener">新台幣狂貶逾1.4角 盤中逼近33元大關<span class="src">經濟日報｜11-05 10:25</span></a><a href="https://money.udn.com/money/story/10869/9859880" target="_blank" rel="noopener">10月消費者物價指數年增2.33% AI通膨持續發酵<span class="src">經濟日報｜11-05 17:00</span></a><a href="https://money.udn.com/money/story/10869/9860006" target="_blank" rel="noopener">央行喊話出口商「美元可以多賣一點」 外匯存底單月減43億美元<span class="src">經濟日報｜11-05 17:29</span></a><a href="https://money.udn.com/money/story/5612/9859856" target="_blank" rel="noopener">10月CPI年增2.33%　連6月突破通膨警戒線<span class="src">經濟日報｜11-05 16:30</span></a><a href="https://money.udn.com/money/story/5612/9860119" target="_blank" rel="noopener">新台幣重貶　央行喊話出口商：勿過度期待貶值、有需求就結售<span class="src">經濟日報｜11-05 18:03</span></a><a href="https://money.udn.com/money/story/5616/9858780" target="_blank" rel="noopener">民主黨掌控美國國會 美元指數短期承壓<span class="src">經濟日報｜11-05 11:07</span></a><a href="https://www.ctee.com.tw/news/20261105701204-430701" target="_blank" rel="noopener">《國際經濟》韓半導體出口仍強 9月經常帳盈餘續飆<span class="src">工商時報｜11-05 12:30</span></a><a href="https://www.ctee.com.tw/news/20261105701188-430701" target="_blank" rel="noopener">日央行漸趨鷹 12月升息呼聲高<span class="src">工商時報｜11-05 12:13</span></a><a href="https://money.udn.com/money/story/10869/9860076" target="_blank" rel="noopener">進口物價飆33.32%寫歷史新高 主計總處：無輸入性通膨<span class="src">經濟日報｜11-05 17:48</span></a><a href="https://money.udn.com/money/story/10869/9859986" target="_blank" rel="noopener">10月 CPI 年增2.33%、連六個月破2% 11月恐再升溫<span class="src">經濟日報｜11-05 17:19</span></a><a href="https://www.ctee.com.tw/news/20261105700861-430701" target="_blank" rel="noopener">AI需求推升進口創新高！美國9月貿易逆差微降至1,050億美元<span class="src">工商時報｜11-05 11:14</span></a><a href="https://www.ctee.com.tw/news/20261105701068-430801" target="_blank" rel="noopener">陸推《全面節約方案》2030目標單位GDP能耗與用水量降10％<span class="src">工商時報｜11-05 11:18</span></a><a href="https://money.udn.com/money/story/5599/9858520" target="_blank" rel="noopener">整理包／藍潮後川普怎麼走？關稅不退 外交求突破 六大動向一次看<span class="src">經濟日報｜11-05 09:19</span></a><a href="https://money.udn.com/money/story/7307/9859330" target="_blank" rel="noopener">立院初審115年追加預算案 中油台電撥補案保留送協商<span class="src">經濟日報｜11-05 15:26</span></a><a href="https://money.udn.com/money/story/7307/9859071" target="_blank" rel="noopener">不副署？立院通過65歲以上長者免健保費 卓揆直指3大問題<span class="src">經濟日報｜11-05 15:23</span></a></details>
+</section><section class="theme" id="t2">
+<span class="tnum">03</span>
+<h2>集邦估AI伺服器出貨增36%、CSP支出增60%；日月光投資1,237億元擴封測</h2>
+<div class="tmeta">AI與半導體｜20 篇來源｜固定主題</div>
+<div class="art">AI算力投資與伺服器需求推升封測、材料及記憶體供應鏈擴產。電力接網瓶頸、記憶體供給受限與美國監管疑慮，則使產業同時面臨供應壓力及股價波動。</div>
+<ul class="facts"><li>集邦科技預估2027年全球AI伺服器出貨量年增36%。</li><li>集邦科技估九大CSP資本支出增60%，達逾1.5兆美元。</li><li>集邦科技估2027年DRAM位元供給成長降至24%，供給緊張延續。</li><li>2027年伺服器CPU出貨年增逾30%，高於伺服器DRAM供給約25%。</li><li>日月光投控（3711）投資約1,237億元擴充高階封測，預計增聘3,553人。</li><li>美光暫停桃園Fab 11E新廠工程，原編列30億至45億美元預算。</li><li>AI供應鏈電力併網延期率達30%至50%，2028年CoWoS產能預估翻倍。</li><li>雲端未履約訂單單季增1,280億美元至1.82兆美元，資金壓力升高。</li><li>國內玻纖布2026年前8月產值年增49.7%，受惠AI伺服器及高階載板需求。</li><li>臻鼎-KY（4958）伺服器、光模組、IC載板營收合計年增逾3倍。</li><li>京元電子（2449）美國測試產能目標2027年4月大規模量產，受惠AI晶片需求。</li><li>鴻海（2317）2026年10月營收1.3兆元，預期第4季AI營運續增。</li></ul>
+
+
+<div class="watch">👁 留意京元電子美國測試產能是否如期於2027年4月大規模量產，以及美光Fab 11E原定2028年投產的後續時程。</div>
+<details><summary>原始報導（20）</summary><a href="https://money.udn.com/money/story/5607/9859380" target="_blank" rel="noopener">50大權值股跌停11家 台股重挫1,374點連六黑 台積電收低20元<span class="src">經濟日報｜11-05 13:50</span></a><a href="https://www.ctee.com.tw/news/20261105700754-430201" target="_blank" rel="noopener">《美股掃瞄》國會、德州變天 受惠股噴漲 AI供應鏈遭血洗<span class="src">工商時報｜11-05 09:17</span></a><a href="https://money.udn.com/money/story/12509/9859457" target="_blank" rel="noopener">台股收盤／大跌1,374.19點收41,574.72點 台積電收2,240元跌0.88%<span class="src">經濟日報｜11-05 14:12</span></a><a href="https://money.udn.com/money/story/5599/9859396" target="_blank" rel="noopener">美民主黨大勝引發AI監管疑慮　科技股重挫、油價續跌<span class="src">經濟日報｜11-05 13:55</span></a><a href="https://money.udn.com/money/story/5607/9858751" target="_blank" rel="noopener">政治利空恐衝擊 AI 算力！台美日韓記憶體股重挫 南亞科、華邦電大跌<span class="src">經濟日報｜11-05 10:57</span></a><a href="https://www.ctee.com.tw/news/20261105700394-430201" target="_blank" rel="noopener">11／5盤前｜手腳快！美期中選舉概念股法人點兵點將 AI還行不行？<span class="src">工商時報｜11-05 07:36</span></a><a href="https://money.udn.com/money/story/5612/9858891" target="_blank" rel="noopener">台股大跌逾千點後收斂　台積電撐盤暫守42000點<span class="src">經濟日報｜11-05 11:31</span></a><a href="https://money.udn.com/money/story/5607/9858538" target="_blank" rel="noopener">台股開低一度重挫逾千點！42,000點保衛戰開打 台積電能撐盤？<span class="src">經濟日報｜11-05 09:32</span></a><a href="https://money.udn.com/money/story/5612/9859973" target="_blank" rel="noopener">經部：AI需求帶旺玻璃纖維產業　今年產值可望創新高<span class="src">經濟日報｜11-05 17:12</span></a><a href="https://money.udn.com/money/story/5612/9859909" target="_blank" rel="noopener">投資台灣再添千億申請　日月光1237億擴充高階封測產能<span class="src">經濟日報｜11-05 16:47</span></a><a href="https://money.udn.com/money/story/123398/9860074" target="_blank" rel="noopener">彭博：美光暫停45億美元桃園擴廠計畫 因勞資糾紛未解<span class="src">經濟日報｜11-05 17:47</span></a><a href="https://money.udn.com/money/story/5710/9859673" target="_blank" rel="noopener">臻鼎營收／10月271.97億元創高 11月10日公布財報展望<span class="src">經濟日報｜11-05 15:24</span></a><a href="https://money.udn.com/money/story/5710/9859739" target="_blank" rel="noopener">聯電營收／10月252億元 年增18.33%<span class="src">經濟日報｜11-05 15:52</span></a><a href="https://money.udn.com/money/story/123398/9859866" target="_blank" rel="noopener">英特爾股價跌沒完 CEO 陳立武大買970萬美元自家股票也沒用<span class="src">經濟日報｜11-05 16:35</span></a><a href="https://money.udn.com/money/story/5612/9860120" target="_blank" rel="noopener">矽格南電京元電第3季獲利走高　AI晶片封測載板需求助攻<span class="src">經濟日報｜11-05 18:04</span></a><a href="https://money.udn.com/money/story/5612/9860143" target="_blank" rel="noopener">AI助攻PCB　華通、臻鼎連2個月營收創新高<span class="src">經濟日報｜11-05 18:10</span></a><a href="https://www.ctee.com.tw/news/20261105700827-430807" target="_blank" rel="noopener">政策托底遇上利率高牆 AI供應鏈再平衡<span class="src">工商時報｜11-05 10:53</span></a><a href="https://money.udn.com/money/story/5710/9859913" target="_blank" rel="noopener">鴻海10月營收達1.3兆再創新高　第4季AI營運續增<span class="src">經濟日報｜11-05 16:48</span></a><a href="https://money.udn.com/money/story/5612/9859647" target="_blank" rel="noopener">2027科技產業大預測／全球 AI server 出貨量年增36% 增幅優於2026年<span class="src">經濟日報｜11-05 15:13</span></a><a href="https://money.udn.com/money/story/5612/9859606" target="_blank" rel="noopener">2027科技產業大預測／DRAM 供給緊張延續 產品開發傾向高頻寬方案<span class="src">經濟日報｜11-05 14:59</span></a></details>
+</section><section class="theme" id="t3">
+<span class="tnum">04</span>
+<h2>民主黨奪眾院228席、參院54席，掌控兩院；民主黨翻轉至少24個眾院選區，擴大勝幅</h2>
+<div class="tmeta">美國期中選舉與國會變局｜18 篇來源</div>
+<div class="art">生活成本與伊朗戰事引發選民不滿，推動民主黨在期中選舉大勝。掌控國會後，民主黨將提高川普政府推動政策的難度，並加強監督與調查。</div>
+<ul class="facts"><li>民主黨於2026年期中選舉拿下眾議院228席、參議院54席，奪回國會兩院控制權。</li><li>美聯社統計，截至2026年11月4日下午，民主黨翻轉至少24個眾院選區、7個參院席次及5個州長職位。</li><li>出口民調顯示，近9成選民將生活成本列為投票關鍵，近2/3選民將高物價歸咎於川普。</li><li>川普稱美伊戰事推高汽油價格，是共和黨於2026年11月3日期中選舉失利的重要原因之一。</li><li>民主黨自2027年1月起掌控國會兩院，將加強對白宮政策的監督與調查。</li><li>民主黨掌控國會後，川普推動政策將面臨更高協商門檻；國會推翻其決定須取得2/3議員支持。</li><li>韋德寧預期民主黨將就對台支持及對中晶片銷售舉行聽證會，並以140億美元對台軍售案批評川普政府。</li><li>民主黨國會可能檢視美對歐關稅、烏克蘭援助及軍事支出，政策走向仍待國會協商。</li></ul>
+
+
+<div class="watch">👁 民主黨將於2027年1月開始掌控國會兩院；美方人事安排確定後，台美再討論赴美投資及阿拉斯加天然氣計畫細節。</div>
+<details><summary>原始報導（18）</summary><a href="https://money.udn.com/money/story/123398/9858365" target="_blank" rel="noopener">美股收盤／藍潮助攻道瓊狂飆1,569點 費半、AI基建股逆勢跌<span class="src">經濟日報｜11-05 06:44</span></a><a href="https://www.ctee.com.tw/news/20261105700584-430702" target="_blank" rel="noopener">美股｜選後換主角！消費金融接棒 AI硬體仍陷賣壓<span class="src">工商時報｜11-05 09:08</span></a><a href="https://www.ctee.com.tw/news/20261105700754-430201" target="_blank" rel="noopener">《美股掃瞄》國會、德州變天 受惠股噴漲 AI供應鏈遭血洗<span class="src">工商時報｜11-05 09:17</span></a><a href="https://www.ctee.com.tw/news/20261105700486-430701" target="_blank" rel="noopener">共和黨期中選舉失利 川普坦言「美伊戰事是關鍵原因之一」<span class="src">工商時報｜11-05 08:03</span></a><a href="https://www.cnbc.com/2026/11/04/billionaires-musk-branson-democrats-midterms-ai-wall-street.html" target="_blank" rel="noopener">What Wall Street billionaires are saying about Democrats&#x27; midterm sweep <span class="src">CNBC｜11-05 07:17</span></a><a href="https://www.ctee.com.tw/news/20261105700772-430701" target="_blank" rel="noopener">民主黨重掌美參眾兩院 期中選舉四大重點一次看<span class="src">工商時報｜11-05 10:36</span></a><a href="https://money.udn.com/money/story/5599/9859967" target="_blank" rel="noopener">美國期中選舉湧現「藍色海嘯」 為美伊終戰鋪路<span class="src">經濟日報｜11-05 17:11</span></a><a href="https://www.ctee.com.tw/news/20261105700545-430205" target="_blank" rel="noopener">11／5群益早安｜全球財經時事深度解說<span class="src">工商時報｜11-05 08:32</span></a><a href="https://money.udn.com/money/story/5944/9858478" target="_blank" rel="noopener">Euronews 精選／期中選舉民主黨奪回國會主導權 華府會改變關稅、烏克蘭戰爭政策？<span class="src">經濟日報｜11-05 09:08</span></a><a href="https://money.udn.com/money/story/5612/9858849" target="_blank" rel="noopener">民主黨大勝科技股承壓 AI 基建需求仍在、法人看好長線布局<span class="src">經濟日報｜11-05 11:19</span></a><a href="https://money.udn.com/money/story/123398/9858396" target="_blank" rel="noopener">藍潮掀市場變局：AI 不再獨占行情 華爾街六大轉向一次看<span class="src">經濟日報｜11-05 07:55</span></a><a href="https://money.udn.com/money/story/5599/9859514" target="_blank" rel="noopener">美期中選舉重點解析 中國信託證券投顧：聯邦政府仍將積極支持AI 發展<span class="src">經濟日報｜11-05 14:26</span></a><a href="https://money.udn.com/money/story/5618/9859573" target="_blank" rel="noopener">川普痛失國會，美股反而有戲？ 美股選後上漲勝率逾9成<span class="src">經濟日報｜11-05 14:47</span></a><a href="https://money.udn.com/money/story/5607/9859364" target="_blank" rel="noopener">美國期中選舉短評 中國信託證券投顧：歷史經驗美股後市相對正向<span class="src">經濟日報｜11-05 13:41</span></a><a href="https://money.udn.com/money/story/5612/9859651" target="_blank" rel="noopener">美國期中選舉變天引發 AI 資料中心投資憂慮 文曄董座這樣看<span class="src">經濟日報｜11-05 15:17</span></a><a href="https://money.udn.com/money/story/5599/9858581" target="_blank" rel="noopener">民主黨重掌美國會　分析：將關注台灣施壓川普改變中國政策<span class="src">經濟日報｜11-05 09:54</span></a><a href="https://www.cnbc.com/2026/11/04/democrats-2026-midterm-election-results.html" target="_blank" rel="noopener">Democrats flip dozens of GOP seats. Republicans haven&#x27;t flipped a single one<span class="src">CNBC｜11-05 06:38</span></a><a href="https://money.udn.com/money/story/5612/9859910" target="_blank" rel="noopener">民主黨掌握美國會大局　經長：預期台美關稅政策與合作不變<span class="src">經濟日報｜11-05 16:47</span></a></details>
+</section><section class="theme" id="t4">
+<span class="tnum">05</span>
+<h2>布蘭特跌8.8%至每桶94.48美元；全球石油日供過剩140萬桶</h2>
+<div class="tmeta">美伊局勢牽動油價急跌｜10 篇來源</div>
+<div class="art">美國期中選舉結果及川普釋出的緩和訊號，推升市場對美伊停戰與荷莫茲海峽石油運輸恢復的預期，帶動油價急跌。但談判分歧、海上封鎖與核問題仍未解，地緣風險尚未消退。</div>
+<ul class="facts"><li>2026年11月4日，布蘭特1月期貨跌8.8%，收每桶94.48美元。</li><li>2026年11月4日，WTI 12月期貨跌8.29%，收每桶88.12美元。</li><li>布蘭特原油三天累跌近20%。</li><li>美國期中選舉結果推升美伊停戰及荷莫茲海峽運輸恢復預期，油價重挫。</li><li>川普稱美國可能不必再攻擊伊朗，市場對軍事升級的預期降溫。</li><li>摩根大通估全球石油供過於求由2026年9月每日110萬桶，擴至10月140萬桶。</li><li>美伊談判仍有重大分歧，海上封鎖與核問題尚未解決。</li></ul>
+
+
+<div class="watch">👁 留意美伊談判草案、海上封鎖與核問題是否有進展，以及美軍是否恢復大規模作戰。</div>
+<details><summary>原始報導（10）</summary><a href="https://money.udn.com/money/story/5599/9858724" target="_blank" rel="noopener">川普期中選舉慘敗！美媒：美伊戰爭三條路都難走 再開戰恐付更大代價<span class="src">經濟日報｜11-05 10:49</span></a><a href="https://money.udn.com/money/story/5599/9858388" target="_blank" rel="noopener">油價重挫8% 布蘭特跌破95美元 范斯怪罪戰爭致敗選 停戰預期升溫<span class="src">經濟日報｜11-05 07:46</span></a><a href="https://www.ctee.com.tw/news/20261105700899-430702" target="_blank" rel="noopener">布蘭特原油大跳水跌破百美元 摩根大通揭全球油價重挫真相<span class="src">工商時報｜11-05 11:31</span></a><a href="https://www.ctee.com.tw/news/20261105700757-430702" target="_blank" rel="noopener">川普期中選舉重挫後急轉彎 對伊朗喊「可能不必再打」、油價暴跌<span class="src">工商時報｜11-05 10:25</span></a><a href="https://money.udn.com/money/story/5607/9859684" target="_blank" rel="noopener">油價三天崩近20% 塑化股慘跌、台塑化跌停鎖死<span class="src">經濟日報｜11-05 15:30</span></a><a href="https://www.ctee.com.tw/news/20261105700915-430701" target="_blank" rel="noopener">《美股》消息面：川普低頭願與在野黨合作 川普潰敗油價挫金價揚<span class="src">工商時報｜11-05 10:29</span></a><a href="https://money.udn.com/money/story/5607/9859017" target="_blank" rel="noopener">台股又殺逾千點他們卻逆勢起飛！油價暴跌救了航空股、四雄股價大漲<span class="src">經濟日報｜11-05 11:58</span></a><a href="https://money.udn.com/money/story/5607/9858449" target="_blank" rel="noopener">11月5日盤前／關注美國選後 AI 基建變化 油價與美債殖利率回落 有利估值修復<span class="src">經濟日報｜11-05 08:42</span></a><a href="https://money.udn.com/money/story/5599/9858393" target="_blank" rel="noopener">油價飆漲拖累共和黨敗選　川普堅稱對伊朗開戰是正確決定<span class="src">經濟日報｜11-05 07:54</span></a><a href="https://www.ctee.com.tw/news/20261105700898-430702" target="_blank" rel="noopener">共和黨期中選舉大敗！范斯歸咎伊朗戰爭 美油跌破每桶90美元<span class="src">工商時報｜11-05 11:29</span></a></details>
+</section><section class="theme" id="t5">
+<span class="tnum">06</span>
+<h2>櫃買中心拚2030年債券發行額3.8兆元；雙掛牌國際債券2檔、總額70億元</h2>
+<div class="tmeta">台灣債市擴容與制度改革｜3 篇來源</div>
+<div class="art">金管會與櫃買中心擴大債券商品供給、改善交易與投資環境，盼以制度改革帶動市場需求。改革涵蓋發行、交易及投資端，並納入新型債券工具與國際債券掛牌。</div>
+<ul class="facts"><li>櫃買中心設定2030年債券發行額3.8兆元，較2025年的1.89兆元倍增。</li><li>金管會規劃從發行、交易、投資三端推進七大債市改革方向。</li><li>國際債券雙掛牌已有2檔完成，發行總額達70億元。</li><li>金管會規劃建置專案債券交易制度，並研議氣候轉型債券制度。</li><li>櫃買中心計畫拓展國際債券雙掛牌、提升交易效率並深化投資需求。</li><li>金管會建議公司債、金融債及債券ETF停徵證券交易稅期限延長10年。</li></ul>
+
+
+<div class="watch">👁 留意櫃買中心2030年債券發行額是否達3.8兆元，以及專案債券交易制度、氣候轉型債券制度的研議進度。</div>
+<details><summary>原始報導（3）</summary><a href="https://www.ctee.com.tw/news/20261105700769-430301" target="_blank" rel="noopener">打造亞洲債市新核心 彭金隆曝光債市擴大計畫：2030年發行規模要倍增至3.8兆元<span class="src">工商時報｜11-05 10:34</span></a><a href="https://money.udn.com/money/story/5612/9859150" target="_blank" rel="noopener">彭金隆：3面向擴大台灣債市　2030年發行額挑戰3.8兆<span class="src">經濟日報｜11-05 12:36</span></a><a href="https://money.udn.com/money/story/5613/9859206" target="_blank" rel="noopener">金管會債市改革祭七招！推兩類新債券 綠能、高碳排企業受惠<span class="src">經濟日報｜11-05 13:00</span></a></details>
+</section><section class="theme" id="t6">
+<span class="tnum">07</span>
+<h2>中華電Q3 EPS 1.57元創同期高；藥華藥10月營收年增102%創高</h2>
+<div class="tmeta">非AI企業財報與營運表現｜20 篇來源</div>
+<div class="art">電信、消費與部分製造業獲利亮眼，但企業景氣並非全面轉強；產品需求、訂單認列與供應限制，拉開公司間差距。海外市場與成本變化也持續牽動業者營運。</div>
+<ul class="facts"><li>中華電（2412）2026年第3季純益122.2億元、年增29.45%，EPS 1.57元創同期新高。</li><li>統一（1216）2026年前三季純益210億元、年增26%，EPS 3.7元，營收與獲利均創同期新高。</li><li>遠傳（4904）2026年第3季淨利36.7億元、年增6.6%，創21年同期新高，EPS 1.02元。</li><li>藥華藥（6446）2026年10月營收28.4億元、年增102%，創單月歷史新高。</li><li>豐田汽車將本財年淨利預測上修至3.57兆日圓，但仍較前一年度下滑7.2%；第2財季中國銷量年減25%。</li><li>世紀能源（2072）2026年前三季EPS 12.18元、年增61.1%，已超越去年全年EPS 11.94元。</li><li>久舜（5547）2026年第3季淨利0.48億元、年增237.19%，創單季新高，EPS 0.94元。</li><li>巧新（1563）2026年第3季淨利2.47億元、年增478.1%，EPS 1.48元；前三季EPS 2.24元。</li><li>富邦媒（8454）2026年前三季EPS 7.02元；第3季營收年增7.1%，淨利年增4.88%。</li><li>橘子（6180）2026年第3季淨利2.4億元、年增9641%，EPS 1.42元；前三季EPS 1.14元。</li><li>聯邦銀行（2838）2026年前三季淨利51.54億元、年增15.51%，EPS 1元，預期全年獲利超越目標。</li><li>亞光（3019）2026年第3季淨利8.39億元、年增61%，EPS 3元；前三季EPS 5.98元創同期新高。</li><li>鳳凰（5706）2026年前三季淨利2.51億元、年增10%，EPS 2.99元；營收年減1.7%。</li><li>聯寶（6821）2026年10月營收3,298萬元、年減22.57%，工作天數較少及零組件供應偏緊使訂單遞延。</li><li>美喆國際（8466）2026年10月營收2.24億元、年增12%，但前十月營收年減19%。</li></ul>
+
+
+<div class="watch">👁 留意藥華藥2026年11月ET市場放量情況，以及巧新屏東新熔煉廠2027年第二季試量產進度。</div>
+<details><summary>原始報導（20）</summary><a href="https://money.udn.com/money/story/5612/9860098" target="_blank" rel="noopener">遠傳3大引擎催動淨利登高　4G、5G用戶黃金交叉<span class="src">經濟日報｜11-05 17:56</span></a><a href="https://www.ctee.com.tw/news/20261105700988-430201" target="_blank" rel="noopener">中華電逆勢創天價！Q3 EPS創次高 三大法人連23日買超8.7萬張<span class="src">工商時報｜11-05 12:15</span></a><a href="https://money.udn.com/money/story/5710/9860162" target="_blank" rel="noopener">統一財報／前三季獲利210億元、年增26% EPS 3.7元 創歷史同期新高<span class="src">經濟日報｜11-05 18:16</span></a><a href="https://money.udn.com/money/story/5612/9860122" target="_blank" rel="noopener">大立光10月營收58.46億元月增1%　估11月出貨動能下滑<span class="src">經濟日報｜11-05 18:04</span></a><a href="https://money.udn.com/money/story/5599/9859761" target="_blank" rel="noopener">豐田上修全年獲利預測 中國市場遭夾擊銷量跌25%<span class="src">經濟日報｜11-05 16:00</span></a><a href="https://money.udn.com/money/story/5710/9860033" target="_blank" rel="noopener">藥華藥營收／10月年增再翻倍 Ropeg 注射筆銷售強勁 ET 營運將放量<span class="src">經濟日報｜11-05 17:36</span></a><a href="https://www.ctee.com.tw/news/20261105700558-430201" target="_blank" rel="noopener">《數雲端》富邦媒前3季每股賺7.02元 momo雙11拚旺季買氣<span class="src">工商時報｜11-05 07:30</span></a><a href="https://www.ctee.com.tw/news/20261105700920-430201" target="_blank" rel="noopener">《鋼鐵股》世紀能源前3季EPS升至12.18元 獲利已超越去年全年<span class="src">工商時報｜11-05 10:30</span></a><a href="https://www.ctee.com.tw/news/20261105701262-430502" target="_blank" rel="noopener">網通訂單拉貨遞延 聯寶10月營收年、月雙減<span class="src">工商時報｜11-05 14:15</span></a><a href="https://www.ctee.com.tw/news/20261105701221-430201" target="_blank" rel="noopener">《營建股》社宅、廠辦雙軌並進 久舜Q3獲利創高<span class="src">工商時報｜11-05 12:40</span></a><a href="https://www.ctee.com.tw/news/20261105700794-430201" target="_blank" rel="noopener">《汽車股》巧新第三季業外助力獲利跳增 前三季每股盈餘2.24元<span class="src">工商時報｜11-05 09:33</span></a><a href="https://www.ctee.com.tw/news/20261105701003-430201" target="_blank" rel="noopener">亞光Q3獲利創同期高 逆勢衝漲停！大立光卻摔破5千元、玉晶光跌逾8％<span class="src">工商時報｜11-05 11:59</span></a><a href="https://www.ctee.com.tw/news/20261105700796-430201" target="_blank" rel="noopener">《文創股》橘子第三季獲利躍增 前三季每股盈餘1.14元<span class="src">工商時報｜11-05 09:33</span></a><a href="https://money.udn.com/money/story/5710/9859977" target="_blank" rel="noopener">現觀科營收／10月再升溫 刷新今年單月新高水準<span class="src">經濟日報｜11-05 17:14</span></a><a href="https://money.udn.com/money/story/11074/9859462" target="_blank" rel="noopener">崇舜財報／前三季稅後純益1.81億元 EPS 3.02元<span class="src">經濟日報｜11-05 14:13</span></a><a href="https://money.udn.com/money/story/5710/9859163" target="_blank" rel="noopener">光學股中萬綠叢中一點紅 亞光財報亮股價逆勢漲停<span class="src">經濟日報｜11-05 12:40</span></a><a href="https://money.udn.com/money/story/5618/9858411" target="_blank" rel="noopener">凱基證券輔導騰勢上櫃案 人寵雙引擎與全通路布局展現成長動能<span class="src">經濟日報｜11-05 08:03</span></a><a href="https://money.udn.com/money/story/11074/9858919" target="_blank" rel="noopener">美喆營收／歐美客戶拉貨動能持續回升 10月2.24億元、年月雙增<span class="src">經濟日報｜11-05 11:37</span></a><a href="https://money.udn.com/money/story/5710/9859681" target="_blank" rel="noopener">鳳凰獲利／前三季稅後純益2.51億、年增10% EPS 2.99元<span class="src">經濟日報｜11-05 15:28</span></a><a href="https://money.udn.com/money/story/5613/9859660" target="_blank" rel="noopener">聯邦銀法說會／獲利全年有望超越目標 總座看股市波動：短期因素影響<span class="src">經濟日報｜11-05 15:20</span></a></details>
+</section><section class="theme" id="t7">
+<span class="tnum">08</span>
+<h2>酷澎增資255億元擴大台灣電商；全家串接逾萬社區寄取，包裹業績目標增三成</h2>
+<div class="tmeta">零售電商與社區取件拓展｜5 篇來源</div>
+<div class="art">電商配送競爭延伸至倉儲、物流與住家端取件。酷澎加碼台灣建設，全家則把社區管理室納入寄取網絡，並規劃以優惠券帶動住戶回店。</div>
+<ul class="facts"><li>酷澎獲美商COUPANG, INC.透過英商子公司增資255億元，用於擴建台灣電商業務。</li><li>酷澎在台投入倉庫與物流建設，提供彈性配送及部分地區清晨配送。</li><li>全家（5903）攜手智生活推出「社區取」，首波串接全台逾萬個社區，提供管理室寄取包裹。</li><li>全家社區取將物流節點由逾4,500間門市擴展至逾萬個合作社區。</li><li>全家目標拓展至近2.5萬個合作社區，估可服務約300萬戶家庭。</li><li>全家社區取一般包裹全國均一價60元，大材積包裹99元。</li><li>全家社區取提供4種寄取模式，包裹業績目標增加三成。</li><li>全家規劃以優惠券引導社區住戶回店消費。</li><li>全家第4季瞄準電商年度大促，並與中華郵政推出「全+郵宅配」。</li></ul>
+
+
+<div class="watch">👁 留意全家社區取能否拓展至近2.5萬個社區，以及包裹業績增加三成的目標。</div>
+<details><summary>原始報導（5）</summary><a href="https://money.udn.com/money/story/5612/9859298" target="_blank" rel="noopener">Coupang 酷澎強調重視台灣市場 近期通過增資255億元經營電子商務<span class="src">經濟日報｜11-05 13:29</span></a><a href="https://www.ctee.com.tw/news/20261105700627-430201" target="_blank" rel="noopener">《家生活》全家前三季EPS6.07元 電商大促、跨年商機添財力<span class="src">工商時報｜11-05 08:14</span></a><a href="https://money.udn.com/money/story/5612/9859821" target="_blank" rel="noopener">全家攜手智生活搶攻物流商機 社區成包裹寄取新據點<span class="src">經濟日報｜11-05 16:18</span></a><a href="https://money.udn.com/money/story/5612/9860089" target="_blank" rel="noopener">全家跨足社區物流！「社區取」明年串聯2.5萬社區、搶攻300萬戶商機<span class="src">經濟日報｜11-05 17:52</span></a><a href="https://money.udn.com/money/story/5612/9860097" target="_blank" rel="noopener">超商決戰物流服務　全家推社區取、統一超拓店轉宅<span class="src">經濟日報｜11-05 17:55</span></a></details>
+</section><section class="theme" id="t8">
+<span class="tnum">09</span>
+<h2>台塑四寶加碼123.5億元擴產；洲鉅投資50億元建高雄港基地</h2>
+<div class="tmeta">傳產投資擴產與海外布局｜5 篇來源</div>
+<div class="art">傳產業者擴產與海外布局並進：電池投資推升彰濱產能，船隊增添與港口基地擴張工程運能，墨西哥新廠則貼近北美客戶。</div>
+<ul class="facts"><li>台塑（1301）、南亞（1303）、台化（1326）、台塑化（6505）合計加碼約123.5億元。</li><li>台塑新智能辦理130億元現增，彰濱二期計畫總投資300億元。</li><li>彰濱二期電芯產能報導分稱5GWh與5GW，另規劃10GW模組。</li><li>彰濱二期規劃年產2.5萬噸正極材料，目標2028年5月完工。</li><li>裕民（2606）舉行6.4萬噸「裕鈦輪」命名典禮，該船已簽2年租約。</li><li>裕民「裕鈦輪」日租金採指數連結型，旗下同型散裝船共9艘。</li><li>裕民另有3艘新船將陸續交付；Ultramax船型被視為戰後重建受惠船型。</li><li>洲鉅投資約50億元，在高雄港洲際商港20公頃基地建水下基礎組裝廠與重件碼頭。</li><li>洲鉅自2021年起在屏東建置400公尺水下基樁廠房，形成高屏雙基地布局。</li><li>洲鉅高雄港基地已取得工廠登記、使用執照及3項國際認證，邁入營運新階段。</li><li>聯嘉投控墨西哥新廠預計第4季量產，就近服務北美車燈客戶。</li></ul>
+
+
+<div class="watch">👁 留意聯嘉投控墨西哥新廠第4季量產進度，以及台塑新智能彰濱二期2028年5月完工時程。</div>
+<details><summary>原始報導（5）</summary><a href="https://money.udn.com/money/story/5612/9859794" target="_blank" rel="noopener">台塑新智能現增130億元拚擴產 台塑四寶加碼投資<span class="src">經濟日報｜11-05 16:09</span></a><a href="https://www.ctee.com.tw/news/20261105701049-430503" target="_blank" rel="noopener">放眼終戰重建商機 裕民擴張6.4萬噸散裝船隊運力<span class="src">工商時報｜11-05 12:24</span></a><a href="https://money.udn.com/money/story/5612/9859960" target="_blank" rel="noopener">台塑新智能現增130億元擴建彰濱二期 台塑四寶聯手加碼<span class="src">經濟日報｜11-05 17:05</span></a><a href="https://money.udn.com/money/story/5635/9857803" target="_blank" rel="noopener">銘榮元集團攜手洲鉅、元上擴大南部布局 投資50億打造高屏綠能重工供應鏈<span class="src">經濟日報｜11-05 10:02</span></a><a href="https://money.udn.com/money/story/5612/9860092" target="_blank" rel="noopener">聯嘉投控：墨西哥新廠本季量產　明年推矽光子模組樣品<span class="src">經濟日報｜11-05 17:54</span></a></details>
+</section><section class="theme" id="t9">
+<span class="tnum">10</span>
+<h2>外資提款、AI疑慮壓盤，台積電成少數避風港</h2>
+<div class="tmeta">PTT股版風向｜34 篇來源</div>
+<div class="art">今夜版上最強烈的共識是先求別再跌：不少人把費半走弱、外資連日賣超與融資尚未出清視為續跌訊號，喊測年線、甚至看向3萬至3.5萬；也有人提醒指數仍在高檔，42K有支撐，尾盤買盤或帶來反彈，空方並非一面倒。AI資料中心建置受阻的討論，則讓看空情緒從大盤延伸到供應鏈。多數留言擔心AI投資放慢、估值過高，認為好營收也可能已反映；但也有人主張只是審批或建置延遲，長期需求未消失。台積電被不少人視為相對可靠、跌深可加碼的標的，仍有留言擔心AI前景拖累估值；聯發科則遭看空，認為還有修正空間。國巨被視為景氣循環股，版上多認為基本面好也難止跌；宏碁相關討論偏向憂心PC與記憶體需求，環球晶、創意也多被嫌估值高、利多反映。熱度榜上的世界、大成鋼、安心、威致，摘要未見足以辨認的留言共識。至於0050，有人主張長抱逢低買，也有人提醒留現金、別加碼過快。</div>
+<ul class="facts"><li>台積電：相對抗跌、有人逢低加碼，也有AI估值疑慮</li><li>國巨：多數看空，認為循環股高估值難止跌</li><li>宏碁相關討論：憂PC需求與記憶體景氣轉弱</li><li>環球晶、創意：多認為估值偏高、利多已反映</li><li>0050：長抱派想逢低加碼，保留現金派提醒控管部位</li></ul>
+<div class="hotrow"><span class="hotchip"><b>台積電</b> 2330｜熱度 155</span><span class="hotchip"><b>世界</b> 5347｜熱度 48</span><span class="hotchip"><b>國巨</b> 2327｜熱度 38</span><span class="hotchip"><b>大成鋼</b> 2027｜熱度 26</span><span class="hotchip"><b>宏碁</b> 2353｜熱度 21</span><span class="hotchip"><b>安心</b> 1259｜熱度 20</span><span class="hotchip"><b>環球晶</b> 6488｜熱度 18</span><span class="hotchip"><b>創意</b> 3443｜熱度 17</span><span class="hotchip"><b>威致</b> 2028｜熱度 16</span><span class="hotchip"><b>聯發科</b> 2454｜熱度 16</span></div>
+<details open><summary>網友反映（34 篇）</summary><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793838604.A.AA7.html" target="_blank" rel="noopener">[閒聊] 2026/11/05 盤中閒聊</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 1489 則留言</div><ul><li>多數留言看空，認為費半破底、科技股與AI概念股恐續跌</li><li>擔心台股大跌，盼不要跌逾2000點，並提到可能測年線</li><li>有人認為42K有支撐，也有人看好反彈、喊上5萬</li><li>另有人認為台股仍在43K附近高檔，跌勢不必過度恐慌</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793858406.A.B32.html" target="_blank" rel="noopener">[閒聊] 2026/11/05 盤後閒聊</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 1484 則留言</div><ul><li>大盤重挫、跌停逾百家，高價股與熱門股也遭殺</li><li>外資連兩日加空，今日再加空2975口，引發續跌憂慮</li><li>有人稱正2本月跌約30%，融資與正5恐遭斷頭</li><li>仍有人認為尾盤有抄底買盤，盼反彈逃命波</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793843841.A.257.html" target="_blank" rel="noopener">[新聞] 美國掀起反AI資料中心浪潮，一面倒支持限</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 697 則留言</div><ul><li>多數認為資料中心耗水耗電、噪音大，居民缺乏回饋，反對有理。</li><li>有人認為可轉往郊區或馬來西亞、中東等地，但環評與電網建設仍受限。</li><li>有人看空AI硬體與台積電，認為擴建受阻可能使估值回落、硬體商承壓。</li><li>另有人認為反建會拖累美國AI競爭、利多中國；也有人憂海外建置有資安與傳輸問題。</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793841766.A.AA2.html" target="_blank" rel="noopener">[新聞] 德州州長當選人誓言暫停批准　資料中心擴</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 370 則留言</div><ul><li>不少人看空AI，認為美國放慢建設將讓中國受益</li><li>有留言稱德州限制將影響xAI、ORCL，並引發AI股泡沫疑慮</li><li>另有人認為只是暫停審批、資料中心可能轉往其他州或海外</li><li>也有人看好AI長期需求，認為台灣半導體供應鏈可受惠</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793848264.A.310.html" target="_blank" rel="noopener">Re: [新聞] 美國掀起反AI資料中心浪潮，一面倒支持限</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 361 則留言</div><ul><li>多數認為資料中心噪音、耗電恐推高居民水電與物價，企業應自建基建並補償</li><li>認為企業為省成本選基建完善的住宅周邊，荒地重拉水電耗時且昂貴</li><li>有人憂反彈拖累AI建置與相關股價，部分0050持有者觀望等跌</li><li>另有人認為噪音、用水問題被誇大，關鍵仍是電力與需求</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793862729.A.FFD.html" target="_blank" rel="noopener">[情報] 115年11月05日 三大法人買賣金額統計表</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 358 則留言</div><ul><li>網友驚訝外資天天賣超千億，短短數日已賣逾四千億</li><li>不少人看空後市，擔心大盤續跌、融資還沒殺完</li><li>有人質疑外資提款不停，市場接盤者可能是散戶或黑手</li><li>另有人認為外資賣超已減少，仍有人承接，未必全然悲觀</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793867513.A.A41.html" target="_blank" rel="noopener">[新聞] 民主黨提出「超級 AI 禁令」</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 357 則留言</div><ul><li>多數認為禁令利空美國AI發展，短線AI股看空</li><li>不少人擔憂美國自限，讓中國AI趁勢超車</li><li>另有人認為提案尚未定案或只是政治表態，影響有限</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793852786.A.B72.html" target="_blank" rel="noopener">[新聞] 法人：AI基本面仍在 台股迎反彈可期</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 215 則留言</div><ul><li>多數質疑法人喊反彈卻持續賣超，認為是誘多出貨</li><li>有人認為美國AI建設放緩、資料中心受政治影響，基本面轉弱</li><li>有留言看空台股與中小型股，稱只剩台積電較有價值</li><li>另有人認為只是非理性恐慌，預期反彈並喊進場抄底</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793861648.A.99A.html" target="_blank" rel="noopener">[新聞] 跌破眼鏡！融資追繳沒有萬箭齊發 昨日追</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 202 則留言</div><ul><li>多數認為今日續跌會增加追繳，融資還沒清乾淨、後市仍有得殺</li><li>不少人看空，喊大盤下探3萬至3.5萬，認為昨日反彈讓部分人暫時逃過追繳</li><li>有人認為台灣人現金多、正2與ETF不易斷頭，融資仍能補錢或逢低買進</li><li>另有人認為昨日反彈已避開追繳，今日維持率雖低但未必會萬箭齊發</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793858952.A.761.html" target="_blank" rel="noopener">Re: [新聞] 記憶體已不缺！宏碁陳俊聖：PC 僅有2類</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 192 則留言</div><ul><li>多數擔憂AI基建投資放緩、企業現金流轉弱，相關股估值與股價承壓</li><li>有人看空高槓桿雲端業者，憂訂單縮減、算力降價及中國產能追趕</li><li>記憶體廠商仍不敢擴產，有人認為記憶體價格已在高點</li><li>另有人認為AI基建未停，巨頭仍持續發展，需求與算力提升仍有支撐</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793865380.A.75E.html" target="_blank" rel="noopener">外資賣超歷史前十名（2026霸榜啦）</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 159 則留言</div><ul><li>外資賣超紀錄頻繁刷新，留言稱2026年尤其10、11月密集上榜。</li><li>賣超逾3000億元但指數僅跌約3%，仍在4萬點以上，許多人驚嘆撐盤力道。</li><li>有人認為台灣散戶資金接手，喊加碼正五、0050或正2。</li><li>另有：有人認為外資持續撤離，擔心台股下跌、投資人套牢，甚至預期後續進入主跌段。</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793846615.A.4BD.html" target="_blank" rel="noopener">[標的] 0050 絕不停損 多</a><span class="sent bull">偏多</span></div><div class="pmeta">窗內 147 則留言</div><ul><li>多數認為0050適合長期持有，不必停損，可分批逢低加碼。</li><li>部分留言看好台積電與政府護盤，認為持有0050相對安心。</li><li>另有：有人建議保留現金、避免加碼過快，免得現金流斷裂。</li><li>另有：少數留言認為可等92元附近，或等外資期貨空單回補再轉看多。</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793850382.A.A7A.html" target="_blank" rel="noopener">Re: [新聞] 記憶體已不缺！宏碁陳俊聖：PC 僅有2類</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 120 則留言</div><ul><li>多數認為記憶體股已反映高預期，漲多後回檔、景氣循環將反轉</li><li>消費性電子漲價抑制需求，PC難賣；有人看衰南亞科明年獲利</li><li>有人認為中國擴產、長鑫進場將壓低記憶體價格</li><li>另有人認為長約鎖住產能，RAM兩年內不易跌，現貨仍難見便宜貨</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793857823.A.9FE.html" target="_blank" rel="noopener">[新聞] 快訊／微軟再度縮減Nscale AI算力租賃計</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 114 則留言</div><ul><li>不少人認為微軟縮減租賃是AI算力需求放緩訊號，擔心後續跟進砍單</li><li>網友看空AI供應鏈，擔心台廠訂單減少、庫存增加與高估值修正</li><li>有人認為AI泡沫與鬼故事接連出現，勸有獲利者先退場</li><li>另有人認為取消主因是德州建置太慢、交付不佳，非算力需求消失</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793860023.A.F71.html" target="_blank" rel="noopener">[情報] 2383台光電10月營收 y+203.08% m+13.66%</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 111 則留言</div><ul><li>台光電營收年增203%、月增13.66%，仍被看作過去式、利多出盡</li><li>多認為股價漲幅與本益比過高，營收再好也難支撐</li><li>看空AI前景與後續增速，認為砍單、股災讓營收失焦</li><li>多預期股價續跌，有人喊6000跌到4000或回400</li><li>另有人認為月增幅驚人，或以PE 10倍看待仍有價值</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793866338.A.2F2.html" target="_blank" rel="noopener">[新聞] 證交所信心喊話 點出台股有3優勢</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 104 則留言</div><ul><li>多數質疑喊話無助止跌，認為應對外資賣超採取實際作為</li><li>留言憂心外資持續提款、台幣走弱，股匯雙殺壓力加重</li><li>有人預期台股續跌，提及測試4萬點、下探3萬點</li><li>少數認為台股仍有韌性，基本面具優勢</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793847792.A.BAA.html" target="_blank" rel="noopener">[新聞] 過去排隊抽籤今年集體跳船！低首付、投資</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 103 則留言</div><ul><li>不少人認為解約增多與房價高、利率及現金流壓力有關</li><li>留言批預售價高、風險多，寧可租屋、等成屋或買股票</li><li>有人認為解約後建商可收違約金，再加價賣；也提到空屋問題</li><li>另有人認為房價未降、指數仍高，台灣房價長期只漲</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793842542.A.46D.html" target="_blank" rel="noopener">[新聞] AI股選後能翻身？小摩看科技股反彈 加碼</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 96 則留言</div><ul><li>多認為建置放緩利好四大科技巨頭，寡占受惠</li><li>小型雲算力業者負債與利息壓力大，恐倒閉</li><li>硬體與SEMI可能受傷，設備溢價和需求恐降</li><li>也有人認為AI長期需求仍在，放緩有助改善投報</li><li>另有人認為美國放慢恐讓中國得利，並憂慮投資泡沫</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793868876.A.F68.html" target="_blank" rel="noopener">[新聞] 連6個月破2％！10月CPI年增2.33％ 沒有輸入型通膨</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 91 則留言</div><ul><li>多數質疑「沒有輸入型通膨」，指台幣貶、進口品與民生物價都在漲</li><li>不少人批評央行數據美化、持續不升息，認為是在自欺欺人</li><li>有人擔心外資匯出、台幣續貶至35，股匯雙殺加重通膨壓力</li><li>另有人認為通膨不明顯甚至快通縮，主張降息</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793855073.A.98B.html" target="_blank" rel="noopener">[新聞] 環球晶跌逾6成還有戲？2027矽晶圓漲價潮來襲：5大投</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 86 則留言</div><ul><li>多數看空環球晶，認為還可能跌至300至400元</li><li>有人認為矽晶圓漲價、缺貨題材失效，做空有獲利</li><li>不少人套牢或虧損，批評投顧看好與買進建議</li><li>另有人認為股價剩三分之一，本益比仍高於台積電，先前可能漲過頭</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793863970.A.B93.html" target="_blank" rel="noopener">[心得] Token用量飆升，營收卻停滯</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 85 則留言</div><ul><li>Token用量增加不代表收入同步成長，單價高、降價與企業限額都影響變現。</li><li>AI模型公司算力投入龐大，留言憂心營收回收、融資成本及未來被收購或淘汰。</li><li>有留言認為企業會先用便宜模型處理，再把複雜任務交給高階模型。</li><li>另有：有人認為Agent使用的Token遠多於人用，需求仍會快速增加。</li><li>另有：有留言看好地端模型的企業需求與硬體量，但也提到初期成本較高。</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793839413.A.3D2.html" target="_blank" rel="noopener">[情報] 日經半導體指數目前大跌中</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 83 則留言</div><ul><li>不少留言稱台股有政府或黑手撐盤，認為「台灣不一樣」</li><li>有人憂半導體下半年轉弱，台股受費半影響可能比韓股更大</li><li>有人認為AI熱潮退燒，依賴美國市場與單一產業風險高</li><li>另有人認為2330可逢跌撿，也有人指融資不退難有行情</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793850625.A.A41.html" target="_blank" rel="noopener">[新聞] 外資史上第5大賣超也不怕！台積連3日獲</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 81 則留言</div><ul><li>不少人質疑「不怕」說法，外資大賣、內資買盤有限，難擋下跌</li><li>留言多看空台股，擔心明天續跌、指數再殺</li><li>聯發科遭看空，有人稱跌爛、恐修正或回到2850元</li><li>另有人認為台積電價位便宜、跌不動，打算加碼或續抱</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793839260.A.511.html" target="_blank" rel="noopener">[新聞] 記憶體漲價拖累高通獲利展望 股價盤後跌7</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 80 則留言</div><ul><li>多數認為記憶體漲價將拖累消費電子、引發寒冬並衝擊市場</li><li>不少人批記憶體廠漲價過頭，認為記憶體股也可能遭拖累</li><li>有人批高通新晶片效能差，並稱蘋果不需要高通，對其看空</li><li>另有人替記憶體廠辯護，認為過去虧損多年，漲價有其理由</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793861142.A.AE5.html" target="_blank" rel="noopener">[情報] 3443創意10月營收 y+126.96% m+18.02%</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 77 則留言</div><ul><li>多數認為營收再好也沒用，股價已提前反映到2028、2029年</li><li>認為創意本益比過高，預期股價續跌、甚至再跌停</li><li>有人認為AI股遇無差別賣壓，基本面好也難支撐股價</li><li>另有人認為越跌越便宜，視為甜甜價可逢低撿</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793866113.A.B71.html" target="_blank" rel="noopener">[新聞] 證交所喊話：台股展現穩健韌性 經濟及企</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 77 則留言</div><ul><li>多數嘲諷「韌性、基本面」說法，稱股民連日虧損吃麵</li><li>留言憂外資持續提款、台幣偏弱，認為喊話不如實際護盤</li><li>有人認為台股仍有補跌空間，預期續跌或喊空</li><li>另有人指出台積電跌幅有限，AI產業鏈中僅台積電較可靠</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793865487.A.F53.html" target="_blank" rel="noopener">[情報] 2317 鴻海 10月營收</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 74 則留言</div><ul><li>多數認為鴻海10月營收亮眼也沒用，股價仍會跌</li><li>有人認為營收已反映，後續成長趨緩、股價恐續跌</li><li>部分留言稱AI恐慌殺盤，營收好也難支撐鴻海</li><li>另有人認為鴻海今天跌幅較小，股價相對穩</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793866158.A.8F8.html" target="_blank" rel="noopener">[新聞]輝達3.6億晶片遭劫！　警曝「偽裝物流車」</a><span class="sent neu">中性</span></div><div class="pmeta">窗內 72 則留言</div><ul><li>不少人猜測貨物早有買主，可能轉賣中國</li><li>有人質疑晶片不易銷贓，搶走後能賣給誰</li><li>另有人懷疑有內鬼或涉及保險勾結</li><li>也有人關注晶片序號、追蹤器能否查出流向</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793866689.A.B7E.html" target="_blank" rel="noopener">[情報] 1105 上市外資買賣超排行</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 71 則留言</div><ul><li>網友指主動式ETF遭外資倒貨，跌幅比正二更重、風險高</li><li>留言稱記憶體、金融及多檔個股遭賣，台股一片偏空</li><li>外資買中國50正二與航空股，引發網友質疑資金動向</li><li>另有人看好台積電，認為台幣貶值及10月營收有利反彈</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793849779.A.E68.html" target="_blank" rel="noopener">[新聞] 打造亞洲債市新核心！金管會彭金隆喊出20</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 67 則留言</div><ul><li>多數認為台債利率太低，吸引力不如定存或美債</li><li>質疑台灣有戰爭風險、制度不穩，債券市場難吸引買家</li><li>批評政府口號反覆，認為應先處理金融亂象與市場下跌</li><li>另有人認為利率高過美債，就會有人買</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793862224.A.4B5.html" target="_blank" rel="noopener">Re: [閒聊] 2026/11/05 盤後閒聊</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 65 則留言</div><ul><li>多數留言把訊號解讀為看空，喊空、全力空或空就對了</li><li>有人提到28000，認為後市可能下跌</li><li>另有人認為將反彈、要噴，也有人提夜盤跳空大漲</li><li>部分留言質疑內容像內線或黑幕，但未說明具體依據</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793872044.A.FB3.html" target="_blank" rel="noopener">[新聞] AI股大逃殺　專家警告：可能再跌15％</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 60 則留言</div><ul><li>多人視15%警告為止跌訊號，認為低接或反彈將至。</li><li>另有人認為跌幅不止15%，看至3.5萬、3萬甚至更低。</li><li>有人認為AI產業展望未變、營收創高，台積電較有支撐。</li><li>也有人已出清或等更低點，認為融資籌碼混亂、跌勢未完。</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793855276.A.7A3.html" target="_blank" rel="noopener">Re: [標的] 視陽6728 山椒魚復出多</a><span class="sent bull">偏多</span></div><div class="pmeta">窗內 56 則留言</div><ul><li>多數留言肯定作者這波操作，表示視陽有賺或已回補獲利。</li><li>有留言認為視陽近期抗跌，覺得可以續抱觀察。</li><li>另有：有留言批評作者長期輸大盤，認為只贏一個月便大肆宣揚。</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1793867895.A.670.html" target="_blank" rel="noopener">[新聞] 國巨股價重挫 基本面仍強勁、AI 訂單續旺</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 52 則留言</div><ul><li>多數看空，認為國巨是景氣循環股，基本面好也難止跌</li><li>有人認為估值過高、套牢籌碼重，股價恐下探300元</li><li>有留言提醒營收見高點後可能回落，過去景氣循環曾重演</li><li>另有人以相同本益比和預期EPS推算，認為400至600元仍可對照年初200元</li></ul></div></details>
+<div class="watch">👁 外資賣超與融資追繳是否加劇，以及AI建置疑慮會否擴大成供應鏈砍單預期。</div>
+
+</section>
+</div>
+<footer><div class="fline">本網站內容為機器學習模型之研究模擬結果，非投資建議；股市有風險，投資請獨立判斷。</div></footer></body></html>
