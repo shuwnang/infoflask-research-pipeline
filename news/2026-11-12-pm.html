@@ -1,0 +1,289 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>2026-11-12 晚報｜INFOFLASK 新聞</title><style>
+    :root {
+      --bg:#0A0C10; --surface:#12151C; --surface-2:#171B24; --surface-3:#1D2330;
+      --surface-grad:#151A23; --row-line:#1A1F29;
+      --border:#232936; --border-strong:#2E3646;
+      --text:#E7EBF2; --text-2:#9AA4B2; --text-3:#5C6675;
+      --accent:#E8C158; --accent-soft:rgba(232,193,88,0.10); --link:#6CA8FF;
+      --up:#F0544C; --up-bright:#FF7B72; --up-bg:#1D0F0E;
+      --dn:#3FBF7F; --dn-bright:#5CD99A; --dn-bg:#0C1B14;
+      --warn:#F5A524; --risk:#F0544C;
+      --sb-thumb:#2A3140; --sb-thumb-h:#38424F;
+      --grp-hv:#FF9E97; --grp-bk:#E8C158; --grp-hf:#B48CFF; --grp-hb:#4FD8C8;
+    }
+    ::-webkit-scrollbar { width:8px; height:8px; }
+    ::-webkit-scrollbar-thumb { background:var(--sb-thumb); border-radius:4px; }
+    ::-webkit-scrollbar-thumb:hover { background:var(--sb-thumb-h); }
+    ::-webkit-scrollbar-track { background:transparent; }
+    ::selection { background:rgba(108,168,255,0.28); }
+
+:root{--accent-2:#F0D488;--shadow:0 10px 32px rgba(0,0,0,.35)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);
+font-family:"Inter","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;line-height:1.75;
+-webkit-font-smoothing:antialiased;
+background-image:radial-gradient(1100px 420px at 50% -180px,rgba(232,193,88,.07),transparent 70%)}
+a{color:var(--link);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:880px;margin:0 auto;padding:24px 18px 90px}
+/* 全站標準 sticky 表頭（2026-09-02 由頁內 .sitenav 升級） */
+header.site{display:flex;align-items:center;flex-wrap:wrap;gap:14px;padding:12px 22px;
+background:rgba(10,12,16,0.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+border-bottom:1px solid var(--border);position:sticky;top:0;z-index:20}
+.brand{font-size:17px;font-weight:900;color:#fff;letter-spacing:0.08em;white-space:nowrap}
+.brand-page{font-size:13px;font-weight:500;color:var(--text-3);margin-left:2px}
+.site-nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.nav-link{color:var(--text-2);text-decoration:none;font-size:13px;font-weight:500;
+padding:5px 14px;border:1px solid var(--border);border-radius:999px;
+white-space:nowrap;transition:all .15s ease}
+.nav-link:hover{color:var(--text);border-color:var(--border-strong);background:var(--surface-2);text-decoration:none}
+.nav-link.active{color:var(--accent);border-color:var(--accent);background:var(--accent-soft);pointer-events:none}
+footer{max-width:880px;margin:0 auto;padding:0 18px 24px;font-size:11.5px;color:var(--text-3);line-height:1.8}
+footer .fline{border-top:1px solid var(--border);padding-top:12px}
+h1{font-size:1.45rem;letter-spacing:.02em;margin-bottom:2px}
+.sub{color:var(--text-3);font-size:.85rem;margin-bottom:20px}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px;position:sticky;top:53px;z-index:5;
+padding:12px 0;background:rgba(10,12,16,.82);backdrop-filter:blur(10px);
+-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.nav a{background:var(--surface-2);border:1px solid var(--border);border-radius:20px;
+padding:4px 13px;font-size:.78rem;color:var(--text-2);transition:.15s}
+.nav a:hover{color:var(--accent);border-color:rgba(232,193,88,.45);text-decoration:none;
+background:var(--accent-soft)}
+.theme{background:linear-gradient(180deg,var(--surface-2),var(--surface) 42%);
+border:1px solid var(--border);border-radius:18px;padding:26px 28px 22px;margin-bottom:22px;
+box-shadow:var(--shadow);scroll-margin-top:64px;position:relative;overflow:hidden}
+.theme:before{content:"";position:absolute;inset:0 auto auto 0;width:100%;height:2px;
+background:linear-gradient(90deg,var(--accent),rgba(232,193,88,.06) 55%,transparent)}
+.tnum{position:absolute;top:18px;right:22px;font-size:2rem;font-weight:800;
+color:rgba(232,193,88,.13);letter-spacing:.04em;font-variant-numeric:tabular-nums}
+.theme h2{font-size:1.22rem;line-height:1.55;margin-bottom:6px;padding-right:56px;
+background:linear-gradient(90deg,var(--accent-2),var(--accent));
+-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.tmeta{color:var(--text-3);font-size:.75rem;margin-bottom:14px;display:flex;gap:8px;align-items:center}
+.tmeta:before{content:"";width:18px;height:1px;background:var(--accent);opacity:.6}
+.art{color:var(--text-2);font-size:.94rem;line-height:1.85;margin-bottom:16px;
+padding:12px 16px;background:rgba(255,255,255,.02);border-left:3px solid var(--border-strong);
+border-radius:0 10px 10px 0;white-space:pre-wrap}
+.facts{margin-bottom:6px}
+.facts li{list-style:none;position:relative;color:var(--text);font-size:.96rem;line-height:1.7;
+padding:9px 4px 9px 30px;border-bottom:1px solid rgba(255,255,255,.045)}
+.facts li:last-child{border-bottom:none}
+.facts li:before{content:"";position:absolute;left:8px;top:1.05em;width:7px;height:7px;
+border-radius:2px;background:linear-gradient(135deg,var(--accent-2),var(--accent));
+transform:rotate(45deg)}
+.facts li:hover{background:rgba(255,255,255,.025);border-radius:8px}
+.watch{background:var(--accent-soft);border:1px solid rgba(232,193,88,.22);
+border-left:3px solid var(--accent);padding:10px 14px;border-radius:0 10px 10px 0;
+font-size:.88rem;color:var(--text-2);margin:14px 0 4px}
+details{margin-top:14px;border-top:1px solid var(--border);padding-top:10px}
+summary{color:var(--text-3);font-size:.8rem;cursor:pointer;transition:.15s}
+summary:hover{color:var(--text-2)}
+details a{display:block;padding:4px 0;font-size:.85rem}
+details .src{color:var(--text-3);font-size:.73rem;margin-left:6px}
+.top{margin-bottom:14px}
+.top a{font-size:.85rem;color:var(--text-2)}
+/* ── 首頁 ── */
+.hero{text-align:center;padding:40px 0 8px}
+.hero h1{font-size:1.9rem;letter-spacing:.05em;
+background:linear-gradient(90deg,var(--text) 20%,var(--accent-2) 60%,var(--accent));
+-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero .sub{margin-top:8px;margin-bottom:0;letter-spacing:.03em}
+.searchcard{background:linear-gradient(180deg,var(--surface-2),var(--surface) 55%);
+  border:1px solid var(--border);border-radius:16px;padding:20px 22px;margin:18px 0 30px;
+  box-shadow:var(--shadow)}
+.schead{font-size:1rem;font-weight:600;color:var(--accent);margin-bottom:12px}
+.scupd{font-size:.72rem;color:var(--text-3);font-weight:400;margin-left:10px}
+.searchrow{display:flex;gap:10px;margin-bottom:6px}
+.searchrow input{flex:1;background:var(--surface);border:1px solid var(--border-strong);
+  border-radius:12px;padding:11px 15px;color:var(--text);font-size:.95rem;outline:none}
+.searchrow input:focus{border-color:var(--accent)}
+.searchrow button{background:var(--accent-soft);border:1px solid rgba(232,193,88,.45);
+  color:var(--accent);border-radius:12px;padding:0 20px;font-size:.9rem;cursor:pointer}
+.rhead{font-size:1rem;font-weight:600;color:var(--accent);margin:12px 0 6px}
+.empty{color:var(--text-3);padding:16px 0;text-align:center;font-size:.86rem}
+.pone{font-size:.84rem;color:var(--text-2);margin-top:4px}
+.dgroup{margin-bottom:26px}
+.dgroup h3{font-size:.95rem;color:var(--text-2);margin-bottom:10px;font-weight:600;
+  border-left:3px solid var(--accent);padding-left:10px}
+.edrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.edcard{display:block;background:linear-gradient(180deg,var(--surface-2),var(--surface) 55%);
+  border:1px solid var(--border);border-radius:16px;padding:20px 22px;transition:.2s;
+  position:relative;overflow:hidden}
+.edcard:after{content:"";position:absolute;inset:0;opacity:0;transition:.25s;pointer-events:none;
+  background:radial-gradient(420px 140px at 50% 0%,rgba(232,193,88,.10),transparent 70%)}
+.edcard:hover{border-color:rgba(232,193,88,.35);text-decoration:none;
+  transform:translateY(-3px);box-shadow:var(--shadow)}
+.edcard:hover:after{opacity:1}
+.badge{display:inline-block;font-size:.72rem;border-radius:20px;padding:2px 11px;margin-right:8px;
+  border:1px solid rgba(232,193,88,.4);color:var(--accent);background:var(--accent-soft)}
+.badge.pm{border-color:rgba(108,168,255,.4);color:var(--link);background:rgba(108,168,255,.08)}
+.badge.rp{border-color:rgba(63,191,127,.4);color:var(--dn-bright);background:rgba(63,191,127,.08)}
+.badge.bk{border-color:rgba(180,140,255,.4);color:#B48CFF;background:rgba(180,140,255,.08)}
+.edcard .cnt{color:var(--text-3);font-size:.76rem}
+.tlist{margin-top:12px}
+.tlist li{list-style:none;padding:4px 0 4px 16px;position:relative;color:var(--text-2);
+  font-size:.86rem;line-height:1.5}
+.tlist li:before{content:"›";position:absolute;left:2px;color:var(--accent);font-weight:700}
+.hotrow{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+.hotchip{font-size:.78rem;border:1px solid var(--border-strong);border-radius:20px;
+  padding:3px 12px;color:var(--text-2);background:var(--surface-2)}
+.hotchip b{color:var(--accent);font-weight:600}
+.post{margin:14px 0;padding:12px 14px;border:1px solid var(--border);border-radius:10px;
+  background:var(--surface-2)}
+.post .ptitle{font-size:.9rem;font-weight:600;line-height:1.5}
+.post .ptitle a{color:var(--text)}
+.post .pmeta{font-size:.72rem;color:var(--text-3);margin:2px 0 6px}
+.post ul{margin:0;padding-left:18px}
+.post li{font-size:.84rem;color:var(--text-2);line-height:1.6}
+.sent{display:inline-block;font-size:.7rem;border-radius:4px;padding:1px 7px;margin-left:6px}
+.sent.bull{color:var(--up-bright);background:rgba(240,84,76,.12)}
+.sent.bear{color:var(--dn-bright);background:rgba(63,191,127,.12)}
+.sent.mix{color:var(--accent);background:var(--accent-soft)}
+.sent.neu{color:var(--text-3);background:var(--surface-3)}
+
+    @media (max-width: 768px) {
+      header { padding:10px 12px; gap:8px; }
+      .brand { font-size:15px; }
+      .site-nav { gap:6px; }
+      .nav-link { padding:4px 10px; font-size:12px; }
+      .date-badge { flex-basis:100%; margin-left:0; }
+      .subtitle { padding-left:12px; padding-right:12px; }
+      .stats-row { padding:12px 12px 4px; gap:8px; }
+      .stat { min-width:calc(50% - 8px); flex:1; padding:10px 12px; }
+      h2 { padding-left:12px; padding-right:12px; }
+      .actions-row { padding:0 12px; }
+      .table-wrap { margin:0 8px 8px; border-radius:10px; }
+      td, thead th { padding:8px 8px; }
+      footer { padding:14px 12px 20px; }
+    }
+
+@media (max-width: 768px){.wrap{padding:16px 10px 60px}.nav{top:0}}
+</style></head><body>
+<header class="site">
+<div class="brand">INFOFLASK<span class="brand-page">｜新聞</span></div>
+<nav class="site-nav">
+<a href="../index.html" class="nav-link">首頁</a>
+<a href="../scores.html" class="nav-link">評分表</a>
+<a href="../holdings.html" class="nav-link">高波動能</a>
+<a href="../sub.html" class="nav-link">籌碼趨勢</a>
+<a href="../short3d.html" class="nav-link">高頻動能</a>
+<a href="../shortbk.html" class="nav-link">高頻籌碼</a>
+<a href="../shdd50.html" class="nav-link">shdd+50</a>
+<a href="../p2050.html" class="nav-link">P20/50</a>
+<a href="../performance.html" class="nav-link">績效表</a>
+<a href="../market.html" class="nav-link">大盤觀測</a>
+<a href="../reports.html" class="nav-link">研究報告</a>
+<a href="../broker_digest.html" class="nav-link">券商報告</a>
+<a href="index.html" class="nav-link active">新聞</a>
+</nav>
+</header>
+<div class="wrap">
+<div class="top"><a href="index.html">← 期別列表</a></div>
+<h1>📰 2026-11-12 <span style="color:var(--accent)">晚報</span></h1>
+<div class="sub">當日06:30–18:30｜10 個主題｜候選 263 篇精選 134 篇</div>
+<div class="nav"><a href="#t0">2026/11/12台股跌1</a><a href="#t1">美元指數升至102.96、日</a><a href="#t2">鴻海ASIC伺服器出貨年增1</a><a href="#t3">輝達董事會2026年11月1</a><a href="#t4">台股ETF受益人增49.2萬</a><a href="#t5">南亞投115.3億元增產1.</a><a href="#t6">立凱-KY（5227）合資規</a><a href="#t7">中信金前10月獲利685.5</a><a href="#t8">長榮（2603）第3季EPS</a><a href="#t9">老黃去留牽動供應鏈，急跌後多</a></div>
+<section class="theme" id="t0">
+<span class="tnum">01</span>
+<h2>2026/11/12台股跌1,165點；台積電跌55元；國安基金首度進場仍未止跌</h2>
+<div class="tmeta">今日臺股盤勢｜20 篇來源｜固定主題</div>
+<div class="art">美股半導體走強、前一交易日急漲，仍未抵銷AI投資前景疑慮與外資賣壓，台股轉為重挫。國安基金進場一度帶動反彈，但午後電子權值股賣壓再起，未能扭轉收盤跌勢。</div>
+<ul class="facts"><li>2026年11月12日加權指數跌1,165.28點，收43,091.87點，跌幅2.63%。</li><li>當日台股成交值約新台幣1兆133億元。</li><li>台積電（2330）下跌55元、跌幅2.29%，收2,340元。</li><li>國安基金11月12日首度進場，台股早盤由一度跌近400點轉為上漲逾百點，終場仍收跌。</li><li>電子類股指數下跌3.07%，櫃買指數下跌2.44%。</li><li>11月12日台股上漲286家、下跌741家、持平82家。</li><li>三大法人合計買超51.6億元；外資及陸資賣超6.85億元。</li><li>外資自2026年10月6日以來賣超逾1.7兆元，台指期空單仍超過10萬口。</li><li>11月台指期下跌958點，收43,178點，與現貨正價差86.13點。</li><li>AI產業投資前景疑慮升溫，電子權值股午後賣壓擴大。</li><li>受益人增加之際，大盤上周下跌5,510.19點，跌幅12.19%。</li><li>新增標準指數的景碩、南電、台燿盤中分別跌約7.5%、逾6%、逾5%；世紀*（5314）漲停。</li></ul>
+
+
+<div class="watch">👁 留意指數能否守住約42,938點的10日線，以及40,000至43,000點支撐是否成形；並觀察反彈能否延續、挑戰45,000點。</div>
+<details><summary>原始報導（20）</summary><a href="https://money.udn.com/money/story/123398/9873198" target="_blank" rel="noopener">台積電ADR大漲4.3% 台指期漲470點<span class="src">經濟日報｜11-12 07:15</span></a><a href="https://money.udn.com/money/story/11112/9874329" target="_blank" rel="noopener">11月台股期指跌958點<span class="src">經濟日報｜11-12 14:12</span></a><a href="https://money.udn.com/money/story/5607/9874017" target="_blank" rel="noopener">費半大漲 台股卻陷入震盪 法人：指數反彈走勢將延續 往月線邁進<span class="src">經濟日報｜11-12 12:45</span></a><a href="https://money.udn.com/money/story/5607/9874115" target="_blank" rel="noopener">台股震盪後「倒頭栽」 個股成交第一00406A 零股成交前五大四檔 ETF<span class="src">經濟日報｜11-12 13:18</span></a><a href="https://money.udn.com/money/story/5607/9874417" target="_blank" rel="noopener">台股震盪逾1500點收跌1165點　守住10日線<span class="src">經濟日報｜11-12 14:36</span></a><a href="https://money.udn.com/money/story/5607/9874305" target="_blank" rel="noopener">兩大效應使台股今日大跌逾千點作收 法人認為台股將反覆打底<span class="src">經濟日報｜11-12 14:08</span></a><a href="https://money.udn.com/money/story/5607/9874257" target="_blank" rel="noopener">台股跌1165.28點<span class="src">經濟日報｜11-12 14:01</span></a><a href="https://money.udn.com/money/story/5607/9874258" target="_blank" rel="noopener">台股挫1165點險守43000點　台積電跌55元<span class="src">經濟日報｜11-12 14:01</span></a><a href="https://money.udn.com/money/story/12509/9874319" target="_blank" rel="noopener">台股收盤／大跌1,165.28點收43,091.87點 台積電收2,340元跌2.29%<span class="src">經濟日報｜11-12 14:10</span></a><a href="https://money.udn.com/money/story/5607/9873954" target="_blank" rel="noopener">黃仁勳婚外情風暴擴大 台股受波及 早盤一度大跌超過500點<span class="src">經濟日報｜11-12 12:19</span></a><a href="https://money.udn.com/money/story/11112/9874326" target="_blank" rel="noopener">11月電子期跌　金融期漲<span class="src">經濟日報｜11-12 14:12</span></a><a href="https://money.udn.com/money/story/11112/9874218" target="_blank" rel="noopener">11月12日期交所日盤行情<span class="src">經濟日報｜11-12 13:50</span></a><a href="https://money.udn.com/money/story/5607/9873520" target="_blank" rel="noopener">國安基金今日出手阻跌使台股早盤黑翻紅 法人這樣建議<span class="src">經濟日報｜11-12 10:24</span></a><a href="https://money.udn.com/money/story/5607/9874546" target="_blank" rel="noopener">外資僅賣超個位數、台股卻殺1,165點！黃仁勳風波衝擊 AI 股<span class="src">經濟日報｜11-12 15:18</span></a><a href="https://money.udn.com/money/story/5607/9874839" target="_blank" rel="noopener">台玻逆勢飆天價！外資狂掃14萬張奪冠 富喬同登量價榜<span class="src">經濟日報｜11-12 16:58</span></a><a href="https://www.ctee.com.tw/news/20261112700791-430201" target="_blank" rel="noopener">《期貨》11月台指期開漲30點 金融期及電子期齊揚<span class="src">工商時報｜11-12 09:07</span></a><a href="https://money.udn.com/money/story/5607/9874197" target="_blank" rel="noopener">三天連漲暫歇 台股開高走低收跌1,165點守住10日線 台積電收低55元<span class="src">經濟日報｜11-12 13:40</span></a><a href="https://money.udn.com/money/story/5612/9873277" target="_blank" rel="noopener">費半勁揚5%　投顧：觀察台股是否延續反彈挑戰45000點<span class="src">經濟日報｜11-12 08:45</span></a><a href="https://www.ctee.com.tw/news/20261112701381-430201" target="_blank" rel="noopener">台股重挫1,165點失守44K！低軌衛星強攻 「這檔」逆勢漲停<span class="src">工商時報｜11-12 14:07</span></a><a href="https://money.udn.com/money/story/5607/9873267" target="_blank" rel="noopener">11月12日盤前／費半強彈 惟輝達盤後逆風 台股進入均線反壓區 低接不追高<span class="src">經濟日報｜11-12 08:39</span></a></details>
+</section><section class="theme" id="t1">
+<span class="tnum">02</span>
+<h2>美元指數升至102.96、日圓貶至159.94；日本物價升7.1%，升息預期升溫</h2>
+<div class="tmeta">總經動態｜12 篇來源｜固定主題</div>
+<div class="art">美國通膨偏熱與聯準會官員偏鷹，推升美元並牽動日圓及新台幣走勢，也使市場重新評估利率路徑。日本物價壓力與各地政策變化，則加深對升息、能源供應及金融支持的關注。</div>
+<ul class="facts"><li>國銀估聯準會2026年12月升息1碼、2027年上半年再升1碼；升2碼機率約一成。</li><li>美元指數2026年11月12日升至102.96，創10月14日以來新高，因美國通膨偏熱及聯準會偏鷹。</li><li>新台幣2026年11月12日收32.889元，貶2.9分；外資匯出及聯準會偏鷹推升美元。</li><li>日圓一度貶0.8%至159.94；日本財務官示警，2026年夏季三度干預、耗資15.4兆日圓。</li><li>日本10月企業商品價格年增7.1%，高於預期6.5%；學者估12月升息，利率或由1.25%升至1.5%。</li><li>聯準會官員主張再升息2次、每次0.25個百分點；WTI收86.53美元，金價跌1.12%至每盎司3,987.93美元。</li><li>人行提出加大逆週期調節、擴大內需；2026年第3季末非銀存款年增19.1%，占比升至11.2%。</li><li>藍白2026年11月10日提案提前除役9.72GW燃煤機組，恐使2028、2029年備用率轉負、年減發電580億度。</li></ul>
+
+
+<div class="watch">👁 留意2026年12月聯準會與日本央行的利率決策；若空污法修案推進，2028、2029年備用容量率恐轉負。</div>
+<details><summary>原始報導（12）</summary><a href="https://money.udn.com/money/story/5612/9875019" target="_blank" rel="noopener">Fed官員放鷹與外資匯出　新台幣再逼33元收32.889元<span class="src">經濟日報｜11-12 18:00</span></a><a href="https://money.udn.com/money/story/5616/9874031" target="_blank" rel="noopener">美元指數強勢表態、台股震盪走貶 新台幣盤中貶破32.9元<span class="src">經濟日報｜11-12 12:48</span></a><a href="https://www.ctee.com.tw/news/20261112701257-430701" target="_blank" rel="noopener">《國際經濟》日10月批發通膨續升 12月升息箭在弦上<span class="src">工商時報｜11-12 12:01</span></a><a href="https://www.ctee.com.tw/news/20261112700816-430702" target="_blank" rel="noopener">美元強勢回歸！指數衝近1個月高點 日圓逼近160大關、升息預期成關鍵<span class="src">工商時報｜11-12 10:17</span></a><a href="https://money.udn.com/money/story/5616/9874011" target="_blank" rel="noopener">美國通膨高於預期 國銀估聯準會年底升息機率增<span class="src">經濟日報｜11-12 12:41</span></a><a href="https://www.ctee.com.tw/news/20261112700946-430701" target="_blank" rel="noopener">《美股》消息面：聯準會官員憂通膨逼近臨界點 黃金失守4000大關<span class="src">工商時報｜11-12 10:04</span></a><a href="https://money.udn.com/money/story/7307/9874048" target="_blank" rel="noopener">立院修空污法 經濟部示警四大風險、備用容量率恐轉負<span class="src">經濟日報｜11-12 12:55</span></a><a href="https://money.udn.com/money/story/5612/9874447" target="_blank" rel="noopener">藍白提空污法修法　經部：影響580億度發電、備用容量率轉負<span class="src">經濟日報｜11-12 14:45</span></a><a href="https://www.ctee.com.tw/news/20261112701234-430503" target="_blank" rel="noopener">在野黨修空污法要燃煤提前除役 經濟部警告2028年電力備用轉負<span class="src">工商時報｜11-12 11:48</span></a><a href="https://money.udn.com/money/story/5599/9873861" target="_blank" rel="noopener">日圓兌美元又逼近160大關！官員警告貶太快 當局可能再出手干預<span class="src">經濟日報｜11-12 11:56</span></a><a href="https://money.udn.com/money/story/7307/9873569" target="_blank" rel="noopener">提前蒐集與傳遞 環境部持續溝通強化 PFAS 資訊<span class="src">經濟日報｜11-12 10:42</span></a><a href="https://www.ctee.com.tw/news/20261112701432-430801" target="_blank" rel="noopener">人行Q3貨幣政策報告出爐 兩貨幣政策護航金融 錢都往非銀存款去<span class="src">工商時報｜11-12 13:00</span></a></details>
+</section><section class="theme" id="t2">
+<span class="tnum">03</span>
+<h2>鴻海ASIC伺服器出貨年增1.5倍；國際大廠對台採購達3,258億美元、年增24%</h2>
+<div class="tmeta">AI與半導體｜20 篇來源｜固定主題</div>
+<div class="art">AI基礎建設與高效能運算需求持續推升伺服器、雲端及半導體供應鏈訂單。業者擴產、擴大出貨並上修展望，台灣供應鏈也承接更多國際採購。</div>
+<ul class="facts"><li>鴻海（2317）2026年第3季ASIC AI伺服器出貨年增1.5倍，高於GPU伺服器約70%。</li><li>鴻海預估2026年第4季AI機櫃出貨季增高雙位數，2027年出貨續增高雙位數。</li><li>鴻海稱2027年AI需求仍大於供給，晶片、記憶體及部分關鍵零組件供應吃緊。</li><li>鴻海雲端網路產品2026年業績占比逾五成，未來3至5年AI雲端占比拚逾六成。</li><li>國際大廠2026年對台採購預估3,258億美元，年增24%，首度突破3,000億美元。</li><li>和碩（4938）預期伺服器業務2027年倍數成長，ASIC約4、5家客戶預計大量出貨。</li><li>旺矽（6223）2026年前三季EPS 47.26元，超越2025全年；公司擴充探針卡產能。</li><li>智邦（2345）2026年第3季EPS 23.39元、年增67%；前三季58.09元超越2025全年。</li><li>三星電子投資6兆韓元建HBM封裝廠，新線預計2028年6月投產，較原計畫提前1年。</li><li>光寶科（2301）AI資料中心電源訂單能見度達2028年，2026年營收估年增70%至80%。</li><li>臻鼎-KY（4958）規劃2025至2027年投資約新台幣2,000億元，在台灣、大陸及泰國建廠。</li><li>東元（1504）AIDC接單預估逾新台幣100億元，截至2026年10月底已取單八成。</li><li>Anthropic模型移植至新GPU約3天，遠短於新平台通常需6至12個月；CUDA生態仍具優勢。</li><li>輝達計畫在Anthropic上市後投資約100億美元，約占Anthropic本月預計募資10%。</li></ul>
+
+
+<div class="watch">👁 留意鴻海所稱美國期中選舉後的AIDC部署、政策與市場變數；東元馬來西亞MDC概念驗證預計2026年12月中旬完成。</div>
+<details><summary>原始報導（20）</summary><a href="https://www.ctee.com.tw/news/20261112700956-430704" target="_blank" rel="noopener">華爾街日報：輝達董事會正準備撤換黃仁勳<span class="src">工商時報｜11-12 11:29</span></a><a href="https://www.ctee.com.tw/news/20261112700852-430201" target="_blank" rel="noopener">投信：AI長期趨勢未重大反轉 台股拉回皆是逢低布局良機<span class="src">工商時報｜11-12 10:36</span></a><a href="https://money.udn.com/money/story/123398/9873186" target="_blank" rel="noopener">傳輝達董事會今開會決定黃仁勳去留 盤後一度重摔10%<span class="src">經濟日報｜11-12 06:45</span></a><a href="https://money.udn.com/money/story/5612/9874915" target="_blank" rel="noopener">劉揚偉：AIDC出貨算力需求強　觀察美選後政策產業變數<span class="src">經濟日報｜11-12 17:21</span></a><a href="https://money.udn.com/money/story/5710/9874932" target="_blank" rel="noopener">智邦財報／前三季每股大賺58.09元 超越2025年全年<span class="src">經濟日報｜11-12 17:28</span></a><a href="https://www.ctee.com.tw/news/20261112700655-430201" target="_blank" rel="noopener">《半導體》旺矽Q3獲利續登峰 前3季大賺47.26元衝年度新高<span class="src">工商時報｜11-12 07:51</span></a><a href="https://money.udn.com/money/story/5612/9874579" target="_blank" rel="noopener">鴻海第3季獲利創高　前3季大賺1874億元締新猷<span class="src">經濟日報｜11-12 15:30</span></a><a href="https://money.udn.com/money/story/5612/9874624" target="_blank" rel="noopener">鴻海上修今年營運明年審慎樂觀　AI機櫃成長強勁<span class="src">經濟日報｜11-12 15:46</span></a><a href="https://money.udn.com/money/story/5612/9874772" target="_blank" rel="noopener">劉揚偉：鴻海AI雲端業績占比拚逾6成　觀察記憶體零組件供應<span class="src">經濟日報｜11-12 16:37</span></a><a href="https://www.ctee.com.tw/news/20261112701327-430701" target="_blank" rel="noopener">《國際產業》三星HBM封裝廠提前至2028年投產 李在明樂見投資效應<span class="src">工商時報｜11-12 12:39</span></a><a href="https://money.udn.com/money/story/5599/9874917" target="_blank" rel="noopener">不只桃花劫……輝達 CUDA 護城河將失守？Anthropic 模型3天就想出破解法<span class="src">經濟日報｜11-12 17:22</span></a><a href="https://money.udn.com/money/story/123398/9873315" target="_blank" rel="noopener">輝達將砸100億美元入股 Anthropic！昔為 AI 監管互嗆 如今彼此需要？<span class="src">經濟日報｜11-12 09:08</span></a><a href="https://www.ctee.com.tw/news/20261112701405-430201" target="_blank" rel="noopener">《電週邊》美系CSP大廠AI電源訂單看到2028年 光寶科未來兩年高成長<span class="src">工商時報｜11-12 12:57</span></a><a href="https://money.udn.com/money/story/5612/9874549" target="_blank" rel="noopener">和碩法說會／伺服器衝刺！明年業務營收拚翻倍成長 目標超車傳統筆電<span class="src">經濟日報｜11-12 15:19</span></a><a href="https://money.udn.com/money/story/5612/9874704" target="_blank" rel="noopener">鴻海法說會／劉揚偉：客戶 AI 需求短期強勁 長期是否影響還要觀察<span class="src">經濟日報｜11-12 16:13</span></a><a href="https://www.ctee.com.tw/news/20261112700892-430702" target="_blank" rel="noopener">《專訪》臻鼎沈慶芳：AI第4次工業革命 PCB迎來黃金時代(3-1)<span class="src">工商時報｜11-12 09:49</span></a><a href="https://money.udn.com/money/story/5612/9875070" target="_blank" rel="noopener">東元：AIDC接單逾百億元　爭取大馬泰國日本商機<span class="src">經濟日報｜11-12 18:21</span></a><a href="https://money.udn.com/money/story/5612/9875038" target="_blank" rel="noopener">黃仁勳去留引關注　龔明鑫：不影響輝達與台灣合作<span class="src">經濟日報｜11-12 18:08</span></a><a href="https://money.udn.com/money/story/11799/9874009" target="_blank" rel="noopener">AI算力需求強勁！國際大廠對臺採購首破3,000億美元 經濟部力挺產業升級<span class="src">經濟日報｜11-12 16:02</span></a><a href="https://money.udn.com/money/story/7307/9873803" target="_blank" rel="noopener">AI 需求強勁 國際大廠對台採購 今年首破3,000億美元大關<span class="src">經濟日報｜11-12 11:40</span></a></details>
+</section><section class="theme" id="t3">
+<span class="tnum">04</span>
+<h2>輝達董事會2026年11月12日議去留；撤換黃仁勳恐令股價跌25%至30%</h2>
+<div class="tmeta">輝達黃仁勳去留與治理風波｜17 篇來源</div>
+<div class="art">黃仁勳的個人行為與中國間諜疑雲，引發輝達董事會調查及接班討論。董事會決策也讓公司治理與市場對未來領導安排的不確定性升高。</div>
+<ul class="facts"><li>輝達董事會據報將於2026年11月12日開會，決定黃仁勳去留。</li><li>董事會共11人，除黃仁勳外皆為獨立董事，將表決撤換案。</li><li>《紐約時報》引述5名前員工，指黃仁勳與直屬副總裁鮑爾有婚外情；相關人士未證實。</li><li>董事會調查黃仁勳是否在與黃樂交往期間洩漏機密；相關指控尚未證實。</li><li>黃仁勳另被指涉與疑似中國間諜女子交往，FBI正調查。</li><li>輝達尚無已知接班計畫，董事會委外物色人選並研議任命臨時執行長。</li><li>財務長柯蕾絲任職13年，獲部分董事支持暫代；巴克也被列為人選。</li><li>約60名主管直接向黃仁勳報告，凸顯輝達管理權集中。</li><li>黃仁勳若遭撤換，分析師估輝達股價可能跌25%至30%，降至每股約122美元。</li><li>相關報導傳出後，輝達股價11月11日收盤後重挫約9%，報每股158.78美元。</li><li>輝達董事會宣布調查以來，公司市值累計蒸發約6,000億美元。</li></ul>
+
+
+<div class="watch">👁 留意輝達董事會2026年11月11日至12日的會議是否表決黃仁勳去留，並公布臨時或正式接班安排。</div>
+<details><summary>原始報導（17）</summary><a href="https://money.udn.com/money/story/5599/9875039" target="_blank" rel="noopener">整理包／黃仁勳桃色風暴時間軸<span class="src">經濟日報｜11-12 18:09</span></a><a href="https://money.udn.com/money/story/5599/9873293" target="_blank" rel="noopener">傳輝達董事會擬撤換黃仁勳　婚外情疑雲事件簿一覽<span class="src">經濟日報｜11-12 08:54</span></a><a href="https://money.udn.com/money/story/125067/9873226" target="_blank" rel="noopener">整理包／黃仁勳婚外情連環爆！下台或留任衝擊有多大 五大變局推演一次看<span class="src">經濟日報｜11-12 09:49</span></a><a href="https://money.udn.com/money/story/5599/9873356" target="_blank" rel="noopener">黃仁勳再爆出軌女主管　輝達董事會11日開會決定去留<span class="src">經濟日報｜11-12 09:30</span></a><a href="https://money.udn.com/money/story/5599/9873551" target="_blank" rel="noopener">【重磅快評】黃仁勳的桃色風暴 AI產業的公眾危機<span class="src">經濟日報｜11-12 10:35</span></a><a href="https://money.udn.com/money/story/5607/9873863" target="_blank" rel="noopener">如果黃仁勳下台 分析師：只有這些公司不用擔心<span class="src">經濟日報｜11-12 11:56</span></a><a href="https://money.udn.com/money/story/5607/9873437" target="_blank" rel="noopener">台股早盤漲逾200點 黃仁勳去留牽動 AI 供應鏈<span class="src">經濟日報｜11-12 09:59</span></a><a href="https://money.udn.com/money/story/5599/9873957" target="_blank" rel="noopener">誰接黃仁勳？輝達董事會開會定去留 傳部分董事支持財務長柯蕾絲暫代<span class="src">經濟日報｜11-12 12:21</span></a><a href="https://money.udn.com/money/story/5599/9873683" target="_blank" rel="noopener">網友喊話「拜託聘用黃仁勳」 馬斯克霸氣回應：那會是我的榮幸<span class="src">經濟日報｜11-12 11:10</span></a><a href="https://money.udn.com/money/story/5599/9873237" target="_blank" rel="noopener">紐約時報：黃仁勳遭爆與下屬發展婚外情　輝達內部早有議論<span class="src">經濟日報｜11-12 08:12</span></a><a href="https://money.udn.com/money/story/5599/9873939" target="_blank" rel="noopener">黃仁勳再爆外遇輝達陷危機 董事會態度急轉彎<span class="src">經濟日報｜11-12 12:13</span></a><a href="https://money.udn.com/money/story/5599/9873883" target="_blank" rel="noopener">川普與黃仁勳往來密切 盤點兩人近年互動時間線<span class="src">經濟日報｜11-12 12:01</span></a><a href="https://money.udn.com/money/story/123398/9874332" target="_blank" rel="noopener">黃仁勳另爆出軌公司女主管 專家：若遭撤換重大打擊AI產業<span class="src">經濟日報｜11-12 14:13</span></a><a href="https://money.udn.com/money/story/5599/9873209" target="_blank" rel="noopener">今晨國際頭條一次看／輝達傳擬撤換黃仁勳 民主黨翻轉密州參議院選舉<span class="src">經濟日報｜11-12 07:43</span></a><a href="https://money.udn.com/money/story/5599/9874391" target="_blank" rel="noopener">黃仁勳接班人再掀熱議　前蘋果執行長庫克也浮出檯面<span class="src">經濟日報｜11-12 14:30</span></a><a href="https://money.udn.com/money/story/5599/9873195" target="_blank" rel="noopener">華爾街日報：黃仁勳涉兩起婚外情　輝達董事會擬撤換<span class="src">經濟日報｜11-12 07:12</span></a><a href="https://money.udn.com/money/story/123398/9873499" target="_blank" rel="noopener">輝達股價恐再狂瀉30%？黃仁勳若下台 分析師估市值將蒸發近三分之一<span class="src">經濟日報｜11-12 10:17</span></a></details>
+</section><section class="theme" id="t4">
+<span class="tnum">05</span>
+<h2>台股ETF受益人增49.2萬至2,025萬；MSCI台股權重升至3.28%、新增3檔</h2>
+<div class="tmeta">台股ETF熱度與MSCI調整｜6 篇來源</div>
+<div class="art">市場震盪之際，台股ETF受益人仍持續增加，指數反彈也帶動部分ETF強漲。MSCI調升台股在多項指數的權重並調整成分股，將牽動被動基金持股配置。</div>
+<ul class="facts"><li>集保11月6日統計，台股ETF受益人周增49.2萬至2,025萬403人。</li><li>台股ETF受益人今年來增加807萬6,913人，連續4周創高。</li><li>28檔台股ETF受益人數創高，正2、高息及市值型人氣相對旺。</li><li>MSCI調升台股在全球市場、全球新興市場及亞洲除日本指數權重至3.28%、29.01%、32.83%。</li><li>MSCI全球標準指數新增景碩（3189）、南電（8046）、台燿（6274），刪除4檔，台股成分股降至73檔。</li><li>全球小型指數新增18檔、剔除12檔台股成分股。</li><li>台股加權指數連3日反彈逾11%；11月11日4檔主動式ETF單日漲逾5%。</li><li>主動台新臺灣中小（00416A）11月11日漲5.87%，近3日漲幅逾20%。</li><li>MSCI調整將於11月30日收盤後生效，被動式基金將依新成分股及權重調整持股。</li></ul>
+
+
+<div class="watch">👁 報導未載年份；留意11月30日收盤後MSCI調整生效，以及被動式基金依新成分股與權重調整持股。</div>
+<details><summary>原始報導（6）</summary><a href="https://money.udn.com/money/story/5618/9873987" target="_blank" rel="noopener">台股 ETF 受益人創高突破2000萬人 正2、高息、市值人氣相對旺<span class="src">經濟日報｜11-12 12:35</span></a><a href="https://www.ctee.com.tw/news/20261112700733-430403" target="_blank" rel="noopener">台股強彈ETF跟上 4檔單日大漲逾5％ 00416A奪單日、近3日漲幅雙冠王<span class="src">工商時報｜11-12 09:44</span></a><a href="https://www.ctee.com.tw/news/20261112700945-430201" target="_blank" rel="noopener">《台北股市》MSCI最新季度調整 台股權重三升<span class="src">工商時報｜11-12 10:04</span></a><a href="https://money.udn.com/money/story/5607/9873952" target="_blank" rel="noopener">MSCI 利多失靈？景碩、南電、台燿升級卻走跌 「這檔」強鎖漲停<span class="src">經濟日報｜11-12 12:19</span></a><a href="https://money.udn.com/money/story/5612/9873258" target="_blank" rel="noopener">MSCI成分股調整　景碩入列標準指數、小型指數18進12出<span class="src">經濟日報｜11-12 08:31</span></a><a href="https://www.ctee.com.tw/news/20261112700541-430201" target="_blank" rel="noopener">MSCI半年調出爐 景碩、南電、台燿入列 禾伸堂等18檔獲選小型指數成分股<span class="src">工商時報｜11-12 08:06</span></a></details>
+</section><section class="theme" id="t5">
+<span class="tnum">06</span>
+<h2>南亞投115.3億元增產1.02億公尺；台玻投72.6億元擴產、外資買超14.3萬張</h2>
+<div class="tmeta">玻纖布擴產與台玻買盤｜6 篇來源</div>
+<div class="art">高階玻纖布需求能見度延伸，促使南亞與台玻擴建產能，南亞並同步擴充高階玻纖紗。外資買超台玻，擴產落地與獲利貢獻仍待後續驗證。</div>
+<ul class="facts"><li>南亞（1303）於2026年11月11日核准投資115.3億元，在彰濱興建玻纖布五廠。</li><li>南亞五廠預計2029年底新增年產能1.02億公尺，較現有5.9億公尺增17%。</li><li>南亞新產能約60～70%內用，預估2030年起電子材料事業營益成長1.5～2%。</li><li>摩根大通估南亞新廠滿載後年挹注營業利益逾50億元，維持加碼、目標價415元。</li><li>南亞增資台灣必成8億元，擴增高階特殊玻纖紗產能。</li><li>台玻（1802）啟動約72.6億元第四期擴產，董事長稱需求能見度至2028年。</li><li>外資2026年11月1日至11日買超台玻119,767張。</li><li>外資2026年11月12日買超台玻143,026張，居個股買超首位。</li></ul>
+
+
+<div class="watch">👁 留意南亞彰濱五廠2029年底新增產能進度，以及2030年起電子材料事業營益是否成長1.5～2%。</div>
+<details><summary>原始報導（6）</summary><a href="https://money.udn.com/money/story/5612/9875021" target="_blank" rel="noopener">外資連11賣　買超台玻逾14萬張居冠<span class="src">經濟日報｜11-12 18:01</span></a><a href="https://www.ctee.com.tw/news/20261112700437-430201" target="_blank" rel="noopener">11／12盤前｜南亞百億搶攻玻纖布 今年股價大漲419％ 台塑四寶吸金 內外資最愛不一樣<span class="src">工商時報｜11-12 07:38</span></a><a href="https://www.ctee.com.tw/news/20261112700881-430201" target="_blank" rel="noopener">台玻連四根漲停！玻纖布缺貨看到2028年 外資狂敲近12萬張<span class="src">工商時報｜11-12 10:48</span></a><a href="https://www.ctee.com.tw/news/20261112700774-430503" target="_blank" rel="noopener">南亞砸115億擴高階玻纖布產能 摩根大通維持加碼 目標價看這數字<span class="src">工商時報｜11-12 10:12</span></a><a href="https://money.udn.com/money/story/5612/9873401" target="_blank" rel="noopener">南亞投資115億元興建玻纖布5廠　擴大電子材料布局<span class="src">經濟日報｜11-12 09:45</span></a><a href="https://www.ctee.com.tw/news/20261112700891-430201" target="_blank" rel="noopener">《塑膠股》AI玻纖布供不應求！南亞重金擴產 外資力挺390元<span class="src">工商時報｜11-12 09:48</span></a></details>
+</section><section class="theme" id="t6">
+<span class="tnum">07</span>
+<h2>立凱-KY（5227）合資規劃年產2.5萬噸；目標2028年美國出貨2.5萬噸</h2>
+<div class="tmeta">立凱電合資布局磷酸鐵鋰產線｜4 篇來源</div>
+<div class="art">立凱-KY與北美夥伴合作布局磷酸鐵鋰正極材料，先在台灣進行試產與客戶認證，再視認可進度推進美國設廠。合作已提出產能與出貨目標，但投資金額及條件尚未敲定。</div>
+<ul class="facts"><li>立凱-KY（5227）於2026年11月12日與北美公司簽署合作備忘錄，擬在台灣合資設立公司。</li><li>合資規劃建置年產2.5萬公噸磷酸鐵鋰正極材料產線，先進行試產及客戶認證。</li><li>合作夥伴負責生產線主要投資，雙方出資比例與投資金額尚未確定。</li><li>雙方預定2027年第4季通過驗證並出貨。</li><li>雙方以2028年在美國出貨2.5萬公噸為目標。</li><li>取得目標客戶認可後，雙方擬於美國建置生產設施。</li><li>合作備忘錄自2026年11月11日起有效一年。</li><li>立凱-KY表示，合作對財務及業務的影響尚待評估。</li></ul>
+
+
+<div class="watch">👁 留意客戶認證與認可進度、2027年第4季驗證及出貨安排，以及2028年美國出貨目標；投資金額與合作條件仍待確定。</div>
+<details><summary>原始報導（4）</summary><a href="https://www.ctee.com.tw/news/20261112701324-430201" target="_blank" rel="noopener">《電零組》立凱-KY攜北美業者布局LFP正極材料 台灣合資設廠激勵漲停<span class="src">工商時報｜11-12 12:31</span></a><a href="https://money.udn.com/money/story/5612/9874680" target="_blank" rel="noopener">立凱電將與北美合作夥伴合資投入2.5萬噸生產設備<span class="src">經濟日報｜11-12 16:03</span></a><a href="https://money.udn.com/money/story/5612/9873358" target="_blank" rel="noopener">立凱電與北美公司簽MOU　展開LFP正極材料試產認證<span class="src">經濟日報｜11-12 09:30</span></a><a href="https://money.udn.com/money/story/11074/9873589" target="_blank" rel="noopener">立凱與北美公司簽 MOU 股價強攻漲停<span class="src">經濟日報｜11-12 10:47</span></a></details>
+</section><section class="theme" id="t7">
+<span class="tnum">08</span>
+<h2>中信金前10月獲利685.5億；華南金年增26.85%；中租總資產破1兆</h2>
+<div class="tmeta">金融業獲利與資產規模｜3 篇來源</div>
+<div class="art">金融業本期獲利與資產規模皆有增長，中信金、華南金前10月獲利亮眼，中租前三季獲利增加、總資產突破兆元。各公司數據呈現銀行、保險與租賃業不同面向的表現。</div>
+<ul class="facts"><li>中信金（2891）前10月合併稅後獲利685.5億元，EPS為3.45元。</li><li>中信金10月自結稅後盈餘53.13億元。</li><li>中國信託商業銀行前10月稅後獲利550.34億元，年增18%。</li><li>台灣人壽前10月稅後獲利144.29億元。</li><li>華南金（2880）前10月稅後純益284.56億元，年增26.85%，已超越去年全年264億元。</li><li>華南金前10月EPS為2.02元、年化ROE為13.76%，皆創歷年同期新高。</li><li>華南金非銀行子公司獲利年增131%，獲利貢獻比重升至22%。</li><li>中租-KY（5871）第3季底合併總資產突破1兆元，過去十年年化複合成長率13%。</li><li>中租-KY前三季稅後純益158.7億元，年增6%，EPS為8.73元。</li></ul>
+
+
+<div class="watch">👁 留意中租-KY對2027年的展望，以及中國大陸資產品質改善、台灣逐漸穩定、東協油價衝擊消退等情況。</div>
+<details><summary>原始報導（3）</summary><a href="https://www.ctee.com.tw/news/20261112700658-430201" target="_blank" rel="noopener">《金融股》中信金前10月獲利685.5億元 EPS為3.45元<span class="src">工商時報｜11-12 08:00</span></a><a href="https://money.udn.com/money/story/5612/9874832" target="_blank" rel="noopener">中租法說會／總資產突破1兆元大關 陳鳳龍正面看待2027年展望<span class="src">經濟日報｜11-12 16:57</span></a><a href="https://money.udn.com/money/story/5613/9875060" target="_blank" rel="noopener">華南金獲利／自結前十月284.56億元 超越去年全年<span class="src">經濟日報｜11-12 18:16</span></a></details>
+</section><section class="theme" id="t8">
+<span class="tnum">09</span>
+<h2>長榮（2603）第3季EPS 21.53元；台驊（2636）營業利益年增270.04%</h2>
+<div class="tmeta">航運業第三季獲利表現｜3 篇來源</div>
+<div class="art">旺季需求、地緣政治與樞紐港口壅塞支撐長榮供需及獲利；台驊第三季營收、營業利益也大幅成長，航運業者獲利表現分化向上。</div>
+<ul class="facts"><li>長榮（2603）第3季營收1,467.76億元，稅後淨利466.15億元。</li><li>長榮第3季EPS為21.53元。</li><li>長榮表示，旺季需求、地緣政治及樞紐港口壅塞支撐供需與獲利。</li><li>台驊控股（2636）第3季營收87.35億元，年增81.98%。</li><li>台驊第3季營業利益4.35億元，年增270.04%。</li><li>台驊第3季稅後淨利5.11億元，EPS為3.73元。</li><li>台驊2026年前3季EPS為7.57元，海運營收年增31.66%。</li></ul>
+
+
+<div class="watch">👁 留意台驊2027年深化亞洲貨源開發、擴大北美營運據點的進度。</div>
+<details><summary>原始報導（3）</summary><a href="https://money.udn.com/money/story/5710/9875079" target="_blank" rel="noopener">長榮財報／第3季 EPS 21.53元<span class="src">經濟日報｜11-12 18:27</span></a><a href="https://money.udn.com/money/story/5710/9875063" target="_blank" rel="noopener">台驊控股財報／第3季營業利益年增270.04% 單季 EPS 3.73元<span class="src">經濟日報｜11-12 18:17</span></a><a href="https://money.udn.com/money/story/5710/9875007" target="_blank" rel="noopener">台驊前3季每股賺7.57元　海空運同步成長<span class="src">經濟日報｜11-12 17:54</span></a></details>
+</section><section class="theme" id="t9">
+<span class="tnum">10</span>
+<h2>老黃去留牽動供應鏈，急跌後多空拉鋸</h2>
+<div class="tmeta">PTT股版風向｜43 篇來源</div>
+<div class="art">黃仁勳去留傳聞成為版上焦點，但鄉民真正吵的是：輝達若失去老黃，競爭力與台灣供應鏈會不會一起受傷。多數留言把他視為難以取代的核心，擔心NVDA續跌、台廠訂單與毛利受壓；也有人認為董事會不會輕易換人，CUDA與既有技術仍在，傳聞甚至可能是政治操作或做空題材，恐慌下跌反而有人想撿便宜。大盤急殺後，盤中還有人喊利空不跌、回檔可買，盤後則偏向認同空方預告，擔憂AI伺服器、PCB續弱；對反彈能否站穩、是否還有第二隻腳，仍沒有共識。個股方面，台積電有外資賣超討論，個資外洩多被認為影響有限，但也有人擔心資安；台玻因外資大買被喊強，另一派怕追高套牢。鴻海被嫌單季獲利與毛利率缺乏驚喜，仍有人看全年獲利；緯創盤中受ASIC、CPO看好，卻也被納入AI伺服器偏空情緒。統一相關討論偏向星巴克本業與品牌走弱，反方看重集團布局；群聯庫藏股有支持也有「買完照跌」的質疑，南亞受記憶體降價疑慮壓抑、AI需求則提供反方理由，廣達則被喊弱、有人不敢抄底。世界與時報雖在熱度榜前列，摘要未呈現明確多空共識。</div>
+<ul class="facts"><li>輝達：多數憂老黃離任傷競爭力與台灣供應鏈</li><li>台積電：外資賣超受議論，個資外洩多認為影響有限</li><li>台玻：外資大買有人看強，也有人怕追高套牢</li><li>鴻海：獲利表現被嫌普通，仍有人看全年獲利</li><li>群聯、南亞：庫藏股成效與記憶體景氣看法分歧</li><li>廣達、緯創：廣達偏弱，緯創有ASIC、CPO多空拉扯</li></ul>
+<div class="hotrow"><span class="hotchip"><b>台積電</b> 2330｜熱度 213</span><span class="hotchip"><b>世界</b> 5347｜熱度 61</span><span class="hotchip"><b>台玻</b> 1802｜熱度 52</span><span class="hotchip"><b>鴻海</b> 2317｜熱度 34</span><span class="hotchip"><b>時報</b> 8923｜熱度 34</span><span class="hotchip"><b>緯創</b> 3231｜熱度 30</span><span class="hotchip"><b>統一</b> 1216｜熱度 28</span><span class="hotchip"><b>群聯</b> 8299｜熱度 26</span><span class="hotchip"><b>南亞</b> 1303｜熱度 24</span><span class="hotchip"><b>廣達</b> 2382｜熱度 23</span></div>
+<details open><summary>網友反映（43 篇）</summary><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794443410.A.ED2.html" target="_blank" rel="noopener">[閒聊] 2026/11/12 盤中閒聊</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 1488 則留言</div><ul><li>多方期待台股續噴、嘎空，認為利空不跌、回檔可買。</li><li>有人看好ASIC、CPO及緯創，預期相關個股走強。</li><li>空方憂開高出貨、第二隻腳與週四魔咒，認為今天可能收黑。</li><li>另有人認為黃仁勳風波影響有限，也有人憂AI泡沫、台股走弱。</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794463214.A.BB8.html" target="_blank" rel="noopener">[閒聊] 2026/11/12 盤後閒聊</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 1485 則留言</div><ul><li>多數認為老蘇預告空軍進場命中，並看空PCB、AI伺服器。</li><li>網友擔心台股受利空灌殺，國巨也被點名可能承壓。</li><li>有人稱老黃下台消息可能成黑天鵝，市場風險升高。</li><li>另有人認為只是漲多回檔，喊年底五萬，也提到小那爆噴。</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794436942.A.FFD.html" target="_blank" rel="noopener">[新聞] 快訊／黃仁勳恐被罷免！　輝達最快今天開</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 869 則留言</div><ul><li>多數認為黃仁勳若下台，NVDA恐崩跌、股東拋售。</li><li>有人擔心罷免傳聞拖累盤後股價與台股供應鏈。</li><li>不少人質疑董事會真會罷免，認為黃仁勳是輝達關鍵。</li><li>另有人認為傳聞是政治追殺或華爾街借題壓低股價。</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794467272.A.792.html" target="_blank" rel="noopener">[情報] 115年11月12日 三大法人買賣金額統計表</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 706 則留言</div><ul><li>多數留言認為散戶恐慌踩踏、急著賣出，造成重挫</li><li>網友驚訝外資僅賣約6億元，台股卻跌逾千點</li><li>有人猜測內資大戶、自營或公股在倒貨</li><li>另有人認為外資趁散戶賣出承接，或是洗盤</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794455719.A.CB4.html" target="_blank" rel="noopener">[新聞] 黃仁勳執行長不保！傳蘋果「庫克」有望</a><span class="sent neu">中性</span></div><div class="pmeta">窗內 637 則留言</div><ul><li>多數認為傳聞荒唐、未查證，批媒體炒作流量</li><li>若庫克接任，憂他不懂AI、輝達及供應鏈受衝擊</li><li>另有人認為蘇媽或劉德音比庫克更適合接任</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794464211.A.1AB.html" target="_blank" rel="noopener">[新聞] 黃仁勳下台聲浪升高！美兩黨議員促辭職</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 452 則留言</div><ul><li>多數認為老黃遭政治圍攻，恐被逼離開輝達</li><li>不少留言憂心老黃下台削弱NV競爭力，股價恐崩跌</li><li>有人預期開盤恐慌，提到NV可能跌破150</li><li>另有人認為議員無權逼辭，老黃未必理會</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794465087.A.C9B.html" target="_blank" rel="noopener">Re: [新聞] 黃仁勳下台聲浪升高！美兩黨議員促辭職</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 389 則留言</div><ul><li>多數認為老黃挺台廠，若下台將衝擊台積電以外供應鏈與系統廠。</li><li>不少人視老黃下台為台股利空，憂外資賣超、台廠毛利與EPS受壓。</li><li>有人質疑事件是政治施壓或藉故奪權，認為間諜指控證據不足。</li><li>另有人認為搞下屬是美企大忌，或台廠可被美日韓取代、影響有限。</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794443541.A.2EE.html" target="_blank" rel="noopener">[新聞] 黃仁勳再爆不倫！扯上48歲女副總裁 盤後</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 362 則留言</div><ul><li>不少人懷疑連環爆料是逼黃仁勳下台，擔心換CEO重挫輝達。</li><li>有人認為外遇本身無關股價，關鍵在營運與接班人選。</li><li>另有人認為盤後跌幅有限，或可趁低買進、等待利空出盡。</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794469743.A.A1D.html" target="_blank" rel="noopener">Re: [新聞] 黃仁勳下台聲浪升高！美兩黨議員促辭職</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 288 則留言</div><ul><li>多數擔心黃仁勳缺乏接班人，換CEO恐影響輝達發展與股價。</li><li>憂心黃離任後對台灣供應鏈支持減弱，台廠前景受影響。</li><li>有人提到NVDA跌約8%、股價守160，擔憂短期波動或續跌。</li><li>另有人認為伺服器規格已定、董事會不會放人，無須過度恐慌。</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794454976.A.3F0.html" target="_blank" rel="noopener">Re: [新聞] 快訊／黃仁勳恐被罷免！　輝達最快今天開</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 254 則留言</div><ul><li>多數認為老黃遭政治勢力逼退，質疑急著換成聽話的CEO。</li><li>擔心黃仁勳下台衝擊台灣供應鏈與台股，認為他對台廠友善。</li><li>有人認為美國基於國安與對中立場，可能想降低黃仁勳帶來的風險。</li><li>另有人質疑是炒作鬼故事，也有人認為消息面有抄底機會。</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794463897.A.6A6.html" target="_blank" rel="noopener">[新聞] 切割！川普APEC團傳不帶黃仁勳　共和黨</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 189 則留言</div><ul><li>不少人認為川普切割黃仁勳，輝達恐受衝擊</li><li>有人擔憂台灣AI供應鏈、台廠訂單前景轉差</li><li>部分留言認為黃仁勳可能下台或退居幕後</li><li>另有人認為AI競賽仍需要黃仁勳，不至於裸退</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794473162.A.DB0.html" target="_blank" rel="noopener">Re: [新聞] 黃仁勳下台聲浪升高！美兩黨議員促辭職</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 176 則留言</div><ul><li>多數認為國安與對中晶片疑慮才是關鍵，外遇非重點</li><li>不少人推測老黃可能下台，差別在體面交接或接班安排</li><li>有人擔心換CEO、調查拖延衝擊輝達市值，也有人看好留任</li><li>另有人認為輝達不只靠老黃，指控未證實或是政治修理</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794458513.A.24F.html" target="_blank" rel="noopener">[新聞] 黃仁勳若遭輝達撤換 馬斯克表示願聘用</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 172 則留言</div><ul><li>多數認為輝達不會撤換黃仁勳，他的能力與公司招牌難以取代</li><li>若黃仁勳加入馬斯克陣營，網友看好AI與晶片合作，認為可能利多特斯拉、SpaceX</li><li>有人擔憂黃仁勳離開輝達會削弱台灣供應鏈合作，對台廠不利</li><li>另有人認為兩人個性都強，實際共事可能衝突，合作成真的機率不高</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794441115.A.79D.html" target="_blank" rel="noopener">Re: [新聞] 黃仁勳坦承與中國女間諜有婚外情 輝達</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 167 則留言</div><ul><li>多數認為老黃是輝達核心，若下台恐重挫並衝擊台灣供應鏈。</li><li>有人憂醜聞引發下台與治理風險，認為輝達股價仍有下行壓力。</li><li>另有人認為連環爆料像政治鬥爭或奪權操作，不一定是公司問題。</li><li>有人質疑輝達過度依賴老黃、持股又低，接班與管理體質有隱憂。</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794458521.A.DD7.html" target="_blank" rel="noopener">Re: [新聞] 快訊／黃仁勳恐被罷免！　輝達最快今天開</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 165 則留言</div><ul><li>多數認為老黃若下台，NVDA恐大跌，甚至看跌三成</li><li>認為老黃主導CUDA與供應鏈，接班不易，台灣供應鏈也受影響</li><li>有人認為董事會難承受股價重挫，可能讓老黃留任或改任顧問</li><li>另有人指出圖片疑似AI造假、官方已闢謠，認為下台消息不可信</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794436144.A.B52.html" target="_blank" rel="noopener">Re: [新聞] 黃仁勳坦承與中國女間諜有婚外情 輝達</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 163 則留言</div><ul><li>不少人稱NV盤後跌近10%、報15X，重倉者感到不安</li><li>有人擔心董事會罷免黃仁勳，認為輝達恐續跌至115附近</li><li>有人認為事件是逼退老黃的藉口，並看好蘇媽、AMD受惠</li><li>另有人看好黃仁勳留任，認為換CEO對輝達更不利，仍偏多</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794461532.A.C8C.html" target="_blank" rel="noopener">[新聞] 國會第一槍！共和黨參議員喊話黃仁勳下台</a><span class="sent bull">偏多</span></div><div class="pmeta">窗內 156 則留言</div><ul><li>多數批評議員借政治與敗選轉移焦點，認為是在鬥爭老黃</li><li>網友質疑此事帶有排華色彩，認為黃仁勳因族裔遭政治追擊</li><li>擔憂老黃若下台將引發輝達高層動盪、股價下跌並拖累台股</li><li>另有人認為兩黨都想逼退老黃，甚至主張下台重整輝達</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794444166.A.8F3.html" target="_blank" rel="noopener">[新聞] 黃仁勳遭逼宮要求下台！輝達爆接班危機</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 141 則留言</div><ul><li>多數認為黃仁勳是輝達核心，難以取代，反對他下台。</li><li>不少人擔心若換人，台廠供應鏈議價與台股可能受衝擊。</li><li>有人質疑新聞是在放話逼宮或做空，認為換人不易。</li><li>另有人提蘇姿丰接手，但也擔心影響產業競爭。</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794447947.A.5CB.html" target="_blank" rel="noopener">[新聞] 目標價500砍到200美元！輝達遭罕見降評</a><span class="sent bull">偏多</span></div><div class="pmeta">窗內 139 則留言</div><ul><li>多數認為降評是壓低吃貨訊號，喊抄底、買進甚至歐印</li><li>有人看好輝達AI競爭力，認為短期下跌不改長期前景</li><li>有人質疑500、200美元目標價隨意，大摩分析不可信</li><li>另有人擔心CEO更替或AI產業轉弱，可能增加股價風險</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794450255.A.E6E.html" target="_blank" rel="noopener">[新聞] 星巴克人真的變少！網紅揭6年營收…秒懂</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 133 則留言</div><ul><li>不少人改喝 Cama、露易莎、超商咖啡或在家沖，認為品牌差異不大</li><li>有人批評星巴克取消優惠或改收費惹惱顧客，表示已改去別家</li><li>有人認為外帶不值得星巴克價格，內用氣氛與座位才是消費理由</li><li>另有人認為是在篩選客群、走中高價路線，也提到租金與原料成本上升</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794462735.A.22A.html" target="_blank" rel="noopener">[新聞] 護盤大漲6100點！陳嘉偉警告「無量急彈跌</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 130 則留言</div><ul><li>不少人稱陳嘉偉這次預告命中，認為反彈後仍可能下跌</li><li>有人認為護盤偏重權值股，中小型股後續仍有下行壓力</li><li>另有人批評他長期看空、曾被嘎兩萬點，且反彈成交量不算低</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794453691.A.D6C.html" target="_blank" rel="noopener">Re: [請益] 美國為何一直在提防華人？</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 127 則留言</div><ul><li>多數認為黃仁勳若下台，輝達可能失去領導力，中國將受益</li><li>留言指出輝達優勢來自顯卡、軟硬體整合與黃仁勳的經營能力</li><li>有留言因擔心輝達前景而出清或考慮賣出NVDA，並憂慮台灣供應鏈受衝擊</li><li>另有：有留言認為輝達即使換將仍能靠技術、授權金與既有優勢賺錢</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794471304.A.9F9.html" target="_blank" rel="noopener">[情報] 1112 上市外資買賣超排行</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 120 則留言</div><ul><li>外資狂買台玻逾14萬張，有人喊強，也有人質疑追高套在山頂</li><li>外資買正二、賣反一，網友猜測回補空單或套利</li><li>廣達等AI股走弱，網友喊99，也有人質疑法說不佳、擔心抄底接刀</li><li>外資賣台積電、買金融股，引發網友議論資金流向</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794457964.A.AE8.html" target="_blank" rel="noopener">[標的] 台指期 空</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 116 則留言</div><ul><li>多數留言肯定空單進場點，認為反彈至跌幅約五成後遇壓，有回檔機會。</li><li>有留言將42500附近視為多方防線，並關注回測是否形成第二隻腳。</li><li>另有：有人認為42k附近停利太早，後續仍可能大幅下跌至36k。</li><li>另有：有留言質疑壓力區應看46500至47200附近，也有人提醒國安基金可能影響盤勢。</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794445160.A.086.html" target="_blank" rel="noopener">Re: [新聞] 快訊／黃仁勳恐被罷免！　輝達最快今天開</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 112 則留言</div><ul><li>多數認為老黃難以取代，若離職恐引發賣出輝達股票</li><li>擔心老黃下台後台灣供應鏈失去毛利與人脈，台廠受衝擊</li><li>另有人認為董事會不敢換老黃，CUDA與供應鏈短期仍難被取代</li><li>也有人認為降低AI成本有利長期，老黃離開未必立刻影響供應鏈</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794468835.A.702.html" target="_blank" rel="noopener">Re: [新聞] 黃仁勳下台聲浪升高！美兩黨議員促辭職</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 110 則留言</div><ul><li>多數認為老黃下台風險升高，輝達仍有續跌壓力</li><li>有人看輝達跌至140至150，甚至悲觀看到120</li><li>憂心換人或權力遭架空，衝擊台灣AI供應鏈與訂單</li><li>另有人認為老黃不易倒，160美元已反映轉顧問情境</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794440469.A.F41.html" target="_blank" rel="noopener">[新聞] 黃仁勳婚外情再爆一樁 紐時稱對象是輝達女副總裁</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 105 則留言</div><ul><li>多人認為報導是政治鬥爭或媒體抹黑，意在轉移間諜案焦點</li><li>有人認為與下屬的傳聞是把柄，可能影響老黃地位</li><li>另有人覺得只是桃色八卦，無關痛癢、不值得炒作</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794448448.A.4B7.html" target="_blank" rel="noopener">[新聞] 輝達董事會討論黃仁勳去留　華郵：白宮不介入</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 102 則留言</div><ul><li>多數質疑白宮「不介入」，認為政治勢力已插手黃仁勳去留</li><li>有人擔心黃仁勳若下台，輝達對台廠的支持與訂單可能減少</li><li>另有人看淡輝達，認為可能遭施壓降價、放緩AI發展，產業鏈估值承壓</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794445340.A.F0D.html" target="_blank" rel="noopener">Re: [新聞] 快訊／黃仁勳恐被罷免！　輝達最快</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 101 則留言</div><ul><li>多數關注黃仁勳是否遭罷免，認為董事會與政治角力才是股價關鍵</li><li>有人認為輝達若換CEO或受財報、經營影響，對股價偏空</li><li>也有人趁市場恐慌看低點，認為有便宜NVDA可撿</li><li>另有人認為舊聞遭放空機構炒作，大股東不會拿自身利益冒險</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794466665.A.52F.html" target="_blank" rel="noopener">[情報] 2317 鴻海 Q3 EPS 5.51</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 96 則留言</div><ul><li>多數認為Q3 EPS 5.51普通、低於預期，缺乏驚喜</li><li>留言憂心毛利率下滑，認為鴻海表現不如緯創</li><li>看衰股價短線，提及220至260元震盪或續跌</li><li>另有人認為全年EPS可達17至19元，鴻海仍有獲利</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794439911.A.430.html" target="_blank" rel="noopener">[新聞] 《紐約時報》再曝猛料！黃仁勳被曝還有另</a><span class="sent bull">偏多</span></div><div class="pmeta">窗內 86 則留言</div><ul><li>多人視爆料為買點，稱輝達又讓人上車、可以撿便宜</li><li>有人觀望真偽，認為目前只是傳聞，也質疑爆料帶有政治操作</li><li>有留言下調NVDL掛單，昨天掛19沒買到、今天改掛15</li><li>另有人認為老黃人設受損，醜聞可能影響輝達形象</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794460884.A.8AF.html" target="_blank" rel="noopener">[新聞] 台積電證實員工個資遭公開！澄清系統未遭</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 85 則留言</div><ul><li>多數認為台灣個資早已外洩、價值不高，影響有限</li><li>有人質疑台積電資安薄弱，擔心營業機密也受波及</li><li>有人猜測外包雲端供應商或人資系統成為漏洞</li><li>另有人視為利空，認為資料可用於詐騙或獵才</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794459360.A.86B.html" target="_blank" rel="noopener">[新聞] 大摩：舊世代記憶體定價優勢已不足以抵銷</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 80 則留言</div><ul><li>多數留言懷疑大摩下調目標價是想進貨，視為反向訊號</li><li>有人擔憂中低階記憶體已降價、消費疲弱，記憶體循環轉冷</li><li>愛普、南亞科等個股留言偏空，有人直言愛普慘、南亞科走弱</li><li>另有人看好AI資料中心需求，甚至加碼押注記憶體獲利</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794475507.A.132.html" target="_blank" rel="noopener">[心得]星巴克加收15元，淨利率下滑真是本業問題?</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 76 則留言</div><ul><li>多數留言認為本業獲利能力或成長力道下滑，才會削減福利、加收費用</li><li>有人認為品牌過度展店、逐漸過氣，客製化加收15元可能惹惱客人</li><li>部分留言質疑權利金與供應鏈獲利未反映在財報，認為關鍵資料不足</li><li>另有：有留言認為星巴克漲價幅度不如其他餐飲業，近期內用仍客滿</li><li>另有：有留言認為物流、採購及統一集團上下游布局仍具獲利優勢</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794473847.A.B1F.html" target="_blank" rel="noopener">[情報] 8299 群聯 買回庫藏股金額達新台幣三億元</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 75 則留言</div><ul><li>有人肯定公司連買三天庫藏股，認為比只喊話實在</li><li>不少人看空，稱買完仍崩、現買現套，質疑庫藏股無效</li><li>另有人認為高點接盤、左手套右手，喊1100或500再接</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794461823.A.CF3.html" target="_blank" rel="noopener">[新聞] 這位交易員數月前就對輝達的中國糾葛發出</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 66 則留言</div><ul><li>多數質疑做空者是先知，認為報告只是整理負面消息、事後諸葛</li><li>有人指出5月放空可能被嘎半年，輝達10月還創新高，預測對交易未必有用</li><li>另有人看空AI泡沫與輝達中國風險，也有人表示挺老黃</li><li></li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794468907.A.432.html" target="_blank" rel="noopener">[情報] 2059 川湖 115年Q3:122.79 累計:233.75</a><span class="sent bull">偏多</span></div><div class="pmeta">窗內 65 則留言</div><ul><li>多數驚嘆Q3單季獲利超過上半年，毛利率約88%、獲利亮眼</li><li>認為川湖實力強、並非只靠黃仁勳，滑軌需求受AI伺服器帶動</li><li>有人擔心毛利太高恐遭針對或制裁，也希望Q4獲利別下滑太多</li><li>另有人認為股價已漲15倍，或提到股價快腰斬，對股價表現有疑慮</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794470145.A.DB9.html" target="_blank" rel="noopener">[新聞] 難敵台股史上最慘10月！已有6家券商虧錢</a><span class="sent neu">中性</span></div><div class="pmeta">窗內 62 則留言</div><ul><li>多數嘲諷券商收手續費仍虧錢，認為「坐收過路費」也能賠</li><li>有人指出是自營操作與評價損失，做多者較易受十月下跌影響</li><li>成交量近期未達兆元，被認為可能拖累券商收入</li><li>另有人認為僅單月虧損不嚴重，前九個月券商仍賺不少；元大、群益被稱穩</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794466207.A.2D7.html" target="_blank" rel="noopener">[新聞] 「輝達親兒子」CoreWeave 報喜 上修今年</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 57 則留言</div><ul><li>網友擔心 CoreWeave 過度依賴黃仁勳與輝達，失去支持恐受衝擊</li><li>有人質疑私下融資風險，認為新總裁態度值得觀察</li><li>多則留言稱股價已崩跌，夜盤大跌仍在吹</li><li>另有人喊「要噴爛了」，但未見具體看多理由</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794469197.A.090.html" target="_blank" rel="noopener">[新聞] 大摩砍記憶體目標價不手軟！從SK海力士到</a><span class="sent bull">偏多</span></div><div class="pmeta">窗內 57 則留言</div><ul><li>多人認為大摩砍價是出貨或進貨文，反而看多記憶體</li><li>有人稱2027報價不跌、產能延後，缺貨題材仍在</li><li>網友批大摩報告反覆失準，並提美光、閃迪大漲</li><li>另有人認為記憶體早該跌，懷疑大摩賣群聯後看空</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794472716.A.713.html" target="_blank" rel="noopener">[新聞] 黃仁勳事件波及台廠？崇越副董：絕不會</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 55 則留言</div><ul><li>多數質疑「絕不會影響」太早下定論，認為副董只是喊話壯膽</li><li>有人指出美股估值、反AI勢力及美方決策都可能波及台廠</li><li>留言提到股價已下跌，質疑信心喊話與市場反應不符</li><li>另有人認為台灣AI訂單仍在，若更換CEO也未必對台灣不利</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794460250.A.B46.html" target="_blank" rel="noopener">[新聞] OpenAI營收增 虧損仍難止</a><span class="sent bear">偏空</span></div><div class="pmeta">窗內 54 則留言</div><ul><li>多數認為OpenAI投資遠超營收，持續燒錢、虧損難止</li><li>有人擔憂AI進展放緩、免費用戶多，營收恐難持久</li><li>有人質疑OpenAI護城河弱，認為Anthropic企業訂閱更賺</li><li>另有人認為開放廣告或成人模式可增加營收</li></ul></div><div class="post"><div class="ptitle"><a href="https://www.ptt.cc/bbs/Stock/M.1794453887.A.895.html" target="_blank" rel="noopener">[新聞] 輝達晶片轉運中國管制受阻？Axios直指盧</a><span class="sent mix">分歧</span></div><div class="pmeta">窗內 53 則留言</div><ul><li>多數留言質疑盧特尼克被推作背鍋，或美國政壇唱雙簧</li><li>有人認為美國正進一步收緊晶片轉運灰色地帶</li><li>有留言憂心AI營收依賴中國走私，並要求查台灣5090流向</li><li>另有人認為加強限制可能引發新一輪美中貿易戰</li></ul></div></details>
+<div class="watch">👁 觀察黃仁勳去留是否明朗，以及台股反彈能否守住、是否回測第二隻腳。</div>
+
+</section>
+</div>
+<footer><div class="fline">本網站內容為機器學習模型之研究模擬結果，非投資建議；股市有風險，投資請獨立判斷。</div></footer></body></html>
